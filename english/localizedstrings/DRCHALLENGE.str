@@ -1,0 +1,162 @@
+///////////////////////////////////////////////////////
+///|         |///|        |///|       |/\  \/////  ////
+///|  |////  |///|  |//|  |///|  |/|  |//\  \///  /////
+///|  |////  |///|  |//|  |///|  |/|  |///\  \/  //////
+///|          |//|  |//|  |///|       |////\    ///////
+///|  |////|  |//|         |//|  |/|  |/////    \//////
+///|  |////|  |//|  |///|  |//|  |/|  |////  /\  \/////
+///|          |//|__|///|__|//|__|/|__|///  ///\  \////
+/////////////////////////////////////////__/////\__\///
+///////////////////////////////////////////////////////
+
+VERSION             "1"
+CONFIG              "C:\trees\cod3\cod3\bin\StringEd.cfg"
+FILENOTES           ""
+
+// Group 1
+REFERENCE           BEGGINER
+LANG_ENGLISH        "First time at Death Run?"
+REFERENCE           BEGGINER_TXT
+LANG_ENGLISH        "Challenges for n00bz"
+REFERENCE           UNLOCKED_AT_2
+LANG_ENGLISH        "Unlocked at level 2."
+
+// Group 2
+REFERENCE           HITMAN1
+LANG_ENGLISH        "Hitman I"
+REFERENCE           HITMAN1_TXT
+LANG_ENGLISH        "Possible and almost impossible ways to kill your enemies."
+REFERENCE           HITMAN1_UNLOCKED_AT
+LANG_ENGLISH        "Unlocked when all challenges in tier "First time at Death Run?" are completed."
+
+// ==== TIER 1 ==== //
+
+REFERENCE			RISING_STAR
+LANG_ENGLISH		"Rising Star"
+
+REFERENCE			RISING_STAR_DESC
+LANG_ENGLISH		"Win one game."
+
+REFERENCE			ON_TOP
+LANG_ENGLISH		"On Top"
+
+REFERENCE			ON_TOP_DESC
+LANG_ENGLISH		"Win 10 games.\nUnlocks "^3Extreme Conditioning^7" ability."
+
+REFERENCE			MACHINES
+LANG_ENGLISH		"Deadly Machines"
+
+REFERENCE			MACHINES_DESC
+LANG_ENGLISH		"As the Activator win a round by killing all of the Jumpers with traps while there are more than six enemies on the server."
+
+REFERENCE			BACK
+LANG_ENGLISH		"I'm Back!"
+
+REFERENCE			BACK_DESC
+LANG_ENGLISH		"Use an additional life and kill the activator in the same round to earn another life."
+
+REFERENCE			ACTI1
+LANG_ENGLISH		"Good Luck I"
+
+REFERENCE			ACTI1_DESC
+LANG_ENGLISH		"Activate 250 traps.\n"
+
+REFERENCE			OWNAGE
+LANG_ENGLISH		"Own3d"
+
+REFERENCE			OWNAGE_DESC
+LANG_ENGLISH		"Kill three Jumpers with your weapon.\nUnlocks "^3Juggernaut^7" ability."
+
+REFERENCE			HEADSHOT
+LANG_ENGLISH		"Head Shot!"
+
+REFERENCE			HEADSHOT_DESC
+LANG_ENGLISH		"Kill enemy with head shot."
+
+REFERENCE			ROUNDS1
+LANG_ENGLISH		"Rounds I"
+
+REFERENCE			ROUNDS1_DESC
+LANG_ENGLISH		"Survive in 75 rounds."
+
+REFERENCE			SPRAY
+LANG_ENGLISH		"Spray it!"
+
+REFERENCE			SPRAY_DESC
+LANG_ENGLISH		"Spray your logo close to Activator's dead body."
+
+REFERENCE			FAILZOR
+LANG_ENGLISH		"Failzor"
+
+REFERENCE			FAILZOR_DESC
+LANG_ENGLISH		"Die 500 times."
+
+// ==== TIER 2 ==== //
+
+REFERENCE			AIRKILL
+LANG_ENGLISH		"Air Kill"
+
+REFERENCE			AIRKILL_DESC
+LANG_ENGLISH		"Kill an 15 enemies while both of You are in air."
+
+REFERENCE			BERETTA_MASTER_I
+LANG_ENGLISH		"Beretta Master I"
+
+REFERENCE			BERETTA_MASTER_I_DESC
+LANG_ENGLISH		"Kill 10 enemies with Beretta."
+
+REFERENCE			COLT_MASTER_I
+LANG_ENGLISH		"Colt Master I"
+
+REFERENCE			COLT_MASTER_I_DESC
+LANG_ENGLISH		"Kill 10 enemies with Colt .45."
+
+REFERENCE			USP_MASTER_I
+LANG_ENGLISH		"USP Master I"
+
+REFERENCE			USP_MASTER_I_DESC
+LANG_ENGLISH		"Kill 10 enemies with USP."
+
+REFERENCE			BERETTA_HEADHUNTER_I
+LANG_ENGLISH		"Beretta Head Hunter I"
+
+REFERENCE			BERETTA_HEADHUNTER_I_DESC
+LANG_ENGLISH		"Kill 10 enemies with headshot from Beretta."
+
+REFERENCE			COLT_HEADHUNTER_I
+LANG_ENGLISH		"Colt Head Hunter I"
+
+REFERENCE			COLT_HEADHUNTER_I_DESC
+LANG_ENGLISH		"Kill 10 enemies with headshot from Colt .45."
+
+REFERENCE			USP_HEADHUNTER_I
+LANG_ENGLISH		"USP Head Hunter I"
+
+REFERENCE			USP_HEADHUNTER_I_DESC
+LANG_ENGLISH		"Kill 10 enemies with headshot from USP."
+
+REFERENCE			KNIFE_MASTER_I
+LANG_ENGLISH		"Knife Master I"
+
+REFERENCE			KNIFE_MASTER_I_DESC
+LANG_ENGLISH		"Kill 25 enemies with your melee weapon."
+
+REFERENCE			ONEMANARMY_I
+LANG_ENGLISH		"One Man Army I"
+
+REFERENCE			ONEMANARMY_I_DESC
+LANG_ENGLISH		"Kill total of 50 enemies with your weapons.\nUnlocks "^3Sleight Of Hand^7" ability."
+
+// ==== TIER 3 ==== //
+
+//	idea_t *ideas = new idea_t[9_challenges*4_tiers];
+//	if( !ideas )
+//	{
+//		printf( "cant release deathrun 1.2\n" );
+//		exit( EXIT_FAILURE );
+//	}
+
+
+ENDMARKER
+
+

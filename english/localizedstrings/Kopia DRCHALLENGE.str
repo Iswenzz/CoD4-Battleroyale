@@ -1,0 +1,211 @@
+///////////////////////////////////////////////////////
+///|         |///|        |///|       |/\  \/////  ////
+///|  |////  |///|  |//|  |///|  |/|  |//\  \///  /////
+///|  |////  |///|  |//|  |///|  |/|  |///\  \/  //////
+///|          |//|  |//|  |///|       |////\    ///////
+///|  |////|  |//|         |//|  |/|  |/////    \//////
+///|  |////|  |//|  |///|  |//|  |/|  |////  /\  \/////
+///|          |//|__|///|__|//|__|/|__|///  ///\  \////
+/////////////////////////////////////////__/////\__\///
+///////////////////////////////////////////////////////
+
+VERSION             "1"
+CONFIG              "C:\trees\cod3\cod3\bin\StringEd.cfg"
+FILENOTES           ""
+
+// Group 1
+REFERENCE           BEGGINER
+LANG_ENGLISH        "Begginer"
+REFERENCE           BEGGINER_TXT
+LANG_ENGLISH        "Challenges for begginers."
+REFERENCE           UNLOCKED_AT_2
+LANG_ENGLISH        "Unlocked at level 2."
+
+// Group 2
+REFERENCE           KILLER
+LANG_ENGLISH        "Killer"
+REFERENCE           KILLER_TXT
+LANG_ENGLISH        "Possible and almost impossible ways to kill somebody."
+REFERENCE           UNLOCKED_AT_5
+LANG_ENGLISH        "Unlocked at level 5."
+
+// Group 3
+REFERENCE           SECRETS
+LANG_ENGLISH        "Secrets"
+REFERENCE           SECRETS_TXT
+LANG_ENGLISH        "Find very well hidden secrets in some levels."
+REFERENCE           UNLOCKED_AT_7
+LANG_ENGLISH        "Unlocked at level 7."
+
+// CHALLENGETABLE_TIER1.CSV
+REFERENCE			WINNER_I	
+LANG_ENGLISH        "Winner I"
+REFERENCE			WINNER_II	
+LANG_ENGLISH        "Winner II"
+REFERENCE			WINNER_III	
+LANG_ENGLISH        "Winner III"
+REFERENCE			WINNER_IT	
+LANG_ENGLISH        "Win one game."
+REFERENCE			WINNER_IIT	
+LANG_ENGLISH        "Win five games."
+REFERENCE			WINNER_IIIT 
+LANG_ENGLISH        "Win ten games."
+
+REFERENCE			HH_I	
+LANG_ENGLISH        "Head Hunter I"
+REFERENCE			HH_II	
+LANG_ENGLISH        "Head Hunter II"
+REFERENCE			HH_III	
+LANG_ENGLISH        "Head Hunter III"
+REFERENCE			HH_IT	
+LANG_ENGLISH        "Kill 30 enemies with head shot."
+REFERENCE			HH_IIT	
+LANG_ENGLISH        "Kill 60 enemies with head shot."
+REFERENCE			HH_IIIT 
+LANG_ENGLISH        "Kill 100 enemies with head shot."
+
+REFERENCE			SURV		
+LANG_ENGLISH        "Survivalist"
+REFERENCE			SURV_TXT	
+LANG_ENGLISH        "Survive one round"
+
+REFERENCE			SPRAYIT		
+LANG_ENGLISH        "Spray it!"
+REFERENCE			SPRAYIT_TXT	
+LANG_ENGLISH        "Spray something near dead body."
+
+REFERENCE			FAILZOR		
+LANG_ENGLISH        "Team Failzor!"
+REFERENCE			FAILZOR_TXT	
+LANG_ENGLISH        "Die first, lol."
+
+REFERENCE			DN_I	
+LANG_ENGLISH        "Death note I"
+REFERENCE			DN_II	
+LANG_ENGLISH        "Death note II"
+REFERENCE			DN_III	
+LANG_ENGLISH        "Death note III"
+REFERENCE			DN_IT	
+LANG_ENGLISH        "Die 1000 times."
+REFERENCE			DN_IIT	
+LANG_ENGLISH        "Die 2000 times."
+REFERENCE			DN_IIIT 
+LANG_ENGLISH        "Die 3000 times."
+
+REFERENCE			DOUBLEKILL	
+LANG_ENGLISH        "Double kill"
+REFERENCE			DOUBLEKILL	
+LANG_ENGLISH        "Kill two enemies in one round."
+
+REFERENCE			KNIFEMASTER_I
+LANG_ENGLISH        "Knife Master I"
+REFERENCE			KNIFEMASTER_II
+LANG_ENGLISH        "Knife Master II"
+REFERENCE			KNIFEMASTER_III
+LANG_ENGLISH        "Knife Master III"
+REFERENCE			KNIFEMASTER_I_TXT
+LANG_ENGLISH        "Kill 30 enemies with knife."
+REFERENCE			KNIFEMASTER_II_TXT
+LANG_ENGLISH        "Kill 60 enemies with knife."
+REFERENCE			KNIFEMASTER_III_TXT
+LANG_ENGLISH        "Kill 100 enemies with knife."
+
+REFERENCE			TRIPLEKILL	
+LANG_ENGLISH        "Triple Kill"
+REFERENCE			TRIPLEKILL_TXT	
+LANG_ENGLISH        "Kill three enemies in one round."
+
+
+// CHALLENGETABLE_TIER2.CSV
+REFERENCE			ROUNDSPLAYED_I
+LANG_ENGLISH        "Rounds Played I"
+REFERENCE			ROUNDSPLAYED_II	
+LANG_ENGLISH        "Rounds Played II"
+REFERENCE			ROUNDSPLAYED_III
+LANG_ENGLISH        "Rounds Played III"
+REFERENCE			ROUNDSPLAYED_I_TXT
+LANG_ENGLISH        "Play three hundred rounds."
+REFERENCE			ROUNDSPLAYED_II_TXT
+LANG_ENGLISH        "Play six hundred rounds."
+REFERENCE			ROUNDSPLAYED_III_TXT
+LANG_ENGLISH        "Play one thousand rounds."
+
+REFERENCE			PRONEKILL_I
+LANG_ENGLISH        "Prone Kill I"
+REFERENCE			PRONEKILL_II
+LANG_ENGLISH        "Prone Kill II"
+REFERENCE			PRONEKILL_III
+LANG_ENGLISH        "Prone Kill III"
+REFERENCE			PRONEKILL_I_TXT
+LANG_ENGLISH        "Kill 5 enemies while in prone."
+REFERENCE			PRONEKILL_II_TXT
+LANG_ENGLISH        "Kill 10 enemies while in prone."
+REFERENCE			PRONEKILL_III_TXT
+LANG_ENGLISH        "Kill 15 enemies while in prone."
+
+
+REFERENCE			CROUCHKILL_I
+LANG_ENGLISH        "Crouch Kill I"
+REFERENCE			CROUCHKILL_II
+LANG_ENGLISH        "Crouch Kill II"
+REFERENCE			CROUCHKILL_III
+LANG_ENGLISH        "Crouch Kill III"
+REFERENCE			CROUCHKILL_I_TXT
+LANG_ENGLISH        "Kill 5 enemies while crouching."
+REFERENCE			CROUCHKILL_II_TXT
+LANG_ENGLISH        "Kill 10 enemies while crouching."
+REFERENCE			CROUCHKILL_III_TXT
+LANG_ENGLISH        "Kill 15 enemies while crouching."
+
+
+REFERENCE			STANDKILL_I
+LANG_ENGLISH        "Stand Kill I"
+REFERENCE			STANDKILL_II
+LANG_ENGLISH        "Stand Kill II"
+REFERENCE			STANDKILL_III
+LANG_ENGLISH        "Stand Kill III"
+REFERENCE			STANDKILL_I_TXT
+LANG_ENGLISH        "Kill 5 enemies while standing."
+REFERENCE			STANDKILL_II_TXT
+LANG_ENGLISH        "Kill 10 enemies while standing."
+REFERENCE			STANDKILL_III_TXT
+LANG_ENGLISH        "Kill 15 enemies while standing."
+
+REFERENCE			AIRKILL_I
+LANG_ENGLISH        "Air Kill I"
+REFERENCE			AIRKILL_II
+LANG_ENGLISH        "Air Kill II"
+REFERENCE			AIRKILL_III
+LANG_ENGLISH        "Air Kill III"
+REFERENCE			AIRKILL_I_TXT
+LANG_ENGLISH        "Kill 5 times an enemy while in the air."
+REFERENCE			AIRKILL_II_TXT
+LANG_ENGLISH        "Kill 10 times an enemy while in the air."
+REFERENCE			AIRKILL_III_TXT
+LANG_ENGLISH        "Kill 15 times an enemy while in the air."
+
+
+// CHALLENGETABLE_TIER3.CSV
+REFERENCE			TEAMFARMER
+LANG_ENGLISH        "Team Farmer"
+REFERENCE			TEAMFARMER_TXT
+LANG_ENGLISH        "Find secret room with farmer called Harry in level \"Destroyed\"."
+
+REFERENCE			CHICKEN
+LANG_ENGLISH        "Team Farmer"
+REFERENCE			CHICKEN_TXT
+LANG_ENGLISH        "Find and kill chicken in level \"Long\"."
+
+REFERENCE			MARIO
+LANG_ENGLISH        "Mario Flag"
+REFERENCE			MARIO_TXT
+LANG_ENGLISH        "Remove Mario flag in level \"Super Mario\"."
+
+REFERENCE			WHEREITBEGAN
+LANG_ENGLISH        "Where it all began"
+REFERENCE			WHEREITBEGAN_TXT
+LANG_ENGLISH        "As Jumper stand where activator spawned in first Death Run map called \"Darkness\". ^2In glory of first Death Run."
+
+ENDMARKER
+
+

@@ -1,0 +1,65 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_X_START			0
+#define CHOICE_Y_START			50
+
+
+#define CHOICE_GROUP			"contents"
+
+//#define CHOICE_SEP_1			2
+//#define CHOICE_SEP_2			6
+
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+#include "ui_mp/dr_common.inc"
+
+{
+	menuDef
+	{
+		name			"sr_welcome"
+		fullscreen		0
+		rect			0 0 640 480	
+		focuscolor		COLOR_FOCUSED
+		style			WINDOW_STYLE_EMPTY
+		blurworld		4.0
+		border			0
+		legacySplitScreenScale
+		
+		onOpen
+		{
+		}
+		
+		onEsc			
+		{ 
+			close self;
+		}
+		
+		onClose			
+		{
+			scriptMenuResponse "connectmessage";
+		}
+		
+		#include "ui_mp/lolz_style.inc"
+
+		DR_BUTTON( "5", -165, 62, 344, 20, "Continue", close self; open team_select; , 1 )
+
+		itemDef
+		{
+			visible			1
+			rect			150 105 340 260
+			forecolor		1 1 1 1
+			autowrapped
+			text 			"^2Welcome! ^7to Sr- ^5Death^7run \nUse ^3!help^7 to view available commands \n\nFor more information visit out ^6discord.gg/76aHfGF"
+			textfont		UI_FONT_NORMAL
+			textscale		.28
+			textalignx		8
+			textaligny		16
+			textalign		ITEM_ALIGN_LEFT
+			decoration
+		}
+
+	
+	}
+}
+

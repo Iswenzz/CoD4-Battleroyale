@@ -1,0 +1,39 @@
+///////////////////////////////////////////////////////
+///|         |///|        |///|       |/\  \/////  ////
+///|  |////  |///|  |//|  |///|  |/|  |//\  \///  /////
+///|  |////  |///|  |//|  |///|  |/|  |///\  \/  //////
+///|          |//|  |//|  |///|       |////\    ///////
+///|  |////|  |//|         |//|  |/|  |/////    \//////
+///|  |////|  |//|  |///|  |//|  |/|  |////  /\  \/////
+///|          |//|__|///|__|//|__|/|__|///  ///\  \////
+/////////////////////////////////////////__/////\__\///
+///////////////////////////////////////////////////////
+//
+//	Xfire : maciusiak
+//
+//
+
+VERSION             "1"
+CONFIG              "C:\trees\cod3\cod3\bin\StringEd.cfg"
+FILENOTES           ""
+
+
+REFERENCE           MODNAME
+LANG_ENGLISH        "^2BraX's ^7Death Run Mod ^^30.4a"
+
+REFERENCE           GAME_EXPERIENCE_CHANGED
+LANG_ENGLISH        "Game experience changed due to ^2BraX's ^1Death^3Run ^7Mod."
+
+REFERENCE           RETARD
+LANG_ENGLISH        "Go away You fucking noob!"
+
+
+REFERENCE           ROUND_BEGINS_IN
+LANG_ENGLISH        "Round begins in..."
+
+REFERENCE           WAITING_FOR_PLAYERS
+LANG_ENGLISH        "Waiting for more players to start round..."
+
+ENDMARKER
+
+

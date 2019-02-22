@@ -1,0 +1,105 @@
+#include "ui/menudef.h"
+
+#define ORIGIN_DIY_TITLE_PC			42 270
+#define ORIGIN_DIY_FRAME_PC			35 270
+#define ORIGIN_DIY_PC				37 290
+
+#define ORIGIN_DIY_TITLE_HIDEF		82 300
+#define ORIGIN_DIY_FRAME_HIDEF		75 300
+#define ORIGIN_DIY_HIDEF			77 320
+#define ORIGIN_DIY_TITLE			166 300
+#define ORIGIN_DIY_FRAME			159 300
+#define ORIGIN_DIY					161 320
+
+#define WIDESCREEN_OFFSET			107 0
+
+// Displayed when client is initially connecting to the server.
+{
+	menuDef 
+	{
+		name			"connect"
+		style			WINDOW_STYLE_SHADER
+		fullScreen		MENU_FALSE
+		focusColor		COLOR_FOCUSED
+		visible			1
+		background		"bg_theme"
+		backcolor		1 1 1 1
+		rect			FULLSCREEN_WIDE	
+
+		onClose
+		{
+			scriptMenuResponse "checkguid";
+		}
+		
+		itemDef
+		{
+		style			WINDOW_STYLE_FILLED
+	    rect			-5 430 1000 60 
+		border			1
+		bordercolor		.2 .2 .2 .55
+		forecolor		1 1 1 1
+		backcolor		0 0 0 0.6
+		visible			1
+		}
+
+	    itemDef
+		{
+		style			WINDOW_STYLE_FILLED
+	    rect			-5 -10 1000 60 
+		border			1
+		bordercolor		.2 .2 .2 .55
+		forecolor		1 1 1 1
+		backcolor		0 0 0 0.6
+		visible			1
+		}
+		
+		// Animated Fog
+		itemDef 
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			-107 0 2408 480
+			exp				rect X( (-607) + (cos(milliseconds()/10000) * 400) )
+            background		"animbg_blur_fogscroll"
+			forecolor		0 0 0 0.6
+			visible			1
+			decoration
+		}
+		
+		// Current Map
+		itemDef 
+		{
+			style			WINDOW_STYLE_SHADER
+			rect		    0 0 185 130
+			origin		    340 267
+			background		"$levelBriefing"
+			forecolor		0.9 0.9 0.9 1
+			visible			1
+			decoration
+			border			1
+			bordercolor		0.38 0.38 0.38 1
+		}
+		
+		// load progress bar background
+		itemDef 
+		{
+			style			WINDOW_STYLE_FILLED
+			rect			-128 -40 260 4 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			origin			WIDESCREEN_OFFSET
+			backcolor		0 0.5 0.7 0.5
+			visible			1	decoration	
+		}
+		// load progress bar
+		itemDef 
+		{
+			name			"loadbar"
+			style			WINDOW_STYLE_LOADBAR
+			rect			-127 -39 258 2 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			origin			WIDESCREEN_OFFSET
+			background		"white"
+			visible			1	decoration
+		}
+		
+		#include "ui/safearea.menu"
+	}
+}
+

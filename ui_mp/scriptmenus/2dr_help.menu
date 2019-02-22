@@ -1,0 +1,86 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_X_START			0
+#define CHOICE_Y_START			50
+
+
+#define CHOICE_GROUP			"contents"
+
+//#define CHOICE_SEP_1			2
+//#define CHOICE_SEP_2			6
+
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#define RULES_TEXT dvarString(ui_rules)
+
+#define HELP_PAGE( page, string )\
+		itemDef\
+		{\
+			name			"help_page"\
+			visible			when( dvarString( "dr_help_page" ) == page )\
+			rect			20 165 600 300 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN\
+			forecolor		1 1 1 1\
+			autowrapped\
+			text			string\
+			textfont		UI_FONT_NORMAL\
+			textscale		.4\
+			textalignx		8\
+			textaligny		16\
+			textalign		ITEM_ALIGN_LEFT\
+			decoration\
+		}
+
+
+{
+	menuDef
+	{
+		name			"dr_help"
+		fullscreen		0
+		rect			0 0 640 480	
+		focuscolor		COLOR_FOCUSED
+		style			WINDOW_STYLE_EMPTY
+		blurWorld		5
+		border			0
+		legacySplitScreenScale
+		
+		onOpen			{ exec "set dr_help_page widr"; }
+		onEsc			{ close self; }
+		onClose			{}
+
+		// gradient_top
+		itemDef	{
+			style			WINDOW_STYLE_SHADER
+			rect			0 0 854 75 HORIZONTAL_ALIGN_FULLSCREEN 0
+			background		"gradient_top"
+			visible			1
+			decoration
+		}
+		// gradient_bottom
+		itemDef	{
+			style			WINDOW_STYLE_SHADER
+			rect			0 405 854 75 HORIZONTAL_ALIGN_FULLSCREEN 0
+			background		"gradient_bottom"
+			visible			1
+			decoration
+		}
+
+		CHOICE_MENU_TITLE( "Help Contents" )
+		CHOICE_BUTTON_VIS( 1, "What is Death Run?", exec "set dr_help_page widr";, 1 )		
+		CHOICE_BUTTON_VIS( 2, "Game rules", exec "set dr_help_page rules";, 1 )
+		CHOICE_BUTTON_VIS( 3, "Features", exec "set dr_help_page features";, 1 )
+		CHOICE_BUTTON_VIS( 4, "Credits", exec "set dr_help_page credits";, 1 )
+	//	CHOICE_BUTTON_VIS( 5, "Server rules", exec "set dr_help_page server";, 1 )
+
+		HELP_PAGE( "widr", "Death Run is a classical mod in which a single player fights alone against the other team,\nhis only weapons are his deadly traps. The players in the opposite team have\n to kill the activator after finishing his course without dying.\n^2Mod Version: ^31.2 INDEV (02.09.2012)\n^2Website: ^3www.braxi.org" )
+		HELP_PAGE( "rules", "As ^2Jumper ^7you have to pass all traps and kill ^1Activator^7, it isn't easy but it's possible!\nYou start with pistol and alot of ammunition. You might earn additional life for eliminating ^1Activator^7.\n \n^3==================\n\nAs ^1Activator ^7you need to eliminate horde of ^2Jumpers^7, best solution for that is to activate traps\nbut ^3be carefull ^7because most of the traps can be activated only once during round.\nYou start with tomahawk and don't have any other weapon.\n Additionaly you can select Free Run at the beggining of new round, this will take all weapons from ^2Jumpers ^7but you will be unable to activate traps." )
+		//CHOICE_SEPARATOR_VIS( CHOICE_SEP_1, 1 )
+
+		HELP_PAGE( "features", "^3Unlocks ^7- You may unlock new characters, weapons and spray logos by earning XP.\n^3==================\n^3Sprays ^7- to spray your logo on the surface press grenade key ^4(G by default)^7. Type in console ^2\\fx_marks 1^7 if you cannot see sprays.\n^3==================\n^3Bunny Hooping ^7- to jump faster press space and hold use key ^4(F by default)^7.\n^3==================\n^3ACP ^7- to access administration control panel bind this command to key: ^3\\bind P \"openScriptMenu ^3-1 adminmenu\"^7. You must be logged-in as Administrator first." )
+		HELP_PAGE( "credits", "^2BraXi ^7- this mod, Xfire: braxpl\n^2Bipo ^7- Next map voting and credits, Xfire: bipoalarmonk\n^2|MACOM|Hacker ^7- Rigged Zoey, Juggernaut, Masterchief and new hands, Xfire: 05hepburn\n^2_INSANE_ ^7- Converted Zakhaev, Farmer, Velinda and Al'Asad models to work in MP, Xfire: undertakerhs\n^2MR-X ^7- Death Run menu background, Xfire: mousasalem\n^2Etheross ^7- Converted Shepherd, Makarov and Tomahawk to CoD4, Xfire: etheross\n^2iNext Gaming ^7- providing server since mod was born and for testing it, www.inext-gaming.com\nThanks to ^2Community ^7 for creating awesome maps for this mod and for all your support!" )
+
+		//HELP_PAGE( "server", ""dvarString(ui_rules)"" )
+	}
+}
+

@@ -1,0 +1,18 @@
+VERSION             "1"
+CONFIG              "C:\trees\cod3\cod3\bin\StringEd.cfg"
+FILENOTES           ""
+
+
+REFERENCE           PLAY
+LANG_ENGLISH        "Play"
+
+REFERENCE           SPECTATE
+LANG_ENGLISH        "Spectator"
+
+REFERENCE           LEADERBOARD
+LANG_ENGLISH        "^2Leaderboard"
+
+REFERENCE           TOPTEN
+LANG_ENGLISH        "Top 10 Times"
+
+ENDMARKER

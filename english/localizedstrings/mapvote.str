@@ -1,0 +1,14 @@
+VERSION             "1"
+CONFIG              "C:\trees\cod3\cod3\bin\StringEd.cfg"
+FILENOTES           ""
+
+//////////
+REFERENCE           WAIT4VOTES
+LANG_ENGLISH        "Waiting for votes..."
+
+REFERENCE           PRESSFIRE
+LANG_ENGLISH        "Press FIRE to start voting"
+
+ENDMARKER
+
+

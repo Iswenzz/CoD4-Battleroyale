@@ -1,0 +1,72 @@
+///////////////////////////////////////////////////////
+///|         |///|        |///|       |/\  \/////  ////
+///|  |////  |///|  |//|  |///|  |/|  |//\  \///  /////
+///|  |////  |///|  |//|  |///|  |/|  |///\  \/  //////
+///|          |//|  |//|  |///|       |////\    ///////
+///|  |////|  |//|         |//|  |/|  |/////    \//////
+///|  |////|  |//|  |///|  |//|  |/|  |////  /\  \/////
+///|          |//|__|///|__|//|__|/|__|///  ///\  \////
+/////////////////////////////////////////__/////\__\///
+///////////////////////////////////////////////////////
+//
+//	Xfire : maciusiak
+//
+// D.R.M. - Death Run Menus
+//
+
+VERSION             "1"
+CONFIG              "C:\trees\cod3\cod3\bin\StringEd.cfg"
+FILENOTES           ""
+
+
+REFERENCE           PLAY
+LANG_ENGLISH        "Auto-Assign"
+
+REFERENCE           PLAY_DESC
+LANG_ENGLISH        "Start game as Jumper."
+
+REFERENCE           SPECTATE
+LANG_ENGLISH        "Spectator"
+
+REFERENCE           SPECTATE_DESC
+LANG_ENGLISH        "Watch others players."
+
+REFERENCE			NOTHING
+LANG_ENGLISH		""
+
+REFERENCE			GRAPHICS_WARNING
+LANG_ENGLISH		""
+
+REFERENCE           CHARACTER
+LANG_ENGLISH        "Customize character"
+
+REFERENCE           CHARACTER_DESC
+LANG_ENGLISH        "Select your gaming character and spray logo."
+
+REFERENCE           HELP
+LANG_ENGLISH        "Help"
+
+REFERENCE           HELP_DESC
+LANG_ENGLISH        "Show help, tips and features."
+
+REFERENCE           OPTIONS
+LANG_ENGLISH        "Settings"
+
+REFERENCE           OPTIONS_DESC
+LANG_ENGLISH        "Change various game settings."
+
+
+REFERENCE			CREDITS
+LANG_ENGLISH		"^6Sheep Wizard \n^5SuX ^7Lolz "
+
+
+REFERENCE           WHAT_IS_DEATHRUN
+LANG_ENGLISH        "^2Welcome! ^7to Sr- ^5Death^7run \nUse ^3!help^7 to view available commands \n\nFor more information visit out ^6discord.gg/76aHfGF"
+
+
+REFERENCE           COMMANDS
+LANG_ENGLISH		"^6!help ^7to view other commands. "
+
+
+REFERENCE           UNLOCKABLES
+LANG_ENGLISH		"You can unlock ^325^7 characters, ^332^7 sprays, ^335^7 weapons and ^35^7 Knifes with ^37^7 different skins \nby respectively earning new levels."

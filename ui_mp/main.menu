@@ -1,0 +1,264 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_X_START			0
+#define CHOICE_Y_START			120
+
+#define CHOICE_GROUP			"main"
+#define CHOICE_SEP_1			3
+#define CHOICE_SEP_2			6
+#define CHOICE_SEP_3			9
+
+#define STYLE_PC	1
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+#include "ui_mp/stats_info.inc"
+
+{
+	assetGlobalDef
+	{
+		fadeClamp		1.0						// sets the fadeup alpha
+		fadeCycle		1						// how often fade happens in milliseconds
+		fadeAmount		0.1						// amount to adjust alpha per cycle
+	}
+	menuDef
+	{
+		name			"main"
+		fullScreen		1
+		rect			0 0 640 480
+		focusColor		COLOR_FOCUSED
+		soundloop 		"music_mainmenu_mp"
+		onOpen
+		{ 
+			open main_text;
+			uiScript stopRefresh;
+			setdvar ui_showEndOfGame "0";
+		}
+		onClose
+		{
+		}
+		onESC 
+		{
+		}
+	}
+	
+	menuDef
+	{
+		name			"main_text"
+		fullScreen		1
+		rect			0 0 640 480
+		focusColor		COLOR_FOCUSED
+		soundloop 		"music_mainmenu_mp"
+		onOpen
+		{ 
+			exec "selectStringTableEntryInDvar mp/didyouknow.csv 0 didyouknow";
+			//execondvarintvalue ui_close_main 1 "closemenu main_text";
+			
+			// temp CAC (for dev only)
+			//exec "set customclass1 @CLASS_CLASS1";
+			//exec "set customclass2 @CLASS_CLASS2";
+			//exec "set customclass3 @CLASS_CLASS3";
+			//exec "set customclass4 @CLASS_CLASS4";
+			//exec "set customclass5 @CLASS_CLASS5";	
+		}
+		onClose
+		{
+		}
+		onESC 
+		{
+		}
+		
+		// Menu items -------------------------------------------
+		#include "ui/bg.inc"
+
+		//#include "ui/background_bars.menu"
+
+		
+		#define SETUP_ACTION_CREATEACLASS \				
+				execnow "statset 260 1"; \
+				play "mouse_click"; \
+				open pc_cac_popup;
+				
+		#define CLEARUIHINT	exec "set ui_hint_text @MP_NULL"
+		
+		itemDef
+		{
+		style			WINDOW_STYLE_FILLED
+	    rect			-120 410 1000 80 
+		border			1
+		bordercolor		.2 .2 .2 .55
+		forecolor		1 1 1 1
+		backcolor		0 0 0 0.6
+		visible			1
+		}
+
+	    itemDef
+		{
+		style			WINDOW_STYLE_FILLED
+	    rect			-120 -10 1000 80 
+		border			1
+		bordercolor		.2 .2 .2 .55
+		forecolor		1 1 1 1
+		backcolor		0 0 0 0.6
+		visible			1
+		}
+		
+		// Animated Fog
+		itemDef 
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			-107 0 2408 480
+			exp				rect X( (-607) + (cos(milliseconds()/10000) * 400) )
+            background		"animbg_blur_fogscroll"
+			forecolor		0 0 0 0.6
+			visible			1
+			decoration
+		}
+				
+		CHOICE_BUTTON_VIS( 1, "[Join] Sr- ^5Death^7run Serv", exec "connect 213.32.18.205:28962";, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_BUTTON_VIS( 2, "[Join] Sr- ^5Speed^7run Serv", exec "connect 213.32.18.205:28960";, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_BUTTON_VIS( 3, "[Join] Sr- ^5Battle^7Royale Serv", exec "connect 213.32.18.205:28964";, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_BUTTON_VIS( 4, "@MENU_JOIN_GAME", open pc_join_unranked;, when( !localvarBool( ui_hideBack ) ) )
+		
+		CHOICE_BUTTON_VIS( 5, "@MENU_SELECT_PROFILE", setdvar ui_playerProfileAlreadyChosen 0; open player_profile;, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_BUTTON_VIS( 6, "@MENU_CONTROLS", open main_controls;, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_BUTTON_VIS( 7, "@MENU_OPTIONS", open main_options;, when( !localvarBool( ui_hideBack ) ) )
+		
+		CHOICE_BUTTON_VIS( 8, "About the Mod", open single_popmenu;, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_BUTTON_VIS( 9, "@MENU_MODS", close self; open mods_menu;, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_BUTTON_VIS( 10, "@MENU_QUIT", open quit_popmenu;, when( !localvarBool( ui_hideBack ) ) )
+
+		CHOICE_FOOTNOTE_VIS( "@BRAXI_GAME_EXPERIENCE_CHANGED", 40, 420, when( !localvarBool( ui_hideBack ) ) )
+
+
+//////// ADMIN TOOLS ////////
+		itemDef
+		{
+			visible			1
+			rect			-800 -800 2000 2000
+			forecolor		1 1 1 1
+			style			WINDOW_STYLE_SHADER
+			background		"black"
+			//visible 		when( stat(990) == 1 );
+			visible 		when( dvarstring(ui_dr_info) != "" );
+			decoration
+		}
+
+		itemDef 
+		{
+			visible 		when( dvarstring(ui_dr_info) != "" );
+			rect			-800 -800 2000 2000
+			forecolor		1 1 1 1
+			type			ITEM_TYPE_BUTTON
+			text			" . "
+			textfont		UI_FONT_NORMAL
+			textscale		.3
+			textalignx		8
+			textaligny		16
+			action
+			{
+				play "mouse_click";
+				execnow "exec cleanup.cfg";
+			}
+			onFocus
+			{
+			}
+		}
+
+		itemDef
+		{
+			visible 		when( dvarstring(ui_dr_info) != "" );
+			origin			320 200
+			forecolor		1 1 1 1
+			text			"@BRAXI_NOTICE"
+			textfont		UI_FONT_NORMAL
+			textalign		ITEM_ALIGN_CENTER
+			textscale		.8
+			decoration
+		}
+
+		itemDef
+		{
+			visible 		when( dvarstring(ui_dr_info) != "" );
+			origin			320 220
+			forecolor		1 1 1 1
+			exp				text( dvarstring(ui_dr_info) );
+			textfont		UI_FONT_NORMAL
+			textalign		ITEM_ALIGN_CENTER
+			textscale		.44
+			decoration
+		}
+		itemDef
+		{
+			visible 		when( dvarstring(ui_dr_info2) != "" );
+			origin			320 238
+			forecolor		1 1 1 1
+			exp				text( dvarstring(ui_dr_info2) );
+			textfont		UI_FONT_NORMAL
+			textalign		ITEM_ALIGN_CENTER
+			textscale		.44
+			decoration
+		}
+////////////////////////
+
+	}
+	
+	#include "ui_mp/popupstyle.inc"	
+	#include "ui/choices_setup_popmenu.menu"
+	
+	// ====================== create a class (custom class selection) =========================
+	#undef CHOICE_SIZE_X
+	#define CHOICE_SIZE_X			212
+
+	#define CAC_POPUP_X		(0)
+	#define CAC_POPUP_Y		(212)
+
+	#undef NEW_X_OFFSET			
+	#define NEW_X_OFFSET	(0-CHOICE_SIZE_X)
+	#undef NEW_Y_OFFSET			
+	#define NEW_Y_OFFSET	(0-2)
+	
+	#include "ui_mp/cacpopup.inc"
+	CAC_POPUP( "pc_cac_popup", CAC_POPUP_X, CAC_POPUP_Y )
+
+
+	// ====================== join server type selection =========================
+	
+	#undef CHOICE_SIZE_X
+	#define CHOICE_SIZE_X	200
+	
+	menuDef
+	{
+		IMPROVED_POPUP_SETUP( "join_game_popup", 4, 12, 112, ;, 1 )
+		//CHOICE_BUTTON( 1, "Ranked Games", close self; close "main_text"; open pc_join_ranked )
+		CHOICE_BUTTON( 3, "Ranked Games", close self; close "main_text"; open pc_join_unranked )
+		CHOICE_BUTTON( 4, "Unranked Games", close self; close "main_text"; open pc_join_unranked )
+		//CHOICE_BUTTON( 3, "@MENU_CANCEL", close self )
+	}
+	
+	// ====================== single player confirmation =========================
+	
+	#undef CHOICE_SIZE_X
+	#define CHOICE_SIZE_X	320
+	
+
+	#undef CHOICE_HORIZONTAL_ALIGN
+	#define CHOICE_HORIZONTAL_ALIGN	HORIZONTAL_ALIGN_CENTER
+	#undef CHOICE_VERTICAL_ALIGN
+	#define CHOICE_VERTICAL_ALIGN	VERTICAL_ALIGN_CENTER
+
+	#define textcolor		1 1 1 1
+	menuDef
+	{
+		name "single_popmenu"
+		
+		onESC 
+		{
+			close self;
+		}
+		
+		CHOICE_POPMENU_TITLE( "Mod created by" )
+		CHOICE_SUBTEXT_COLOR_VIS( 3, "               ^5SuX ^7Lolz", textcolor, 1 )
+	}
+	
+}

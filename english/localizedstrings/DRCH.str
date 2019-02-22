@@ -1,0 +1,85 @@
+///////////////////////////////////////////////////////
+///|         |///|        |///|       |/\  \/////  ////
+///|  |////  |///|  |//|  |///|  |/|  |//\  \///  /////
+///|  |////  |///|  |//|  |///|  |/|  |///\  \/  //////
+///|          |//|  |//|  |///|       |////\    ///////
+///|  |////|  |//|         |//|  |/|  |/////    \//////
+///|  |////|  |//|  |///|  |//|  |/|  |////  /\  \/////
+///|          |//|__|///|__|//|__|/|__|///  ///\  \////
+/////////////////////////////////////////__/////\__\///
+///////////////////////////////////////////////////////
+//
+//	Xfire : maciusiak
+//
+// D.R.CH. - Death Run Challenges
+//
+
+VERSION             "1"
+CONFIG              "C:\trees\cod3\cod3\bin\StringEd.cfg"
+FILENOTES           ""
+
+
+REFERENCE           UNLOCKED_AT_3
+LANG_ENGLISH        "Unlocked at level 3."
+
+REFERENCE           UNLOCKED_AT_6
+LANG_ENGLISH        "Unlocked at level 6."
+
+REFERENCE           UNLOCKED_AT_9
+LANG_ENGLISH        "Unlocked at level 9."
+
+REFERENCE           NOOB
+LANG_ENGLISH        "N00b"
+REFERENCE           NOOB_CHALLENGES
+LANG_ENGLISH        "Challenges for noobs."
+
+REFERENCE           PISTOL
+LANG_ENGLISH        "Shooter I"
+REFERENCE           PISTOL_CHALLENGES
+LANG_ENGLISH        "Pistol challenges I."
+
+REFERENCE           KNIFE
+LANG_ENGLISH        "Knifer I"
+REFERENCE           KNIFE_CHALLENGES
+LANG_ENGLISH        "Knife challenges I."
+
+
+
+REFERENCE			NOOBISHDEATH
+LANG_ENGLISH        "Noobish Death I"
+REFERENCE			NOOBISHDEATH_DESC
+LANG_ENGLISH        "Die in first four seconds. (Phase 1 of 2)"
+
+REFERENCE			NOOBISHDEATH2
+LANG_ENGLISH        "Noobish Death II"
+REFERENCE			NOOBISHDEATH2_DESC
+LANG_ENGLISH        "Die after round has ended. (Phase 2 of 2)"
+
+REFERENCE			LOLWUT1
+LANG_ENGLISH        "Lol wut? I"
+REFERENCE			LOLWUT1_DESC
+LANG_ENGLISH        "Fall to die 100 times. (Phase 1 of 3)"
+
+REFERENCE			LOLWUT2
+LANG_ENGLISH        "Lol wut? II"
+REFERENCE			LOLWUT2_DESC
+LANG_ENGLISH        "Fall to die 200 times. (Phase 2 of 3)"
+
+REFERENCE			LOLWUT3
+LANG_ENGLISH        "Lol wut? III"
+REFERENCE			LOLWUT3_DESC
+LANG_ENGLISH        "Fall to die 300 times. (Phase 3 of 3)"
+
+REFERENCE			BOUNCE1
+LANG_ENGLISH        "Overpowered bounced"
+REFERENCE			BOUNCE1_DESC
+LANG_ENGLISH        "Die due to falling damage while pro bunny hooping."
+
+REFERENCE			LOOSER
+LANG_ENGLISH        "Looser"
+REFERENCE			LOOSER_DESC
+LANG_ENGLISH        "Get killed by Activator as last standing Jumper."
+
+ENDMARKER
+
+
