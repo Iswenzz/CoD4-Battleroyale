@@ -623,27 +623,21 @@ watchGrenadeUsage()
 
 beginGrenadeTracking()
 {
-	self endon ( "death" );
-	self endon ( "disconnect" );
+	self endon ("death");
+	self endon ("disconnect");
 	
 	startTime = getTime();
 	
-	self waittill ( "grenade_fire", grenade, weaponName );
+	self waittill ("grenade_fire", grenade, weaponName);
 	
-	if ( (getTime() - startTime > 1000) )
+	if ((getTime() - startTime > 1000))
 		grenade.isCooked = true;
 	
-	if ( weaponName == "frag_grenade_mp" )
+	if (weaponName == "frag_grenade_mp")
 	{
 		grenade thread maps\mp\gametypes\_shellshock::grenade_earthQuake();
 		grenade.originalOwner = self;
 	}
-		
-	if ( weaponName == "frag_grenade_short_mp")
-		self.grenade -= 1;
-
-	if ( weaponName == "smoke_grenade_mp")
-		self.smoke -= 1;
 
 	self.throwingGrenade = false;
 }
