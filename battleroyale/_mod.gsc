@@ -37,18 +37,8 @@ main()
 	maps\mp\_weapons::init();
 	maps\mp\_killcam::init();
 
-	level.mapName = toLower(getDvar("mapname"));
-	level.allowSpawn = true;
-	level.tempEntity = spawn("script_model",(0,0,0));
-	level.colliders = [];
-	level.color_cool_green = (0.7, 0, 1);
-	level.color_cool_green_glow = (0.7, 0, 1);
-	level.hudYOffset = 10;
-	level.barsize = 288;
-	level.bar_time = 5;
-	level.hurttime = 4;
-	level.gamestarted = false;
 	level.game_countdown = 10;
+	level.gamestarted = false;
 
 	setDvar("jump_slowdownEnable", 1);
 	setDvar("bullet_penetrationEnabled", 1);
@@ -217,6 +207,10 @@ bar_load(usage)
 
 	self playSound("bandage");
 
+	barsize = 288;
+	bar_time = 5;
+	hurt_time = 4;
+
 	while(1)
 	{
 		wait .05;
@@ -225,7 +219,7 @@ bar_load(usage)
 			return;		
 
 		self.in_load = true;
-		level.barincrement = (level.barsize / (20.0 * level.bar_time));
+		level.barincrement = (barsize / (20.0 * bar_time));
 
 		if(!isDefined(self.progressbackground))
 		{
@@ -237,25 +231,25 @@ bar_load(usage)
 			self.progressbackground.alpha = 0.5;
 		}
 
-		self.progressbackground setShader("black", (level.barsize + 4), 14);		
+		self.progressbackground setShader("black", (barsize + 4), 14);		
 
 		if(!isDefined(self.progressbar))
 		{
 			self.progressbar = newClientHudElem(self);				
 			self.progressbar.alignX = "left";
 			self.progressbar.alignY = "middle";
-			self.progressbar.x = (320 - (level.barsize / 2.0));
+			self.progressbar.x = (320 - (barsize / 2.0));
 			self.progressbar.y = 385;
 		}
 
 		self.progressbar setShader("white", 0, 8);			
-		self.progressbar scaleOverTime(level.bar_time, level.barsize, 8);
+		self.progressbar scaleOverTime(bar_time, barsize, 8);
 
 		self.progresstime = 0;
 		d = 0;
 		f = 0;
 
-		while(isalive(self) && (self.progresstime < level.bar_time))
+		while(isalive(self) && (self.progresstime < bar_time))
 		{		
 			d ++;
 			f ++;
@@ -263,7 +257,7 @@ bar_load(usage)
 			wait 0.05;
 			self.progresstime += 0.05;
 
-			if(self.progresstime >= level.hurttime)					
+			if(self.progresstime >= hurt_time)					
 			{
 				if(f >= 4)
 					f = 0;
@@ -281,7 +275,7 @@ bar_load(usage)
 			}	
 		}
 
-		if(isalive(self) && (self.progresstime >= level.bar_time))
+		if(isalive(self) && (self.progresstime >= bar_time))
 		{   // load done
 			self.progressbackground destroy();
 			self.progressbar destroy();
@@ -608,19 +602,6 @@ update_ammo_do(currWeapon, clip)
 
 game_start()
 {
-	level.mapName = toLower(getDvar("mapname"));
-	level.allowSpawn = true;
-	level.tempEntity = spawn("script_model", (0, 0, 0));
-	level.colliders = [];
-	level.color_cool_green = (0.7, 0, 1);
-	level.color_cool_green_glow = (0.7, 0, 1);
-	level.hudYOffset = 10;
-	level.barsize = 288;
-	level.bar_time = 5;
-	level.hurttime = 4;
-	level.gamestarted = false;
-	level.game_countdown = 10;
-
 	tp = getTp();
 	thread getZoneTrig();
 
