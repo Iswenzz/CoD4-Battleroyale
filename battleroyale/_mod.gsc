@@ -41,6 +41,11 @@ main()
 	level.gamestarted = false;
 	level.allowSpawn = true;
 
+	level.RNG_SMALL = 1;
+	level.RNG_NORMAL = 3;
+	level.RNG_BIG = 5;
+	level.RNG_RARE = 6;
+
 	setDvar("jump_slowdownEnable", 1);
 	setDvar("bullet_penetrationEnabled", 1);
 	setDvar("g_friendlyPlayerCanBlock", 1);
@@ -341,137 +346,6 @@ drawLine(start, end, colour, depth)
     }
 }
 
-random_weapons()
-{
-	rng_small = 1;
-	rng_avr = 3;
-	rng_big = 5;
-	rng_rare = 6;
-
-	item = [];
-	// Ammo
-	item[0] = createAmmo("mag_45", "amunition", 8, rng_avr);
-	item[1] = createAmmo("mag_9mm", "amunition", 15, rng_avr);
-	item[2] = createAmmo("mag_7_62", "amunition", 30, rng_avr);
-	item[3] = createAmmo("mag_5_45", "amunition", 30, rng_avr);
-	item[4] = createAmmo("mag_12_gauge", "amunition", 6, rng_big);
-	// Weapons
-	item[5] = createWeapon("mag_beretta", "amunition", "beretta_mp", rng_small);
-	item[6] = createWeapon("mag_colt45", "amunition", "colt45_mp", rng_small);
-	item[7] = createWeapon("mag_deserteagle", "amunition", "deserteagle_mp", rng_small);
-	item[8] = createWeapon("mag_dragunov", "amunition", "dragunov_mp", rng_rare);
-	item[9] = createWeapon("mag_m16", "amunition", "m16_mp", rng_avr);
-	item[10] = createWeapon("mag_ak47", "amunition", "ak47_mp", rng_avr);
-	item[11] = createWeapon("mag_mp44", "amunition", "mp44_mp", rng_avr);
-	item[12] = createWeapon("mag_mp5", "amunition", "mp5_mp", rng_avr);
-	item[13] = createWeapon("mag_m1014", "amunition", "m1014_mp", rng_big);
-	item[14] = createWeapon("mag_winchester1200", "amunition", "winchester1200_mp", rng_big);
-	// Special
-	item[15] = createSpecial("mag_flash_grenade", "grenade_pickup", "flash_grenade_mp", rng_avr);
-	item[16] = createSpecial("mag_smoke_grenade", "grenade_pickup", "smoke_grenade_mp", rng_small);
-	item[17] = createSpecial("mag_bandage", "health_pickup_large", "", rng_avr);
-	item[18] = createSpecial("mag_first_kit", "health_pickup_large", "", rng_big);
-	item[19] = createSpecial("mag_frag_grenade", "grenade_pickup", "frag_grenade_mp", rng_small);
-
-	for(i = 0; i < item.size; i++)
-		item[i] thread item_trig();
-
-}
-
-createAmmo(ent, sound, count, rng)
-{
-	item = spawnStruct();
-	item.type = "ammo";
-	item.ent = ent;
-	item.sound = sound;
-	item.count = count;
-	item.rng = rng;
-	return item;
-}
-
-createWeapon(ent, sound, weapon, rng)
-{
-	item = spawnStruct();
-	item.type = "weapon";
-	item.ent = ent;
-	item.sound = sound;
-	item.weapon = weapon;
-	item.rng = rng;
-	return item;
-}
-
-createSpecial(ent, sound, weapon, rng)
-{
-	item = spawnStruct();
-	item.type = "special";
-	item.ent = ent;
-	item.sound = sound;
-	item.weapon = weapon;
-	item.rng = rng;
-	return item;
-}
-
-item_trig()
-{
-	item_trig = [];
-	item = getEntArray(self.ent, "targetname");
-	v = 10;
-
-	for(i = 0; i < item.size; i++)
-	{
-		rng = randomIntRange(0, self.rng);
-
-		if(rng == 0)
-		{
-			item_trig[i] = spawn("trigger_radius", item[i].origin, v, v, v);
-			item_trig[i].radius = v;
-			item_trig[i] thread item_setup(self, item[i]);
-			item_trig[i] SetCursorHint("HINT_ACTIVATE");
-		}
-		else
-			item[i] delete();
-	}
-}
-
-item_setup(item, model)
-{
-	while(isDefined(self))
-	{
-		self waittill("trigger", player);
-
-		if(player usebuttonpressed())
-			player thread item_give(self, model, item);
-
-		wait .05;
-	}
-}
-
-item_give(trig, model, item)
-{
-	if (item.type == "ammo")
-	{
-		self.pers[item.ent] += item.count;
-		self playSound(item.sound);
-	}
-
-	else if (item.type == "weapon")
-	{
-		self giveWeapon(item.weapon);
-		self switchToWeapon(item.weapon);
-		self playSound(item.sound);
-	}
-
-	else if (item.type == "special")
-	{
-		self.pers[item.ent]++;
-		self giveWeapon(item.weapon);
-		self playSound(item.sound);
-	}
-
-	model delete();
-	trig delete();
-}
-
 update_projectile()
 {
 	self endon("disconnect");
@@ -612,14 +486,19 @@ game_start()
 
 	countdown();
 	level.gamestarted = true;
-	lobby = getEnt("lobby","targetname");
-	lobby delete();
+	level notify("br_started");
+
+	if(getEntArray("lobby","targetname").size > 0) // lobby clip
+	{
+		lobby = getEnt("lobby","targetname");
+		lobby delete();
+	}
 
 	thread watch_eject();
 	thread watch_last_eject(); // when people AFK in plane
 	thread watch_game();
 
-	level.plane = spawn("script_model", (0,0,-10000));
+	level.plane = spawn("script_model", (0, 0, -10000));
 	level.plane.angles = (0,0,0);
 	level.plane setModel("vehicle_ac130_low");
 	level.plane.angles = tp[0].angles;
@@ -635,7 +514,7 @@ game_start()
 			continue;
 
 		players[i] clearLowerMessage();
-		players[i].origin = level.plane.origin + (0,0,700);
+		players[i].origin = level.plane.origin + (0, 0, 700);
 		players[i] linkTo(level.plane);
 		players[i] takeallweapons();
 		players[i] hide();
@@ -655,7 +534,7 @@ game_start()
 
 watch_lobby()
 {
-	while( !level.gamestarted )
+	while(!level.gamestarted)
 	{
 		wait 0.2;
 
@@ -672,7 +551,7 @@ watch_lobby()
 			{
 				level.totalPlayers++;
 
-				if(isDefined( players[i].pers["team"]))	
+				if(isDefined(players[i].pers["team"]))	
 				{
 					if(players[i] isReallyAlive())
 						level.totalPlayingPlayers++;
@@ -707,7 +586,7 @@ check_leave()
 	{
 		wait 0.5;
 
-		if( isDefined(level.jumpers) && level.jumpers <= 1 )
+		if(isDefined(level.jumpers) && level.jumpers <= 1)
 			map_restart(false);
 	}
 }
@@ -864,7 +743,6 @@ zone_trig_message(msg)
 
 watch_game()
 {
-	thread random_weapons();
 	thread zone_trig();
 
 	while(level.gamestarted)
@@ -921,47 +799,56 @@ end_map()
 
 	for(i=0;i<players.size;i++)
 	{
-		if(isAlive(players[i]))
+		if(isDefined(players[i]))
+		{
+			if(isAlive(players[i]))
 			players[i] suicide();
 
-		players[i] spawnSpectator(level.spawn["spectator"].origin, level.spawn["spectator"].angles);
-		players[i] closeMenu();
-		players[i] closeInGameMenu();
-		players[i] freezeControls(true);
-		players[i] cleanUp();
-		players[i] allowSpectateTeam("freelook", false);
+			players[i] spawnSpectator(level.spawn["spectator"].origin, level.spawn["spectator"].angles);
+			players[i] closeMenu();
+			players[i] closeInGameMenu();
+			players[i] freezeControls(true);
+			players[i] cleanUp();
+			players[i] allowSpectateTeam("freelook", false);
+		}
 	}
 
 	battleroyale\_credits::main();
 
 	for(i=0;i<players.size;i++)
 	{
-		if(isAlive(players[i]))
-			players[i] suicide();
-		players[i] spawnSpectator(level.spawn["spectator"].origin, level.spawn["spectator"].angles);
-		players[i] closeMenu();
-		players[i] closeInGameMenu();
-		players[i] freezeControls(true);
-		players[i] cleanUp();
-		players[i] allowSpectateTeam("freelook", false);
+		if(isDefined(players[i]))
+		{
+			if(isAlive(players[i]))
+				players[i] suicide();
+
+			players[i] spawnSpectator(level.spawn["spectator"].origin, level.spawn["spectator"].angles);
+			players[i] closeMenu();
+			players[i] closeInGameMenu();
+			players[i] freezeControls(true);
+			players[i] cleanUp();
+			players[i] allowSpectateTeam("freelook", false);
+		}
 	}
 
 	wait 10;
 
 	for(i=0;i<players.size;i++)
 	{
-		if(isAlive(players[i]))
-			players[i] suicide();
-		players[i] spawnSpectator(level.spawn["spectator"].origin, level.spawn["spectator"].angles);
-		players[i] closeMenu();
-		players[i] closeInGameMenu();
-		players[i] freezeControls(true);
-		players[i] cleanUp();
-		players[i] allowSpectateTeam("freelook", false);
-	}
+		if(isDefined(players[i]))
+		{
+			if(isAlive(players[i]))
+				players[i] suicide();
 
-	for(i=0;i<players.size;i++)
-		players[i].sessionstate = "intermission";
+			players[i] spawnSpectator(level.spawn["spectator"].origin, level.spawn["spectator"].angles);
+			players[i] closeMenu();
+			players[i] closeInGameMenu();
+			players[i] freezeControls(true);
+			players[i] cleanUp();
+			players[i] allowSpectateTeam("freelook", false);
+			players[i].sessionstate = "intermission";
+		}
+	}
 }
 
 watch_player_game()
@@ -972,8 +859,13 @@ watch_player_game()
 
 watch_last_eject()
 {
+	if(getEntArray("eject_last","targetname").size == 0)
+		assertMsg("ERROR: Map needs a trigger with targetname 'eject_last' at the end of every plane_path.");
+	if(!isDefined(level.eject_last_coord))
+		assertMsg("ERROR: level.eject_last_coord isn't defined.");
+
 	trig = getEnt("eject_last","targetname");
-	ori = spawn("script_origin",(-1008,-6207,7021));
+	ori = spawn("script_origin", level.eject_last_coord);
 
 	for(;;)
 	{
@@ -985,6 +877,9 @@ watch_last_eject()
 
 watch_eject()
 {
+	if(getEnt("can_fall","targetname").size == 0)
+		assertMsg("ERROR: Map needs a trigger with targetname 'can_fall' where people can eject from the plane.");
+
 	trig = getEnt("can_fall","targetname");
 	
 	for(;;)
@@ -1070,32 +965,32 @@ check_health()
 
 getTp()
 {
-	tp_1 = getEntArray("plane_1","targetname");
-	tp_2 = getEntArray("plane_2","targetname");
-	tp_3 = getEntArray("plane_3","targetname");
-
-	switch(randomIntrange(1,3))
+	max = 1;
+	while(getEntArray("plane_" + max, "targetname").size > 0)
 	{
-		case 1: return tp_1;
-		case 2: return tp_2;
-		case 3: return tp_3;
+		max++;
+		wait 0.05;
 	}
+	max -= 1;
+
+	if(max == 0)
+		assertMsg("ERROR: Map doesn't have plane path.");
+
+	path = getEntArray("plane_" + randomIntRange(1, max), "targetname");
+	if(path.size != 2)
+		assertMsg("ERROR: plane_" + max + "entity needs to have a start origin and a end origin");
+
+	return getEntArray("plane_" + randomIntRange(1, max), "targetname");
 }
 
 getZoneTrig()
 {
-	zone = [];
-	zone[0] = (-2174, -3553, -1094);
-	zone[1] = (1004, -7828, -815);
-	zone[2] = (-2672, -13285, -2506);
-	zone[3] = (273, 1156, -1358);
-	zone[4] = (-11199, -6826, -3097);
-	zone[5] = (-20439, -11104, -4304);
-	zone[6] = (-13530, -1321, -3120);
-	zone[7] = (7891, -2131, -1258);
-	zone[8] = (7724, 6727, -1490);
+	if(!isDefined(level.zone))
+		assertMsg("ERROR: level.zone array isn't defined.");
+	if(isDefined(level.zone) && level.zone.size < 1)
+		assertMsg("ERROR: level.zone array need atleast 1 vector.");
 
-	level.picked_zone_trig = zone[randomIntrange(0, zone.size - 1)];
+	level.picked_zone_trig = level.zone[randomIntrange(0, level.zone.size - 1)];
 }
 
 init_spawns()
@@ -1437,7 +1332,7 @@ force_dvar()
 		self setClientDvar("cg_friendlyNameFadeOut", 0);
 		self setClientDvar("g_teamcolor_myteam", "1 0 0 1");
 
-		wait .1;
+		wait 0.5;
 	}
 }
 
@@ -1499,7 +1394,7 @@ check_stuff()
 			self.hud_actionslot_text[2] setValue(self.pers["mag_smoke_grenade"]);
 			self.hud_actionslot_text[3] setValue(self.pers["mag_first_kit"]);
 			self.hud_actionslot_text[4] setValue(self.pers["mag_bandage"]);
-			self.player_alive setValue(level.jumpers);
+			if (isDefined(level.jumpers)) self.player_alive setValue(level.jumpers);
 		}
 		wait .05;
 	}

@@ -42,7 +42,6 @@ xmodel,sr_zonetrig_5k
 xmodel,sr_zonetrig_2k5
 xmodel,sr_zonetrig_250_red
 
-material,sr_blackout_minimap
 material,sr_zonetrig_red
 material,sr_dead
 material,sr_grenade
