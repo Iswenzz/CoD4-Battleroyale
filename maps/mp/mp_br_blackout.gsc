@@ -53,6 +53,8 @@ main()
 
 	level.eject_last_coord = (-1008, -6207, 7021);
 
+	level.map_authors = "SuX Lolz";
+
 	thread onPlayerConnected();
 	thread random_weapons();
 
@@ -159,6 +161,6 @@ vision()
 		self setClientDvar("r_gamma","1");
 		self setClientDvar("r_blur","0");
 		self setClientDvar("r_desaturation","0");
-		wait 1;
+		wait 3;
 	}
 }
