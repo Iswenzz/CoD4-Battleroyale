@@ -39,6 +39,7 @@ main()
 
 	level.game_countdown = 10;
 	level.gamestarted = false;
+	level.allowSpawn = true;
 
 	setDvar("jump_slowdownEnable", 1);
 	setDvar("bullet_penetrationEnabled", 1);
