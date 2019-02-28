@@ -18,45 +18,52 @@ Email Pro: suxlolz@outlook.fr
 #include common_scripts\utility;
 #include maps\mp\gametypes\_hud_util;
 
-createAmmo(ent, sound, count, rng)
+createAmmo(ent, sound, hud_icon, count, rng)
 {
 	item = spawnStruct();
 	item.type = "ammo";
 	item.ent = ent;
 	item.sound = sound;
+	item.hud_icon = hud_icon;
 	item.count = count;
 	item.rng = rng;
+	level.br_item[ent] = item;
 	return item;
 }
 
-createWeapon(ent, sound, weapon, rng)
+createWeapon(ent, sound, hud_icon, weapon, rng)
 {
 	item = spawnStruct();
 	item.type = "weapon";
 	item.ent = ent;
 	item.sound = sound;
+	item.hud_icon = hud_icon;
 	item.weapon = weapon;
 	item.rng = rng;
+	level.br_item[weapon] = item;
 	return item;
 }
 
-createDropWeapon(sound, weapon)
+createDropWeapon(sound, hud_icon, weapon)
 {
 	item = spawnStruct();
 	item.type = "weapon";
 	item.sound = sound;
+	item.hud_icon = hud_icon;
 	item.weapon = weapon;
 	return item;
 }
 
-createSpecial(ent, sound, weapon, rng)
+createSpecial(ent, sound, hud_icon, weapon, rng)
 {
 	item = spawnStruct();
 	item.type = "special";
 	item.ent = ent;
 	item.sound = sound;
+	item.hud_icon = hud_icon;
 	item.weapon = weapon;
 	item.rng = rng;
+	level.br_item[ent] = item;
 	return item;
 }
 
@@ -84,12 +91,28 @@ item_setup(item, model)
 	while(isDefined(self))
 	{
 		self waittill("trigger", player);
+		player thread item_hud(self, item);
 
 		if(player usebuttonpressed())
 			player thread item_give(self, model, item);
 
 		wait .05;
 	}
+}
+
+item_hud(trig, item)
+{
+	self endon("death");
+	self endon("disconnect");
+
+	while(isDefined(self) && isDefined(trig) && self isTouching(trig))
+	{
+		self.touching_item = true;
+		self.item_hint setShader(item.hud_icon, 100, 40);
+		self.item_hint_text setText("^7Press ^3[{+activate}] ^7to grab");
+		wait 0.05;
+	}
+	self.touching_item = undefined;
 }
 
 refreshWeaponsList()
@@ -141,7 +164,7 @@ item_give(trig, model, item)
 			new_model = spawn("script_model", model.origin);
 			new_model.angles = (0, 270, 90);
 			new_model setModel(getWeaponModel(self getCurrentWeapon()));
-			new_item = createDropWeapon("amunition", self getCurrentWeapon());
+			new_item = createDropWeapon("weap_raise_plr", level.br_item[self getCurrentWeapon()].hud_icon, self getCurrentWeapon());
 
 			self TakeWeapon(self getCurrentWeapon());
 			self giveWeapon(item.weapon);

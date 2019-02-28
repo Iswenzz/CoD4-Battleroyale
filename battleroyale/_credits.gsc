@@ -40,7 +40,7 @@ main()
 
 	thread showCredit("Additional Help", 2, 300, 5);
 	wait 1;
-	thread showCredit("VC' Erik, FAMOUS Nitrofire, SuX AyPire", 1.8, 320, 4);
+	thread showCredit("VC' Erik, FAMOUS Nitrofire, SuX AyPire, Easy", 1.8, 320, 4);
 	wait 0.1;
 
 	wait level.creditTime + 2;

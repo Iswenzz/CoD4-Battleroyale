@@ -68,29 +68,29 @@ random_weapons()
 	wait 5;
 
 	item = [];
-	// createAmmo(ent, sound, giveammo, rng)
-	item[0] = battleroyale\_auto::createAmmo("mag_45", "amunition", 8, level.RNG_NORMAL);
-	item[1] = battleroyale\_auto::createAmmo("mag_9mm", "amunition", 15, level.RNG_NORMAL);
-	item[2] = battleroyale\_auto::createAmmo("mag_7_62", "amunition", 30, level.RNG_NORMAL);
-	item[3] = battleroyale\_auto::createAmmo("mag_5_45", "amunition", 30, level.RNG_NORMAL);
-	item[4] = battleroyale\_auto::createAmmo("mag_12_gauge", "amunition", 6, level.RNG_BIG);
-	// createWeapon(ent, sound, weapon_mp, rng)
-	item[5] = battleroyale\_auto::createWeapon("mag_beretta", "amunition", "beretta_mp", level.RNG_SMALL);
-	item[6] = battleroyale\_auto::createWeapon("mag_colt45", "amunition", "colt45_mp", level.RNG_SMALL);
-	item[7] = battleroyale\_auto::createWeapon("mag_deserteagle", "amunition", "deserteagle_mp", level.RNG_SMALL);
-	item[8] = battleroyale\_auto::createWeapon("mag_dragunov", "amunition", "dragunov_mp", level.RNG_RARE);
-	item[9] = battleroyale\_auto::createWeapon("mag_m16", "amunition", "m16_mp", level.RNG_NORMAL);
-	item[10] = battleroyale\_auto::createWeapon("mag_ak47", "amunition", "ak47_mp", level.RNG_NORMAL);
-	item[11] = battleroyale\_auto::createWeapon("mag_mp44", "amunition", "mp44_mp", level.RNG_NORMAL);
-	item[12] = battleroyale\_auto::createWeapon("mag_mp5", "amunition", "mp5_mp", level.RNG_NORMAL);
-	item[13] = battleroyale\_auto::createWeapon("mag_m1014", "amunition", "m1014_mp", level.RNG_BIG);
-	item[14] = battleroyale\_auto::createWeapon("mag_winchester1200", "amunition", "winchester1200_mp", level.RNG_BIG);
-	// createSpecial(ent, sound, weapon_mp, rng)
-	item[15] = battleroyale\_auto::createSpecial("mag_flash_grenade", "grenade_pickup", "flash_grenade_mp", level.RNG_NORMAL);
-	item[16] = battleroyale\_auto::createSpecial("mag_smoke_grenade", "grenade_pickup", "smoke_grenade_mp", level.RNG_SMALL);
-	item[17] = battleroyale\_auto::createSpecial("mag_bandage", "health_pickup_large", "", level.RNG_NORMAL);
-	item[18] = battleroyale\_auto::createSpecial("mag_first_kit", "health_pickup_large", "", level.RNG_BIG);
-	item[19] = battleroyale\_auto::createSpecial("mag_frag_grenade", "grenade_pickup", "frag_grenade_mp", level.RNG_SMALL);
+	// createAmmo(ent, sound, hud_icon, giveammo, rng)
+	item[0] = battleroyale\_auto::createAmmo("mag_45", "amunition", "hud_icon_mag_45", 8, level.RNG_NORMAL);
+	item[1] = battleroyale\_auto::createAmmo("mag_9mm", "amunition", "hud_icon_mag_9mm", 15, level.RNG_NORMAL);
+	item[2] = battleroyale\_auto::createAmmo("mag_7_62", "amunition", "hud_icon_mag_7_62", 30, level.RNG_NORMAL);
+	item[3] = battleroyale\_auto::createAmmo("mag_5_45", "amunition", "hud_icon_mag_5_56", 30, level.RNG_NORMAL);
+	item[4] = battleroyale\_auto::createAmmo("mag_12_gauge", "amunition", "hud_icon_mag_12_gauge", 6, level.RNG_BIG);
+	// createWeapon(ent, sound, hud_icon, weapon_mp, rng)
+	item[5] = battleroyale\_auto::createWeapon("mag_beretta", "weap_raise_plr", "hud_icon_m9beretta", "beretta_mp", level.RNG_SMALL);
+	item[6] = battleroyale\_auto::createWeapon("mag_colt45", "weap_raise_plr", "hud_icon_colt_45", "colt45_mp", level.RNG_SMALL);
+	item[7] = battleroyale\_auto::createWeapon("mag_deserteagle", "weap_raise_plr", "hud_icon_desert_eagle", "deserteagle_mp", level.RNG_SMALL);
+	item[8] = battleroyale\_auto::createWeapon("mag_dragunov", "weap_raise_plr", "hud_icon_dragunov", "dragunov_mp", level.RNG_RARE);
+	item[9] = battleroyale\_auto::createWeapon("mag_m16", "weap_raise_plr", "hud_icon_m16a4", "m16_mp", level.RNG_NORMAL);
+	item[10] = battleroyale\_auto::createWeapon("mag_ak47", "weap_raise_plr", "hud_icon_ak47", "ak47_mp", level.RNG_NORMAL);
+	item[11] = battleroyale\_auto::createWeapon("mag_mp44", "weap_raise_plr", "hud_icon_mp44", "mp44_mp", level.RNG_NORMAL);
+	item[12] = battleroyale\_auto::createWeapon("mag_mp5", "weap_raise_plr", "hud_icon_mp5", "mp5_mp", level.RNG_NORMAL);
+	item[13] = battleroyale\_auto::createWeapon("mag_m1014", "weap_raise_plr", "hud_icon_benelli_m4", "m1014_mp", level.RNG_BIG);
+	item[14] = battleroyale\_auto::createWeapon("mag_winchester1200", "weap_raise_plr", "hud_icon_winchester_1200", "winchester1200_mp", level.RNG_BIG);
+	// createSpecial(ent, sound, hud_icon, weapon_mp, rng)
+	item[15] = battleroyale\_auto::createSpecial("mag_flash_grenade", "grenade_pickup", "hud_icon_flash", "flash_grenade_mp", level.RNG_NORMAL);
+	item[16] = battleroyale\_auto::createSpecial("mag_smoke_grenade", "grenade_pickup", "hud_icon_smoke", "smoke_grenade_mp", level.RNG_SMALL);
+	item[17] = battleroyale\_auto::createSpecial("mag_bandage", "health_pickup_large", "hud_icon_band", "", level.RNG_NORMAL);
+	item[18] = battleroyale\_auto::createSpecial("mag_first_kit", "health_pickup_large", "hud_icon_kit", "", level.RNG_BIG);
+	item[19] = battleroyale\_auto::createSpecial("mag_frag_grenade", "grenade_pickup", "hud_icon_grenade", "frag_grenade_mp", level.RNG_SMALL);
 
 	for(i = 0; i < item.size; i++)
 		item[i] thread battleroyale\_auto::item_trig();
