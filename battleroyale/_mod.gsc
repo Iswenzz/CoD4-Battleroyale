@@ -41,6 +41,7 @@ main()
 	level.gamestarted = false;
 	level.allowSpawn = true;
 
+	level.RNG_EMPTY = 0;
 	level.RNG_SMALL = 1;
 	level.RNG_NORMAL = 3;
 	level.RNG_BIG = 5;
@@ -143,14 +144,14 @@ main()
 	level thread game_start();
 }
 
-newActionHud(x, y, shader)
+newActionHud(x, y, shader, w, d)
 {
 	hud = newClientHudElem(self);
 	hud.foreground = true;
 	hud.alignX = "left";
-	hud.alignY = "bottom";
+	hud.alignY = "top";
 	hud.horzAlign = "left";
-	hud.vertAlign = "bottom";
+	hud.vertAlign = "top";
 	hud.x = x;
 	hud.y = y;
 	hud.sort = 0;
@@ -161,9 +162,27 @@ newActionHud(x, y, shader)
 	hud.alpha = 1;
 	hud.archived = false;
 	if (isDefined(shader))
-		hud setShader(shader, 30, 30);
+		hud setShader(shader, w, d);
 	else
 		hud setText("");
+	return hud;
+}
+
+addHud(who, x, y, alpha, alignX, alignY, fontScale)
+{
+	if(isPlayer(who))
+		hud = newClientHudElem(who);
+	else
+		hud = newHudElem();
+	hud.x = x;
+	hud.y = y;
+	hud.alpha = alpha;
+	hud.alignX = alignX;
+	hud.alignY = alignY;
+	hud.horzAlign = alignX;
+    hud.vertAlign = alignY;
+	hud.fontScale = fontScale;
+	hud.hidewheninmenu = true;
 	return hud;
 }
 
@@ -172,16 +191,19 @@ doHudActionSlot()
 	self.hud_actionslot = [];
 	self.hud_actionslot_text = [];
 
-	self.hud_actionslot[0] = newActionHud(1, -1, "sr_grenade");
-	self.hud_actionslot_text[0] = newActionHud(5, -5);
-	self.hud_actionslot[1] = newActionHud(35, -4, "sr_flash");
-	self.hud_actionslot_text[1] = newActionHud(38, -5);
-	self.hud_actionslot[2] = newActionHud(61, -1, "sr_smoke");
-	self.hud_actionslot_text[2] = newActionHud(65, -5);
-	self.hud_actionslot[3] = newActionHud(1, -31, "sr_kit");
-	self.hud_actionslot_text[3] = newActionHud(5, -35);
-	self.hud_actionslot[4] = newActionHud(1, -61, "sr_band");
-	self.hud_actionslot_text[4] = newActionHud(5, -65);
+	self.hud_actionslot_background = addHud(self, 4, 4, 0.3, "left", "top", 1.8);
+	self.hud_actionslot_background setShader("black", 152, 30);
+
+	self.hud_actionslot[0] = newActionHud(5, 3, "sr_grenade", 30, 30);
+	self.hud_actionslot_text[0] = newActionHud(10, 3);
+	self.hud_actionslot[1] = newActionHud(35, 3, "sr_flash", 25, 30);
+	self.hud_actionslot_text[1] = newActionHud(40, 3);
+	self.hud_actionslot[2] = newActionHud(65, 3, "sr_smoke", 25, 30);
+	self.hud_actionslot_text[2] = newActionHud(70, 3);
+	self.hud_actionslot[3] = newActionHud(95, 3, "sr_kit", 30, 30);
+	self.hud_actionslot_text[3] = newActionHud(100, 3);
+	self.hud_actionslot[4] = newActionHud(125, 3, "sr_band", 30, 30);
+	self.hud_actionslot_text[4] = newActionHud(130, 3);
 
 	self.player_alive = newClientHudElem(self);
 	self.player_alive.foreground = true;
@@ -189,16 +211,16 @@ doHudActionSlot()
 	self.player_alive.alignY = "top";
 	self.player_alive.horzAlign = "left";
 	self.player_alive.vertAlign = "top";
-	self.player_alive.x = 14;
-	self.player_alive.y = 10;
+	self.player_alive.x = 10;
+	self.player_alive.y = 35;
 	self.player_alive.sort = 0;
-	self.player_alive.fontScale = 2.0;
+	self.player_alive.fontScale = 1.4;
 	self.player_alive.color = (1, 1, 1);
 	self.player_alive.font = "default";
 	self.player_alive.hidewheninmenu = true;
 	self.player_alive.alpha = 1;
 	self.player_alive.archived = false;
-	self.player_alive setText("");
+	self.player_alive.label = &"^7Players Alive: &&1";
 }
 
 bar_load(usage)
@@ -395,10 +417,10 @@ update_mag()
 
 			case "mp5_mp":
 			case "beretta_mp":
-			case "deserteagle_mp":
 				self setWeaponAmmoStock(currWeapon, self.pers["mag_9mm"]); 
 				break;
 
+			case "deserteagle_mp":
 			case "colt45_mp":
 				self setWeaponAmmoStock(currWeapon, self.pers["mag_45"]); 
 				break;
@@ -460,10 +482,10 @@ update_ammo_do(currWeapon, clip)
 
 		case "mp5_mp":
 		case "beretta_mp":
-		case "deserteagle_mp":
 			self.pers["mag_9mm"] -= int(weaponClipSize(currWeapon) - clip); 
 			break;
 
+		case "deserteagle_mp":
 		case "colt45_mp":
 			self.pers["mag_45"] -= int(weaponClipSize(currWeapon) - clip); 
 			break;
@@ -515,6 +537,7 @@ game_start()
 
 		players[i] clearLowerMessage();
 		players[i].origin = level.plane.origin + (0, 0, 700);
+		players[i] setPlayerAngles((level.plane.angles[0] + 50, level.plane.angles[1], level.plane.angles[2]));
 		players[i] linkTo(level.plane);
 		players[i] takeallweapons();
 		players[i] hide();
@@ -620,6 +643,7 @@ lobby_countdown_hud()
 
 zone_trig()
 {
+	level endon("game over");
 	wait 60;
 
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 2 MIN");
@@ -801,8 +825,11 @@ end_map()
 	{
 		if(isDefined(players[i]))
 		{
+			while(isDefined(players[i].killcam))
+				wait 0.2;
+
 			if(isAlive(players[i]))
-			players[i] suicide();
+				players[i] suicide();
 
 			players[i] spawnSpectator(level.spawn["spectator"].origin, level.spawn["spectator"].angles);
 			players[i] closeMenu();
@@ -819,6 +846,9 @@ end_map()
 	{
 		if(isDefined(players[i]))
 		{
+			while(isDefined(players[i].killcam))
+				wait 0.2;
+
 			if(isAlive(players[i]))
 				players[i] suicide();
 
@@ -837,6 +867,9 @@ end_map()
 	{
 		if(isDefined(players[i]))
 		{
+			while(isDefined(players[i].killcam))
+				wait 0.2;
+
 			if(isAlive(players[i]))
 				players[i] suicide();
 
@@ -924,7 +957,7 @@ player_eject()
 	wait 0.2;
 
 	if(isDefined(level.plane))
-		self.origin = level.plane.origin + (0, 0, 400);
+		self.origin = level.plane.origin + (0, 0, -100);
 	self attach("sr_parachute", "TAG_ORIGIN");
 	self playsound("parachute_start");
 
@@ -1215,7 +1248,7 @@ PlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 	self notify ("death_delay_finished");
 
 	if(game["state"] != "endmap")
-		self thread maps\mp\_killcam::killcam(attacker GetEntityNumber(), -1, sWeapon, 0, 0, 0, 10, undefined, attacker);
+		self thread maps\mp\_killcam::killcam(attacker GetEntityNumber(), -1, sWeapon, 0, 0, 0, 15, undefined, attacker);
 
 	if(game["state"] == "endmap")
 		thread maps\mp\_killcam::StartKillcam(attacker, sWeapon);
@@ -1306,6 +1339,8 @@ spawnPlayer(origin, angles)
 	self.pers["mag_bandage"] = 0;
 	self.pers["mag_first_kit"] = 0;
 	self.pers["mag_frag_grenade"] = 0;
+
+	self.pers["weapons"] = "";
 
 	self show();
 	self thread respawn();
@@ -1454,4 +1489,7 @@ cleanUp()
 
 	if(isDefined(self.player_alive))
 		self.player_alive destroy();
+
+	if(isDefined(self.hud_actionslot_background))
+		self.hud_actionslot_background destroy();
 }

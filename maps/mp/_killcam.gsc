@@ -21,7 +21,7 @@ StartKillcam( attacker, sWeapon )
 	for(i=0;i<players.size;i++)
 	{
 		players[i] setClientDvars( "cg_thirdperson", int( level.dvar["pi_kc_tp"] ), "r_blur", level.dvar["pi_kc_blur"] );
-		players[i] thread killcam( attacker GetEntityNumber(), -1, sWeapon, 0, 0, 0, 10, undefined, attacker );
+		players[i] thread killcam( attacker GetEntityNumber(), -1, sWeapon, 0, -15, 0, 15, undefined, attacker );
 	}
 }
 
@@ -139,7 +139,7 @@ waitKillcamTime()
 	self endon("disconnect");
 	self endon("end_killcam");
 
-	wait 10;
+	wait 15;
 	self notify("end_killcam");
 }
 
