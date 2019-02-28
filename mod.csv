@@ -31,6 +31,27 @@ localize,perks
 xmodel,sr_parachute
 xmodel,vehicle_ac130_low
 
+material,sr_grenade
+material,hud_icon_grenade
+material,sr_flash
+material,hud_icon_flash
+material,sr_smoke
+material,hud_icon_smoke
+material,sr_kit
+material,hud_icon_kit
+material,sr_band
+material,hud_icon_band
+material,sr_mag_5_56
+material,hud_icon_mag_5_56
+material,sr_mag_7_62
+material,hud_icon_mag_7_62
+material,sr_mag_10_gauge
+material,hud_icon_mag_10_gauge
+material,sr_mag_45
+material,hud_icon_mag_45
+material,sr_mag_9mm
+material,hud_icon_mag_9mm
+
 xmodel,body_mp_usmc_cqb
 xmodel,body_mp_sas_urban_sniper
 xmodel,collision_sphere
@@ -42,18 +63,12 @@ xmodel,sr_zonetrig_5k
 xmodel,sr_zonetrig_2k5
 xmodel,sr_zonetrig_250_red
 
-material,sr_zonetrig_red
 material,sr_dead
-material,sr_grenade
-material,sr_flash
-material,sr_smoke
-material,sr_kit
-material,sr_band
+material,sr_zonetrig_red
 material,default
 material,hit_direction
 material,caulk
 material,headicon_admin
-material,hud_icon_44
 material,hudstopwatch
 material,score_icon
 material,faction_128_sas_black
