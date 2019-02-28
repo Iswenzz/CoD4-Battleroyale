@@ -47,6 +47,8 @@ main()
 	level.RNG_BIG = 5;
 	level.RNG_RARE = 6;
 
+	level.br_item = [];
+
 	setDvar("jump_slowdownEnable", 1);
 	setDvar("bullet_penetrationEnabled", 1);
 	setDvar("g_friendlyPlayerCanBlock", 1);
@@ -74,11 +76,6 @@ main()
 	precacheShader("black");
 	precacheShader("white");
 	precacheShader("sr_dead");
-	precacheShader("sr_grenade");
-	precacheShader("sr_flash");
-	precacheShader("sr_smoke");
-	precacheShader("sr_kit");
-	precacheShader("sr_band");
 	precacheShader("killiconsuicide");
 	precacheShader("killiconmelee");
 	precacheShader("killiconheadshot");
@@ -89,14 +86,90 @@ main()
 	precacheShader("vip_status");
 	precacheShader("vip_gold");
 
+	precacheShader("sr_grenade");
+	precacheShader("hud_icon_grenade");
+	precacheShader("sr_flash");
+	precacheShader("hud_icon_flash");
+	precacheShader("sr_smoke");
+	precacheShader("hud_icon_smoke");
+	precacheShader("sr_kit");
+	precacheShader("hud_icon_kit");
+	precacheShader("sr_band");
+	precacheShader("hud_icon_band");
+	precacheShader("sr_mag_5_56");
+	precacheShader("hud_icon_mag_5_56");
+	precacheShader("sr_mag_7_62");
+	precacheShader("hud_icon_mag_7_62");
+	precacheShader("sr_mag_10_gauge");
+	precacheShader("hud_icon_mag_10_gauge");
+	precacheShader("sr_mag_45");
+	precacheShader("hud_icon_mag_45");
+	precacheShader("sr_mag_9mm");
+	precacheShader("hud_icon_mag_9mm");
+
+	precacheShader("hud_icon_30cal");
+	precacheShader("hud_icon_357");
+	precacheShader("hud_icon_40mm_grenade");
+	precacheShader("hud_icon_40mm_grenade_mp");
+	precacheShader("hud_icon_44");
+	precacheShader("hud_icon_ak47");
+	precacheShader("hud_icon_ak47_gp25");
+	precacheShader("hud_icon_ak74u");
+	precacheShader("hud_icon_artillery");
+	precacheShader("hud_icon_at4");
+	precacheShader("hud_icon_barrett50cal");
+	precacheShader("hud_icon_benelli_m4");
+	precacheShader("hud_icon_c4");
+	precacheShader("hud_icon_claymore");
+	precacheShader("hud_icon_cobra");
+	precacheShader("hud_icon_colt_45");
+	precacheShader("hud_icon_desert_eagle");
+	precacheShader("hud_icon_desert_eagle_gold");
+	precacheShader("hud_icon_dragunov");
+	precacheShader("hud_icon_g3");
+	precacheShader("hud_icon_g36c");
+	precacheShader("hud_icon_g36c_mp");
+	precacheShader("hud_icon_javelin");
+	precacheShader("hud_icon_m14");
+	precacheShader("hud_icon_m14_scoped");
+	precacheShader("hud_icon_m16a4");
+	precacheShader("hud_icon_m16a4_grenade");
+	precacheShader("hud_icon_m249saw");
+	precacheShader("hud_icon_m249saw_mounted");
+	precacheShader("hud_icon_m40a3");
+	precacheShader("hud_icon_m4carbine");
+	precacheShader("hud_icon_m4m203_silencer");
+	precacheShader("hud_icon_m4_grenadier");
+	precacheShader("hud_icon_m4_grunt");
+	precacheShader("hud_icon_m4_silencer");
+	precacheShader("hud_icon_m60e4");
+	precacheShader("hud_icon_m9beretta");
+	precacheShader("hud_icon_minigun");
+	precacheShader("hud_icon_mini_uzi");
+	precacheShader("hud_icon_mp44");
+	precacheShader("hud_icon_mp5");
+	precacheShader("hud_icon_mp5_silencer");
+	precacheShader("hud_icon_nvg");
+	precacheShader("hud_icon_p90");
+	precacheShader("hud_icon_pistol");
+	precacheShader("hud_icon_remington700");
+	precacheShader("hud_icon_rpd");
+	precacheShader("hud_icon_rpg");
+	precacheShader("hud_icon_rpg_dpad");
+	precacheShader("hud_icon_shotgun");
+	precacheShader("hud_icon_skorpian");
+	precacheShader("hud_icon_sniperrifle");
+	precacheShader("hud_icon_stinger");
+	precacheShader("hud_icon_usp_45");
+	precacheShader("hud_icon_winchester_1200");
+
 	PreCacheShellShock("flashbang");
+	PreCacheShellShock("death");
 
 	precacheStatusIcon("hud_status_connecting");
 	precacheStatusIcon("hud_status_dead");
-
 	precacheHeadIcon("headicon_admin");
 
-	precacheItem("deserteagle_mp");
 	precacheItem("dog_mp");
 
 	level.fx["endgame"] = loadFx("deathrun/endgame_fx");
@@ -181,6 +254,7 @@ addHud(who, x, y, alpha, alignX, alignY, fontScale)
 	hud.alignY = alignY;
 	hud.horzAlign = alignX;
     hud.vertAlign = alignY;
+    hud.font = "default";
 	hud.fontScale = fontScale;
 	hud.hidewheninmenu = true;
 	return hud;
@@ -191,9 +265,9 @@ doHudActionSlot()
 	self.hud_actionslot = [];
 	self.hud_actionslot_text = [];
 
+	// Action HUD
 	self.hud_actionslot_background = addHud(self, 4, 4, 0.3, "left", "top", 1.8);
 	self.hud_actionslot_background setShader("black", 152, 30);
-
 	self.hud_actionslot[0] = newActionHud(5, 3, "sr_grenade", 30, 30);
 	self.hud_actionslot_text[0] = newActionHud(10, 3);
 	self.hud_actionslot[1] = newActionHud(35, 3, "sr_flash", 25, 30);
@@ -205,22 +279,14 @@ doHudActionSlot()
 	self.hud_actionslot[4] = newActionHud(125, 3, "sr_band", 30, 30);
 	self.hud_actionslot_text[4] = newActionHud(130, 3);
 
-	self.player_alive = newClientHudElem(self);
-	self.player_alive.foreground = true;
-	self.player_alive.alignX = "left";
-	self.player_alive.alignY = "top";
-	self.player_alive.horzAlign = "left";
-	self.player_alive.vertAlign = "top";
-	self.player_alive.x = 10;
-	self.player_alive.y = 35;
-	self.player_alive.sort = 0;
-	self.player_alive.fontScale = 1.4;
-	self.player_alive.color = (1, 1, 1);
-	self.player_alive.font = "default";
-	self.player_alive.hidewheninmenu = true;
-	self.player_alive.alpha = 1;
-	self.player_alive.archived = false;
+	// Player Alive HUD
+	self.player_alive = addHud(self, 10, 35, 1, "left", "top", 1.4);
 	self.player_alive.label = &"^7Players Alive: &&1";
+
+	// Item Hint HUD
+	self.item_hint = addHud(self, 0, -150, 1, "center", "bottom", 1.5);
+	self.item_hint setShader("", 40, 40);
+	self.item_hint_text = addHud(self, 0, -200, 1, "center", "bottom", 1.5);
 }
 
 bar_load(usage)
@@ -651,7 +717,7 @@ zone_trig()
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
 	wait 30;
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
-	thread zone_trig_on("sr_zonetrig_40k", 40000, 3);
+	thread zone_trig_on("sr_zonetrig_40k", 40000, 6);
 
 	wait 10;
 
@@ -663,7 +729,7 @@ zone_trig()
 	wait 30;
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
 	level notify("zone_trig_respawn");
-	thread zone_trig_on("sr_zonetrig_20k", 20000, 2);
+	thread zone_trig_on("sr_zonetrig_20k", 20000, 4);
 
 	wait 10;
 
@@ -673,7 +739,7 @@ zone_trig()
 	wait 30;
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
 	level notify("zone_trig_respawn");
-	thread zone_trig_on("sr_zonetrig_10k", 10000, 1);
+	thread zone_trig_on("sr_zonetrig_10k", 10000, 2);
 
 	wait 10;
 
@@ -683,7 +749,7 @@ zone_trig()
 	wait 30;
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
 	level notify("zone_trig_respawn");
-	thread zone_trig_on("sr_zonetrig_5k", 5000, 0.5);
+	thread zone_trig_on("sr_zonetrig_5k", 5000, 1);
 
 	wait 10;
 
@@ -693,7 +759,7 @@ zone_trig()
 	wait 30;
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
 	level notify("zone_trig_respawn");
-	thread zone_trig_on("sr_zonetrig_2k5", 2500, 0.5);
+	thread zone_trig_on("sr_zonetrig_2k5", 2500, 1);
 }
 
 zone_trig_on(model, radius, damage_time)
@@ -1430,6 +1496,11 @@ check_stuff()
 			self.hud_actionslot_text[3] setValue(self.pers["mag_first_kit"]);
 			self.hud_actionslot_text[4] setValue(self.pers["mag_bandage"]);
 			if (isDefined(level.jumpers)) self.player_alive setValue(level.jumpers);
+			if (!isDefined(self.touching_item)) 
+			{
+				self.item_hint setShader("", 40, 40);
+				self.item_hint_text setText(" ");
+			}
 		}
 		wait .05;
 	}
