@@ -40,6 +40,15 @@ createWeapon(ent, sound, weapon, rng)
 	return item;
 }
 
+createDropWeapon(sound, weapon)
+{
+	item = spawnStruct();
+	item.type = "weapon";
+	item.sound = sound;
+	item.weapon = weapon;
+	return item;
+}
+
 createSpecial(ent, sound, weapon, rng)
 {
 	item = spawnStruct();
@@ -64,7 +73,6 @@ item_trig()
 			item_trig[i] = spawn("trigger_radius", item[i].origin, v, v, v);
 			item_trig[i].radius = v;
 			item_trig[i] thread item_setup(self, item[i]);
-			item_trig[i] SetCursorHint("HINT_ACTIVATE");
 		}
 		else
 			item[i] delete();
@@ -84,8 +92,32 @@ item_setup(item, model)
 	}
 }
 
+refreshWeaponsList()
+{
+	self endon("death");
+	self endon("disconnect");
+	wait 0.1;
+
+	list = self getWeaponsList();
+	self.pers["weapons"] = "";
+	for(i = 0; i < list.size; i++)
+	{
+		switch(list[i])
+		{
+			case "frag_grenade_mp":
+			case "smoke_grenade_mp":
+			case "flash_grenade_mp":
+			continue;
+		}
+		self.pers["weapons"] += list[i] + ";";
+	}
+}
+
 item_give(trig, model, item)
 {
+	self endon("death");
+	self endon("disconnect");
+
 	if (item.type == "ammo")
 	{
 		self.pers[item.ent] += item.count;
@@ -94,9 +126,44 @@ item_give(trig, model, item)
 
 	else if (item.type == "weapon")
 	{
+		tok = [];
+		if(self HasWeapon("dog_mp")) // remove default weapon when you have the first gun
+			self TakeWeapon("dog_mp");
+
+		self refreshWeaponsList();
+		if(self hasWeapon(item.weapon) || tok.size > 3)
+			return;
+
+		tok = strTok(self.pers["weapons"], ";");
+
+		if(tok.size == 3) // drop current gun if you have 3 weapons
+		{
+			new_model = spawn("script_model", model.origin);
+			new_model.angles = (0, 270, 90);
+			new_model setModel(getWeaponModel(self getCurrentWeapon()));
+			new_item = createDropWeapon("amunition", self getCurrentWeapon());
+
+			self TakeWeapon(self getCurrentWeapon());
+			self giveWeapon(item.weapon);
+			self switchToWeapon(item.weapon);
+			self playSound(item.sound);
+			self thread refreshWeaponsList();
+
+			model delete();
+			trig delete();
+
+			wait 0.1;
+			v = 10;
+			new_trig = spawn("trigger_radius", new_model.origin, v, v, v);
+			new_trig.radius = v;
+			new_trig thread item_setup(new_item, new_model);
+			return;
+		}
+
 		self giveWeapon(item.weapon);
 		self switchToWeapon(item.weapon);
 		self playSound(item.sound);
+		self thread refreshWeaponsList();
 	}
 
 	else if (item.type == "special")

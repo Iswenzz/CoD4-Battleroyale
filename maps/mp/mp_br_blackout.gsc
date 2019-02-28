@@ -65,6 +65,7 @@ main()
 random_weapons()
 {
 	level waittill("br_started");
+	wait 5;
 
 	item = [];
 	// createAmmo(ent, sound, giveammo, rng)
