@@ -75,6 +75,13 @@ main()
 	precacheModel("sr_zonetrig_5k");
 	precacheModel("sr_zonetrig_2k5");
 	precacheModel("sr_zonetrig_250_red");
+	precacheModel("sr_5_45");
+	precacheModel("sr_7_62");
+	precacheModel("sr_45");
+	precacheModel("sr_gauge");
+	precacheModel("sr_9mm");
+	precacheModel("sr_bandage");
+	precacheModel("sr_first_kit");
 
 	// TEAM
 	precacheShader("sr_dead");
@@ -189,7 +196,7 @@ main()
 
 	level.text["waiting_for_players"] = "Waiting for more players to start...";
 
-	//thread speedrun\_speedrun::speedrunstart();
+	// thread speedrun\_speedrun::speedrunstart();
 
 	thread battleroyale\_menus::init();
 	thread battleroyale\_rank::init();
@@ -703,7 +710,7 @@ playerConnect()
 	self.pShortGuid = getSubStr(self.guid, 12, 19);
 	self setcontents(0);
 
-	//self thread speedrun\_speedrun::srOnConnect();
+	// self thread speedrun\_speedrun::srOnConnect();
 
 	if(!isDefined(self.name))
 		self.name = "undefined name";
