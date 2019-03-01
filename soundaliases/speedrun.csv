@@ -1,0 +1,17 @@
+name,sequence,file,vol_min,vol_max,vol_mod,pitch_min,pitch_max,dist_min,dist_max,channel,type,probability,loop,masterslave,loadspec,subtitle,compression,secondaryaliasname,volumefalloffcurve,startdelay,speakermap,reverb,lfe percentage
+
+change_way,,speedrun/change_way.wav,1,1,,,,500000,,local,streamed
+end_timer,,speedrun/end_timer.wav,1,1,,,,500000,,local,streamed
+wr_sound,,speedrun/wr_sound.wav,1,1,,,,500000,,local,streamed
+
+# Item Pick Up sounds,,,,,,,,,,
+health_pickup_small,,speedrun/pu_health01.wav,0.45,0.53,na,0.9,0.9,60,120,item
+health_pickup_medium,,speedrun/pu_health01.wav,0.45,0.53,na,0.9,0.9,60,120,item
+health_pickup_large,,speedrun/pu_health01.wav,0.45,0.53,na,0.9,0.9,60,120,item
+grenade_pickup,,speedrun/pu_grenade.wav,0.58,0.71,na,0.9,0.9,60,120,item
+
+# New pulse text,,,,,,,,,,,,,,,,,,,,,,,,,
+ui_pulse_text_type,,user_interface/ui_computer_text_blip1x.wav,0.27,0.36,interface,0.93,0.96,500000,,menu,,,,,!coup,,,,,,,nowetlevel fulldrylevel,,,
+ui_pulse_text_type,,user_interface/ui_computer_text_blip1x.wav,0.17,0.26,interface,0.93,0.96,500000,,menu,,,,,coup,,,,,,,nowetlevel fulldrylevel,,,
+ui_pulse_text_delete,,user_interface/ui_computer_text_delete1.wav,0.85,0.85,interface,0.95,1.05,500000,,menu,,,,,!coup,,,,,,,nowetlevel fulldrylevel,,,
+ui_pulse_text_delete,,user_interface/ui_computer_text_delete1.wav,0.75,0.75,interface,0.95,1.05,500000,,menu,,,,,coup,,,,,,,nowetlevel fulldrylevel,,,

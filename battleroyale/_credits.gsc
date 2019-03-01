@@ -32,9 +32,9 @@ main()
 
 	if(isDefined(level.map_authors))
 	{
-		thread showCredit("Map Created by:", 2, 200, 9);
+		thread showCredit("Map Created by:", 2, 200, 6);
 		wait 1;
-		thread showCredit("" + level.map_authors, 1.8, 220, 8);
+		thread showCredit("" + level.map_authors, 1.8, 220, 5);
 		wait 3;
 	}
 
@@ -59,7 +59,7 @@ showCredit(text, scale, y, time)
 	end_text.vertAlign = "top";
 	end_text.x = 0;
 	end_text.y = y;
-	end_text.sort = -1; //-3
+	end_text.sort = -1;
 	end_text.glowColor = (255/255, 0/255, 50/255);
 	end_text.glowAlpha = 1;
 	end_text.alpha = 0;

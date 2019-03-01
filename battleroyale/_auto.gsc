@@ -144,7 +144,7 @@ item_give(trig, model, item)
 	if (item.type == "ammo")
 	{
 		self.pers[item.ent] += item.count;
-		self playSound(item.sound);
+		self playLocalSound(item.sound);
 	}
 
 	else if (item.type == "weapon")
@@ -169,7 +169,7 @@ item_give(trig, model, item)
 			self TakeWeapon(self getCurrentWeapon());
 			self giveWeapon(item.weapon);
 			self switchToWeapon(item.weapon);
-			self playSound(item.sound);
+			self playLocalSound(item.sound);
 			self thread refreshWeaponsList();
 
 			model delete();
@@ -185,7 +185,7 @@ item_give(trig, model, item)
 
 		self giveWeapon(item.weapon);
 		self switchToWeapon(item.weapon);
-		self playSound(item.sound);
+		self playLocalSound(item.sound);
 		self thread refreshWeaponsList();
 	}
 
@@ -193,7 +193,7 @@ item_give(trig, model, item)
 	{
 		self.pers[item.ent]++;
 		self giveWeapon(item.weapon);
-		self playSound(item.sound);
+		self playLocalSound(item.sound);
 	}
 
 	model delete();

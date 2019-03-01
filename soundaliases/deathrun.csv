@@ -1,0 +1,23 @@
+name,sequence,file,vol_min,vol_max,vol_mod,pitch_min,pitch_max,dist_min,dist_max,channel,type,probability,loop,masterslave,loadspec,subtitle,compression,secondaryaliasname,volumefalloffcurve,startdelay,speakermap,reverb,lfe percentage
+
+change_way,,deathrun/change_way.wav,1,1,,,,500000,,local,streamed
+br_win,,deathrun/win.mp3,1,1,,,,500000,,local,streamed
+end_timer,,deathrun/end_timer.wav,1,1,,,,500000,,local,streamed
+wr_sound,,deathrun/wr_sound.wav,1,1,,,,500000,,local,streamed
+scn_dcwhite_flare_end_cloth,,deathrun/scn_dcwhite_flare_end_cloth.wav,0.2,0.2,,,,200,300,auto,,,looping,master,all_mp
+plane_loop,,deathrun/plane_loop.wav,1,1,,,,400,3000,auto,,,looping,master,all_mp
+insertion_strike,,deathrun/insertion_strike.wav,0.6,0.6,,,,200,300,auto,streamed
+health_pickup_large,,deathrun/pu_health01.mp3,0.3,0.3,,,,200,300,auto,streamed
+grenade_pickup,,deathrun/pu_grenade.mp3,0.3,0.3,,,,200,300,auto,streamed
+bandage,,deathrun/bandage.mp3,0.3,0.3,,,,200,300,auto,streamed
+amunition,,deathrun/amunition.mp3,0.3,0.3,,,,200,300,auto,streamed
+parachute_start,,deathrun/parachute_start.mp3,1,1,,,,200,800,auto,streamed
+parachute_end,,deathrun/parachute_end.mp3,1,1,,,,200,800,auto,streamed
+wpfoly_uav_control_unit_pullout,,weapons/unit/wpfoly_uav_control_unit_pullout.wav,1,1,,,,200,300,auto,streamed
+wpfoly_uav_control_unit_putaway,,weapons/unit/wpfoly_uav_control_unit_putaway.wav,1,1,,,,200,300,auto,streamed
+
+# New pulse text,,,,,,,,,,,,,,,,,,,,,,,,,
+ui_pulse_text_type,,user_interface/ui_computer_text_blip1x.wav,0.27,0.36,interface,0.93,0.96,500000,,menu,,,,,!coup,,,,,,,nowetlevel fulldrylevel,,,
+ui_pulse_text_type,,user_interface/ui_computer_text_blip1x.wav,0.17,0.26,interface,0.93,0.96,500000,,menu,,,,,coup,,,,,,,nowetlevel fulldrylevel,,,
+ui_pulse_text_delete,,user_interface/ui_computer_text_delete1.wav,0.85,0.85,interface,0.95,1.05,500000,,menu,,,,,!coup,,,,,,,nowetlevel fulldrylevel,,,
+ui_pulse_text_delete,,user_interface/ui_computer_text_delete1.wav,0.75,0.75,interface,0.95,1.05,500000,,menu,,,,,coup,,,,,,,nowetlevel fulldrylevel,,,

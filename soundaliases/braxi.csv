@@ -1,0 +1,34 @@
+name,sequence,file,vol_min,vol_max,vol_mod,pitch_min,pitch_max,dist_min,dist_max,channel,type,probability,loop,masterslave,loadspec,subtitle,compression,secondaryaliasname,volumefalloffcurve,startdelay,speakermap,reverb,lfe percentage,center percentage,platform,envelop_min,envelop_max,envelop percentage
+
+end_round_1,,misc/end_round_1.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+end_round_2,,misc/end_round_2.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+end_round_3,,misc/end_round_3.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+end_round_4,,misc/end_round_4.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+end_round_5,,misc/end_round_5.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+end_round_6,,misc/end_round_6.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+end_round_7,,misc/end_round_7.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+end_round_8,,misc/end_round_8.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+end_round_9,,misc/end_round_9.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+end_round_10,,misc/end_round_10.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+
+party_1,,misc/party1.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+party_2,,misc/party2.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+party_3,,misc/party3.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+party_4,,misc/party4.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+party_5,,misc/party5.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+party_6,,misc/party6.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+party_7,,misc/party7.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+
+ee1,,misc/ee1.wav,1,1,na,1,1,,,auto2d,loaded,,,,all_mp,,,,,,,,,,,,,
+
+
+end_map,,misc/endmap.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+
+#end_map,,misc/endmap.wav,1.0,1.0,,,,100000,100001,auto,streamed,,looping,,all_mp,,,,,,,,,,,,,
+sprayer,,misc/sprayer.wav,1.0,1.0,,,,240,300,auto,loaded,,nonlooping,,all_mp,,,,,,,,,,,,,
+gib_splat,,misc/gib_splat.wav,1.0,1.0,,,,400,800,auto,loaded,,nonlooping,,all_mp,,,,,,,,,,,,,
+
+last_alive,,misc/last_alive.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+first_blood,,misc/firstblood.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
+
+wtf,,misc/wtf.mp3,1.0,1.0,,,,1200,2000,auto,streamed,,nonlooping,,all_mp,,,,,,,,,,,,,

@@ -115,9 +115,9 @@
 			decoration
 		}
 				
-		CHOICE_BUTTON_VIS( 1, "[Join] Sr- ^5Death^7run Serv", exec "connect 213.32.18.205:28962";, when( !localvarBool( ui_hideBack ) ) )
-		CHOICE_BUTTON_VIS( 2, "[Join] Sr- ^5Speed^7run Serv", exec "connect 213.32.18.205:28960";, when( !localvarBool( ui_hideBack ) ) )
-		CHOICE_BUTTON_VIS( 3, "[Join] Sr- ^5Battle^7Royale Serv", exec "connect 213.32.18.205:28964";, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_BUTTON_VIS( 1, "Sr- ^5Death^7run", exec "connect 213.32.18.205:28962";, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_BUTTON_VIS( 2, "Sr- ^5Speed^7run", exec "connect 213.32.18.205:28960";, when( !localvarBool( ui_hideBack ) ) )
+		CHOICE_BUTTON_VIS( 3, "Sr- ^5Battle^7Royale", exec "connect 213.32.18.205:28964";, when( !localvarBool( ui_hideBack ) ) )
 		CHOICE_BUTTON_VIS( 4, "@MENU_JOIN_GAME", open pc_join_unranked;, when( !localvarBool( ui_hideBack ) ) )
 		
 		CHOICE_BUTTON_VIS( 5, "@MENU_SELECT_PROFILE", setdvar ui_playerProfileAlreadyChosen 0; open player_profile;, when( !localvarBool( ui_hideBack ) ) )

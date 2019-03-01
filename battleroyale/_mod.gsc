@@ -21,8 +21,6 @@ Email Pro: suxlolz@outlook.fr
 #include battleroyale\_common;
 #include battleroyale\_dvar;
 
-#include speedrun\_speedrun;
-
 main() 
 {
 	level.text = [];
@@ -55,9 +53,14 @@ main()
 
 	game["state"] = "readyup";
 
+	precacheShader("black");
+	precacheShader("white");
+
+	// Menus
 	precacheMenu("clientcmd");
 	precacheMenu("sr_map_menu");
 
+	// Models
 	precacheModel("german_sheperd_dog");
 	precacheModel("vehicle_ac130_low");
 	precacheModel("viewmodel_hands_zombie");
@@ -73,8 +76,7 @@ main()
 	precacheModel("sr_zonetrig_2k5");
 	precacheModel("sr_zonetrig_250_red");
 
-	precacheShader("black");
-	precacheShader("white");
+	// TEAM
 	precacheShader("sr_dead");
 	precacheShader("killiconsuicide");
 	precacheShader("killiconmelee");
@@ -86,6 +88,7 @@ main()
 	precacheShader("vip_status");
 	precacheShader("vip_gold");
 
+	// Item
 	precacheShader("sr_grenade");
 	precacheShader("hud_icon_grenade");
 	precacheShader("sr_flash");
@@ -100,13 +103,14 @@ main()
 	precacheShader("hud_icon_mag_5_56");
 	precacheShader("sr_mag_7_62");
 	precacheShader("hud_icon_mag_7_62");
-	precacheShader("sr_mag_10_gauge");
-	precacheShader("hud_icon_mag_10_gauge");
+	precacheShader("sr_mag_12_gauge");
+	precacheShader("hud_icon_mag_12_gauge");
 	precacheShader("sr_mag_45");
 	precacheShader("hud_icon_mag_45");
 	precacheShader("sr_mag_9mm");
 	precacheShader("hud_icon_mag_9mm");
 
+	// Stock Item
 	precacheShader("hud_icon_30cal");
 	precacheShader("hud_icon_357");
 	precacheShader("hud_icon_40mm_grenade");
@@ -163,6 +167,7 @@ main()
 	precacheShader("hud_icon_usp_45");
 	precacheShader("hud_icon_winchester_1200");
 
+	// Shock
 	PreCacheShellShock("flashbang");
 	PreCacheShellShock("death");
 
@@ -172,6 +177,7 @@ main()
 
 	precacheItem("dog_mp");
 
+	// FXs
 	level.fx["endgame"] = loadFx("deathrun/endgame_fx");
 	level.fx["gib_splat"] = loadFx("deathrun/gib_splat");
 	level.fx["light_blink"] = loadFx("misc/light_c4_blink");
@@ -183,11 +189,10 @@ main()
 
 	level.text["waiting_for_players"] = "Waiting for more players to start...";
 
-	thread speedrunstart();
+	//thread speedrun\_speedrun::speedrunstart();
 
 	thread battleroyale\_menus::init();
 	thread battleroyale\_rank::init();
-	thread speedrun\_playeroptions::init();
 	thread battleroyale\_health::init();
 	thread battleroyale\_lobby::init();
 
@@ -198,7 +203,6 @@ main()
 	thread maps\mp\gametypes\_gameobjects::init();
 	thread maps\mp\gametypes\_spawnlogic::init();
 	thread maps\mp\gametypes\_oldschool::deletePickups();
-	thread maps\mp\gametypes\_hud::init();
 	thread maps\mp\gametypes\_quickmessages::init();
 
 	setdvar("g_TeamName_Allies", "^9Battle");
@@ -215,49 +219,6 @@ main()
 	setdvar("g_teamColor_EnemyTeam", "1 .45 .5" );	
 
 	level thread game_start();
-}
-
-newActionHud(x, y, shader, w, d)
-{
-	hud = newClientHudElem(self);
-	hud.foreground = true;
-	hud.alignX = "left";
-	hud.alignY = "top";
-	hud.horzAlign = "left";
-	hud.vertAlign = "top";
-	hud.x = x;
-	hud.y = y;
-	hud.sort = 0;
-	hud.fontScale = 1.4;
-	hud.color = (1, 1, 1);
-	hud.font = "objective";
-	hud.hidewheninmenu = true;
-	hud.alpha = 1;
-	hud.archived = false;
-	if (isDefined(shader))
-		hud setShader(shader, w, d);
-	else
-		hud setText("");
-	return hud;
-}
-
-addHud(who, x, y, alpha, alignX, alignY, fontScale)
-{
-	if(isPlayer(who))
-		hud = newClientHudElem(who);
-	else
-		hud = newHudElem();
-	hud.x = x;
-	hud.y = y;
-	hud.alpha = alpha;
-	hud.alignX = alignX;
-	hud.alignY = alignY;
-	hud.horzAlign = alignX;
-    hud.vertAlign = alignY;
-    hud.font = "default";
-	hud.fontScale = fontScale;
-	hud.hidewheninmenu = true;
-	return hud;
 }
 
 doHudActionSlot()
@@ -289,290 +250,16 @@ doHudActionSlot()
 	self.item_hint_text = addHud(self, 0, -200, 1, "center", "bottom", 1.5);
 }
 
-bar_load(usage)
-{
-	self endon("death");
-	self endon("disconnect");
-	self endon("progress_done");
-
-	self.temp_ent = spawn("script_origin",self.origin);
-	self linkTo(self.temp_ent);
-	self disableWeapons();
-
-	self playSound("bandage");
-
-	barsize = 288;
-	bar_time = 5;
-	hurt_time = 4;
-
-	while(1)
-	{
-		wait .05;
-
-		if(isDefined(self.in_load))
-			return;		
-
-		self.in_load = true;
-		level.barincrement = (barsize / (20.0 * bar_time));
-
-		if(!isDefined(self.progressbackground))
-		{
-			self.progressbackground = newClientHudElem(self);				
-			self.progressbackground.alignX = "center";
-			self.progressbackground.alignY = "middle";
-			self.progressbackground.x = 320;
-			self.progressbackground.y = 385;
-			self.progressbackground.alpha = 0.5;
-		}
-
-		self.progressbackground setShader("black", (barsize + 4), 14);		
-
-		if(!isDefined(self.progressbar))
-		{
-			self.progressbar = newClientHudElem(self);				
-			self.progressbar.alignX = "left";
-			self.progressbar.alignY = "middle";
-			self.progressbar.x = (320 - (barsize / 2.0));
-			self.progressbar.y = 385;
-		}
-
-		self.progressbar setShader("white", 0, 8);			
-		self.progressbar scaleOverTime(bar_time, barsize, 8);
-
-		self.progresstime = 0;
-		d = 0;
-		f = 0;
-
-		while(isalive(self) && (self.progresstime < bar_time))
-		{		
-			d ++;
-			f ++;
-			
-			wait 0.05;
-			self.progresstime += 0.05;
-
-			if(self.progresstime >= hurt_time)					
-			{
-				if(f >= 4)
-					f = 0;
-			}
-			if(isalive(self) && self meleebuttonpressed())
-			{   // load cancel
-				self.progressbackground destroy();
-				self.progressbar destroy();
-				wait 0.025;
-				self.in_load = undefined;
-				self enableWeapons();
-				self unlink();
-				self.temp_ent delete();
-				self notify("progress_done");
-			}	
-		}
-
-		if(isalive(self) && (self.progresstime >= bar_time))
-		{   // load done
-			self.progressbackground destroy();
-			self.progressbar destroy();
-			wait 0.025;
-			self.in_load = undefined;
-			self enableWeapons();
-			self unlink();
-			self.temp_ent delete();
-
-			if(usage == "bandage")
-			{
-				self.health += 40;
-				self.pers["mag_bandage"]--;
-			}
-			if(usage == "first_kit")
-			{
-				self.health += 150;
-				self.pers["mag_first_kit"]--;
-			}
-			self notify("progress_done");
-		}
-		wait .05;
-	}
-}
-
-drawCircle(start, radius, height)
-{
-    points = [];
-    r = radius;
-    z = start[2];
-    idx = 0;
-
-    for(q = 0; q < 2; q++)
-    {
-        h = start[0];
-        k = start[1];
-
-        for(i = 0; i < 360; i++)
-        {
-            x = h + r * Cos(i);
-            y = k - r * Sin(i);
-            points[idx] = (x,y,z);
-            iprintln(z);
-            idx++;
-        }
-
-        z += height;
-        for(i=0; i<points.size-1; i++)
-            thread drawLine(points[i], points[i + 1], (1, 0, 0), false);
-    }
-}
-
-drawLine(start, end, colour, depth)
-{
-    while(1)
-    {
-        /#
-        line(start, end, colour, depth);
-        #/
-
-        wait 0.05;
-    }
-}
-
-update_projectile()
-{
-	self endon("disconnect");
-	self endon("death");
-
-	while(isDefined(self))
-	{
-		self waittill ("grenade_fire", grenade, weaponName);
-		switch(weaponName)
-		{
-			case "frag_grenade_short_mp":
-			case "frag_grenade_mp":
-				self.pers["mag_frag_grenade"]--;
-				break;
-
-			case "flash_grenade_mp":
-				self.pers["mag_flash_grenade"]--;
-				break;
-
-			case "smoke_grenade_mp":
-				self.pers["mag_smoke_grenade"]--;
-				break;
-		}
-		wait 0.05;
-	}
-}
-
-update_mag()
-{
-	self endon("disconnect");
-	self endon("death");
-
-	while(isDefined(self))
-	{
-		currWeapon = self GetCurrentWeapon();
-		switch(currWeapon)
-		{
-			case "mp44_mp":
-			case "dragunov_mp":
-			case "ak47_mp": 
-				self setWeaponAmmoStock(currWeapon, self.pers["mag_7_62"]); 
-				break;
-
-			case "m16_mp": 
-				self setWeaponAmmoStock(currWeapon, self.pers["mag_5_45"]); 
-				break;
-
-			case "mp5_mp":
-			case "beretta_mp":
-				self setWeaponAmmoStock(currWeapon, self.pers["mag_9mm"]); 
-				break;
-
-			case "deserteagle_mp":
-			case "colt45_mp":
-				self setWeaponAmmoStock(currWeapon, self.pers["mag_45"]); 
-				break;
-
-			case "m1014_mp":
-			case "winchester1200_mp":
-				self setWeaponAmmoStock(currWeapon, self.pers["mag_12_gauge"]); 
-				break;
-		}
-		wait 0.05;
-	}
-}
-
-update_ammo()
-{
-	self endon("disconnect");
-	self endon("death");
-
-	self thread update_mag();
-	self thread update_projectile();
-
-	while(isDefined(self))
-	{
-		self waittill("reload_start");
-		self update_ammo_check();
-	}
-}
-
-update_ammo_check()
-{
-	self endon("disconnect");
-	self endon("death");
-	self endon("weapon_change");
-
-	currWeapon = self GetCurrentWeapon();
-	clip = self getWeaponAmmoClip(currWeapon);
-
-	self waittill("reload");
-
-	self thread update_ammo_do(currWeapon, clip);
-}
-
-update_ammo_do(currWeapon, clip)
-{
-	self endon("disconnect");
-	self endon("death");
-
-	switch(currWeapon)
-	{
-		case "mp44_mp":
-		case "dragunov_mp":
-		case "ak47_mp": 
-			self.pers["mag_7_62"] -= int(weaponClipSize(currWeapon) - clip); 
-			break;
-
-		case "m16_mp": 
-			self.pers["mag_5_45"] -= int(weaponClipSize(currWeapon) - clip); 
-			break;
-
-		case "mp5_mp":
-		case "beretta_mp":
-			self.pers["mag_9mm"] -= int(weaponClipSize(currWeapon) - clip); 
-			break;
-
-		case "deserteagle_mp":
-		case "colt45_mp":
-			self.pers["mag_45"] -= int(weaponClipSize(currWeapon) - clip); 
-			break;
-
-		case "m1014_mp":
-		case "winchester1200_mp":
-			self.pers["mag_12_gauge"] -= int(weaponClipSize(currWeapon) - clip); 
-			break;
-	}
-}
-
 game_start()
 {
 	tp = getTp();
 	thread getZoneTrig();
 
-	thread watch_lobby();
+	thread battleroyale\_lobby:: watch_lobby();
 	level waittill("game_started");
-	thread lobby_countdown();
+	thread battleroyale\_lobby::lobby_countdown();
 
-	countdown();
+	battleroyale\_lobby::countdown();
 	level.gamestarted = true;
 	level notify("br_started");
 
@@ -591,11 +278,9 @@ game_start()
 	level.plane setModel("vehicle_ac130_low");
 	level.plane.angles = tp[0].angles;
 	level.plane moveTo(tp[0].origin, 0.05);
-
 	wait 0.2;
 
 	players = getAllPlayers();
-
 	for(i=0;i<players.size;i++)
 	{
 		if(players[i].pers["team"] != "allies")
@@ -611,100 +296,12 @@ game_start()
 	}
 
 	wait 0.2;
-
 	level.plane moveTo(tp[1].origin, 60);
 	level.plane playLoopSound("plane_loop");
 
 	wait 60;
-
 	level.plane stopLoopSound();
 	level.plane delete();
-}
-
-watch_lobby()
-{
-	while(!level.gamestarted)
-	{
-		wait 0.2;
-
-		level.jumper = [];
-		level.jumpers = 0;
-		level.deada = 0;
-		level.totalPlayers = 0;
-		level.totalPlayingPlayers = 0;
-
-		players = getAllPlayers();
-		if(players.size > 0)
-		{
-			for(i = 0; i < players.size; i++)
-			{
-				level.totalPlayers++;
-
-				if(isDefined(players[i].pers["team"]))	
-				{
-					if(players[i] isReallyAlive())
-						level.totalPlayingPlayers++;
-
-					if(players[i].pers["team"] == "allies" && players[i] isReallyAlive())
-					{
-						level.jumpers++;
-						level.jumper[level.jumper.size] = players[i];
-					}
-					if(players[i].pers["team"] == "axis" && players[i] isReallyAlive())
-						level.deada++;
-				}
-			}
-		}
-	}
-}
-
-waitForPlayers(requiredPlayersCount)
-{
-	while(true)
-	{
-		wait 0.5;
-
-		if(isDefined(level.jumpers) && level.jumpers >= requiredPlayersCount)
-			break;
-	}
-}
-
-check_leave()
-{
-	while(!level.gamestarted)
-	{
-		wait 0.5;
-
-		if(isDefined(level.jumpers) && level.jumpers <= 1)
-			map_restart(false);
-	}
-}
-
-countdown()
-{
-	while(level.game_countdown != 0)
-	{
-		level.game_countdown -= 1;
-		wait 1;
-	}
-}
-
-lobby_countdown()
-{
-	players = getAllPlayers();
-	for(i=0;i<players.size;i++)
-		players[i] thread lobby_countdown_hud();
-}
-
-lobby_countdown_hud()
-{
-	self endon("disconnect");
-
-	while(level.game_countdown != 0)
-	{
-		self setLowerMessage(int(level.game_countdown)-1);
-		wait .2;
-	}
 }
 
 zone_trig()
@@ -718,7 +315,6 @@ zone_trig()
 	wait 30;
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
 	thread zone_trig_on("sr_zonetrig_40k", 40000, 6);
-
 	wait 10;
 
 	final_zone = spawn("script_model", level.picked_zone_trig);
@@ -730,7 +326,6 @@ zone_trig()
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
 	level notify("zone_trig_respawn");
 	thread zone_trig_on("sr_zonetrig_20k", 20000, 4);
-
 	wait 10;
 
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
@@ -740,7 +335,6 @@ zone_trig()
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
 	level notify("zone_trig_respawn");
 	thread zone_trig_on("sr_zonetrig_10k", 10000, 2);
-
 	wait 10;
 
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
@@ -750,7 +344,6 @@ zone_trig()
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
 	level notify("zone_trig_respawn");
 	thread zone_trig_on("sr_zonetrig_5k", 5000, 1);
-
 	wait 10;
 
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
@@ -765,7 +358,6 @@ zone_trig()
 zone_trig_on(model, radius, damage_time)
 {
 	level endon("zone_trig_respawn");
-
 	wait 0.5;
 
 	current_zone_trig = spawn("trigger_radius", level.picked_zone_trig, 0, radius, 15000);
@@ -773,11 +365,9 @@ zone_trig_on(model, radius, damage_time)
 	current_zone_trig_model setModel(model);
 
 	thread zone_trig_off(current_zone_trig_model, current_zone_trig);
-
 	wait 0.2;
 
 	players = getAllPlayers();
-
 	for(i=0;i<players.size;i++)
 		players[i] thread zone_trig_damage(current_zone_trig, damage_time);
 }
@@ -812,9 +402,7 @@ zone_trig_damage(trig,damage_time)
 zone_trig_damage_verify(trig, damage_time)
 {
 	level endon("zone_trig_respawn");
-
 	self FinishPlayerDamage( self, self, 10, 0, "MOD_FALLING", "default_mp", (0,0,0), (0,0,0), "head", 0 );
-
 	wait damage_time;
 }
 
@@ -838,7 +426,6 @@ watch_game()
 	while(level.gamestarted)
 	{
 		wait 0.2;
-
 		level.jumper = [];
 		level.jumpers = 0;
 		level.deada = 0;
@@ -851,7 +438,6 @@ watch_game()
 			for(i = 0; i < players.size; i++)
 			{
 				level.totalPlayers++;
-
 				if(isDefined(players[i].pers["team"]))	
 				{
 					if(players[i] isReallyAlive())
@@ -871,6 +457,7 @@ watch_game()
 			{
 				ambientPlay("br_win");
 				thread end_map();
+
 				wait 39;
 				map_restart(false);
 			}
@@ -952,6 +539,7 @@ end_map()
 
 watch_player_game()
 {
+	self endon("disconnect");
 	self waittill("death");
 	self battleroyale\_teams::setTeam("axis");
 }
@@ -1019,14 +607,12 @@ player_eject()
 	self show();
 	self unlink();
 	self setClientDvar("cg_thirdperson", 1);
-
 	wait 0.2;
 
 	if(isDefined(level.plane))
 		self.origin = level.plane.origin + (0, 0, -100);
 	self attach("sr_parachute", "TAG_ORIGIN");
 	self playsound("parachute_start");
-
 	wait 0.5;
 
 	self setgravity(100);
@@ -1043,23 +629,9 @@ player_eject()
 	self detach("sr_parachute", "TAG_ORIGIN");
 	self playSound("parachute_end");
 	self.health = self.maxhealth;
-	self thread check_health();
+	self thread battleroyale\_update::check_health();
 	self setgravity(800);
 	self setmovespeed(190);
-}
-
-check_health()
-{
-	self endon("death");
-	self endon("disconnect");
-
-	while(isDefined(self))
-	{
-		if(isDefined(self) && self.health > self.maxhealth)
-			self.health = self.maxhealth;
-
-		wait .05;
-	}
 }
 
 getTp()
@@ -1131,9 +703,7 @@ playerConnect()
 	self.pShortGuid = getSubStr(self.guid, 12, 19);
 	self setcontents(0);
 
-	self thread speedrun\_playerid::checkid();
-	self thread speedrun\_playercommands::setGroup();
-	self thread speedrun\_playeroptions::onConnectOptions();
+	//self thread speedrun\_speedrun::srOnConnect();
 
 	if(!isDefined(self.name))
 		self.name = "undefined name";
@@ -1147,12 +717,10 @@ playerConnect()
 		self.sessionstate = "spectator";
 		self.team = "spectator";
 		self.pers["team"] = "spectator";
-
 		self.pers["score"] = 0;
 		self.pers["kills"] = 0;
 		self.pers["deaths"] = 0;
 		self.pers["assists"] = 0;
-
 		self.pers["ability"] = "specialty_null";
 	}
 	else
@@ -1166,7 +734,7 @@ playerConnect()
 	if(!isDefined(level.spawn["spectator"]))
 		level.spawn["spectator"] = level.spawn["allies"][0];
 
-	if( game["state"] == "endmap" )
+	if(game["state"] == "endmap")
 	{
 		self spawnSpectator(level.spawn["spectator"].origin, level.spawn["spectator"].angles);
 		self.sessionstate = "intermission";
@@ -1194,9 +762,9 @@ playerConnect()
 spawnSpectator(origin, angles)
 {
 	if(!isDefined(origin))
-		origin = (0,0,0);
+		origin = (0, 0, 0);
 	if(!isDefined(angles))
-		angles = (0,0,0);
+		angles = (0, 0, 0);
 
 	self notify("joined_spectators");
 
@@ -1364,9 +932,8 @@ spawnPlayer(origin, angles)
 	resettimeout();
 	self.pers["isDog"] = false;
 
-	self thread speedrun\_speedrun::setSpeed();
-	self thread speedrun\_speedrun::getXpBar();
-	self thread speedrun\_anticheat_hud::init();
+	self thread setSpeed();
+	self thread getXpBar();
 	
 	self.team = self.pers["team"];
 	self.sessionteam = self.team;
@@ -1411,10 +978,27 @@ spawnPlayer(origin, angles)
 	self show();
 	self thread respawn();
 	self thread doHudActionSlot();
-	self thread check_stuff();
-	self thread check_bar();
-	self thread check_ammo_lobby();
-	self thread update_ammo();
+	self thread battleroyale\_update::check_stuff();
+	self thread battleroyale\_update::check_bar();
+	self thread battleroyale\_update::check_ammo_lobby();
+	self thread battleroyale\_update::update_ammo();
+}
+
+getXpBar()
+{
+	self waittill("spawned_player");
+	
+    if(!isDefined(self.getxpbar))
+    {
+        self clientcmd("setu sr_xp_bar 0");
+        self.getxpbar = true;
+    }
+}
+
+setSpeed()
+{
+	self setMoveSpeedScale(1.0);
+	self setmovespeed(190);
 }
 
 force_dvar()
@@ -1432,84 +1016,13 @@ force_dvar()
 		self setClientDvar("cg_friendlyNameFadeIn", 0);
 		self setClientDvar("cg_friendlyNameFadeOut", 0);
 		self setClientDvar("g_teamcolor_myteam", "1 0 0 1");
-
 		wait 0.5;
-	}
-}
-
-check_ammo_lobby()
-{
-	self endon("death");
-	self endon("disconnect");
-
-	while(isDefined(self))
-	{
-		if(level.gamestarted)
-			break;
-
-		if(self GetCurrentWeapon() != "dog_mp")
-			self TakeAllWeapons();
-
-		wait .05;
-	}
-}
-
-check_bar()
-{
-	self endon("death");
-	self endon("disconnect");
-
-	while(isDefined(self))
-	{
-		self waittill("menuresponse", menu, response);
-
-		if(response == "bandage" && self.pers["mag_bandage"] > 0 && self.health != self.maxhealth)
-			self thread bar_load("bandage");
-
-		if(response == "first_kit" && self.pers["mag_first_kit"] > 0 && self.health != self.maxhealth)
-			self thread bar_load("first_kit");
-
-		if(response == "sr_map")
-		{
-			self closeMenu();
-			self closeInGameMenu();
-			wait .05;
-			self openMenu("sr_map_menu");
-		}
-
-		wait .05;
-	}
-}
-
-check_stuff()
-{
-	self endon("death");
-	self endon("disconnect");
-
-	while(isDefined(self))
-	{
-		if(isDefined(self))
-		{
-			self.hud_actionslot_text[0] setValue(self.pers["mag_frag_grenade"]);
-			self.hud_actionslot_text[1] setValue(self.pers["mag_flash_grenade"]);
-			self.hud_actionslot_text[2] setValue(self.pers["mag_smoke_grenade"]);
-			self.hud_actionslot_text[3] setValue(self.pers["mag_first_kit"]);
-			self.hud_actionslot_text[4] setValue(self.pers["mag_bandage"]);
-			if (isDefined(level.jumpers)) self.player_alive setValue(level.jumpers);
-			if (!isDefined(self.touching_item)) 
-			{
-				self.item_hint setShader("", 40, 40);
-				self.item_hint_text setText(" ");
-			}
-		}
-		wait .05;
 	}
 }
 
 respawn()
 {
 	self waittill("death");
-
 	if(isDefined(self) && !level.gamestarted)
 		self battleroyale\_mod::spawnPlayer();
 }
@@ -1533,11 +1046,9 @@ cleanUp()
 	self clearLowerMessage();
 	self notify("kill afk monitor");
 	self unLink();
-
 	self.bh = 0; 
 	self.doingBH = false;
 	self enableWeapons();
-
 	self setClientDvar("cg_thirdperson", 0);
 
 	if(isDefined(self.hud_actionslot))
