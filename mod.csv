@@ -1,5 +1,6 @@
-// BattleRoyale Mod CSV
+// SR BattleRoyale CSV
 
+// Gametypes + Utils GSC
 rawfile,maps\mp\_utility.gsc
 rawfile,common_scripts\utility.gsc
 rawfile,maps\mp\gametypes\_hud_util.gsc
@@ -10,16 +11,17 @@ rawfile,maps/mp/gametypes/_hud_util.gsc
 rawfile,maps/mp/gametypes/battleroyale.gsc
 rawfile,maps/mp/gametypes/battleroyale.txt
 
-material,mtl_weapon_desert_eagle_silver
-
+// Anims
 rawfile,animtrees/multiplayer.atr
 rawfile,mp/playeranimtypes.txt
 rawfile,mp/playeranim.script
 
+// Tables
 stringtable,mp/playerStatsTable.csv
 stringtable,mp/ranktable.csv
 stringtable,mp/rankicontable.csv
 
+// Localized strings
 localize,srmenu
 localize,braxi
 localize,mapvote
@@ -28,9 +30,27 @@ localize,drm
 localize,weapon
 localize,perks
 
+// Other Models
 xmodel,sr_parachute
 xmodel,vehicle_ac130_low
 
+// PUBG 3D Model
+xmodel,sr_5_45
+material,sr_mtl_5_45
+xmodel,sr_7_62
+material,sr_mtl_7_62
+xmodel,sr_gauge
+material,sr_mtl_gauge
+xmodel,sr_45
+material,sr_mtl_45
+xmodel,sr_9mm
+material,sr_mtl_9mm
+xmodel,sr_bandage
+material,sr_mtl_bandage
+xmodel,sr_first_kit
+material,sr_mtl_first_kit
+
+// 2D HUD
 material,sr_grenade
 material,hud_icon_grenade
 material,sr_flash
@@ -52,10 +72,13 @@ material,hud_icon_mag_45
 material,sr_mag_9mm
 material,hud_icon_mag_9mm
 
+// Player default model
 xmodel,body_mp_usmc_cqb
 xmodel,body_mp_sas_urban_sniper
 xmodel,collision_sphere
 xmodel,viewmodel_hands_zombie
+
+// BR Zone
 xmodel,sr_zonetrig_40k
 xmodel,sr_zonetrig_20k
 xmodel,sr_zonetrig_10k
@@ -63,6 +86,7 @@ xmodel,sr_zonetrig_5k
 xmodel,sr_zonetrig_2k5
 xmodel,sr_zonetrig_250_red
 
+// Default + Team HUD
 material,sr_dead
 material,sr_zonetrig_red
 material,default
@@ -83,6 +107,13 @@ material,killiconsuicide
 material,killiconmelee
 material,killiconheadshot
 material,icon_risingstar
+material,uidr_header
+material,vip_status
+material,vip_gold
+material,gfx_exp_spark
+material,gfx_white
+
+// Ranks
 material,55
 material,56
 material,57
@@ -108,34 +139,26 @@ material,76
 material,77
 material,78
 material,79
-material,uidr_header
+
+// SR Menu + HUD
 material,sr_menu_bg_1
 material,sr_menu_bg_2
 material,sr_menu_bg_3
 material,sr_menu_bg_4
 material,sr_menu_bg_5
-material,vip_status
-material,vip_gold
 material,speedrunner_logo
 material,sr_shop
 material,sr_vip
 material,sr_insert
 material,sr_dice
-material,gfx_exp_spark
-material,gfx_white
 
+// Sounds
 rawfile,soundaliases/deathrun.csv
 sound,deathrun,,all_mp
 sound,user_interface,,all_mp
 rawfile,soundaliases/multiplayer.csv
 
-fx,deathrun/wr_fx
-fx,deathrun/endtrig_fx
-fx,deathrun/endtrigcircle_fx
-fx,deathrun/secrettrigcircle_fx
-fx,deathrun/secrettrig_fx
-fx,deathrun/endgame_fx
-
+// Menus
 menufile,ui/options_control_defaults.menu
 menufile,ui/options_driverinfo.menu
 menufile,ui/options_game_pc.menu
@@ -187,4 +210,5 @@ menufile,ui_mp/scriptmenus/clientcmd.menu
 menufile,ui_mp/challenges.menu
 menufile,ui_mp/controls_multi.menu
 
+// Weapons
 weapon,mp/dog_mp
