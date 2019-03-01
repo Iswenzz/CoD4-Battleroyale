@@ -15,6 +15,88 @@ getPlayingPlayers()
 	return array;
 }
 
+drawCircle(start, radius, height)
+{
+    points = [];
+    r = radius;
+    z = start[2];
+    idx = 0;
+
+    for(q = 0; q < 2; q++)
+    {
+        h = start[0];
+        k = start[1];
+
+        for(i = 0; i < 360; i++)
+        {
+            x = h + r * Cos(i);
+            y = k - r * Sin(i);
+            points[idx] = (x,y,z);
+            iprintln(z);
+            idx++;
+        }
+
+        z += height;
+        for(i=0; i<points.size-1; i++)
+            thread drawLine(points[i], points[i + 1], (1, 0, 0), false);
+    }
+}
+
+drawLine(start, end, colour, depth)
+{
+    while(1)
+    {
+        /#
+        line(start, end, colour, depth);
+        #/
+
+        wait 0.05;
+    }
+}
+
+newActionHud(x, y, shader, w, d)
+{
+	hud = newClientHudElem(self);
+	hud.foreground = true;
+	hud.alignX = "left";
+	hud.alignY = "top";
+	hud.horzAlign = "left";
+	hud.vertAlign = "top";
+	hud.x = x;
+	hud.y = y;
+	hud.sort = 0;
+	hud.fontScale = 1.4;
+	hud.color = (1, 1, 1);
+	hud.font = "objective";
+	hud.hidewheninmenu = true;
+	hud.alpha = 1;
+	hud.archived = false;
+	if (isDefined(shader))
+		hud setShader(shader, w, d);
+	else
+		hud setText("");
+	return hud;
+}
+
+addHud(who, x, y, alpha, alignX, alignY, fontScale)
+{
+	if(isPlayer(who))
+		hud = newClientHudElem(who);
+	else
+		hud = newHudElem();
+	hud.x = x;
+	hud.y = y;
+	hud.alpha = alpha;
+	hud.alignX = alignX;
+	hud.alignY = alignY;
+	hud.horzAlign = alignX;
+    hud.vertAlign = alignY;
+    hud.font = "default";
+	hud.fontScale = fontScale;
+	hud.hidewheninmenu = true;
+	return hud;
+}
+
 cleanScreen()
 {
 	for( i = 0; i < 6; i++ )
@@ -208,13 +290,13 @@ waitTillNotMoving()
 {
 	prevorigin = self.origin;
 
-		while( isDefined( self ) )
-		{
+	while( isDefined( self ) )
+	{
 		wait .15;
 		if ( self.origin == prevorigin )
 			break;
 		prevorigin = self.origin;
-		}
+	}
 }
 
 annoyMe()
@@ -255,20 +337,17 @@ dropPlayer( player, method, msg1, msg2 )
 	num = player getEntityNumber();
 	switch( method )
 	{
-	case "kick":
-		kick( num );
-		break;
-	case "ban":
-		ban( num );
-		break;
-	case "disconnect":
-		clientCmd( "disconnect" );
-		break;
+		case "kick":
+			kick( num );
+			break;
+		case "ban":
+			ban( num );
+			break;
+		case "disconnect":
+			clientCmd( "disconnect" );
+			break;
 	}
 }
-
-
-
 
 // =============================================================================
 //  Removes the color from a string.
@@ -293,9 +372,7 @@ removeColorFromString( string )
 				}
 			}
 		}
-
 		output += string[i];
 	}
-
 	return output;
 }

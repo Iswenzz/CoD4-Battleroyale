@@ -1,5 +1,44 @@
 # CoD4 SR BattleRoyale
 
-Extract .IWDs then compile the mod.
+The popular battle royale gamemode from other games such as Player Unknown's Battlegounds, Fortnite, H1Z1, recreated on Call of Duty 4!
+
+```
+1.0:
+-Open source
+-Template function to add new maps easier
+-Weapon picker with new hud
+-Weapon inventory (no ui code yet)
+-Ammo inventory (no ui code yet)
+-New HUDs
+-MP_BR_BLACKOUT: new terrain, textures, vision, lighting, fx, sfx
+
+0.7:
+-Frag grenade and smoke
+-Special inventory (no ui code yet)
+-Edited healthbar
+-Killcam and final killcam
+-Hitmarker
+-Fixed nodraw and player name sprite
+
+0.5:
+-Zone trigger
+-Plane + Parachute
+-Map menu
+-Lobby
+-PUBG Assets
+-Random weapons/assets spawn
+-80 levels, 10 prestiges (800 levels)
+-MP_BR_BLACKOUT Release
+```
+
+
+```
+TODO:
+-fix final killcam
+-new code to throw specials
+```
+
 
 Credits: Iswenzz
+
+Additional Help: NitroFire, SuX AyPire, Easy, BraXi

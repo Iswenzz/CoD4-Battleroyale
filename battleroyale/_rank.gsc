@@ -34,14 +34,14 @@ init()
 	precacheString( &"BRAXI_CHARACTER_NEW" );
 	precacheString( &"BRAXI_SPRAY_NEW" );
 
-	registerScoreInfo( "kill", 200 );
-	registerScoreInfo( "headshot", 400 );
-	registerScoreInfo( "melee", 150 );
-	registerScoreInfo( "jumper_died", 100 );
+	registerScoreInfo("kill", 200 );
+	registerScoreInfo("headshot", 400 );
+	registerScoreInfo("melee", 150 );
+	registerScoreInfo("jumper_died", 100 );
 
-	registerScoreInfo( "win", 0 );
-	registerScoreInfo( "loss", 0 );
-	registerScoreInfo( "tie", 0 );
+	registerScoreInfo("win", 0 );
+	registerScoreInfo("loss", 0 );
+	registerScoreInfo("tie", 0 );
 
 	level.maxRank = int(tableLookup( "mp/rankTable.csv", 0, "maxrank", 1 ));
 	level.maxPrestige = int(tableLookup( "mp/rankIconTable.csv", 0, "maxprestige", 1 ));
@@ -213,7 +213,6 @@ getRankInfoLevel( rankId )
 	return int( tableLookup( "mp/ranktable.csv", 0, rankId, 13 ) );
 }
 
-
 onPlayerConnect()
 {
 	for(;;)
@@ -227,16 +226,13 @@ onPlayerConnect()
 		player.pers["participation"] = 0;
 		player.pers["prestige"] = prestige;
 		player.doingNotify = false;
-
 		player.rankUpdateTotal = 0;
-		
+
 		// for keeping track of rank through stat#251 used by menu script
 		// attempt to move logic out of menus as much as possible
 		player.cur_rankNum = rankId;
 		assertex( isdefined(player.cur_rankNum), "rank: "+ rankId + " does not have an index, check mp/ranktable.csv" );
 		player setStat( 251, player.cur_rankNum );
-		
-		
 		player setRank( rankId, int(prestige) );
 
 		player thread onPlayerSpawned();
@@ -246,7 +242,6 @@ onPlayerConnect()
 
 	}
 }
-
 
 onJoinedTeam()
 {
@@ -259,7 +254,6 @@ onJoinedTeam()
 	}
 }
 
-
 onJoinedSpectators()
 {
 	self endon("disconnect");
@@ -270,7 +264,6 @@ onJoinedSpectators()
 		self thread removeRankHUD();
 	}
 }
-
 
 onPlayerSpawned()
 {
@@ -365,7 +358,6 @@ prestigeSystem()
     self maps\mp\gametypes\_persistence::statset("rankxp",1);
     
     updaterankstats(self,0);
-    
     iprintln(self.name+" has entered Prestige "+self.pers["prestige"]+" of "+level.maxprestige);
     
     self setStat(979,0);
