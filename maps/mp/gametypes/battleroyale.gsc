@@ -29,6 +29,7 @@ main()
 	level.callbackPlayerDamage = ::Callback_PlayerDamage;
 	level.callbackPlayerKilled = ::Callback_PlayerKilled;
 	level.callbackPlayerLastStand = ::Callback_PlayerLastStand;
+	level.callbackCommands = ::Callback_Commands;
 
 	level.script = toLower( getDvar( "mapname" ) );
 	level.gametype = toLower( getDvar( "g_gametype" ) );
@@ -45,6 +46,7 @@ Callback_StartGameType()
 	if ( !isDefined( game["axis"] ) )
 		game["axis"] = "opfor";
 
+	//speedrun\_speedrun::speedrunstart();
 	battleroyale\_mod::main(); // START MOD
 
 	allowed[0] = "war";
@@ -65,6 +67,7 @@ Callback_PlayerConnect()
 
 	self.statusicon = "";
 	self waittill("begin");
+	//self speedrun\_speedrun::srOnConnect();
 	self battleroyale\_mod::playerConnect();
 }
 
@@ -91,6 +94,11 @@ Callback_PlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sW
 Callback_PlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration)
 {
 	self battleroyale\_mod::PlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration);
+}
+
+Callback_Commands(command, arguments)
+{
+	//self thread speedrun\_playercommands::commands( command, arguments );
 }
 
 allies(){ self battleroyale\_teams::setTeam( "allies" ); }

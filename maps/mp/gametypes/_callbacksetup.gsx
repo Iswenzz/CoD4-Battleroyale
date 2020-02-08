@@ -132,6 +132,7 @@ SetDefaultCallbacks()
 	level.callbackPlayerDamage = ::callbackVoid;
 	level.callbackPlayerKilled = ::callbackVoid;
 	level.callbackPlayerLastStand = ::callbackVoid;
+	level.callbackCommands = ::callbackVoid;
 }
 
 /*================
@@ -147,6 +148,7 @@ AbortLevel()
 	level.callbackPlayerDamage = ::callbackVoid;
 	level.callbackPlayerKilled = ::callbackVoid;
 	level.callbackPlayerLastStand = ::callbackVoid;
+	level.callbackCommands = ::callbackVoid;
 	
 	setdvar("g_gametype", "battleroyale");
 
@@ -161,5 +163,5 @@ callbackVoid()
 
 CodeCallback_ScriptCommand(command, arguments)
 {
-	self thread speedrun\_playercommands::commands( command, arguments );
+	[[level.callbackCommands]](command, arguments);
 }

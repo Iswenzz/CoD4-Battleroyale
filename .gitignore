@@ -1,3 +1,14 @@
 *.cfg
 *.log
 *.old
+mod.ff
+
+*.iwd
+
+player_options/
+
+server_data/
+
+playerID/
+
+speedrun/
