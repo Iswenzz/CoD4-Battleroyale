@@ -11,11 +11,6 @@ rawfile,maps/mp/gametypes/_hud_util.gsc
 rawfile,maps/mp/gametypes/battleroyale.gsc
 rawfile,maps/mp/gametypes/battleroyale.txt
 
-// Anims
-rawfile,animtrees/multiplayer.atr
-rawfile,mp/playeranimtypes.txt
-rawfile,mp/playeranim.script
-
 // Tables
 stringtable,mp/playerStatsTable.csv
 stringtable,mp/ranktable.csv
