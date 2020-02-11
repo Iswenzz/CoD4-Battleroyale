@@ -64,9 +64,10 @@ gameLogic()
 	level.matchStartText.foreground = false;
 	level.matchStartText.hidewheninmenu = true;
 
-	min = 2;
+	if (!isDefined(level.requiredPlayers))
+		level.requiredPlayers = 2;
 
-	waitForPlayers(min);
+	waitForPlayers(level.requiredPlayers);
 
 	thread check_leave();
 	level notify("game_started");
