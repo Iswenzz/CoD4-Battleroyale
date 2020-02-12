@@ -257,29 +257,51 @@ doHudActionSlot()
 	self.item_hint_text = addHud(self, 0, -200, 1, "center", "bottom", 1.5);
 }
 
+remove_lobby()
+{
+	if(getEntArray("lobby","targetname").size > 0) // remove lobby area
+	{
+		lobby = getEntArray("lobby","targetname");
+		for (i = 0; i < lobby.size; i++)
+			lobby[i] delete();
+	}
+}
+
 game_start()
 {
+	// debug mode
+	if (getDvarInt("br_debug_mode"))
+	{
+		wait 5;
+		level.gamestarted = true;
+		level notify("game_started");
+		level notify("br_started");
+
+		thread remove_lobby();
+		return;
+	}
+
+	// get plane and zone coords
 	tp = getTp();
 	thread getZoneTrig();
 
-	thread battleroyale\_lobby:: watch_lobby();
+	// wait lobby to be full and start countdown
+	thread battleroyale\_lobby::watch_lobby();
 	level waittill("game_started");
 	thread battleroyale\_lobby::lobby_countdown();
-
 	battleroyale\_lobby::countdown();
+
+	// start br
 	level.gamestarted = true;
 	level notify("br_started");
 
-	if(getEntArray("lobby","targetname").size > 0) // lobby clip
-	{
-		lobby = getEnt("lobby","targetname");
-		lobby delete();
-	}
-
+	// remove lobby and watch plane/game actions
+	thread remove_lobby();
 	thread watch_eject();
 	thread watch_last_eject(); // when people AFK in plane
 	thread watch_game();
 
+	// spawn plane
 	level.plane = spawn("script_model", (0, 0, -10000));
 	level.plane.angles = (0,0,0);
 	level.plane setModel("vehicle_ac130_low");
@@ -287,6 +309,7 @@ game_start()
 	level.plane moveTo(tp[0].origin, 0.05);
 	wait 0.2;
 
+	// tp all players to the plane and watch player action
 	players = getAllPlayers();
 	for(i=0;i<players.size;i++)
 	{
@@ -302,10 +325,12 @@ game_start()
 		players[i] thread watch_player_game();
 	}
 
+	// move plane to end point
 	wait 0.2;
 	level.plane moveTo(tp[1].origin, 60);
 	level.plane playLoopSound("plane_loop");
 
+	// remove plane
 	wait 60;
 	level.plane stopLoopSound();
 	level.plane delete();
@@ -710,8 +735,6 @@ playerConnect()
 	self.pShortGuid = getSubStr(self.guid, 12, 19);
 	self setcontents(0);
 
-	// self thread speedrun\_speedrun::srOnConnect();
-
 	if(!isDefined(self.name))
 		self.name = "undefined name";
 	if(!isDefined(self.guid))
@@ -954,9 +977,6 @@ spawnPlayer(origin, angles)
 	self SetActionSlot(3, "weapon", "flash_grenade_mp");
 	self.ejected = undefined;
 
-	if(isDefined(self.isVIP))
-		self.statusicon = "vip_status";
-
 	spawnPoint = level.spawn[self.pers["team"]][randomInt(level.spawn[self.pers["team"]].size)];
 	self spawn(spawnPoint.origin, spawnPoint.angles);
 	self takeallweapons();
@@ -989,6 +1009,9 @@ spawnPlayer(origin, angles)
 	self thread battleroyale\_update::check_bar();
 	self thread battleroyale\_update::check_ammo_lobby();
 	self thread battleroyale\_update::update_ammo();
+
+	if (getDvarInt("br_debug_mode"))
+		self.player_alive.label = &"^1DEBUG MODE";
 }
 
 getXpBar()
@@ -1010,6 +1033,9 @@ setSpeed()
 
 force_dvar()
 {
+	if (getDvarInt("br_debug_mode"))
+		return;
+
 	self endon("death");
 	self endon("disconnect");
 
@@ -1030,7 +1056,7 @@ force_dvar()
 respawn()
 {
 	self waittill("death");
-	if(isDefined(self) && !level.gamestarted)
+	if(isDefined(self) && !level.gamestarted || getDvarInt("br_debug_mode"))
 		self battleroyale\_mod::spawnPlayer();
 }
 
