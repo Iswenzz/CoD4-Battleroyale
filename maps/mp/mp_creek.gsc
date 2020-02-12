@@ -42,7 +42,6 @@ main()
 
 	// Mod dvar
 	setDvar("br_required_players", 2);
-	setDvar("br_debug_mode", 1);
 
 	battleroyale\_auto::removeAllSpawns();
 	battleroyale\_auto::createSpawn((-3127, 7024, 232), -80);
