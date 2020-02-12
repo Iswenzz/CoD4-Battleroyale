@@ -1083,14 +1083,17 @@ force_dvar()
 
 	while(isDefined(self))
 	{
-		self setClientDvar("cg_drawfriendlynames", 0);
-		self setClientDvar("hud_enable", 1);
-		self setClientDvar("ui_hud_hardcore", 1);
-		self setClientDvar("ui_uav_client", 0);
-		self setClientDvar("cg_drawThroughWalls", 0);
-		self setClientDvar("cg_friendlyNameFadeIn", 0);
-		self setClientDvar("cg_friendlyNameFadeOut", 0);
-		self setClientDvar("g_teamcolor_myteam", "1 0 0 1");
+		if (level.gamestarted)
+		{
+			self setClientDvar("cg_drawfriendlynames", 0);
+			self setClientDvar("hud_enable", 1);
+			self setClientDvar("ui_hud_hardcore", 1);
+			self setClientDvar("ui_uav_client", 0);
+			self setClientDvar("cg_drawThroughWalls", 0);
+			self setClientDvar("cg_friendlyNameFadeIn", 0);
+			self setClientDvar("cg_friendlyNameFadeOut", 0);
+			self setClientDvar("g_teamcolor_myteam", "1 0 0 1");
+		}
 		wait 0.5;
 	}
 }
