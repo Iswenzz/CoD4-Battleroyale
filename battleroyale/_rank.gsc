@@ -397,7 +397,7 @@ updateRankScoreHUD( amount )
 
 		self.hud_rankscroreupdate setValue(self.rankUpdateTotal);
 		self.hud_rankscroreupdate.alpha = 0.85;
-		self.hud_rankscroreupdate thread maps\mp\gametypes\_hud::fontPulse( self );
+		self.hud_rankscroreupdate maps\mp\gametypes\_hud::fontPulseInit();
 
 		wait 1;
 		self.hud_rankscroreupdate fadeOverTime( 0.75 );

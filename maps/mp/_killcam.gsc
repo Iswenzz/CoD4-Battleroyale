@@ -47,7 +47,7 @@ killcam(
 	if(attackerNum < 0)
 		return;
 
-	camtime = 4.9;
+	camtime = 8;
 	
 	if (isdefined(maxtime)) {
 		if (camtime > maxtime)
@@ -82,7 +82,7 @@ killcam(
 		}
 		else {
 			// distribute remaining time over postdelay and camtime
-			postdelay = 1;
+			postdelay = 2;
 			camtime = maxtime - 1;
 		}
 		
@@ -112,12 +112,11 @@ killcam(
 
 	if ( self.archivetime <= predelay ) // if we're not looking back in time far enough to even see the death, cancel
 	{
-		self.sessionstate = "dead";
+		self.sessionstate = "spectator";
 		self.spectatorclient = -1;
 		self.killcamentity = -1;
 		self.archivetime = 0;
 		self.psoffsettime = 0;
-		
 		return;
 	}
 	self.killcam = true;
@@ -128,10 +127,12 @@ killcam(
 
 	self endKillcam();
 
+	self.sessionstate = "spectator";
 	self.spectatorclient = -1;
 	self.killcamentity = -1;
 	self.archivetime = 0;
 	self.psoffsettime = 0;
+	level notify("final_killcam_end");
 }
 
 waitKillcamTime()
@@ -139,7 +140,7 @@ waitKillcamTime()
 	self endon("disconnect");
 	self endon("end_killcam");
 
-	wait 15;
+	wait 9;
 	self notify("end_killcam");
 }
 

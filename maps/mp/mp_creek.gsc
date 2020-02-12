@@ -42,7 +42,7 @@ main()
 
 	// Mod dvar
 	setDvar("br_required_players", 2);
-	setDvar("br_debug_mode", 0);
+	setDvar("br_debug_mode", 1);
 
 	battleroyale\_auto::createPlanePath((0, 0, 0), (0, 0, 0));
 	battleroyale\_auto::createPlanePath((0, 0, 0), (0, 0, 0));

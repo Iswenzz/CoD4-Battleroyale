@@ -519,6 +519,8 @@ end_map()
 {
 	thread callback("end_map");
 	game["state"] = "endmap";
+	level waittill("final_killcam_end");
+
 	level notify("intermission");
 	level notify("game over");
 	level notify("zone_trig_respawn");
@@ -597,10 +599,8 @@ watch_player_game()
 
 watch_last_eject()
 {
-	if(getEntArray("eject_last","targetname").size == 0)
-		assertMsg("ERROR: Map needs a trigger with targetname 'eject_last' at the end of every plane_path.");
 	if(!isDefined(level.eject_last_coord))
-		assertMsg("ERROR: level.eject_last_coord isn't defined.");
+		assertMsg("ERROR: level.eject_last_coord isn't defined. Please use the function setLastEjectCoord(<coord>).");
 
 	trig = getEnt("eject_last","targetname");
 	ori = spawn("script_origin", level.eject_last_coord);
@@ -616,7 +616,7 @@ watch_last_eject()
 watch_eject()
 {
 	if(getEnt("can_fall","targetname").size == 0)
-		assertMsg("ERROR: Map needs a trigger with targetname 'can_fall' where people can eject from the plane.");
+		assertMsg("ERROR: Map needs a trigger with targetname 'can_fall' where people can eject from the plane. \nUse the function createDropTrigger(<coord>, <radius>) to create one.");
 
 	trig = getEnt("can_fall","targetname");
 	
@@ -699,7 +699,7 @@ getTp()
 	selected_index = 1;
 
 	if (max == 0)
-		assertMsg("ERROR: Map doesn't have plane path.");
+		assertMsg("ERROR: Map doesn't have plane path. Use createZone(coord) to create a plane path.");
 	else if (max > 1)
 		selected_index = randomIntRange(1, max);
 
@@ -715,7 +715,7 @@ getZoneTrig()
 	if(!isDefined(level.zone))
 		assertMsg("ERROR: level.zone array isn't defined.");
 	if(isDefined(level.zone) && level.zone.size < 1)
-		assertMsg("ERROR: level.zone array need atleast 1 vector.");
+		assertMsg("ERROR: level.zone array need atleast 1 vector. please use CreateZone(coord) to create a final zone.");
 
 	level.picked_zone_trig = level.zone[randomIntrange(0, level.zone.size - 1)];
 }
@@ -938,7 +938,7 @@ PlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 	postDeathDelay = waitForTimeOrNotifies(1.75);
 	self notify ("death_delay_finished");
 
-	if(game["state"] != "endmap")
+	if(game["state"] != "endmap" && isPlayer(attacker) && attacker != self)
 		self thread maps\mp\_killcam::killcam(attacker GetEntityNumber(), -1, sWeapon, 0, 0, 0, 15, undefined, attacker);
 
 	if(game["state"] == "endmap")

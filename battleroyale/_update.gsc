@@ -192,7 +192,7 @@ check_stuff()
 
 	while(isDefined(self))
 	{
-		if(isDefined(self))
+		if(isDefined(self) && isAlive(self))
 		{
 			self.hud_actionslot_text[0] setValue(self.pers["mag_frag_grenade"]);
 			self.hud_actionslot_text[1] setValue(self.pers["mag_flash_grenade"]);
