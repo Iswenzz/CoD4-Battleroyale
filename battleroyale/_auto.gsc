@@ -18,6 +18,41 @@ Email Pro: suxlolz@outlook.fr
 #include common_scripts\utility;
 #include maps\mp\gametypes\_hud_util;
 
+createLobbyArea(ent)
+{
+	ent.targetname = "lobby";
+	if (!getDvarInt("br_debug_mode"))
+		ent setContents(true);
+}
+
+removeAllSpawns()
+{
+	spawn_ents = "mp_tdm_spawn;mp_dm_spawn";
+	tkn = strTok(spawn_ents, ";");
+	for (e = 0; e < tkn.size; e++)
+	{
+		if (getEntArray(tkn[e], "classname").size > 0)
+		{
+			spawns = getEntArray(tkn[e], "classname");
+			for (i = 0; i < spawns.size; i++)
+				spawns[i] delete();
+		}
+	}
+}
+
+createSpawn(coord, angle)
+{
+	ent = spawn("mp_dm_spawn", coord);
+	ent.angles = (0, angle, 0);
+}
+
+createDropTrigger(coord, radius)
+{
+	ent = spawn("trigger_radius", coord, 0, radius, 2000);
+	ent.radius = radius;
+	ent.targetname = "can_fall";
+}
+
 createZone(coord)
 {
 	if (!isDefined(level.zone))
@@ -30,7 +65,7 @@ setLastEjectCoord(coord)
 	level.eject_last_coord = coord;
 }
 
-createPlanePath(start_coord, end_coord)
+createPlanePath(start_coord, end_coord, angle)
 {
 	if (!isDefined(level.planePath))
 		level.planePath = 0;
@@ -38,9 +73,14 @@ createPlanePath(start_coord, end_coord)
 
 	path = [];
 	path[0] = spawn("script_origin", start_coord);
+	path[0].angles = (0, angle, 0);
 	path[0].targetname = "plane_" + level.planePath;
 	path[1] = spawn("script_origin", end_coord);
 	path[1].targetname = "plane_" + level.planePath;
+
+	trig = spawn("trigger_radius", path[1].origin, 0, 300, 300);
+	trig.radius = 300;
+	trig.targetname = "eject_last";
 }
 
 createAssetEntity(ent_name, model, coord)
