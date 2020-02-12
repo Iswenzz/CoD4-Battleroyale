@@ -23,6 +23,8 @@ Email Pro: suxlolz@outlook.fr
 main()
 {
 	maps\mp\_load::main();
+	level.map_authors = "SuX Lolz";
+	level.fx["leaves"] = loadFx("dust/dust_wind_leaves_chernobyl");
  
 	game["allies"] = "marines";
 	game["axis"] = "opfor";
@@ -30,30 +32,24 @@ main()
 	game["defenders"] = "allies";
 	game["allies_soldiertype"] = "desert";
 	game["axis_soldiertype"] = "desert";
+
+	SetExpFog(5000, 50000, 123/255, 155/255, 175/255, 3);
  
 	setdvar("r_specularcolorscale", "1");
 	setdvar("r_glowbloomintensity0", ".1");
 	setdvar("r_glowbloomintensity1", ".1");
 	setdvar("r_glowskybleedintensity0", ".1");
-
-	level.fx["leaves"] = loadFx("dust/dust_wind_leaves_chernobyl");
-
-	SetExpFog(5000, 50000, 123/255, 155/255, 175/255, 3);
-
-	level.zone = [];
-	level.zone[0] = (-2174, -3553, -1094);
-	level.zone[1] = (1004, -7828, -815);
-	level.zone[2] = (-2672, -13285, -2506);
-	level.zone[3] = (273, 1156, -1358);
-	level.zone[4] = (-11199, -6826, -3097);
-	level.zone[5] = (-20439, -11104, -4304);
-	level.zone[6] = (-13530, -1321, -3120);
-	level.zone[7] = (7891, -2131, -1258);
-	level.zone[8] = (7724, 6727, -1490);
-
-	level.eject_last_coord = (-1008, -6207, 7021);
-
-	level.map_authors = "SuX Lolz";
+	
+	battleroyale\_auto::createZone((-2174, -3553, -1094));
+	battleroyale\_auto::createZone((1004, -7828, -815));
+	battleroyale\_auto::createZone((-2672, -13285, -2506));
+	battleroyale\_auto::createZone((273, 1156, -1358));
+	battleroyale\_auto::createZone((-11199, -6826, -3097));
+	battleroyale\_auto::createZone((-20439, -11104, -4304));
+	battleroyale\_auto::createZone((-13530, -1321, -3120));
+	battleroyale\_auto::createZone((7891, -2131, -1258));
+	battleroyale\_auto::createZone((7724, 6727, -1490));
+	battleroyale\_auto::setLastEjectCoord((-1008, -6207, 7021));
 
 	thread onPlayerConnected();
 	thread random_weapons();
@@ -92,6 +88,7 @@ random_weapons()
 	item[18] = battleroyale\_auto::createSpecial("mag_first_kit", "health_pickup_large", "hud_icon_kit", "", level.RNG_BIG);
 	item[19] = battleroyale\_auto::createSpecial("mag_frag_grenade", "grenade_pickup", "hud_icon_grenade", "frag_grenade_mp", level.RNG_SMALL);
 
+	// activate all items
 	for(i = 0; i < item.size; i++)
 		item[i] thread battleroyale\_auto::item_trig();
 }

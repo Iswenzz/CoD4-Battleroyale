@@ -18,12 +18,24 @@ Email Pro: suxlolz@outlook.fr
 #include common_scripts\utility;
 #include maps\mp\gametypes\_hud_util;
 
+createZone(coord)
+{
+	if (!isDefined(level.zone))
+		level.zone = [];
+	level.zone[level.zone.size] = coord;
+}
+
+setLastEjectCoord(coord)
+{
+	level.eject_last_coord = coord;
+}
+
 createPlanePath(start_coord, end_coord)
 {
 	if (!isDefined(level.planePath))
 		level.planePath = 0;
 	level.planePath++;
-	
+
 	path = [];
 	path[0] = spawn("script_origin", start_coord);
 	path[0].targetname = "plane_" + level.planePath;
