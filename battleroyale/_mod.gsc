@@ -737,7 +737,6 @@ init_spawns()
 {
 	level.spawn = [];
 	level.spawn["allies"] = getEntArray("mp_jumper_spawn", "classname");
-	level.spawn["axis"] = getEntArray("mp_activator_spawn", "classname");
 	
 	if(getEntArray("mp_global_intermission", "classname").size == 0)
     {
@@ -749,14 +748,14 @@ init_spawns()
 
 	if(!level.spawn["allies"].size)
 		level.spawn["allies"] = getEntArray( "mp_dm_spawn", "classname");
-	if(!level.spawn["axis"].size)
-		level.spawn["axis"] = getEntArray( "mp_tdm_spawn", "classname");
 
-	for(i = 0; i < level.spawn["allies"].size; i++)
-		level.spawn["allies"][i] placeSpawnPoint();
-
-	for(i = 0; i < level.spawn["axis"].size; i++)
-		level.spawn["axis"][i] placeSpawnPoint();
+	if(isDefined(level.masterspawn))
+		level.masterspawn placeSpawnPoint();
+	else
+	{
+		level.spawn["allies"][0] placeSpawnPoint();
+		level.masterspawn = level.spawn["allies"][0];
+	}
 }
 
 playerConnect()
@@ -1020,7 +1019,7 @@ spawnPlayer(origin, angles)
 	self SetActionSlot(3, "weapon", "flash_grenade_mp");
 	self.ejected = undefined;
 
-	spawnPoint = level.spawn[self.pers["team"]][randomInt(level.spawn[self.pers["team"]].size)];
+	spawnPoint = level.masterspawn;
 	self spawn(spawnPoint.origin, spawnPoint.angles);
 	self takeallweapons();
 	self thread force_dvar();
