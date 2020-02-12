@@ -155,7 +155,7 @@ onMenuResponse()
 					if(self.sessionstate == "playing" || game["state"] == "round ended"  )
 						continue;
 
-					if( self canSpawn() && !level.gamestarted )
+					if( self canSpawn() && !level.gamestarted || getDvarInt("br_debug_mode") )
 						self battleroyale\_mod::spawnPlayer();
 					break;
 

@@ -46,6 +46,9 @@ init()
 
 gameLogic() 
 {
+	if (getDvarInt("br_debug_mode"))
+		return;
+
 	level endon("intermission");
 	level endon("disconnect");
 	level endon("kill logic");
@@ -64,10 +67,7 @@ gameLogic()
 	level.matchStartText.foreground = false;
 	level.matchStartText.hidewheninmenu = true;
 
-	if (!isDefined(level.requiredPlayers))
-		level.requiredPlayers = 2;
-
-	waitForPlayers(level.requiredPlayers);
+	waitForPlayers(getDvarInt("br_required_players"));
 
 	thread check_leave();
 	level notify("game_started");

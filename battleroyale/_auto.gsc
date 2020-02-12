@@ -83,7 +83,7 @@ item_trig()
 
 	for(i = 0; i < item.size; i++)
 	{
-		if(randomIntRange(0, self.rng) == 0)
+		if(randomIntRange(0, self.rng) == 0 || getDvarInt("br_debug_mode"))
 		{
 			item_trig[i] = spawn("trigger_radius", item[i].origin, v, v, v);
 			item_trig[i].radius = v;
@@ -101,7 +101,7 @@ item_setup(item, model)
 		self waittill("trigger", player);
 		player thread item_hud(self, item);
 
-		if(player usebuttonpressed())
+		if(player usebuttonpressed() && !getDvarInt("br_debug_mode"))
 			player thread item_give(self, model, item);
 
 		wait .05;

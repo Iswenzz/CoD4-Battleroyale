@@ -2,12 +2,11 @@ setupDvars()
 {
 	level.dvar = [];
 
+	// addDvar( <script_name>, <var_name>, <default_value>, <min_value>, <max_value>, <var_type> );
 	addDvar( "antiHackStat", "dr_antiHackStat_pass", 2900, 1, 3950, "int" );
-
-	/* Syntax is:
-	addDvar( "script_name", "var_name", 1, 0, 2, "int" );
-	Reference addDvar's parameters for more info
-	*/
+	addDvar( "debugMode", "br_debug_mode", 0, 0, 1, "int" );
+	addDvar( "lobbyCountdown", "br_lobby_countdown", 10, 0, 60, "int" );
+	addDvar( "requiredPlayers", "br_required_players", 2, 0, 10, "int" );
 }
 
 // Originally from Bell's AWE mod for CoD 1
