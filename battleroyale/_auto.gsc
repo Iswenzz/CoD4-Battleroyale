@@ -18,6 +18,19 @@ Email Pro: suxlolz@outlook.fr
 #include common_scripts\utility;
 #include maps\mp\gametypes\_hud_util;
 
+createPlanePath(start_coord, end_coord)
+{
+	if (!isDefined(level.planePath))
+		level.planePath = 0;
+	level.planePath++;
+	
+	path = [];
+	path[0] = spawn("script_origin", start_coord);
+	path[0].targetname = "plane_" + level.planePath;
+	path[1] = spawn("script_origin", end_coord);
+	path[1].targetname = "plane_" + level.planePath;
+}
+
 createAssetEntity(ent_name, model, coord)
 {
 	ent = spawn("script_model", (coord[0], coord[1], coord[2] - 60));

@@ -42,19 +42,12 @@ main()
 
 	// Mod dvar
 	setDvar("br_required_players", 2);
-	setDvar("br_debug_mode", 1);
+	setDvar("br_debug_mode", 0);
 
-	path = [];
-	path[0] = spawn("script_origin", (0, 0, 0));
-	path[0].targetname = "plane_1";
-	path[1] = spawn("script_origin", (0, 0, 0));
-	path[1].targetname = "plane_1";
-
-	path = [];
-	path[0] = spawn("script_origin", (0, 0, 0));
-	path[0].targetname = "plane_2";
-	path[1] = spawn("script_origin", (0, 0, 0));
-	path[1].targetname = "plane_2";
+	battleroyale\_auto::createPlanePath((0, 0, 0), (0, 0, 0));
+	battleroyale\_auto::createPlanePath((0, 0, 0), (0, 0, 0));
+	battleroyale\_auto::createPlanePath((0, 0, 0), (0, 0, 0));
+	battleroyale\_auto::createPlanePath((0, 0, 0), (0, 0, 0));
 
 	level.zone = [];
 	level.zone[0] = (-2174, -3553, -1094);

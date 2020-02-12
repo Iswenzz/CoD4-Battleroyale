@@ -25,6 +25,7 @@ main()
 {
 	level.text = [];
 	level.fx = [];
+	level.callback = [];
 
 	init_spawns();
 
@@ -689,21 +690,24 @@ player_eject()
 getTp()
 {
 	max = 1;
-	while(getEntArray("plane_" + max, "targetname").size > 0)
+	while (getEntArray("plane_" + max, "targetname").size > 0)
 	{
 		max++;
 		wait 0.05;
 	}
-	max -= 1;
+	max--;
+	selected_index = 1;
 
-	if(max == 0)
+	if (max == 0)
 		assertMsg("ERROR: Map doesn't have plane path.");
+	else if (max > 1)
+		selected_index = randomIntRange(1, max);
 
-	path = getEntArray("plane_" + randomIntRange(1, max), "targetname");
+	path = getEntArray("plane_" + selected_index, "targetname");
 	if(path.size != 2)
 		assertMsg("ERROR: plane_" + max + "entity needs to have a start origin and a end origin");
 
-	return getEntArray("plane_" + randomIntRange(1, max), "targetname");
+	return getEntArray("plane_" + selected_index, "targetname");
 }
 
 getZoneTrig()
