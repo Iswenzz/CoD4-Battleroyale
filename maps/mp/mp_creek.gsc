@@ -44,24 +44,40 @@ main()
 	setDvar("br_required_players", 2);
 	setDvar("br_debug_mode", 1);
 
-	battleroyale\_auto::createPlanePath((0, 0, 0), (0, 0, 0));
-	battleroyale\_auto::createPlanePath((0, 0, 0), (0, 0, 0));
-	battleroyale\_auto::createPlanePath((0, 0, 0), (0, 0, 0));
-	battleroyale\_auto::createPlanePath((0, 0, 0), (0, 0, 0));
+	battleroyale\_auto::removeAllSpawns();
+	battleroyale\_auto::createSpawn((-3127, 7024, 232), -80);
 
-	battleroyale\_auto::createZone((-2174, -3553, -1094));
-	battleroyale\_auto::createZone((1004, -7828, -815));
-	battleroyale\_auto::createZone((-2672, -13285, -2506));
-	battleroyale\_auto::createZone((273, 1156, -1358));
-	battleroyale\_auto::createZone((-11199, -6826, -3097));
-	battleroyale\_auto::createZone((-20439, -11104, -4304));
-	battleroyale\_auto::createZone((-13530, -1321, -3120));
-	battleroyale\_auto::createZone((7891, -2131, -1258));
-	battleroyale\_auto::createZone((7724, 6727, -1490));
-	battleroyale\_auto::setLastEjectCoord((-1008, -6207, 7021));
+	battleroyale\_auto::createDropTrigger((-748, 6798, 1100), 3000);
+	battleroyale\_auto::createPlanePath((-7699.7, 388.0, 1137.7), (7187.0, 9551.9, 1137.7), 30);
+	battleroyale\_auto::createPlanePath((-8658.9, 14818.9, 1137.7), (5924.6, -6328.6, 1137.7), -57);
+	battleroyale\_auto::createPlanePath((7636.5, 126.5, 1137.7), (-7218.9, 10228.5, 1137.7), 147);
+
+	battleroyale\_auto::createZone((988, 5978, -14));
+	battleroyale\_auto::createZone((-288, 4596, 86));
+	battleroyale\_auto::createZone((-2372, 7277, 200));
+	battleroyale\_auto::createZone((-4168, 6531, 171));
+	battleroyale\_auto::createZone((-3468, 8351, 214));
+	battleroyale\_auto::setLastEjectCoord((-748, 6798, 1100));
 
 	thread spawnAssets();
+	thread spawnLobby();
 	thread random_weapons();
+}
+
+spawnLobby()
+{
+	trigs = [];
+	trigs[trigs.size] = spawn("trigger_radius", (-2889, 6700, 232-60), 0, 100, 100);
+	trigs[trigs.size] = spawn("trigger_radius", (-3227, 6944, 232-60), 0, 100, 100);
+	trigs[trigs.size] = spawn("trigger_radius", (-3227, 7018, 232-60), 0, 100, 100);
+	trigs[trigs.size] = spawn("trigger_radius", (-3288, 7230, 232-60), 0, 100, 100);
+	trigs[trigs.size] = spawn("trigger_radius", (-2880, 6929, 295-60), 0, 100, 100);
+
+	for (i = 0; i < trigs.size; i++)
+	{
+		trigs[i].radius = 100;
+		battleroyale\_auto::createLobbyArea(trigs[i]);
+	}
 }
 
 spawnAssets() // coord list randomized with: https://github.com/Iswenzz/SRBR-Assets-Randomizer

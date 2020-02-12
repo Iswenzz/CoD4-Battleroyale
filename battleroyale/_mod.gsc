@@ -602,13 +602,19 @@ watch_last_eject()
 	if(!isDefined(level.eject_last_coord))
 		assertMsg("ERROR: level.eject_last_coord isn't defined. Please use the function setLastEjectCoord(<coord>).");
 
-	trig = getEnt("eject_last","targetname");
-	ori = spawn("script_origin", level.eject_last_coord);
+	trigs = getEntArray("eject_last","targetname");
+	for(i = 0; i < trigs.size; i++)
+		trigs[i] thread last_eject_trig();
+}
 
+last_eject_trig()
+{
+	ori = level.eject_last_coord;
 	for(;;)
 	{
-		trig waittill("trigger",player);
-		player SetOrigin(ori.origin);
+		self waittill("trigger",player);
+		player SetOrigin((ori[0] + randomIntRange(-500, 500), 
+			ori[1] + randomIntRange(-500, 500), ori[2]));
 		player thread player_eject();
 	}
 }
@@ -639,10 +645,14 @@ watch_eject_player(trig)
 
 	if(self isReallyAlive() && self.pers["team"] != "spectator" && self.pers["team"] != "axis")
 	{
-		self setLowerMessage("^7Drop ^9[{+activate}]");
-	
 		while(!self useButtonPressed())
-			wait .05;
+		{
+			if(self isTouching(trig))
+				self setLowerMessage("^7Drop ^9[{+activate}]");
+			else
+				self clearLowerMessage();
+			wait .1;
+		}
 			
 		if(self isTouching(trig))
 			self thread player_eject();
@@ -654,10 +664,13 @@ player_eject()
 	self endon("death");
 	self endon("disconnect");
 
+	self freezeControls(true);
 	self clearLowerMessage();
 	self show();
 	self unlink();
 	self setClientDvar("cg_thirdperson", 1);
+	wait 0.05;
+	self freezeControls(false);
 	wait 0.2;
 
 	if(isDefined(level.plane))
