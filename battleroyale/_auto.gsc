@@ -42,8 +42,8 @@ removeAllSpawns()
 
 createSpawn(coord, angle)
 {
-	ent = spawn("mp_dm_spawn", coord);
-	ent.angles = (0, angle, 0);
+	level.masterspawn = spawn("script_origin", coord);
+	level.masterspawn.angles = (0, angle, 0);
 }
 
 createDropTrigger(coord, radius)
