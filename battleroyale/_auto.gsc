@@ -18,6 +18,14 @@ Email Pro: suxlolz@outlook.fr
 #include common_scripts\utility;
 #include maps\mp\gametypes\_hud_util;
 
+createAssetEntity(ent_name, model, coord)
+{
+	ent = spawn("script_model", (coord[0], coord[1], coord[2] - 60));
+	ent.angles = (0, randomIntRange(-360, 360), 90);
+	ent setModel(model);
+	ent.targetname = ent_name;
+}
+
 createAmmo(ent, sound, hud_icon, count, rng)
 {
 	item = spawnStruct();
