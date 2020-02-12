@@ -275,7 +275,9 @@ game_start()
 		wait 5;
 		level.gamestarted = true;
 		level notify("game_started");
+		thread callback("game_started");
 		level notify("br_started");
+		thread callback("br_started");
 
 		thread remove_lobby();
 		return;
@@ -288,12 +290,14 @@ game_start()
 	// wait lobby to be full and start countdown
 	thread battleroyale\_lobby::watch_lobby();
 	level waittill("game_started");
+	thread callback("game_started");
 	thread battleroyale\_lobby::lobby_countdown();
 	battleroyale\_lobby::countdown();
 
 	// start br
 	level.gamestarted = true;
 	level notify("br_started");
+	thread callback("br_started");
 
 	// remove lobby and watch plane/game actions
 	thread remove_lobby();
@@ -329,11 +333,13 @@ game_start()
 	wait 0.2;
 	level.plane moveTo(tp[1].origin, 60);
 	level.plane playLoopSound("plane_loop");
+	thread callback("plane_start");
 
 	// remove plane
 	wait 60;
 	level.plane stopLoopSound();
 	level.plane delete();
+	thread callback("plane_stop");
 }
 
 zone_trig()
@@ -347,6 +353,7 @@ zone_trig()
 	wait 30;
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
 	thread zone_trig_on("sr_zonetrig_40k", 40000, 6);
+	thread callback("restricting_area");
 	wait 10;
 
 	final_zone = spawn("script_model", level.picked_zone_trig);
@@ -358,6 +365,7 @@ zone_trig()
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
 	level notify("zone_trig_respawn");
 	thread zone_trig_on("sr_zonetrig_20k", 20000, 4);
+	thread callback("restricting_area");
 	wait 10;
 
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
@@ -367,6 +375,7 @@ zone_trig()
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
 	level notify("zone_trig_respawn");
 	thread zone_trig_on("sr_zonetrig_10k", 10000, 2);
+	thread callback("restricting_area");
 	wait 10;
 
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
@@ -376,6 +385,7 @@ zone_trig()
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
 	level notify("zone_trig_respawn");
 	thread zone_trig_on("sr_zonetrig_5k", 5000, 1);
+	thread callback("restricting_area");
 	wait 10;
 
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
@@ -385,6 +395,7 @@ zone_trig()
 	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
 	level notify("zone_trig_respawn");
 	thread zone_trig_on("sr_zonetrig_2k5", 2500, 1);
+	thread callback("restricting_area");
 }
 
 zone_trig_on(model, radius, damage_time)
@@ -451,6 +462,12 @@ zone_trig_message(msg)
 		players[i] clearLowerMessage();
 }
 
+callback(name)
+{
+	if (isDefined(level.callback[name]))
+		self thread [[level.callback[name]]]();
+}
+
 watch_game()
 {
 	thread zone_trig();
@@ -499,6 +516,7 @@ watch_game()
 
 end_map()
 {
+	thread callback("end_map");
 	game["state"] = "endmap";
 	level notify("intermission");
 	level notify("game over");
@@ -645,6 +663,7 @@ player_eject()
 		self.origin = level.plane.origin + (0, 0, -100);
 	self attach("sr_parachute", "TAG_ORIGIN");
 	self playsound("parachute_start");
+	self thread callback("parachute_start");
 	wait 0.5;
 
 	self setgravity(100);
@@ -664,6 +683,7 @@ player_eject()
 	self thread battleroyale\_update::check_health();
 	self setgravity(800);
 	self setmovespeed(190);
+	self thread callback("parachute_end");
 }
 
 getTp()
@@ -725,6 +745,7 @@ init_spawns()
 playerConnect()
 {
 	level notify("connected", self);
+	self thread callback("connected");
 	self thread cleanUp();
 	self.guid = self getGuid();
 	self.number = self getEntityNumber();
@@ -797,6 +818,7 @@ spawnSpectator(origin, angles)
 		angles = (0, 0, 0);
 
 	self notify("joined_spectators");
+	self thread callback("joined_spectators");
 
 	self thread cleanUp();
 	resettimeout();
@@ -812,6 +834,7 @@ spawnSpectator(origin, angles)
 playerDisconnect()
 {
 	level notify("disconnected", self);
+	self thread callback("disconnected");
 	self thread cleanUp();
 	self.guid = self getGuid();
 	self.tagName = "Player";
@@ -916,6 +939,8 @@ PlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 
 	if(game["state"] == "endmap")
 		thread maps\mp\_killcam::StartKillcam(attacker, sWeapon);
+
+	self thread callback("death");
 }
 
 getPerks(player)
@@ -958,6 +983,7 @@ spawnPlayer(origin, angles)
 		return;
 
 	level notify("jumper", self);
+	self thread callback("spawned");
 	self thread cleanUp();
 	resettimeout();
 	self.pers["isDog"] = false;
@@ -982,7 +1008,7 @@ spawnPlayer(origin, angles)
 	self takeallweapons();
 	self thread force_dvar();
     self setViewModel("viewmodel_hands_zombie");
-    self.maxhealth = 200;
+    self.maxhealth = getDvarInt("br_max_health");
 	self.health = self.maxhealth;
 	self thread afterFirstFrame();
 
