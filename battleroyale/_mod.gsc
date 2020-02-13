@@ -51,6 +51,7 @@ main()
 	setDvar("jump_slowdownEnable", 1);
 	setDvar("bullet_penetrationEnabled", 1);
 	setDvar("g_friendlyPlayerCanBlock", 1);
+	setDvar("g_deadChat", 1);
 
 	game["state"] = "readyup";
 
@@ -346,57 +347,73 @@ game_start()
 zone_trig()
 {
 	level endon("game over");
+	start_level = getDvarInt("br_zone_start_level");
 	wait 60;
 
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 2 MIN");
-	wait 90;
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
-	wait 30;
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
-	thread zone_trig_on("sr_zonetrig_40k", 40000, 6);
-	thread callback("restricting_area");
-	wait 10;
+	if (start_level <= 0)
+	{
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 2 MIN");
+		wait 90;
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
+		wait 30;
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
+		thread zone_trig_on("sr_zonetrig_40k", 40000, 6);
+		thread callback("restricting_area");
+		wait 10;
+	}
 
-	final_zone = spawn("script_model", level.picked_zone_trig);
-	final_zone setModel("sr_zonetrig_250_red");
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 2 MIN");
-	wait 90;
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
-	wait 30;
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
-	level notify("zone_trig_respawn");
-	thread zone_trig_on("sr_zonetrig_20k", 20000, 4);
-	thread callback("restricting_area");
-	wait 10;
+	if (start_level <= 1)
+	{
+		final_zone = spawn("script_model", level.picked_zone_trig);
+		final_zone setModel("sr_zonetrig_250_red");
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 2 MIN");
+		wait 90;
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
+		wait 30;
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
+		level notify("zone_trig_respawn");
+		thread zone_trig_on("sr_zonetrig_20k", 20000, 4);
+		thread callback("restricting_area");
+		wait 10;
+	}
 
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
-	wait 30;
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
-	wait 30;
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
-	level notify("zone_trig_respawn");
-	thread zone_trig_on("sr_zonetrig_10k", 10000, 2);
-	thread callback("restricting_area");
-	wait 10;
+	if (start_level <= 2)
+	{
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
+		wait 30;
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
+		wait 30;
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
+		level notify("zone_trig_respawn");
+		thread zone_trig_on("sr_zonetrig_10k", 10000, 2);
+		thread callback("restricting_area");
+		wait 10;
+	}
 
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
-	wait 30;
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
-	wait 30;
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
-	level notify("zone_trig_respawn");
-	thread zone_trig_on("sr_zonetrig_5k", 5000, 1);
-	thread callback("restricting_area");
-	wait 10;
+	if (start_level <= 3)
+	{
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
+		wait 30;
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
+		wait 30;
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
+		level notify("zone_trig_respawn");
+		thread zone_trig_on("sr_zonetrig_5k", 5000, 1);
+		thread callback("restricting_area");
+		wait 10;
+	}
 
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
-	wait 30;
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
-	wait 30;
-	thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
-	level notify("zone_trig_respawn");
-	thread zone_trig_on("sr_zonetrig_2k5", 2500, 1);
-	thread callback("restricting_area");
+	if (start_level <= 4)
+	{
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
+		wait 30;
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
+		wait 30;
+		thread zone_trig_message("^3RESTRICTING THE PLAY AREA...");
+		level notify("zone_trig_respawn");
+		thread zone_trig_on("sr_zonetrig_2k5", 2500, 1);
+		thread callback("restricting_area");
+	}
 }
 
 zone_trig_on(model, radius, damage_time)
@@ -404,7 +421,8 @@ zone_trig_on(model, radius, damage_time)
 	level endon("zone_trig_respawn");
 	wait 0.5;
 
-	current_zone_trig = spawn("trigger_radius", level.picked_zone_trig, 0, radius, 15000);
+	ori = level.picked_zone_trig;
+	current_zone_trig = spawn("trigger_radius", (ori[0], ori[1], ori[2] - 2000), 0, radius, 15000);
 	current_zone_trig_model = spawn("script_model", current_zone_trig.origin);
 	current_zone_trig_model setModel(model);
 

@@ -42,7 +42,10 @@ main()
 
 	// Mod dvar
 	setDvar("br_required_players", 2);
-	setDvar("br_debug_mode", 0);
+	setDvar("br_debug_mode", 1);
+	setDvar("br_zone_start_level", 2);
+
+	battleroyale\_auto::removeAllMapTriggers();
 
 	battleroyale\_auto::removeAllSpawns();
 	battleroyale\_auto::createSpawn((-3127, 7024, 232), -80);
@@ -67,15 +70,15 @@ main()
 spawnLobby()
 {
 	trigs = [];
-	trigs[trigs.size] = spawn("trigger_radius", (-2889, 6700, 232-60), 0, 100, 100);
-	trigs[trigs.size] = spawn("trigger_radius", (-3227, 6944, 232-60), 0, 100, 100);
-	trigs[trigs.size] = spawn("trigger_radius", (-3227, 7018, 232-60), 0, 100, 100);
-	trigs[trigs.size] = spawn("trigger_radius", (-3288, 7230, 232-60), 0, 100, 100);
-	trigs[trigs.size] = spawn("trigger_radius", (-2880, 6929, 295-60), 0, 100, 100);
+	trigs[trigs.size] = spawn("trigger_radius", (-2889, 6700, 232-60), 0, 200, 200);
+	trigs[trigs.size] = spawn("trigger_radius", (-3227, 6944, 232-60), 0, 200, 200);
+	trigs[trigs.size] = spawn("trigger_radius", (-3227, 7018, 232-60), 0, 200, 200);
+	trigs[trigs.size] = spawn("trigger_radius", (-3288, 7230, 232-60), 0, 200, 200);
+	trigs[trigs.size] = spawn("trigger_radius", (-2880, 6929, 295-60), 0, 200, 200);
 
 	for (i = 0; i < trigs.size; i++)
 	{
-		trigs[i].radius = 100;
+		trigs[i].radius = 200;
 		battleroyale\_auto::createLobbyArea(trigs[i]);
 	}
 }
