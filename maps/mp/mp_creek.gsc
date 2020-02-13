@@ -42,7 +42,7 @@ main()
 
 	// Mod dvar
 	setDvar("br_required_players", 2);
-	setDvar("br_debug_mode", 1);
+	setDvar("br_debug_mode", 0);
 	setDvar("br_zone_start_level", 2);
 
 	battleroyale\_auto::removeAllMapTriggers();

@@ -364,8 +364,6 @@ zone_trig()
 
 	if (start_level <= 1)
 	{
-		final_zone = spawn("script_model", level.picked_zone_trig);
-		final_zone setModel("sr_zonetrig_250_red");
 		thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 2 MIN");
 		wait 90;
 		thread zone_trig_message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
@@ -376,6 +374,9 @@ zone_trig()
 		thread callback("restricting_area");
 		wait 10;
 	}
+
+	final_zone = spawn("script_model", level.picked_zone_trig);
+	final_zone setModel("sr_zonetrig_250_red");
 
 	if (start_level <= 2)
 	{
