@@ -43,6 +43,9 @@ main()
 	// Mod dvar
 	setDvar("br_required_players", 2);
 	setDvar("br_debug_mode", 0);
+    setDvar("br_zone_start_level", 2);
+
+    battleroyale\_auto::removeAllMapTriggers();
 
 	battleroyale\_auto::removeAllSpawns();
 	battleroyale\_auto::createSpawn((1299, -2310, -100-60), -160);

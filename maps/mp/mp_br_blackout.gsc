@@ -39,6 +39,8 @@ main()
 	setdvar("r_glowbloomintensity0", ".1");
 	setdvar("r_glowbloomintensity1", ".1");
 	setdvar("r_glowskybleedintensity0", ".1");
+
+	setDvar("br_debug_mode", 0);
 	
 	battleroyale\_auto::createZone((-2174, -3553, -1094));
 	battleroyale\_auto::createZone((1004, -7828, -815));

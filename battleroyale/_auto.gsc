@@ -18,6 +18,18 @@ Email Pro: suxlolz@outlook.fr
 #include common_scripts\utility;
 #include maps\mp\gametypes\_hud_util;
 
+removeAllMapTriggers()
+{
+	trigger_classnames = "trigger_damage;trigger_disk;trigger_friendlychain;trigger_hurt;trigger_lookat;trigger_multiple;trigger_once;trigger_radius;trigger_use;trigger_use_touch";
+	tkn = strTok(trigger_classnames, ";");
+	for (c = 0; c < tkn.size; c++)
+	{
+		triggers = getEntArray(tkn[c], "classname");
+		for (i = 0; i < triggers.size; i++)
+			triggers[i] delete();
+	}
+}
+
 createLobbyArea(ent)
 {
 	ent.targetname = "lobby";
