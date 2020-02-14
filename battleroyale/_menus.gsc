@@ -29,7 +29,9 @@ init()
 	game["menu_droptions"] = "dr_options";
 	game["menu_welcome"] = "sr_welcome";
 	game["menu_votepopup"] = "sr_votepopup";
-
+	game["votemap"] = "votemap";
+	
+	precacheMenu("votemap");
 	precacheMenu(game["menu_callvote"]);
 	precacheMenu(game["menu_muteplayer"]);
 	precacheMenu("scoreboard");

@@ -21,26 +21,26 @@
 
 main()
 {
-	level.creditTime = 6;
+	level.creditTime = 4;
 
 	battleroyale\_common::cleanScreen();
 
-	thread showCredit("Mod Created by:", 2, 80, 9);
+	thread showCredit("Mod Created by:", 2, 80, 7);
 	wait 1;
-	thread showCredit("SuX Lolz", 1.8, 100, 8);
-	wait 3;
+	thread showCredit("SuX Lolz", 1.8, 100, 6);
+	wait 2;
 
 	if(isDefined(level.map_authors))
 	{
-		thread showCredit("Map Created by:", 2, 200, 6);
+		thread showCredit("Map Created by:", 2, 200, 5);
 		wait 1;
-		thread showCredit("" + level.map_authors, 1.8, 220, 5);
-		wait 3;
+		thread showCredit("" + level.map_authors, 1.8, 220, 4);
+		wait 2;
 	}
 
-	thread showCredit("Additional Help", 2, 300, 5);
+	thread showCredit("Additional Help", 2, 300, 4);
 	wait 1;
-	thread showCredit("VC' Erik, FAMOUS Nitrofire, SuX AyPire, Easy", 1.8, 320, 4);
+	thread showCredit("VC' Erik, FAMOUS Nitrofire, SuX AyPire, Easy", 1.8, 320, 3);
 	wait 0.1;
 
 	wait level.creditTime + 2;

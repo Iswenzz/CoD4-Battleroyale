@@ -9,6 +9,7 @@ setupDvars()
 	addDvar( "debugMode", "br_debug_mode", 0, 0, 1, "int" );
 	addDvar( "lobbyCountdown", "br_lobby_countdown", 10, 0, 60, "int" );
 	addDvar( "requiredPlayers", "br_required_players", 2, 0, 10, "int" );
+	addDvar( "votemap", "br_votemap", 1, 0, 1, "int" );
 }
 
 // Originally from Bell's AWE mod for CoD 1

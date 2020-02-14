@@ -198,12 +198,11 @@ main()
 
 	level.text["waiting_for_players"] = "Waiting for more players to start...";
 
-	// thread speedrun\_speedrun::speedrunstart();
-
 	thread battleroyale\_menus::init();
 	thread battleroyale\_rank::init();
 	thread battleroyale\_health::init();
 	thread battleroyale\_lobby::init();
+	thread battleroyale\_mapvoting::init();
 
 	thread maps\mp\gametypes\_hud::init();
 	thread maps\mp\gametypes\_hud_message::init();
@@ -420,6 +419,7 @@ zone_trig()
 zone_trig_on(model, radius, damage_time)
 {
 	level endon("zone_trig_respawn");
+	level endon("game over");
 	wait 0.5;
 
 	ori = level.picked_zone_trig;
@@ -464,6 +464,7 @@ zone_trig_damage(trig,damage_time)
 
 zone_trig_damage_verify(trig, damage_time)
 {
+	level endon("game over");
 	level endon("zone_trig_respawn");
 	self FinishPlayerDamage( self, self, 10, 0, "MOD_FALLING", "default_mp", (0,0,0), (0,0,0), "head", 0 );
 	wait damage_time;
@@ -471,6 +472,7 @@ zone_trig_damage_verify(trig, damage_time)
 
 zone_trig_message(msg)
 {
+	level endon("game over");
 	players = getAllPlayers();
 
 	for(i=0;i<players.size;i++)
@@ -525,10 +527,12 @@ watch_game()
 			if(level.jumpers < 2)
 			{
 				ambientPlay("br_win");
-				thread end_map();
+				end_map();
 
-				wait 39;
-				map_restart(false);
+				if(!getDvarInt("br_votemap"))
+					exitLevel( false );
+				else
+					battleroyale\_mapvoting::changeMap( battleroyale\_mapvoting::getWinningMap() );
 			}
 		}
 	}	
@@ -537,6 +541,7 @@ watch_game()
 end_map()
 {
 	thread callback("end_map");
+	players = getAllPlayers();
 	game["state"] = "endmap";
 	level waittill("final_killcam_end");
 
@@ -544,8 +549,6 @@ end_map()
 	level notify("game over");
 	level notify("zone_trig_respawn");
 
-	players = getAllPlayers();
-
 	for(i=0;i<players.size;i++)
 	{
 		if(isDefined(players[i]))
@@ -565,29 +568,13 @@ end_map()
 		}
 	}
 
+	// credits
 	battleroyale\_credits::main();
+	wait 8;
+	// votemap
+	battleroyale\_mapvoting::startMapvote();
 
-	for(i=0;i<players.size;i++)
-	{
-		if(isDefined(players[i]))
-		{
-			while(isDefined(players[i].killcam))
-				wait 0.2;
-
-			if(isAlive(players[i]))
-				players[i] suicide();
-
-			players[i] spawnSpectator(level.spawn["spectator"].origin, level.spawn["spectator"].angles);
-			players[i] closeMenu();
-			players[i] closeInGameMenu();
-			players[i] freezeControls(true);
-			players[i] cleanUp();
-			players[i] allowSpectateTeam("freelook", false);
-		}
-	}
-
-	wait 10;
-
+	// intermission
 	for(i=0;i<players.size;i++)
 	{
 		if(isDefined(players[i]))
@@ -607,6 +594,8 @@ end_map()
 			players[i].sessionstate = "intermission";
 		}
 	}
+
+	wait 6;
 }
 
 watch_player_game()
@@ -1171,4 +1160,6 @@ cleanUp()
 
 	if(isDefined(self.hud_actionslot_background))
 		self.hud_actionslot_background destroy();
+
+	self battleroyale\_health::removeHealthBar();
 }
