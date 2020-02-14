@@ -30,7 +30,7 @@ init()
 	game["menu_welcome"] = "sr_welcome";
 	game["menu_votepopup"] = "sr_votepopup";
 	game["votemap"] = "votemap";
-	
+
 	precacheMenu("votemap");
 	precacheMenu(game["menu_callvote"]);
 	precacheMenu(game["menu_muteplayer"]);
@@ -164,6 +164,12 @@ onMenuResponse()
 				case "spectator":
 					self closeMenu();
 					self closeInGameMenu();
+
+					if (self.sessionstate == "dead" || self.sessionstate == "spectator" || !level.gamestarted)
+					{
+						self battleroyale\_teams::setTeam( "spectator" );
+						self battleroyale\_mod::spawnSpectator( level.spawn["spectator"].origin, level.spawn["spectator"].angles );
+					}
 					break;
 			}
 		}

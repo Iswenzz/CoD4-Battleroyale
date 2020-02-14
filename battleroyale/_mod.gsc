@@ -667,6 +667,28 @@ watch_eject_player(trig)
 	}
 }
 
+player_eject_check_stuck()
+{
+	self endon("death");
+	self endon("disconnect");
+	self endon("parachute_end");
+
+	while (self getVelocity() != (0, 0, 0))
+		wait 0.5;
+	
+	for (i = 5; i >= 0; i--)
+	{
+		self setLowerMessage("^1Teleporting in " + i + "sec ...");
+		wait 1;
+	}
+	self clearLowerMessage();
+	
+	ori = level.eject_last_coord;
+	self SetOrigin((ori[0] + randomIntRange(-500, 500), 
+		ori[1] + randomIntRange(-500, 500), ori[2]));
+	self setVelocity((0, 0, -300));
+}
+
 player_eject()
 {
 	self endon("death");
@@ -680,11 +702,13 @@ player_eject()
 	wait 0.05;
 	self freezeControls(false);
 	wait 0.2;
+	self thread player_eject_check_stuck();
 
 	if(isDefined(level.plane))
 		self.origin = level.plane.origin + (0, 0, -100);
 	self attach("sr_parachute", "TAG_ORIGIN");
 	self playsound("parachute_start");
+	self notify("parachute_start");
 	self thread callback("parachute_start");
 	wait 0.5;
 
@@ -705,7 +729,9 @@ player_eject()
 	self thread battleroyale\_update::check_health();
 	self setgravity(800);
 	self setmovespeed(190);
+	self notify("parachute_end");
 	self thread callback("parachute_end");
+	self clearLowerMessage();
 }
 
 getTp()
@@ -845,6 +871,7 @@ spawnSpectator(origin, angles)
 	self thread callback("joined_spectators");
 
 	self thread cleanUp();
+	self thread force_dvar();
 	resettimeout();
 	self.sessionstate = "spectator";
 	self.spectatorclient = -1;
@@ -1094,14 +1121,20 @@ force_dvar()
 		if (level.gamestarted)
 		{
 			self setClientDvar("cg_drawfriendlynames", 0);
-			self setClientDvar("hud_enable", 1);
-			self setClientDvar("ui_hud_hardcore", 1);
-			self setClientDvar("ui_uav_client", 0);
-			self setClientDvar("cg_drawThroughWalls", 0);
 			self setClientDvar("cg_friendlyNameFadeIn", 0);
 			self setClientDvar("cg_friendlyNameFadeOut", 0);
-			self setClientDvar("g_teamcolor_myteam", "1 0 0 1");
 		}
+		else
+		{
+			self setClientDvar("cg_drawfriendlynames", 1);
+			self setClientDvar("cg_friendlyNameFadeIn", 1);
+			self setClientDvar("cg_friendlyNameFadeOut", 1);
+		}
+		self setClientDvar("hud_enable", 1);
+		self setClientDvar("ui_hud_hardcore", 1);
+		self setClientDvar("ui_uav_client", 0);
+		self setClientDvar("cg_drawThroughWalls", 0);
+		self setClientDvar("g_teamcolor_myteam", "1 0 0 1");
 		wait 0.5;
 	}
 }
