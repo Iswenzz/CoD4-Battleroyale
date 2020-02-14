@@ -54,6 +54,33 @@
 		{
 			close self;
 		}
+
+		// Frame background
+		blurworld		1
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			-40 -70 1000 112 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			background		"black"
+			border			1
+			bordercolor		0 0 0 0.5
+			bordersize		3
+			forecolor		0 0 0 0.3
+			visible			1
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			-40 428 1000 112 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			background		"black"
+			forecolor		0 0 0 0.3
+			border			1
+			bordercolor		0 0 0 0.5
+			bordersize		3
+			visible			1
+			decoration
+		}
 		
 		#include "ui_mp/leftside_options.inc"
 		
@@ -189,6 +216,33 @@
 			close self;
 			//open options_graphics;
 		}
+
+		// Frame background
+		blurworld		1
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			-40 -70 1000 112 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			background		"black"
+			border			1
+			bordercolor		0 0 0 0.5
+			bordersize		3
+			forecolor		0 0 0 0.3
+			visible			1
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			-40 428 1000 112 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			background		"black"
+			forecolor		0 0 0 0.3
+			border			1
+			bordercolor		0 0 0 0.5
+			bordersize		3
+			visible			1
+			decoration
+		}
 		
 		#include "ui_mp/leftside_options.inc"
 		
@@ -266,7 +320,7 @@
 		}
 		
 		// background black frame
-		PREPROC_SHADER_DRAW( ORIGIN_OPTIONS_FRAME 600 480, 100 0, "white", 0.1 0.1 0.12 1, 0, 1, 0 0 0 0 )
+		// PREPROC_SHADER_DRAW( ORIGIN_OPTIONS_FRAME 600 480, 100 0, "white", 0.1 0.1 0.12 1, 0, 1, 0 0 0 0 )
 		
 		CHOICE_SECTION_TITLE( 1, "@MENU_APPLYING_CHANGES" )
 	}
