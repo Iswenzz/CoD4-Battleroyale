@@ -202,7 +202,6 @@ menufile,ui_mp/scriptmenus/quickstuff.menu
 menufile,ui_mp/scriptmenus/team_select.menu
 menufile,ui_mp/scriptmenus/sr_welcome.menu
 menufile,ui_mp/scriptmenus/clientcmd.menu
-menufile,ui_mp/scriptmenus/votemap.menu
 
 // Weapons
 weapon,mp/dog_mp
