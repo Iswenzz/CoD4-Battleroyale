@@ -279,6 +279,7 @@ item_give(trig, model, item)
 		self.pers[item.ent]++;
 		self giveWeapon(item.weapon);
 		self playLocalSound(item.sound);
+		self setWeaponAmmoStock(item.weapon, 1);
 	}
 
 	model delete();

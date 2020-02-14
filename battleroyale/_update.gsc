@@ -223,14 +223,20 @@ update_projectile()
 			case "frag_grenade_short_mp":
 			case "frag_grenade_mp":
 				self.pers["mag_frag_grenade"]--;
+				if (self.pers["mag_frag_grenade"])
+					self setWeaponAmmoStock(weaponName, 1);
 				break;
 
 			case "flash_grenade_mp":
 				self.pers["mag_flash_grenade"]--;
+				if (self.pers["mag_flash_grenade"])
+					self setWeaponAmmoStock(weaponName, 1);
 				break;
 
 			case "smoke_grenade_mp":
 				self.pers["mag_smoke_grenade"]--;
+				if (self.pers["mag_smoke_grenade"])
+					self setWeaponAmmoStock(weaponName, 1);
 				break;
 		}
 		wait 0.05;
