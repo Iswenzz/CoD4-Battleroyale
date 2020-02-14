@@ -48,12 +48,11 @@ main()
 	battleroyale\_auto::removeAllMapTriggers();
 
 	battleroyale\_auto::removeAllSpawns();
-	battleroyale\_auto::createSpawn((-3127, 7024, 232), -80);
+	battleroyale\_auto::createSpawn((-3127, 7024, 232-60), -80);
 
 	battleroyale\_auto::createDropTrigger((-748, 6798, 1100), 3000);
-	battleroyale\_auto::createPlanePath((-7699.7, 388.0, 1137.7), (7187.0, 9551.9, 1137.7), 30);
-	battleroyale\_auto::createPlanePath((-8658.9, 14818.9, 1137.7), (5924.6, -6328.6, 1137.7), -57);
-	battleroyale\_auto::createPlanePath((7636.5, 126.5, 1137.7), (-7218.9, 10228.5, 1137.7), 147);
+	battleroyale\_auto::createPlanePath((-6588, 7764, 1160), (3583, 6029, 1137), -10);
+	battleroyale\_auto::createPlanePath((2089, 3007, 1160), (-4328, 9038, 1137), 137);
 
 	battleroyale\_auto::createZone((988, 5978, -14));
 	battleroyale\_auto::createZone((-288, 4596, 86));
@@ -70,15 +69,15 @@ main()
 spawnLobby()
 {
 	trigs = [];
-	trigs[trigs.size] = spawn("trigger_radius", (-2889, 6700, 232-60), 0, 200, 200);
-	trigs[trigs.size] = spawn("trigger_radius", (-3227, 6944, 232-60), 0, 200, 200);
-	trigs[trigs.size] = spawn("trigger_radius", (-3227, 7018, 232-60), 0, 200, 200);
-	trigs[trigs.size] = spawn("trigger_radius", (-3288, 7230, 232-60), 0, 200, 200);
-	trigs[trigs.size] = spawn("trigger_radius", (-2880, 6929, 295-60), 0, 200, 200);
+	trigs[trigs.size] = spawn("trigger_radius", (-2889, 6700, 232-60), 0, 150, 100);
+	trigs[trigs.size] = spawn("trigger_radius", (-3227, 6944, 232-60), 0, 150, 100);
+	trigs[trigs.size] = spawn("trigger_radius", (-3227, 7018, 232-60), 0, 150, 100);
+	trigs[trigs.size] = spawn("trigger_radius", (-3288, 7230, 232-60), 0, 150, 100);
+	trigs[trigs.size] = spawn("trigger_radius", (-2880, 6929, 295-60), 0, 150, 100);
 
 	for (i = 0; i < trigs.size; i++)
 	{
-		trigs[i].radius = 200;
+		trigs[i].radius = 150;
 		battleroyale\_auto::createLobbyArea(trigs[i]);
 	}
 }
