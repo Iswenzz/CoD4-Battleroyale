@@ -543,7 +543,6 @@ end_map()
 	thread callback("end_map");
 	players = getAllPlayers();
 	game["state"] = "endmap";
-	level waittill("final_killcam_end");
 
 	level notify("intermission");
 	level notify("game over");
@@ -673,20 +672,24 @@ player_eject_check_stuck()
 	self endon("disconnect");
 	self endon("parachute_end");
 
-	while (self getVelocity() != (0, 0, 0))
-		wait 0.5;
-	
-	for (i = 5; i >= 0; i--)
+	while (true)
 	{
-		self setLowerMessage("^1Teleporting in " + i + "sec ...");
-		wait 1;
-	}
-	self clearLowerMessage();
+		while (self getVelocity() != (0, 0, 0))
+			wait 0.5;
 	
-	ori = level.eject_last_coord;
-	self SetOrigin((ori[0] + randomIntRange(-500, 500), 
-		ori[1] + randomIntRange(-500, 500), ori[2]));
-	self setVelocity((0, 0, -300));
+		for (i = 5; i >= 0; i--)
+		{
+			self setLowerMessage("^1Teleporting in " + i + " sec ...");
+			wait 1;
+		}
+		self clearLowerMessage();
+		
+		ori = level.eject_last_coord;
+		self SetOrigin((ori[0] + randomIntRange(-500, 500), 
+			ori[1] + randomIntRange(-500, 500), ori[2]));
+		self setVelocity((0, 0, -300));
+		wait 0.5;
+	}
 }
 
 player_eject()
