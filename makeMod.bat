@@ -27,3 +27,4 @@ cd ..\..\bin
 linker_pc.exe -language english -compress -cleanup mod
 cd ..\mods\abattle_royale
 copy ..\..\zone\english\mod.ff
+pause

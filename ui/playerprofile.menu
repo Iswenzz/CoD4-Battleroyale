@@ -69,7 +69,6 @@
 		}
 	
 		//#include "ui/bg.inc"
-		#include "ui/blurredbg.inc"
 		
 		itemDef
 		{

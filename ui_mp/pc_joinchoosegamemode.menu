@@ -57,7 +57,7 @@
 		border			1
 		bordercolor		.2 .2 .2 .55
 		forecolor		1 1 1 1
-		backcolor		0 0 0 0.6
+		backcolor		0 0 0 1
 		visible			1
 		}
 
@@ -68,7 +68,7 @@
 		border			1
 		bordercolor		.2 .2 .2 .55
 		forecolor		1 1 1 1
-		backcolor		0 0 0 0.6
+		backcolor		0 0 0 1
 		visible			1
 		}
 		

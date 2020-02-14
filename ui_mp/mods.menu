@@ -39,7 +39,6 @@
 		}
 
 		// PREPROC_SHADER_DRAW( -120 10 880 480, 0 0, "white", 0 0 0 0.75, 0, 1, 0 0 0 0 )
-		#include "ui_mp/lolz_style.inc"
 
 		CHOICE_MENU_TITLE( "@MENU_MODS" )
 

@@ -1,0 +1,24 @@
+#include "ui/menudef.h"
+
+{
+	menuDef 
+	{
+		name "clientdvar"
+		rect 0 0 1 1
+		visible 0
+		fullscreen 0
+
+		onOpen
+		{
+			setDvar cl_bypassMouseInput "1";
+			exec "openscriptmenu -1 "dvarString("com_maxfps")"";
+			close self;
+		}
+
+		onClose
+		{
+			setDvar cl_bypassMouseInput "0";
+		}
+	}
+
+}

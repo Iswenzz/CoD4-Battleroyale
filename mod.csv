@@ -16,6 +16,14 @@ stringtable,mp/playerStatsTable.csv
 stringtable,mp/ranktable.csv
 stringtable,mp/rankicontable.csv
 
+// SR Stuff
+material,sr_banner
+material,sr_race
+material,sr_quit
+material,sr_settings
+material,sr_next
+material,sr_prev
+
 // Localized strings
 localize,srmenu
 localize,braxi
@@ -182,28 +190,19 @@ menufile,ui_mp/lolz_style.inc
 menufile,ui_mp/lolz_style_br.inc
 menufile,ui_mp/lolz_style_scriptmenu.inc
 menufile,ui_mp/joinserver.menu
-menufile,ui_mp/scriptmenus/vip.menu
-menufile,ui_mp/dr_menu_frame.inc
 menufile,ui_mp/sr_common.inc
-menufile,ui_mp/perm_bans.inc
 menufile,ui_mp/connect.menu
 menufile,ui/bg.inc
 menufile,ui_mp/hud.menu
 menufile,ui_mp/main.menu
 menufile,ui_mp/wm_quickmessage.menu
+menufile,ui_mp/controls_multi.menu
 menufile,ui_mp/scriptmenus/scoreboard.menu
-menufile,ui_mp/scriptmenus/dr_admin.menu
 menufile,ui_mp/scriptmenus/quickstuff.menu
 menufile,ui_mp/scriptmenus/team_select.menu
-menufile,ui_mp/scriptmenus/dr_help.menu
-menufile,ui_mp/scriptmenus/sr_votemap.menu
-menufile,ui_mp/scriptmenus/sr_leaderboard.menu
 menufile,ui_mp/scriptmenus/sr_welcome.menu
-menufile,ui_mp/scriptmenus/dr_options.menu
-menufile,ui_mp/scriptmenus/character_stuff.menu
 menufile,ui_mp/scriptmenus/clientcmd.menu
-menufile,ui_mp/challenges.menu
-menufile,ui_mp/controls_multi.menu
+menufile,ui_mp/scriptmenus/votemap.menu
 
 // Weapons
 weapon,mp/dog_mp
