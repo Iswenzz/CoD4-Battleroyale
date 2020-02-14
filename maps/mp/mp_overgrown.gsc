@@ -83,7 +83,7 @@ spawnLobby()
 	}
 }
 
-spawnAssets() // coord list randomized with: https://github.com/Iswenzz/SRBR-Assets-Randomizer
+spawnAssets() // coord list randomized with: https://github.com/Iswenzz/CoD4-Battleroyale/tree/master/python/asset%20randomizer
 {
 	// createAssetEntity(ent_name, model, coord)
 

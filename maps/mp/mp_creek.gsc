@@ -50,16 +50,16 @@ main()
 	battleroyale\_auto::removeAllSpawns();
 	battleroyale\_auto::createSpawn((-3127, 7024, 232-60), -80);
 
-	battleroyale\_auto::createDropTrigger((-748, 6798, 1100), 3000);
-	battleroyale\_auto::createPlanePath((-6588, 7764, 1160), (3583, 6029, 1137), -10);
-	battleroyale\_auto::createPlanePath((2089, 3007, 1160), (-4328, 9038, 1137), 137);
+	battleroyale\_auto::createDropTrigger((-748, 6798, 900), 3000);
+	battleroyale\_auto::createPlanePath((-6588, 7764, 960), (3583, 6029, 960), -10);
+	battleroyale\_auto::createPlanePath((2089, 3007, 960), (-4328, 9038, 960), 137);
 
 	battleroyale\_auto::createZone((988, 5978, -14));
 	battleroyale\_auto::createZone((-288, 4596, 86));
 	battleroyale\_auto::createZone((-2372, 7277, 200));
 	battleroyale\_auto::createZone((-4168, 6531, 171));
 	battleroyale\_auto::createZone((-3468, 8351, 214));
-	battleroyale\_auto::setLastEjectCoord((-748, 6798, 1100));
+	battleroyale\_auto::setLastEjectCoord((-748, 6798, 900));
 
 	thread spawnAssets();
 	thread spawnLobby();
@@ -82,7 +82,7 @@ spawnLobby()
 	}
 }
 
-spawnAssets() // coord list randomized with: https://github.com/Iswenzz/SRBR-Assets-Randomizer
+spawnAssets() // coord list randomized with: https://github.com/Iswenzz/CoD4-Battleroyale/tree/master/python/asset%20randomizer
 {
 	// createAssetEntity(ent_name, model, coord)
 
