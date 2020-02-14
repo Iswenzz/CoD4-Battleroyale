@@ -544,6 +544,8 @@ end_map()
 	players = getAllPlayers();
 	game["state"] = "endmap";
 
+	wait 10;
+
 	level notify("intermission");
 	level notify("game over");
 	level notify("zone_trig_respawn");
