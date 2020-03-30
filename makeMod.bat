@@ -1,3 +1,4 @@
+@ECHO OFF
 del mod.ff
 
 xcopy animtrees ..\..\raw\animtrees /SY

@@ -1,3 +1,4 @@
+@ECHO OFF
 del _images.iwd
 del _sounds.iwd
 del _weapons.iwd
@@ -9,3 +10,4 @@ del _weapons.iwd
 
 7za a -r -tzip _weapons.iwd weapons_mod
 7z rn _weapons.iwd weapons_mod weapons
+pause
