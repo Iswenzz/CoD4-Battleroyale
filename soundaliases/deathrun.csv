@@ -13,8 +13,6 @@ bandage,,deathrun/bandage.mp3,0.3,0.3,,,,200,300,auto,streamed
 amunition,,deathrun/amunition.mp3,0.3,0.3,,,,200,300,auto,streamed
 parachute_start,,deathrun/parachute_start.mp3,1,1,,,,200,800,auto,streamed
 parachute_end,,deathrun/parachute_end.mp3,1,1,,,,200,800,auto,streamed
-wpfoly_uav_control_unit_pullout,,weapons/unit/wpfoly_uav_control_unit_pullout.wav,1,1,,,,200,300,auto,streamed
-wpfoly_uav_control_unit_putaway,,weapons/unit/wpfoly_uav_control_unit_putaway.wav,1,1,,,,200,300,auto,streamed
 
 # New pulse text,,,,,,,,,,,,,,,,,,,,,,,,,
 ui_pulse_text_type,,user_interface/ui_computer_text_blip1x.wav,0.27,0.36,interface,0.93,0.96,500000,,menu,,,,,!coup,,,,,,,nowetlevel fulldrylevel,,,
