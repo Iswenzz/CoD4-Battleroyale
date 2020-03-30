@@ -6,7 +6,6 @@
 
 #define CHOICE_GROUP			"errors"
 
-#include "ui_mp/surf_common.inc"
 #include "ui_mp/menustyle.inc"
 #include "ui/choices_setup_common.menu"
 

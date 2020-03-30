@@ -12,7 +12,7 @@
 
 #include "ui_mp/menustyle.inc"
 #include "ui/choices_setup_common.menu"
-#include "ui_mp/dr_common.inc"
+#include "ui_mp/sr_common.inc"
 
 {
 	menuDef
