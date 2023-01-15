@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.gsc": "gsc",
+        "*.gsx": "gsc",
+        "*.gsr": "gsc",
+        "*.menu": "gsc",
+        "*.inc": "gsc",
+		"env": "ini"
+    }
+}
