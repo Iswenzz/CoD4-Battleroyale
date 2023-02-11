@@ -3,8 +3,6 @@ name,sequence,file,vol_min,vol_max,vol_mod,pitch_min,pitch_max,dist_min,dist_max
 scn_dcwhite_flare_end_cloth,,battleroyale/scn_dcwhite_flare_end_cloth.wav,0.2,0.2,,,,200,300,auto,,,looping,master,all_mp
 plane_loop,,battleroyale/plane_loop.wav,1,1,,,,400,3000,auto,,,looping,master,all_mp
 insertion_strike,,battleroyale/insertion_strike.wav,0.6,0.6,,,,200,300,auto,streamed
-health_pickup_large,,battleroyale/pu_health01.mp3,0.3,0.3,,,,200,300,auto,streamed
-grenade_pickup,,battleroyale/pu_grenade.mp3,0.3,0.3,,,,200,300,auto,streamed
 bandage,,battleroyale/bandage.mp3,0.3,0.3,,,,200,300,auto,streamed
 amunition,,battleroyale/amunition.mp3,0.3,0.3,,,,200,300,auto,streamed
 parachute_start,,battleroyale/parachute_start.mp3,1,1,,,,200,800,auto,streamed

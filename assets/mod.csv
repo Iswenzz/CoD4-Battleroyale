@@ -113,16 +113,15 @@ material,79
 
 // SR HUD
 material,speedrunner_logo
-material,sr_shop
 material,sr_vip
-material,sr_insert
-material,sr_dice
 
 // Sounds
+rawfile,soundaliases/speedrun.csv
 rawfile,soundaliases/battleroyale.csv
+rawfile,soundaliases/multiplayer.csv
+sound,speedrun,,all_mp
 sound,battleroyale,,all_mp
 sound,user_interface,,all_mp
-rawfile,soundaliases/multiplayer.csv
 
 // Weapons
 weapon,mp/dog_mp

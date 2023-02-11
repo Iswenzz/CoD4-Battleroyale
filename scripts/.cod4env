@@ -1,5 +1,5 @@
 #!/bin/bash
-export NAME=sr_speedrun
+export NAME=sr_battleroyale
 export GAME="/d/Program Files (x86)/Activision/Cod4Mod"
 export MOD="$GAME/mods/$NAME"
 export SR="$MOD/sr"

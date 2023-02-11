@@ -1,1 +1,9 @@
 battleroyale
+deathrun
+cj
+dm
+dom
+sd
+sab
+war
+koth

@@ -5,6 +5,7 @@
         "*.gsr": "gsc",
         "*.menu": "gsc",
         "*.inc": "gsc",
+		"*.cfg": "gsc",
 		"env": "ini"
     }
 }

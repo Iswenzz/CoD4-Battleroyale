@@ -9,16 +9,16 @@ rm -v mod.ff
 cd "$SR/assets"
 cp -rv animtrees "$GAME/raw"
 cp -rv mp "$GAME/raw"
-cp -v weapons_maps/* "$GAME/raw/weapons"
-cp -v weapons_mod/* "$GAME/raw/weapons"
+cp -rv weapons_maps/* "$GAME/raw/weapons"
+cp -rv weapons_mod/* "$GAME/raw/weapons"
 
 # Assets
 cd "$MOD/assets"
 cp -v mod.csv "$GAME/zone_source"
 cp -rv animtrees "$GAME/raw"
 cp -rv mp "$GAME/raw"
-cp -v weapons_maps/* "$GAME/raw/weapons"
-cp -v weapons_mod/* "$GAME/raw/weapons"
+cp -rv weapons_maps/* "$GAME/raw/weapons"
+cp -rv weapons_mod/* "$GAME/raw/weapons"
 
 # Compile
 cd "$GAME/bin"
