@@ -1,287 +1,329 @@
-/*
-
-  _|_|_|            _|      _|      _|                  _|            
-_|        _|    _|    _|  _|        _|          _|_|    _|  _|_|_|_|  
-  _|_|    _|    _|      _|          _|        _|    _|  _|      _|    
-      _|  _|    _|    _|  _|        _|        _|    _|  _|    _|      
-_|_|_|      _|_|_|  _|      _|      _|_|_|_|    _|_|    _|  _|_|_|_|  
-
-Steam: http://steamcommunity.com/profiles/76561198163403316/
-Discord: https://discord.gg/76aHfGF
-Youtube: https://www.youtube.com/channel/UC1vxOXBzEF7W4g7TRU0C1rw
-Paypal: suxlolz@outlook.fr
-Email Pro: suxlolz@outlook.fr
-
-*/
-
-#include maps\mp\_utility;
-#include common_scripts\utility;
-#include maps\mp\gametypes\_hud_util;
-
 removeAllMapTriggers()
 {
-	trigger_classnames = "trigger_damage;trigger_disk;trigger_friendlychain;trigger_hurt;trigger_lookat;trigger_multiple;trigger_once;trigger_radius;trigger_use;trigger_use_touch";
-	tkn = strTok(trigger_classnames, ";");
-	for (c = 0; c < tkn.size; c++)
+	classnames = strTok("trigger_damage;trigger_disk;trigger_friendlychain;trigger_hurt;trigger_lookat;trigger_multiple;trigger_once;trigger_radius;trigger_use;trigger_use_touch", ";");
+	for (i = 0; i < classnames.size; i++)
 	{
-		triggers = getEntArray(tkn[c], "classname");
-		for (i = 0; i < triggers.size; i++)
-			triggers[i] delete();
+		triggers = getEntArray(classnames[i], "classname");
+		for (j = 0; j < triggers.size; j++)
+			triggers[j] delete();
 	}
 }
 
-createLobbyArea(ent)
+createLobbyArea(origin, width, height)
 {
-	ent.targetname = "lobby";
-	if (!getDvarInt("br_debug_mode"))
-		ent setContents(true);
+	trigger = spawn("trigger_radius", (origin[0], origin[1], origin[2] - 60), 0, width, height);
+
+	trigger.targetname = "lobby";
+	if (!getDvarInt("br_debug"))
+		trigger setContents(true);
+
+	return trigger;
 }
 
 removeAllSpawns()
 {
-	spawn_ents = "mp_tdm_spawn;mp_dm_spawn";
-	tkn = strTok(spawn_ents, ";");
-	for (e = 0; e < tkn.size; e++)
+	classnames = strTok("mp_tdm_spawn;mp_dm_spawn", ";");
+	for (i = 0; i < classnames.size; i++)
 	{
-		if (getEntArray(tkn[e], "classname").size > 0)
-		{
-			spawns = getEntArray(tkn[e], "classname");
-			for (i = 0; i < spawns.size; i++)
-				spawns[i] delete();
-		}
+		spawns = getEntArray(classnames[i], "classname");
+		for (j = 0; j < spawns.size; j++)
+			spawns[j] delete();
 	}
 }
 
-createSpawn(coord, angle)
+createSpawn(origin, angle)
 {
-	level.masterspawn = spawn("script_origin", coord);
+	level.masterspawn = spawn("script_origin", origin);
 	level.masterspawn.angles = (0, angle, 0);
 }
 
-createDropTrigger(coord, radius)
+createDropTrigger(origin, radius)
 {
-	ent = spawn("trigger_radius", coord, 0, radius, 2000);
+	ent = spawn("trigger_radius", origin, 0, radius, 2000);
 	ent.radius = radius;
-	ent.targetname = "can_fall";
+	ent.targetname = "drop_trigger";
 }
 
-createZone(coord)
+createZone(origin)
 {
 	if (!isDefined(level.zone))
 		level.zone = [];
-	level.zone[level.zone.size] = coord;
+	level.zone[level.zone.size] = origin;
 }
 
-setLastEjectCoord(coord)
+setLastEjection(origin)
 {
-	level.eject_last_coord = coord;
+	level.ejectLastOrigin = origin;
 }
 
-createPlanePath(start_coord, end_coord, angle)
+createPlanePath(start, end, angle)
 {
 	if (!isDefined(level.planePath))
 		level.planePath = 0;
 	level.planePath++;
 
 	path = [];
-	path[0] = spawn("script_origin", start_coord);
+	path[0] = spawn("script_origin", start);
 	path[0].angles = (0, angle, 0);
 	path[0].targetname = "plane_" + level.planePath;
-	path[1] = spawn("script_origin", end_coord);
+	path[1] = spawn("script_origin", end);
 	path[1].targetname = "plane_" + level.planePath;
 
-	trig = spawn("trigger_radius", path[1].origin, 0, 300, 300);
-	trig.radius = 300;
-	trig.targetname = "eject_last";
+	trigger = spawn("trigger_radius", path[1].origin, 0, 300, 300);
+	trigger.radius = 300;
+	trigger.targetname = "ejection";
 }
 
-createAssetEntity(ent_name, model, coord)
+createEntity(id, origin)
 {
-	ent = spawn("script_model", (coord[0], coord[1], coord[2] - 60));
-	ent.angles = (0, randomIntRange(-360, 360), 90);
-	ent setModel(model);
-	ent.targetname = ent_name;
+	entity = spawn("script_model", (origin[0], origin[1], origin[2] - 60));
+	entity.angles = (0, randomIntRange(-360, 360), 90);
+	entity.targetname = id;
+	return entity;
 }
 
-createAmmo(ent, sound, hud_icon, count, rng)
+createEntities(id, origins)
+{
+	entities = [];
+	for (i = 0; i < origins.size; i++)
+		entities[i] = createEntity(id, origins[i]);
+	return entities;
+}
+
+createItemTrigger(origin)
+{
+	entity = createEntity(self.id, origin);
+	self thread triggerEntity(entity);
+	return entity;
+}
+
+createAmmo(id, model, sound, icon, count, rng)
 {
 	item = spawnStruct();
 	item.type = "ammo";
-	item.ent = ent;
+	item.id = id;
 	item.sound = sound;
-	item.hud_icon = hud_icon;
+	item.icon = icon;
 	item.count = count;
+	item.model = model;
 	item.rng = rng;
-	level.br_item[ent] = item;
+	item.give = ::givePlayerAmmo;
+
+	item.entities = getEntArray(item.id, "targetnames");
+	item thread triggerEntities();
+
+	level.items[id] = item;
 	return item;
 }
 
-createWeapon(ent, sound, hud_icon, weapon, rng)
+createWeapon(id, model, sound, icon, weapon, rng)
 {
 	item = spawnStruct();
 	item.type = "weapon";
-	item.ent = ent;
+	item.id = id;
 	item.sound = sound;
-	item.hud_icon = hud_icon;
+	item.icon = icon;
 	item.weapon = weapon;
+	item.model = model;
 	item.rng = rng;
-	level.br_item[weapon] = item;
+	item.give = ::givePlayerWeapon;
+
+	item.entities = getEntArray(item.id, "targetnames");
+	item thread triggerEntities();
+
+	level.items[id] = item;
 	return item;
 }
 
-createDropWeapon(sound, hud_icon, weapon)
-{
-	item = spawnStruct();
-	item.type = "weapon";
-	item.sound = sound;
-	item.hud_icon = hud_icon;
-	item.weapon = weapon;
-	return item;
-}
-
-createSpecial(ent, sound, hud_icon, weapon, rng)
+createSpecial(id, model, sound, icon, weapon, rng)
 {
 	item = spawnStruct();
 	item.type = "special";
-	item.ent = ent;
+	item.id = id;
 	item.sound = sound;
-	item.hud_icon = hud_icon;
+	item.icon = icon;
 	item.weapon = weapon;
+	item.model = model;
 	item.rng = rng;
-	level.br_item[ent] = item;
+	item.give = ::givePlayerSpecial;
+
+	item.entities = getEntArray(item.id, "targetnames");
+	item thread triggerEntities();
+
+	level.items[id] = item;
 	return item;
 }
 
-item_trig()
+getWeaponItem(weapon)
 {
-	item_trig = [];
-	item = getEntArray(self.ent, "targetname");
-	v = 10;
-
-	for(i = 0; i < item.size; i++)
+	keys = getArrayKeys(level.items);
+	for (i = 0; i < keys.size; i++)
 	{
-		if(randomIntRange(0, self.rng) == 0 || getDvarInt("br_debug_mode"))
+		item = level.items[keys[i]];
+		if (item.type == "weapon" && item.weapon == weapon)
+			return item;
+	}
+	return undefined;
+}
+
+getSpecialItem(weapon)
+{
+	keys = getArrayKeys(level.items);
+	for (i = 0; i < keys.size; i++)
+	{
+		item = level.items[keys[i]];
+		if (item.type == "special" && item.weapon == weapon)
+			return item;
+	}
+	return undefined;
+}
+
+getAmmoItem(id)
+{
+	keys = getArrayKeys(level.items);
+	for (i = 0; i < keys.size; i++)
+	{
+		item = level.items[keys[i]];
+		if (item.type == "ammo" && item.id == id)
+			return item;
+	}
+	return undefined;
+}
+
+triggerEntity(entity)
+{
+	radius = 10;
+
+	entity.item = self;
+	if (isDefined(self.model))
+		entity setModel(self.model);
+
+	entity.trigger = spawn("trigger_radius", entity.origin, radius, radius, radius);
+	entity.trigger.radius = radius;
+	entity thread triggerEntityLoop();
+}
+
+triggerEntities()
+{
+	level waittill("br_items");
+
+	for (i = 0; i < self.entities.size; i++)
+	{
+		if (randomIntRange(0, self.rng) == 0 || getDvarInt("br_debug"))
 		{
-			item_trig[i] = spawn("trigger_radius", item[i].origin, v, v, v);
-			item_trig[i].radius = v;
-			item_trig[i] thread item_setup(self, item[i]);
+			self triggerEntity(self.entities[i]);
+			continue;
 		}
-		else
-			item[i] delete();
+		self.entities[i] delete();
 	}
 }
 
-item_setup(item, model)
+triggerEntityLoop()
 {
-	while(isDefined(self))
+	while (isDefined(self.trigger))
 	{
-		self waittill("trigger", player);
-		player thread item_hud(self, item);
+		self.trigger waittill("trigger", player);
+		player thread itemHud(self);
 
-		if(player usebuttonpressed() && !getDvarInt("br_debug_mode"))
-			player thread item_give(self, model, item);
-
-		wait .05;
+		if (player useButtonPressed())
+			player thread [[self.give]](self);
 	}
 }
 
-item_hud(trig, item)
+itemHud(entity)
 {
 	self endon("death");
 	self endon("disconnect");
 
-	while(isDefined(self) && isDefined(trig) && self isTouching(trig))
+	while (isDefined(self) && isDefined(entity.trigger) && self isTouching(entity.trigger))
 	{
-		self.touching_item = true;
-		self.item_hint setShader(item.hud_icon, 100, 40);
-		self.item_hint_text setText("^7Press ^3[{+activate}] ^7to grab");
+		if (!self.touchingItem)
+		{
+			self.itemHint setShader(entity.item.icon, 100, 40);
+			self.itemHintLabel setText("^7Press ^3[{+activate}] ^7to grab");
+		}
+		self.touchingItem = true;
 		wait 0.05;
 	}
-	self.touching_item = undefined;
+	self.touchingItem = false;
 }
 
 refreshWeaponsList()
 {
 	self endon("death");
 	self endon("disconnect");
-	wait 0.1;
 
+	self.pers["weapons"] = [];
 	list = self getWeaponsList();
-	self.pers["weapons"] = "";
-	for(i = 0; i < list.size; i++)
+
+	for (i = 0; i < list.size; i++)
 	{
-		switch(list[i])
+		switch (list[i])
 		{
 			case "frag_grenade_mp":
 			case "smoke_grenade_mp":
 			case "flash_grenade_mp":
-			continue;
+				continue;
 		}
-		self.pers["weapons"] += list[i] + ";";
+		index = self.pers["weapons"].size;
+		self.pers["weapons"][index] = list[i];
 	}
 }
 
-item_give(trig, model, item)
+givePlayerAmmo(entity)
 {
-	self endon("death");
-	self endon("disconnect");
+	item = entity.item;
+	trigger = entity.trigger;
 
-	if (item.type == "ammo")
+	self.pers[item.id] += item.count;
+	self playLocalSound(item.sound);
+
+	entity delete();
+	trigger delete();
+}
+
+givePlayerWeapon(entity)
+{
+	item = entity.item;
+	trigger = entity.trigger;
+
+	if (self hasWeapon("dog_mp"))
+		self takeWeapon("dog_mp");
+
+	self refreshWeaponsList();
+	if (self hasWeapon(item.weapon))
+		return;
+
+	trigger delete();
+	entity delete();
+
+	// Drop current gun if you have 3 weapons
+	weapons = self.pers["weapons"];
+	if (weapons.size == 3)
 	{
-		self.pers[item.ent] += item.count;
-		self playLocalSound(item.sound);
+		currentWeapon = self getCurrentWeapon();
+		currentItem = getWeaponItem(currentWeapon);
+		currentItem createItemTrigger(entity.origin);
+
+		self takeWeapon(currentWeapon);
 	}
 
-	else if (item.type == "weapon")
-	{
-		tok = [];
-		if(self HasWeapon("dog_mp")) // remove default weapon when you have the first gun
-			self TakeWeapon("dog_mp");
+	self giveWeapon(item.weapon);
+	self switchToWeapon(item.weapon);
+	self playLocalSound(item.sound);
+	self refreshWeaponsList();
+}
 
-		self refreshWeaponsList();
-		if(self hasWeapon(item.weapon) || tok.size > 3)
-			return;
+givePlayerSpecial(entity)
+{
+	item = entity.item;
+	trigger = entity.trigger;
 
-		tok = strTok(self.pers["weapons"], ";");
+	self.pers[item.id]++;
+	self giveWeapon(item.weapon);
+	self playLocalSound(item.sound);
+	self setWeaponAmmoStock(item.weapon, 1);
 
-		if(tok.size == 3) // drop current gun if you have 3 weapons
-		{
-			new_model = spawn("script_model", model.origin);
-			new_model.angles = (0, 270, 90);
-			new_model setModel(getWeaponModel(self getCurrentWeapon()));
-			new_item = createDropWeapon("weap_raise_plr", level.br_item[self getCurrentWeapon()].hud_icon, self getCurrentWeapon());
-
-			self TakeWeapon(self getCurrentWeapon());
-			self giveWeapon(item.weapon);
-			self switchToWeapon(item.weapon);
-			self playLocalSound(item.sound);
-			self thread refreshWeaponsList();
-
-			model delete();
-			trig delete();
-
-			wait 0.1;
-			v = 10;
-			new_trig = spawn("trigger_radius", new_model.origin, v, v, v);
-			new_trig.radius = v;
-			new_trig thread item_setup(new_item, new_model);
-			return;
-		}
-
-		self giveWeapon(item.weapon);
-		self switchToWeapon(item.weapon);
-		self playLocalSound(item.sound);
-		self thread refreshWeaponsList();
-	}
-
-	else if (item.type == "special")
-	{
-		self.pers[item.ent]++;
-		self giveWeapon(item.weapon);
-		self playLocalSound(item.sound);
-		self setWeaponAmmoStock(item.weapon, 1);
-	}
-
-	model delete();
-	trig delete();
+	entity delete();
+	trigger delete();
 }

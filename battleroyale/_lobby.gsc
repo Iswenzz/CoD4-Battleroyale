@@ -18,11 +18,11 @@
 
 /*
 
-  _|_|_|            _|      _|      _|                  _|            
-_|        _|    _|    _|  _|        _|          _|_|    _|  _|_|_|_|  
-  _|_|    _|    _|      _|          _|        _|    _|  _|      _|    
-      _|  _|    _|    _|  _|        _|        _|    _|  _|    _|      
-_|_|_|      _|_|_|  _|      _|      _|_|_|_|    _|_|    _|  _|_|_|_|  
+  _|_|_|            _|      _|      _|                  _|
+_|        _|    _|    _|  _|        _|          _|_|    _|  _|_|_|_|
+  _|_|    _|    _|      _|          _|        _|    _|  _|      _|
+      _|  _|    _|    _|  _|        _|        _|    _|  _|    _|
+_|_|_|      _|_|_|  _|      _|      _|_|_|_|    _|_|    _|  _|_|_|_|
 
 Steam: http://steamcommunity.com/profiles/76561198163403316/
 Discord: https://discord.gg/76aHfGF
@@ -39,14 +39,14 @@ Email Pro: suxlolz@outlook.fr
 #include common_scripts\utility;
 #include maps\mp\gametypes\_hud_util;
 
-init() 
+init()
 {
 	thread gameLogic();
 }
 
-gameLogic() 
+gameLogic()
 {
-	if (getDvarInt("br_debug_mode"))
+	if (getDvarInt("br_debug"))
 		return;
 
 	level endon("intermission");
@@ -91,7 +91,7 @@ watch_lobby()
 			for(i = 0; i < players.size; i++)
 			{
 				level.totalPlayers++;
-				if(isDefined(players[i].pers["team"]))	
+				if(isDefined(players[i].pers["team"]))
 				{
 					if(players[i] isReallyAlive())
 						level.totalPlayingPlayers++;

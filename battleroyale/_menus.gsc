@@ -10,7 +10,7 @@
 ///////////////////////////////////////////////////////////////
 /*
 	battleroyale's Death Run Mod
-	
+
 	Website: www.battleroyale.org
 	E-mail: paulina1295@o2.pl
 
@@ -55,14 +55,14 @@ onPlayerConnect()
 	for(;;)
 	{
 		level waittill("connecting", player);
-		
+
 		player setClientDvar("ui_3dwaypointtext", "1");
 		player.enable3DWaypoints = true;
 		player setClientDvar("ui_deathicontext", "1");
 		player.enableDeathIcons = true;
 		player.classType = undefined;
 		player.selectedClass = false;
-		
+
 		player thread onMenuResponse();
 	}
 }
@@ -70,14 +70,14 @@ onPlayerConnect()
 onMenuResponse()
 {
 	self endon("disconnect");
-	
+
 	if( !isDefined( self.pers["failedLogins"] ) )
 		self.pers["failedLogins"] = 0;
 
 	for(;;)
 	{
 		self waittill("menuresponse", menu, response);
-		
+
 		if( response == "dog" )
 		{
 			if( !self.pers["isDog"] )
@@ -111,12 +111,12 @@ onMenuResponse()
 		}
 
 		else if(response=="prestigemode")
-        {    
+        {
 				self closeMenu();
 				self closeInGameMenu();
                 self thread battleroyale\_rank::prestigeSystem();
         }
-		
+
 		else if( menu == game["menu_quickstuff"] )
 		{
 			switch(response)
@@ -134,8 +134,8 @@ onMenuResponse()
 						self iPrintln( "Laser ^1Disabled" );
 						self setClientDvar( "cg_laserForceOn", 0 );
 						self setStat( 977, 0 );
-					}	
-					break;			
+					}
+					break;
 			}
 		}
 
@@ -157,7 +157,7 @@ onMenuResponse()
 					if(self.sessionstate == "playing" || game["state"] == "round ended"  )
 						continue;
 
-					if( self canSpawn() && !level.gamestarted || getDvarInt("br_debug_mode") )
+					if( self canSpawn() && !level.gamestarted || getDvarInt("br_debug") )
 						self battleroyale\_mod::spawnPlayer();
 					break;
 

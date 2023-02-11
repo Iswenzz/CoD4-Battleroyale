@@ -1,10 +1,10 @@
 /*
 
-  _|_|_|            _|      _|      _|                  _|            
-_|        _|    _|    _|  _|        _|          _|_|    _|  _|_|_|_|  
-  _|_|    _|    _|      _|          _|        _|    _|  _|      _|    
-      _|  _|    _|    _|  _|        _|        _|    _|  _|    _|      
-_|_|_|      _|_|_|  _|      _|      _|_|_|_|    _|_|    _|  _|_|_|_|  
+  _|_|_|            _|      _|      _|                  _|
+_|        _|    _|    _|  _|        _|          _|_|    _|  _|_|_|_|
+  _|_|    _|    _|      _|          _|        _|    _|  _|      _|
+      _|  _|    _|    _|  _|        _|        _|    _|  _|    _|
+_|_|_|      _|_|_|  _|      _|      _|_|_|_|    _|_|    _|  _|_|_|_|
 
 Steam: http://steamcommunity.com/profiles/76561198163403316/
 Discord: https://discord.gg/76aHfGF
@@ -59,14 +59,14 @@ bar_load(usage)
 		wait .05;
 
 		if(isDefined(self.in_load))
-			return;		
+			return;
 
 		self.in_load = true;
 		level.barincrement = (barsize / (20.0 * bar_time));
 
 		if(!isDefined(self.progressbackground))
 		{
-			self.progressbackground = newClientHudElem(self);				
+			self.progressbackground = newClientHudElem(self);
 			self.progressbackground.alignX = "center";
 			self.progressbackground.alignY = "middle";
 			self.progressbackground.x = 320;
@@ -74,18 +74,18 @@ bar_load(usage)
 			self.progressbackground.alpha = 0.5;
 		}
 
-		self.progressbackground setShader("black", (barsize + 4), 14);		
+		self.progressbackground setShader("black", (barsize + 4), 14);
 
 		if(!isDefined(self.progressbar))
 		{
-			self.progressbar = newClientHudElem(self);				
+			self.progressbar = newClientHudElem(self);
 			self.progressbar.alignX = "left";
 			self.progressbar.alignY = "middle";
 			self.progressbar.x = (320 - (barsize / 2.0));
 			self.progressbar.y = 385;
 		}
 
-		self.progressbar setShader("white", 0, 8);			
+		self.progressbar setShader("white", 0, 8);
 		self.progressbar scaleOverTime(bar_time, barsize, 8);
 
 		self.progresstime = 0;
@@ -93,14 +93,14 @@ bar_load(usage)
 		f = 0;
 
 		while(isalive(self) && (self.progresstime < bar_time))
-		{		
+		{
 			d ++;
 			f ++;
-			
+
 			wait 0.05;
 			self.progresstime += 0.05;
 
-			if(self.progresstime >= hurt_time)					
+			if(self.progresstime >= hurt_time)
 			{
 				if(f >= 4)
 					f = 0;
@@ -115,7 +115,7 @@ bar_load(usage)
 				self unlink();
 				self.temp_ent delete();
 				self notify("progress_done");
-			}	
+			}
 		}
 
 		if(isalive(self) && (self.progresstime >= bar_time))
@@ -200,10 +200,10 @@ check_stuff()
 			self.hud_actionslot_text[3] setValue(self.pers["mag_first_kit"]);
 			self.hud_actionslot_text[4] setValue(self.pers["mag_bandage"]);
 			if (isDefined(level.jumpers)) self.player_alive setValue(level.jumpers);
-			if (!isDefined(self.touching_item)) 
+			if (!isDefined(self.touching_item))
 			{
-				self.item_hint setShader("", 40, 40);
-				self.item_hint_text setText(" ");
+				self.itemHint setShader("", 40, 40);
+				self.itemHintLabel setText(" ");
 			}
 		}
 		wait .05;
@@ -255,27 +255,27 @@ update_mag()
 		{
 			case "mp44_mp":
 			case "dragunov_mp":
-			case "ak47_mp": 
-				self setWeaponAmmoStock(currWeapon, self.pers["mag_7_62"]); 
+			case "ak47_mp":
+				self setWeaponAmmoStock(currWeapon, self.pers["mag_7_62"]);
 				break;
 
-			case "m16_mp": 
-				self setWeaponAmmoStock(currWeapon, self.pers["mag_5_45"]); 
+			case "m16_mp":
+				self setWeaponAmmoStock(currWeapon, self.pers["mag_5_45"]);
 				break;
 
 			case "mp5_mp":
 			case "beretta_mp":
-				self setWeaponAmmoStock(currWeapon, self.pers["mag_9mm"]); 
+				self setWeaponAmmoStock(currWeapon, self.pers["mag_9mm"]);
 				break;
 
 			case "deserteagle_mp":
 			case "colt45_mp":
-				self setWeaponAmmoStock(currWeapon, self.pers["mag_45"]); 
+				self setWeaponAmmoStock(currWeapon, self.pers["mag_45"]);
 				break;
 
 			case "m1014_mp":
 			case "winchester1200_mp":
-				self setWeaponAmmoStock(currWeapon, self.pers["mag_12_gauge"]); 
+				self setWeaponAmmoStock(currWeapon, self.pers["mag_12_gauge"]);
 				break;
 		}
 		wait 0.05;
@@ -320,27 +320,27 @@ update_ammo_do(currWeapon, clip)
 	{
 		case "mp44_mp":
 		case "dragunov_mp":
-		case "ak47_mp": 
-			self.pers["mag_7_62"] -= int(weaponClipSize(currWeapon) - clip); 
+		case "ak47_mp":
+			self.pers["mag_7_62"] -= int(weaponClipSize(currWeapon) - clip);
 			break;
 
-		case "m16_mp": 
-			self.pers["mag_5_45"] -= int(weaponClipSize(currWeapon) - clip); 
+		case "m16_mp":
+			self.pers["mag_5_45"] -= int(weaponClipSize(currWeapon) - clip);
 			break;
 
 		case "mp5_mp":
 		case "beretta_mp":
-			self.pers["mag_9mm"] -= int(weaponClipSize(currWeapon) - clip); 
+			self.pers["mag_9mm"] -= int(weaponClipSize(currWeapon) - clip);
 			break;
 
 		case "deserteagle_mp":
 		case "colt45_mp":
-			self.pers["mag_45"] -= int(weaponClipSize(currWeapon) - clip); 
+			self.pers["mag_45"] -= int(weaponClipSize(currWeapon) - clip);
 			break;
 
 		case "m1014_mp":
 		case "winchester1200_mp":
-			self.pers["mag_12_gauge"] -= int(weaponClipSize(currWeapon) - clip); 
+			self.pers["mag_12_gauge"] -= int(weaponClipSize(currWeapon) - clip);
 			break;
 	}
 }

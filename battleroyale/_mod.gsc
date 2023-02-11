@@ -1,10 +1,10 @@
 /*
 
-  _|_|_|            _|      _|      _|                  _|            
-_|        _|    _|    _|  _|        _|          _|_|    _|  _|_|_|_|  
-  _|_|    _|    _|      _|          _|        _|    _|  _|      _|    
-      _|  _|    _|    _|  _|        _|        _|    _|  _|    _|      
-_|_|_|      _|_|_|  _|      _|      _|_|_|_|    _|_|    _|  _|_|_|_|  
+  _|_|_|            _|      _|      _|                  _|
+_|        _|    _|    _|  _|        _|          _|_|    _|  _|_|_|_|
+  _|_|    _|    _|      _|          _|        _|    _|  _|      _|
+      _|  _|    _|    _|  _|        _|        _|    _|  _|    _|
+_|_|_|      _|_|_|  _|      _|      _|_|_|_|    _|_|    _|  _|_|_|_|
 
 Steam: http://steamcommunity.com/profiles/76561198163403316/
 Discord: https://discord.gg/76aHfGF
@@ -21,7 +21,7 @@ Email Pro: suxlolz@outlook.fr
 #include battleroyale\_common;
 #include battleroyale\_dvar;
 
-main() 
+main()
 {
 	level.text = [];
 	level.fx = [];
@@ -32,7 +32,7 @@ main()
 	battleroyale\_cod4stuff::main();
 	battleroyale\_dvar::setupDvars();
 	battleroyale\_hitmarker::init();
-	
+
 	maps\mp\_weapons::init();
 	maps\mp\_killcam::init();
 
@@ -46,7 +46,7 @@ main()
 	level.RNG_BIG = 5;
 	level.RNG_RARE = 6;
 
-	level.br_item = [];
+	level.items = [];
 
 	setDvar("jump_slowdownEnable", 1);
 	setDvar("bullet_penetrationEnabled", 1);
@@ -224,7 +224,7 @@ main()
 	setdvar("g_ScoresColor_Spectator", ".25 .25 .25");
 	setdvar("g_ScoresColor_Free", ".76 .78 .10");
 	setdvar("g_teamColor_MyTeam", ".6 .8 .6" );
-	setdvar("g_teamColor_EnemyTeam", "1 .45 .5" );	
+	setdvar("g_teamColor_EnemyTeam", "1 .45 .5" );
 
 	level thread game_start();
 }
@@ -253,9 +253,9 @@ doHudActionSlot()
 	self.player_alive.label = &"^7Players Alive: &&1";
 
 	// Item Hint HUD
-	self.item_hint = addHud(self, 0, -150, 1, "center", "bottom", 1.5);
-	self.item_hint setShader("", 40, 40);
-	self.item_hint_text = addHud(self, 0, -200, 1, "center", "bottom", 1.5);
+	self.itemHint = addHud(self, 0, -150, 1, "center", "bottom", 1.5);
+	self.itemHint setShader("", 40, 40);
+	self.itemHintLabel = addHud(self, 0, -200, 1, "center", "bottom", 1.5);
 }
 
 remove_lobby()
@@ -271,7 +271,7 @@ remove_lobby()
 game_start()
 {
 	// debug mode
-	if (getDvarInt("br_debug_mode"))
+	if (getDvarInt("br_debug"))
 	{
 		wait 5;
 		level.gamestarted = true;
@@ -509,7 +509,7 @@ watch_game()
 			for(i = 0; i < players.size; i++)
 			{
 				level.totalPlayers++;
-				if(isDefined(players[i].pers["team"]))	
+				if(isDefined(players[i].pers["team"]))
 				{
 					if(players[i] isReallyAlive())
 						level.totalPlayingPlayers++;
@@ -535,7 +535,7 @@ watch_game()
 					battleroyale\_mapvoting::changeMap( battleroyale\_mapvoting::getWinningMap() );
 			}
 		}
-	}	
+	}
 }
 
 end_map()
@@ -608,21 +608,21 @@ watch_player_game()
 
 watch_last_eject()
 {
-	if(!isDefined(level.eject_last_coord))
-		assertMsg("ERROR: level.eject_last_coord isn't defined. Please use the function setLastEjectCoord(<coord>).");
+	if(!isDefined(level.ejectLastOrigin))
+		assertMsg("ERROR: level.ejectLastOrigin isn't defined. Please use the function setLastEjection(<coord>).");
 
-	trigs = getEntArray("eject_last","targetname");
-	for(i = 0; i < trigs.size; i++)
-		trigs[i] thread last_eject_trig();
+	triggers = getEntArray("ejection", "targetname");
+	for(i = 0; i < triggers.size; i++)
+		triggers[i] thread last_eject_trig();
 }
 
 last_eject_trig()
 {
-	ori = level.eject_last_coord;
+	ori = level.ejectLastOrigin;
 	for(;;)
 	{
 		self waittill("trigger",player);
-		player SetOrigin((ori[0] + randomIntRange(-500, 500), 
+		player SetOrigin((ori[0] + randomIntRange(-500, 500),
 			ori[1] + randomIntRange(-500, 500), ori[2]));
 		player thread player_eject();
 	}
@@ -630,11 +630,11 @@ last_eject_trig()
 
 watch_eject()
 {
-	if(getEnt("can_fall","targetname").size == 0)
-		assertMsg("ERROR: Map needs a trigger with targetname 'can_fall' where people can eject from the plane. \nUse the function createDropTrigger(<coord>, <radius>) to create one.");
+	if(getEnt("drop_trigger","targetname").size == 0)
+		assertMsg("ERROR: Map needs a trigger with targetname 'drop_trigger' where people can eject from the plane. \nUse the function createDropTrigger(<coord>, <radius>) to create one.");
 
-	trig = getEnt("can_fall","targetname");
-	
+	trig = getEnt("drop_trigger","targetname");
+
 	for(;;)
 	{
 		trig waittill("trigger",player);
@@ -662,7 +662,7 @@ watch_eject_player(trig)
 				self clearLowerMessage();
 			wait .1;
 		}
-			
+
 		if(self isTouching(trig))
 			self thread player_eject();
 	}
@@ -678,16 +678,16 @@ player_eject_check_stuck()
 	{
 		while (self getVelocity() != (0, 0, 0))
 			wait 0.5;
-	
+
 		for (i = 5; i >= 0; i--)
 		{
 			self setLowerMessage("^1Teleporting in " + i + " sec ...");
 			wait 1;
 		}
 		self clearLowerMessage();
-		
-		ori = level.eject_last_coord;
-		self SetOrigin((ori[0] + randomIntRange(-500, 500), 
+
+		ori = level.ejectLastOrigin;
+		self SetOrigin((ori[0] + randomIntRange(-500, 500),
 			ori[1] + randomIntRange(-500, 500), ori[2]));
 		self setVelocity((0, 0, -300));
 		wait 0.5;
@@ -776,7 +776,7 @@ init_spawns()
 {
 	level.spawn = [];
 	level.spawn["allies"] = getEntArray("mp_jumper_spawn", "classname");
-	
+
 	if(getEntArray("mp_global_intermission", "classname").size == 0)
     {
         level.spawn["spectator"] = spawn("script_origin", (0, 0, 0));
@@ -817,7 +817,7 @@ playerConnect()
 		self.guid = "undefined guid";
 
 	self setClientDvars("show_hud", "true", "ip", getDvar("net_ip"), "port", getDvar("net_port"));
-	if( !isDefined(self.pers["team"])) 
+	if( !isDefined(self.pers["team"]))
 	{
 		iPrintln("^1" + self.name + " ^7entered the game");
 		self.sessionstate = "spectator";
@@ -898,7 +898,7 @@ playerDisconnect()
 
 	if(!isDefined(self.name))
 		self.name = "no name";
-			
+
 	iPrintln("^2" + self.name + " ^7left the game");
 	logPrint("Q;" + self getGuid() + ";" + self getEntityNumber() + ";" + self.name + "\n");
 }
@@ -909,14 +909,14 @@ PlayerLastStand(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHi
 }
 
 PlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime)
-{	
+{
 	if(self.sessionteam == "spectator" || game["state"] == "endmap")
 		return;
 
 	level notify("player_damage", self, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime);
 
 	if(isPlayer(eAttacker) && eAttacker != self)
-	{	
+	{
 		eAttacker iPrintln("You hit " + self.name + " ^7for ^2" + iDamage + " ^7damage.");
 		self iPrintln(eAttacker.name + " ^7hit you for ^2" + iDamage + " ^7damage.");
 	}
@@ -934,14 +934,14 @@ PlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vP
 }
 
 PlayerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration)
-{	
+{
 	self endon("spawned");
 	self notify("killed_player");
 	self notify("death");
 
 	if(self.sessionteam == "spectator" || game["state"] == "endmap")
 		return;
-	
+
 	level notify( "player_killed", self, eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration );
 
 	if(sHitLoc == "head" && sMeansOfDeath != "MOD_MELEE")
@@ -1012,7 +1012,7 @@ waitForTimeOrNotifies(desiredDelay)
 {
 	startedWaiting = getTime();
 	waitedTime = (getTime() - startedWaiting) / 1000;
-	
+
 	if (waitedTime < desiredDelay)
 	{
 		wait desiredDelay - waitedTime;
@@ -1035,7 +1035,7 @@ after_time_lower()
 
 spawnPlayer(origin, angles)
 {
-	if(game["state"] == "endmap") 
+	if(game["state"] == "endmap")
 		return;
 
 	level notify("jumper", self);
@@ -1046,7 +1046,7 @@ spawnPlayer(origin, angles)
 
 	self thread setSpeed();
 	self thread getXpBar();
-	
+
 	self.team = self.pers["team"];
 	self.sessionteam = self.team;
 	self.sessionstate = "playing";
@@ -1092,14 +1092,14 @@ spawnPlayer(origin, angles)
 	self thread battleroyale\_update::check_ammo_lobby();
 	self thread battleroyale\_update::update_ammo();
 
-	if (getDvarInt("br_debug_mode"))
+	if (getDvarInt("br_debug"))
 		self.player_alive.label = &"^1DEBUG MODE";
 }
 
 getXpBar()
 {
 	self waittill("spawned_player");
-	
+
     if(!isDefined(self.getxpbar))
     {
         self clientcmd("setu sr_xp_bar 0");
@@ -1115,7 +1115,7 @@ setSpeed()
 
 force_dvar()
 {
-	if (getDvarInt("br_debug_mode"))
+	if (getDvarInt("br_debug"))
 		return;
 
 	self endon("death");
@@ -1147,7 +1147,7 @@ force_dvar()
 respawn()
 {
 	self waittill("death");
-	if(isDefined(self) && !level.gamestarted || getDvarInt("br_debug_mode"))
+	if(isDefined(self) && !level.gamestarted || getDvarInt("br_debug"))
 		self battleroyale\_mod::spawnPlayer();
 }
 
@@ -1170,7 +1170,7 @@ cleanUp()
 	self clearLowerMessage();
 	self notify("kill afk monitor");
 	self unLink();
-	self.bh = 0; 
+	self.bh = 0;
 	self.doingBH = false;
 	self enableWeapons();
 	self setClientDvar("cg_thirdperson", 0);

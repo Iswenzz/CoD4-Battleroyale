@@ -6,7 +6,7 @@ setupDvars()
 	addDvar( "antiHackStat", "dr_antiHackStat_pass", 2900, 1, 3950, "int" );
 	addDvar( "playerMaxHealth", "br_max_health", 200, 1, 1000, "int" );
 	addDvar( "ZoneStartLevel", "br_zone_start_level", 0, 0, 4, "int" );
-	addDvar( "debugMode", "br_debug_mode", 0, 0, 1, "int" );
+	addDvar( "debugMode", "br_debug", 0, 0, 1, "int" );
 	addDvar( "lobbyCountdown", "br_lobby_countdown", 10, 0, 60, "int" );
 	addDvar( "requiredPlayers", "br_required_players", 2, 0, 10, "int" );
 	addDvar( "votemap", "br_votemap", 1, 0, 1, "int" );

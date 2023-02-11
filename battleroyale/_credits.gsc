@@ -10,7 +10,7 @@
 ///////////////////////////////////////////////////////////////
 /*
 	BraXi's Death Run Mod
-	
+
 	Website: www.braxi.org
 	E-mail: paulina1295@o2.pl
 
@@ -30,11 +30,11 @@ main()
 	thread showCredit("SuX Lolz", 1.8, 100, 6);
 	wait 2;
 
-	if(isDefined(level.map_authors))
+	if(isDefined(level.mapCredits))
 	{
 		thread showCredit("Map Created by:", 2, 200, 5);
 		wait 1;
-		thread showCredit("" + level.map_authors, 1.8, 220, 4);
+		thread showCredit("" + level.mapCredits, 1.8, 220, 4);
 		wait 2;
 	}
 
