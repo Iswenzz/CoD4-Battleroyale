@@ -1,27 +1,27 @@
+#include battleroyale\sys\_dvar;
 #include maps\mp\gametypes\_hud_util;
-#include battleroyale\_dvar;
 
-init( version )
+init(version)
 {
-	addDvar( "pi_kc", "plugin_killcam_enable", 1, 0, 1, "int" );
-	addDvar( "pi_kc_show", "plugin_killcam_show", 2, 0, 2, "int" );
-	addDvar( "pi_kc_tp", "plugin_killcam_thirdperson", 0, 0, 0, "int" );
-	addDvar( "pi_kc_blur", "plugin_killcam_blur", 0, 0, 5.0, "float" );
+	addDvar("pi_kc", "plugin_killcam_enable", 1, 0, 1, "int");
+	addDvar("pi_kc_show", "plugin_killcam_show", 2, 0, 2, "int");
+	addDvar("pi_kc_tp", "plugin_killcam_thirdperson", 0, 0, 0, "int");
+	addDvar("pi_kc_blur", "plugin_killcam_blur", 0, 0, 5.0, "float");
 	//0 = When Jumper killed Acti
 	//1 = When Activator killed jumper
 	//2 = Every Kill
-	
-	setArchive( true );
+
+	setArchive(true);
 }
 
-StartKillcam( attacker, sWeapon )
+StartKillcam(attacker, sWeapon)
 {
 	wait 2;
-	players = getEntArray( "player", "classname" );
-	for(i=0;i<players.size;i++)
+	players = getEntArray("player", "classname");
+	for (i=0;i<players.size;i++)
 	{
-		players[i] setClientDvars( "cg_thirdperson", int( level.dvar["pi_kc_tp"] ), "r_blur", level.dvar["pi_kc_blur"] );
-		players[i] thread killcam( attacker GetEntityNumber(), -1, sWeapon, 0, 0, 0, 15, undefined, attacker );
+		players[i] setClientDvars("cg_thirdperson", int(level.dvar["pi_kc_tp"]), "r_blur", level.dvar["pi_kc_blur"]);
+		players[i] thread killcam(attacker GetEntityNumber(), -1, sWeapon, 0, 0, 0, 15, undefined, attacker);
 	}
 }
 
@@ -38,24 +38,24 @@ killcam(
 )
 {
 	// monitors killcam and hides HUD elements during killcam session
-	//if ( !level.splitscreen )
+	//if (!level.splitscreen)
 	//	self thread killcam_HUD_off();
-	
+
 	self endon("disconnect");
 	self endon("spawned");
 
-	if(attackerNum < 0)
+	if (attackerNum < 0)
 		return;
 
 	camtime = 8;
-	
+
 	if (isdefined(maxtime)) {
 		if (camtime > maxtime)
 			camtime = maxtime;
 		if (camtime < .05)
 			camtime = .05;
 	}
-	
+
 	// time after player death that killcam continues for
 	if (getdvar("scr_killcam_posttime") == "")
 		postdelay = 2;
@@ -66,7 +66,7 @@ killcam(
 	}
 
 	killcamlength = camtime + postdelay;
-	
+
 	// don't let the killcam last past the end of the round.
 	if (isdefined(maxtime) && killcamlength > maxtime)
 	{
@@ -85,15 +85,15 @@ killcam(
 			postdelay = 2;
 			camtime = maxtime - 1;
 		}
-		
+
 		// recalc killcamlength
 		killcamlength = camtime + postdelay;
 	}
 
 	killcamoffset = camtime + predelay;
-	
-	self notify ( "begin_killcam", getTime() );
-	
+
+	self notify ("begin_killcam", getTime());
+
 	self.sessionstate = "spectator";
 	self.spectatorclient = attackerNum;
 	self.killcamentity = killcamentity;
@@ -106,11 +106,11 @@ killcam(
 	self allowSpectateTeam("axis", true);
 	self allowSpectateTeam("freelook", true);
 	self allowSpectateTeam("none", true);
-	
+
 	// wait till the next server frame to allow code a chance to update archivetime if it needs trimming
 	wait 0.05;
 
-	if ( self.archivetime <= predelay ) // if we're not looking back in time far enough to even see the death, cancel
+	if (self.archivetime <= predelay) // if we're not looking back in time far enough to even see the death, cancel
 	{
 		self.sessionstate = "spectator";
 		self.spectatorclient = -1;
@@ -120,7 +120,7 @@ killcam(
 		return;
 	}
 	self.killcam = true;
-	
+
 	self thread waitKillcamTime();
 
 	self waittill("end_killcam");

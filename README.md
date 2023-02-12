@@ -7,39 +7,10 @@ Call of Duty 4's battle royale is based off of many other games such as H1Z1, Pl
 
 ![](https://i.imgur.com/UyDK7t6.jpg)
 
-This mod comes with it's own custom map called, ``MP_BR_BLACKOUT`` (created by Iswenzz), which is designed for over 30 players. This map utilizes the entirety of 
-the Call of Duty 4 game engine, and pushes the game to it's limits.
+This mod comes with it's own custom map called, ``MP_BR_BLACKOUT``, which is designed for over 30 players. This map utilizes the entirety of the Call of Duty 4 game engine, and pushes the game to it's limits.
 
 ### **[MP_BR_BLACKOUT - Download](https://iswenzz.com:1337/fastdl/usermaps/mp_br_blackout/)**
-
-# Callbacks
-You can make a callback function that is triggered when one of the following events happens.
-
-```c
-/* 
-===============CALLBACK LIST===============
-game_started
-br_started
-plane_start
-plane_stop
-restricting_area
-end_map
-parachute_start
-parachute_end
-connected
-disconnected
-spawned
-death
-==========================================
-*/
-level.callback["br_started"] = ::callback_BrStarted;
-
-callback_BrStarted()
-{
-    // code
-}
-```
-### **[Map code example](https://github.com/Iswenzz/CoD4-Battleroyale/blob/master/maps/mp/mp_creek.gsc)**
+### **[Example](https://github.com/Iswenzz/CoD4-Battleroyale/blob/master/maps/mp/mp_creek.gsc)**
 
 ## Functions
 
@@ -52,14 +23,6 @@ removeAllMapTriggers();
 ```
 <hr>
 
-#### ``createLobbyArea(ent)``
-Add a brush/trigger to a list of entities that will be deleted when the game starts.
-
-Usage Example:
-```c
-createLobbyArea(ent);
-```
-<hr>
 
 #### ``removeAllSpawns()``
 Remove all stock spawns, used in stock maps to control the lobby area.
@@ -70,8 +33,17 @@ removeAllSpawns();
 ```
 <hr>
 
-#### ``createSpawn(coord, angle)``
-Create a master spawn for the lobby area.
+#### ``createLobbyArea(origin, width, height)``
+Add a brush/trigger to a list of entities that will be deleted when the game starts.
+
+Usage Example:
+```c
+createLobbyArea((100, 200, 300), 200, 300);
+```
+<hr>
+
+#### ``createSpawn(origin, angle)``
+Create a spawn for the lobby area.
 
 Usage Example:
 ```c
@@ -79,7 +51,7 @@ createSpawn((0, 0, 0), 90);
 ```
 <hr>
 
-#### ``createDropTrigger(coord, radius)``
+#### ``createDropTrigger(origin, radius)``
 Create a trigger for the plane dropping area.
 
 Usage Example:
@@ -88,8 +60,8 @@ createDropTrigger((0, 0, 1000), 5000);
 ```
 <hr>
 
-#### ``createZone(coord)``
-Add coords to the list of final zone areas.
+#### ``createZone(origin)``
+Add origins to the list of final zones.
 
 Usage Example:
 ```c
@@ -97,17 +69,17 @@ createZone((0, 0, 0));
 ```
 <hr>
 
-#### ``setLastEjectCoord(coord)``
-Set the default plane dropping coordinates, if someone afk or gets stuck.
+#### ``setDrop(origin)``
+Set the default plane dropping origin, if someone afk or gets stuck.
 
 Usage Example:
 ```c
-setLastEjectCoord((0, 0, 1000));
+setDropOrigin((0, 0, 1000));
 ```
 <hr>
 
-#### ``createPlanePath(start_coord, end_coord, angle)``
-Add coordinates to the plane path list.
+#### ``createPlanePath(start, end, angle)``
+Add origin to the plane path list.
 
 Usage Example:
 ```c
@@ -115,61 +87,79 @@ createPlanePath((-1000, 0, 1000), (1000, 0, 1000), 90);
 ```
 <hr>
 
-#### ``createAssetEntity(ent_name, model, coord)``
-Spawn a BR asset entity at the specified coordinates. \
--model: xmodel id
+#### ``createEntity(id, origin)``
+Spawn a battleroyale entity at the specified origin.
 
 Usage Example:
 ```c
-createAssetEntity("mag_m16", "weapon_m16_mp", (0, 0, 0));
+createEntity("m16", (0, 0, 0));
 ```
 <hr>
 
-#### ``createWeapon(ent, sound, hud_icon, weapon, rng)``
-Create a weapon entity from a BR asset entity.
-
-**Parameters:** 
-* ent: BR asset id 
-* sound: pickup sound allias. 
-* hud_icon: weapon icon material. 
-* weapon: weapon id 
-* rng: integer from 1 to 10 (higher = rare)
-
-Usage Example:
-```c
-createWeapon("mag_m16", "weap_raise_plr", "hud_icon_m16a4", "m16_mp", level.RNG_NORMAL);
-```
-<hr>
-
-#### ``createAmmo(ent, sound, hud_icon, count, rng)``
-Create a ammo entity from a BR asset entity.
+#### ``createWeapon(id, mag, model, sound, icon, weapon, rng)``
+Create a weapon.
 
 **Parameters:**
-* ent: BR asset id 
-* sound: pickup sound allias. 
-* hud_icon: ammo icon material.
-* count: clip size.
-* rng: integer from 1 to 10 (higher = rare)
+* id: Weapon id.
+* mag: Weapon mag id.
+* model: Weapon model.
+* sound: Pickup sound allias.
+* icon: Icon material.
+* weapon: Weapon item id.
+* rng: Integer from 1 to 10 (higher is more rare).
 
 Usage Example:
 ```c
-createAmmo("mag_5_45", "amunition", "hud_icon_mag_5_56", 30, level.RNG_NORMAL);
+createWeapon("m16", "5_45", "weapon_m16_mp", "weap_raise_plr", "hud_icon_m16a4", "m16_mp", level.RNG_NORMAL);
 ```
 <hr>
 
-#### ``createSpecial(ent, sound, hud_icon, weapon, rng)``
-Create a special entity from a BR asset entity.
+#### ``createAmmo(id, model, sound, icon, count, rng)``
+Create ammo.
 
 **Parameters:**
-* ent: BR asset id
-* sound: pickup sound allias.
-* hud_icon: special icon material.
-* weapon: weapon / special id
-* rng: integer from 1 to 10 (higher = rare)
+* id: Ammo id.
+* model: Ammo model.
+* sound: Pickup sound allias.
+* icon: Icon material.
+* count: Clip size.
+* rng: Integer from 1 to 10 (higher is more rare).
 
 Usage Example:
 ```c
-createSpecial("mag_frag_grenade", "grenade_pickup", "hud_icon_grenade", "frag_grenade_mp", level.RNG_SMALL);
+createAmmo("5_45", "sr_5_45", "amunition", "hud_icon_mag_5_56", 30, level.RNG_NORMAL);
+```
+<hr>
+
+#### ``createGrenade(id, model, sound, icon, weapon, rng)``
+Create a grenade.
+
+**Parameters:**
+* id: Grenade id.
+* model: Grenade model.
+* sound: Pickup sound allias.
+* icon: Icon material.
+* weapon: Weapon item id.
+* rng: Integer from 1 to 10 (higher is more rare).
+
+Usage Example:
+```c
+createGrenade("frag_grenade", "weapon_m67_grenade", "grenade_pickup", "hud_icon_grenade", "frag_grenade_mp", level.RNG_SMALL);
+```
+
+#### ``createSpecial(id, model, sound, icon, rng)``
+Create a special.
+
+**Parameters:**
+* id: Special id.
+* model: Special model.
+* sound: Pickup sound allias.
+* icon: Icon material.
+* rng: Integer from 1 to 10 (higher is more rare).
+
+Usage Example:
+```c
+createSpecial("bandage", "sr_bandage", "health_pickup_large", "hud_icon_band", level.RNG_NORMAL);
 ```
 
 ## Instructions

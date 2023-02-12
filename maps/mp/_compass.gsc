@@ -9,15 +9,15 @@ setupMiniMap(material)
 		println("^1Error: There are not exactly two \"minimap_corner\" entities in the map. Could not set up minimap.");
 		return;
 	}
-	
+
 	corner0 = (corners[0].origin[0], corners[0].origin[1], 0);
 	corner1 = (corners[1].origin[0], corners[1].origin[1], 0);
-	
+
 	cornerdiff = corner1 - corner0;
-	
+
 	north = (cos(getnorthyaw()), sin(getnorthyaw()), 0);
 	west = (0 - north[1], north[0], 0);
-	
+
 	// we need the northwest and southeast corners. all we know is that corner0 is opposite of corner1.
 	if (vectordot(cornerdiff, west) > 0) {
 		// corner1 is further west than corner0
@@ -47,27 +47,27 @@ setupMiniMap(material)
 			southeast = corner1;
 		}
 	}
-	
+
 	// expand map area to fit required aspect ratio
-	if ( requiredMapAspectRatio > 0 )
+	if (requiredMapAspectRatio > 0)
 	{
 		northportion = vectordot(northwest - southeast, north);
 		westportion = vectordot(northwest - southeast, west);
 		mapAspectRatio = westportion / northportion;
-		if ( mapAspectRatio < requiredMapAspectRatio )
+		if (mapAspectRatio < requiredMapAspectRatio)
 		{
 			incr = requiredMapAspectRatio / mapAspectRatio;
-			addvec = vecscale( west, westportion * (incr - 1) * 0.5 );
+			addvec = vecscale(west, westportion * (incr - 1) * 0.5);
 		}
 		else
 		{
 			incr = mapAspectRatio / requiredMapAspectRatio;
-			addvec = vecscale( north, northportion * (incr - 1) * 0.5 );
+			addvec = vecscale(north, northportion * (incr - 1) * 0.5);
 		}
 		northwest += addvec;
 		southeast -= addvec;
 	}
-	
+
 	setMiniMap(material, northwest[0], northwest[1], southeast[0], southeast[1]);
 }
 

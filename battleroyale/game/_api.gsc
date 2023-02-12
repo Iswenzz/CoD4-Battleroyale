@@ -41,7 +41,7 @@ createDropTrigger(origin, radius)
 {
 	ent = spawn("trigger_radius", origin, 0, radius, 2000);
 	ent.radius = radius;
-	ent.targetname = "drop_trigger";
+	ent.targetname = "drop";
 }
 
 createZone(origin)
@@ -49,11 +49,6 @@ createZone(origin)
 	if (!isDefined(level.zone))
 		level.zone = [];
 	level.zone[level.zone.size] = origin;
-}
-
-setLastEjection(origin)
-{
-	level.ejectLastOrigin = origin;
 }
 
 createPlanePath(start, end, angle)
@@ -71,7 +66,7 @@ createPlanePath(start, end, angle)
 
 	trigger = spawn("trigger_radius", path[1].origin, 0, 300, 300);
 	trigger.radius = 300;
-	trigger.targetname = "ejection";
+	trigger.targetname = "drop_recover";
 }
 
 createEntity(id, origin)
@@ -110,32 +105,51 @@ createAmmo(id, model, sound, icon, count, rng)
 	item.give = ::givePlayerAmmo;
 
 	item.entities = getEntArray(item.id, "targetnames");
-	item thread triggerEntities();
+	item thread itemRandomize();
 
 	level.items[id] = item;
 	return item;
 }
 
-createWeapon(id, model, sound, icon, weapon, rng)
+createWeapon(id, mag, model, sound, icon, weapon, rng)
 {
 	item = spawnStruct();
 	item.type = "weapon";
 	item.id = id;
 	item.sound = sound;
 	item.icon = icon;
+	item.mag = mag;
 	item.weapon = weapon;
 	item.model = model;
 	item.rng = rng;
 	item.give = ::givePlayerWeapon;
 
 	item.entities = getEntArray(item.id, "targetnames");
-	item thread triggerEntities();
+	item thread itemRandomize();
 
 	level.items[id] = item;
 	return item;
 }
 
-createSpecial(id, model, sound, icon, weapon, rng)
+createSpecial(id, model, sound, icon, rng)
+{
+	item = spawnStruct();
+	item.type = "special";
+	item.id = id;
+	item.sound = sound;
+	item.icon = icon;
+	item.model = model;
+	item.rng = rng;
+	item.give = ::givePlayerSpecial;
+
+	item.entities = getEntArray(item.id, "targetnames");
+	item thread itemRandomize();
+
+	level.items[id] = item;
+	return item;
+}
+
+createGrenade(id, model, sound, icon, weapon, rng)
 {
 	item = spawnStruct();
 	item.type = "special";
@@ -145,10 +159,10 @@ createSpecial(id, model, sound, icon, weapon, rng)
 	item.weapon = weapon;
 	item.model = model;
 	item.rng = rng;
-	item.give = ::givePlayerSpecial;
+	item.give = ::givePlayerGrenade;
 
 	item.entities = getEntArray(item.id, "targetnames");
-	item thread triggerEntities();
+	item thread itemRandomize();
 
 	level.items[id] = item;
 	return item;
@@ -166,13 +180,25 @@ getWeaponItem(weapon)
 	return undefined;
 }
 
-getSpecialItem(weapon)
+getGrenadeItem(weapon)
 {
 	keys = getArrayKeys(level.items);
 	for (i = 0; i < keys.size; i++)
 	{
 		item = level.items[keys[i]];
-		if (item.type == "special" && item.weapon == weapon)
+		if (item.type == "grenade" && item.weapon == weapon)
+			return item;
+	}
+	return undefined;
+}
+
+getSpecialItem(id)
+{
+	keys = getArrayKeys(level.items);
+	for (i = 0; i < keys.size; i++)
+	{
+		item = level.items[keys[i]];
+		if (item.type == "special" && item.id == id)
 			return item;
 	}
 	return undefined;
@@ -203,9 +229,9 @@ triggerEntity(entity)
 	entity thread triggerEntityLoop();
 }
 
-triggerEntities()
+itemRandomize()
 {
-	level waittill("br_items");
+	level waittill("br_started");
 
 	for (i = 0; i < self.entities.size; i++)
 	{
@@ -239,8 +265,8 @@ itemHud(entity)
 	{
 		if (!self.touchingItem)
 		{
-			self.itemHint setShader(entity.item.icon, 100, 40);
-			self.itemHintLabel setText("^7Press ^3[{+activate}] ^7to grab");
+			self.huds["hint"]["icon"] setShader(entity.item.icon, 100, 40);
+			self.huds["hint"]["label"] setText("^7Press ^3[{+activate}] ^7to grab");
 		}
 		self.touchingItem = true;
 		wait 0.05;
@@ -314,7 +340,7 @@ givePlayerWeapon(entity)
 	self refreshWeaponsList();
 }
 
-givePlayerSpecial(entity)
+givePlayerGrenade(entity)
 {
 	item = entity.item;
 	trigger = entity.trigger;
@@ -326,4 +352,21 @@ givePlayerSpecial(entity)
 
 	entity delete();
 	trigger delete();
+}
+
+givePlayerSpecial(entity)
+{
+	item = entity.item;
+	trigger = entity.trigger;
+
+	self.pers[item.id]++;
+	self playLocalSound(item.sound);
+
+	entity delete();
+	trigger delete();
+}
+
+setDrop(origin)
+{
+	level.dropOrigin = origin;
 }
