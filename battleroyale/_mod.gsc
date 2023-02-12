@@ -4,8 +4,6 @@ main()
 	precacheText();
 	precacheFx();
 
-	assertMsg("xd");
-
 	maps\mp\gametypes\_hud::init();
 	maps\mp\gametypes\_hud_message::init();
 	maps\mp\gametypes\_damagefeedback::init();
@@ -17,10 +15,10 @@ main()
 	maps\mp\_weapons::init();
 	maps\mp\_killcam::init();
 
-	battleroyale\sys\_events::initEvents();
 	battleroyale\sys\_dvar::setupDvars();
+	battleroyale\sys\_events::initEvents();
 
-	battleroyale\game\_lobby::main();
+	battleroyale\game\_match::main();
 	battleroyale\game\_zone::main();
 	battleroyale\game\_map::main();
 	battleroyale\game\_menus::main();
@@ -31,7 +29,6 @@ main()
 	battleroyale\game\_poll::initPoll();
 	battleroyale\game\_hitmarker::main();
 
-	battleroyale\player\_dvars::main();
 	battleroyale\player\_weapons::main();
 	battleroyale\player\huds\_health::main();
 	battleroyale\player\huds\_hint::main();
@@ -176,10 +173,8 @@ precache()
 precacheText()
 {
 	level.texts["empty"] 				= &"";
-	level.texts["round_begins_in"] 		= &"SR_ROUND_BEGINS_IN";
-	level.texts["waiting_for_players"] 	= &"SR_WAITING_FOR_PLAYERS";
-	level.texts["jumpers_count"] 		= &"SR_ALIVE_JUMPERS";
-	level.texts["call_freeround"] 		= &"SR_CALL_FREEROUND";
+	level.texts["round_begins_in"] 		= &"ROUND_BEGINS_IN";
+	level.texts["waiting_for_players"] 	= &"WAITING_FOR_PLAYERS";
 	level.texts["time"] 				= &"^2&&1";
 	level.texts["ended_game"]			= &"MP_HOST_ENDED_GAME";
 	level.texts["endgame"]				= &"MP_HOST_ENDGAME_RESPONSE";

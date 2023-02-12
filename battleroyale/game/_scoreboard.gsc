@@ -10,6 +10,6 @@ main()
 
 	setDvar("g_ScoresColor_Spectator", "0.25 0.25 0.25");
 	setDvar("g_ScoresColor_Free", "0.76 0.78 0.10");
-	setDvar("g_teamColor_MyTeam", "0.6 0.8 0.6");
-	setDvar("g_teamColor_EnemyTeam", "1 0.45 0.5");
+	setDvar("g_teamColor_MyTeam", "1 0 0 1");
+	setDvar("g_teamColor_EnemyTeam", "1 0 0 1");
 }

@@ -9,6 +9,10 @@ start()
 	printLn("^5iswenzz.com");
 	printLn("^5===================================");
 
+	GSCLIB_Init();
+	dvars();
+
+	level.scriptusage = debug_scriptusage();
 	level.script = toLower(getDvar("mapname"));
 	level.gametype = toLower(getDvar("g_gametype"));
 	level.splitscreen = isSplitScreen();
@@ -37,7 +41,14 @@ start()
 	if (!isDefined(game["axis"]))
 		game["axis"] = "opfor";
 
+	sr\_mod::main();
 	battleroyale\_mod::main();
+}
+
+dvars()
+{
+	addDvar("demos", "sr_demos", 1, 0, 1, "int");
+	addDvar("demos_timeout", "sr_demos_timeout", 120, 20, 1200, "int");
 }
 
 CodeCallback_StartGameType()
@@ -136,6 +147,7 @@ CodeCallback_PlayerConnect()
 
 	self.shortName = getSubStr(self.name, 0, 15);
 	self.guid = getSubStr(self getGuid(), 24, 32);
+	self.id = sr\sys\_ids::load();
 	self.number = self getEntityNumber();
 	self.team = IfUndef(self.pers["team"], "spectator");
 	self.sessionteam = self.team;
@@ -144,6 +156,7 @@ CodeCallback_PlayerConnect()
 	self.statusicon = "hud_status_connecting";
 	self.died = false;
 
+	self sr\player\_settings::init();
 	self battleroyale\game\_callbacks::playerConnect();
 
 	self thread CodeCallback_PlayerSpawned();
@@ -161,6 +174,8 @@ CodeCallback_PlayerConnect()
 		self eventSpectator();
 	}
 	else self eventSpawn();
+
+	comPrintLn(fmt("[Info] %s", removeColorFromString(self sr\sys\_admins::getPlayerInfo())));
 
 	self.pers["connected"] = true;
 	self notify("connecting_sync");

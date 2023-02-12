@@ -15,8 +15,8 @@ main()
 
 placeSpawns()
 {
-	level.spawn["allies"] = getEntArray("mp_jumper_spawn", "classname");
-	level.spawn["axis"] = getEntArray("mp_activator_spawn", "classname");
+	level.spawn["allies"] = getEntArray("mp_dm_spawn", "classname");
+	level.spawn["axis"] = getEntArray("mp_tdm_spawn", "classname");
 
 	if (getEntArray("mp_global_intermission", "classname").size == 0)
 	{
@@ -25,11 +25,6 @@ placeSpawns()
 	}
 	else
 		level.spawn["spectator"] = getEntArray("mp_global_intermission", "classname")[0];
-
-	if (!level.spawn["allies"].size)
-		level.spawn["allies"] = getEntArray("mp_dm_spawn", "classname");
-	if (!level.spawn["axis"].size)
-		level.spawn["axis"] = getEntArray("mp_tdm_spawn", "classname");
 
 	for (i = 0; i < level.spawn["allies"].size; i++)
 		level.spawn["allies"][i] placeSpawnPoint();

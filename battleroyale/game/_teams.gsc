@@ -9,7 +9,7 @@ setPlayerModel()
 {
 	self detachAll();
 
-	self setModel("body_mp_sas_urban_sniper");
+	self setModel("body_mp_usmc_cqb");
 	self setViewModel("viewmodel_hands_zombie");
 }
 

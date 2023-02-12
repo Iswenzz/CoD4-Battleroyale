@@ -30,16 +30,10 @@ LANG_ENGLISH        "About the Mod"
 REFERENCE           ABOUT_HEADER
 LANG_ENGLISH        "About the Mod..."
 
-REFERENCE           CALL_FREEROUND
-LANG_ENGLISH        ""
-
-REFERENCE           ALIVE_JUMPERS
-LANG_ENGLISH        ""
-
-REFERENCE           ROUND_BEGINS_IN
+REFERENCE           SR_ROUND_BEGINS_IN
 LANG_ENGLISH        "Begins in..."
 
-REFERENCE           WAITING_FOR_PLAYERS
+REFERENCE           SR_WAITING_FOR_PLAYERS
 LANG_ENGLISH        "Waiting for more players to start..."
 
 REFERENCE			GRAPHICS_WARNING

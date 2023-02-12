@@ -33,8 +33,8 @@ removeAllSpawns()
 
 createSpawn(origin, angle)
 {
-	level.masterspawn = spawn("script_origin", origin);
-	level.masterspawn.angles = (0, angle, 0);
+	level.spawn["player"] = spawn("script_origin", origin);
+	level.spawn["player"].angles = (0, angle, 0);
 }
 
 createDropTrigger(origin, radius)
@@ -104,7 +104,7 @@ createAmmo(id, model, sound, icon, count, rng)
 	item.rng = rng;
 	item.give = ::givePlayerAmmo;
 
-	item.entities = getEntArray(item.id, "targetnames");
+	item.entities = getEntArray(item.id, "targetname");
 	item thread itemRandomize();
 
 	level.items[id] = item;
@@ -124,7 +124,7 @@ createWeapon(id, mag, model, sound, icon, weapon, rng)
 	item.rng = rng;
 	item.give = ::givePlayerWeapon;
 
-	item.entities = getEntArray(item.id, "targetnames");
+	item.entities = getEntArray(item.id, "targetname");
 	item thread itemRandomize();
 
 	level.items[id] = item;
@@ -142,7 +142,7 @@ createSpecial(id, model, sound, icon, rng)
 	item.rng = rng;
 	item.give = ::givePlayerSpecial;
 
-	item.entities = getEntArray(item.id, "targetnames");
+	item.entities = getEntArray(item.id, "targetname");
 	item thread itemRandomize();
 
 	level.items[id] = item;
@@ -161,7 +161,7 @@ createGrenade(id, model, sound, icon, weapon, rng)
 	item.rng = rng;
 	item.give = ::givePlayerGrenade;
 
-	item.entities = getEntArray(item.id, "targetnames");
+	item.entities = getEntArray(item.id, "targetname");
 	item thread itemRandomize();
 
 	level.items[id] = item;
