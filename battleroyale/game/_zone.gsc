@@ -85,14 +85,16 @@ update(model, radius, damageTime)
 	level endon("game over");
 
 	origin = level.zoneTrigger;
-	trigger = spawn("trigger_radius", (origin[0], origin[1], origin[2] - 2000), 0, radius, 15000);
-	trigger.model = spawn("script_model", trigger.origin);
-	trigger.model setModel(model);
-	trigger thread removeAfter();
+	zone = spawnStruct();
+	zone.trigger = spawn("trigger_radius", (origin[0], origin[1], origin[2] - 2000), 0, radius, 15000);
+	zone.trigger.radius = radius;
+	zone.model = spawn("script_model", zone.trigger.origin);
+	zone.model setModel(model);
+	zone thread removeAfter();
 
 	players = getAllPlayers();
 	for (i = 0; i < players.size; i++)
-		players[i] thread damage(trigger, damageTime);
+		players[i] thread damage(zone.trigger, damageTime);
 }
 
 removeAfter()
@@ -100,7 +102,7 @@ removeAfter()
 	level waittill("zone");
 
 	self.model delete();
-	self delete();
+	self.trigger delete();
 }
 
 damage(trig, damageTime)
@@ -108,9 +110,6 @@ damage(trig, damageTime)
 	level endon("zone");
 	self endon("death");
 	self endon("disconnect");
-
-	if (self.pers["team"] != "allies")
-		return;
 
 	while (true)
 	{

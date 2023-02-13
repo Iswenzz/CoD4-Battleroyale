@@ -8,6 +8,8 @@ main()
 
 plane()
 {
+	level waittill("br_started");
+
 	computePath();
 
 	thread watchDrops();
@@ -24,9 +26,6 @@ plane()
 	players = getPlayingPlayers();
 	for (i = 0; i < players.size; i++)
 	{
-		if (players[i].pers["team"] != "allies")
-			continue;
-
 		players[i] clearLowerMessage();
 		players[i].origin = level.plane.origin + (0, 0, 700);
 		players[i] setPlayerAngles((level.plane.angles[0] + 50, level.plane.angles[1], level.plane.angles[2]));
@@ -62,8 +61,9 @@ lastDropTrigger()
 	while (true)
 	{
 		self waittill("trigger", player);
-		player setOrigin((origin[0] + randomIntRange(-500, 500), origin[1] + randomIntRange(-500, 500), origin[2]));
-		player thread playerDrop();
+
+		drop = (origin[0] + randomIntRange(-500, 500), origin[1] + randomIntRange(-500, 500), origin[2]);
+		player thread playerDrop(drop);
 	}
 }
 
@@ -85,9 +85,9 @@ watchPlayerDrop(trigger)
 	self endon("death");
 	self endon("disconnect");
 
-	if (isDefined(self.planeDrop) || self.pers["team"] != "axis")
+	if (isDefined(self.watchPlaneDrop))
 		return;
-	self.planeDrop = true;
+	self.watchPlaneDrop = true;
 
 	while (!self useButtonPressed())
 	{
@@ -98,7 +98,7 @@ watchPlayerDrop(trigger)
 		wait 0.1;
 	}
 	if (self isTouching(trigger))
-		self thread playerDrop();
+		self thread playerDrop(level.plane.origin);
 }
 
 playerUnstuck()
@@ -112,9 +112,9 @@ playerUnstuck()
 		while (self getVelocity() != (0, 0, 0))
 			wait 0.5;
 
-		for (i = 5; i >= 0; i--)
+		for (i = 0; i < 5; i++)
 		{
-			self setLowerMessage("^1Teleporting in " + i + " sec ...");
+			self setLowerMessage("^1Teleporting in " + (5 - i) + " sec ...");
 			wait 1;
 		}
 		self clearLowerMessage();
@@ -126,13 +126,18 @@ playerUnstuck()
 	}
 }
 
-playerDrop()
+playerDrop(origin)
 {
 	self endon("death");
 	self endon("disconnect");
 
+	if (isDefined(self.planeDrop))
+		return;
+	self.planeDrop = true;
+
 	self freezeControls(true);
 	self clearLowerMessage();
+	self disableweapons();
 	self show();
 	self unlink();
 	self setClientDvar("cg_thirdperson", 1);
@@ -141,7 +146,7 @@ playerDrop()
 	wait 0.2;
 	self thread playerUnstuck();
 
-	self.origin = level.plane.origin + (0, 0, -100);
+	self setOrigin(origin + (0, 0, -100));
 	self attach("sr_parachute", "TAG_ORIGIN");
 	self playSound("parachute_start");
 	self notify("parachute_start");
@@ -163,6 +168,7 @@ playerDrop()
 	self.health = self.maxhealth;
 	self setGravity(800);
 	self setMoveSpeed(190);
+	self enableWeapons();
 	self notify("parachute_end");
 	self clearLowerMessage();
 }

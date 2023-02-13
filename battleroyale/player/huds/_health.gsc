@@ -1,5 +1,6 @@
 #include battleroyale\sys\_dvar;
 #include battleroyale\sys\_events;
+#include battleroyale\utils\_common;
 #include battleroyale\utils\_hud;
 
 main()
@@ -16,13 +17,13 @@ hud()
 	self endon("death");
 	self endon("disconnect");
 
-	if (!level.dvar["healthbar"] || self.pers["team"] != "allies")
+	if (!level.dvar["healthbar"] || !self isPlaying())
 		return;
 
 	self clear();
 
 	self.huds["health"] = [];
-	self.huds["health"]["background"] = addHud(self, 0, 2, 0.6, "center", "bottom", 1.4, 1001);
+	self.huds["health"]["background"] = addHud(self, 0, 0, 0.6, "center", "bottom", 1.4, 1001);
 	self.huds["health"]["background"].color = (0.4, 0.4, 0.4);
 	self.huds["health"]["background"] setShader("white", 250, 10);
 	self.huds["health"]["foreground"] = addHud(self, 0, 0, 0.8, "center", "bottom", 1.4, 1002);

@@ -169,13 +169,13 @@ precache()
 
 	precacheModel("weapon_beretta");
 	precacheModel("weapon_colt45");
-	precacheModel("weapon_deserteagle");
+	precacheModel("weapon_desert_eagle_silver");
 	precacheModel("weapon_dragunov");
-	precacheModel("weapon_m16");
+	precacheModel("weapon_m16_mp");
 	precacheModel("weapon_ak47");
 	precacheModel("weapon_mp44");
 	precacheModel("weapon_mp5");
-	precacheModel("weapon_m1014");
+	precacheModel("weapon_benelli_super_90");
 	precacheModel("weapon_winchester1200");
 	precacheModel("weapon_m84_flashbang_grenade");
 	precacheModel("weapon_us_smoke_grenade");

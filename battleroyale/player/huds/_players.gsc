@@ -14,6 +14,9 @@ hud()
 	self endon("death");
 	self endon("disconnect");
 
+	if (!self isPlaying())
+		return;
+
 	self.huds["players"] = addHud(self, 10, 35, 1, "left", "top", 1.4);
 	self.huds["players"].label = &"^7Players Alive: &&1";
 

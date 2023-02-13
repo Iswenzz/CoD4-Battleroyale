@@ -52,7 +52,6 @@ canStartGame()
 
 waitForMorePlayers()
 {
-	visionSetNaked("mpIntro", 0);
 	if (isDefined(level.huds["match"]["text"]))
 		level.huds["match"]["text"] destroyElem();
 
@@ -68,6 +67,11 @@ waitForMorePlayers()
 
 lobbyStart()
 {
+	if (isDefined(level.huds["match"]["text"]))
+		level.huds["match"]["text"] destroyElem();
+	if (isDefined(level.huds["match"]["timer"]))
+		level.huds["match"]["timer"] destroyElem();
+
 	level notify("br_lobby");
 
 	while (level.lobbyTimer)

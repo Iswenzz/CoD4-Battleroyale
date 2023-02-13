@@ -216,6 +216,28 @@ getAmmoItem(id)
 	return undefined;
 }
 
+getAllItems()
+{
+	items = [];
+	keys = getArrayKeys(level.items);
+	for (i = 0; i < keys.size; i++)
+		items[items.size] = level.items[keys[i]];
+	return items;
+}
+
+getAllItemsHud()
+{
+	items = [];
+	keys = getArrayKeys(level.items);
+	for (i = 0; i < keys.size; i++)
+	{
+		item = level.items[keys[i]];
+		if (item.type == "grenade" || item.type == "special")
+			items[items.size] = item;
+	}
+	return items;
+}
+
 triggerEntity(entity)
 {
 	radius = 10;
@@ -246,32 +268,17 @@ itemRandomize()
 
 triggerEntityLoop()
 {
+	trigger = self.trigger;
+	item = self.item;
+
 	while (isDefined(self.trigger))
 	{
-		self.trigger waittill("trigger", player);
-		player thread itemHud(self);
+		trigger waittill("trigger", player);
+		player thread battleroyale\player\huds\_hint::draw(self);
 
 		if (player useButtonPressed())
-			player thread [[self.give]](self);
+			player thread [[item.give]](self);
 	}
-}
-
-itemHud(entity)
-{
-	self endon("death");
-	self endon("disconnect");
-
-	while (isDefined(self) && isDefined(entity.trigger) && self isTouching(entity.trigger))
-	{
-		if (!self.touchingItem)
-		{
-			self.huds["hint"]["icon"] setShader(entity.item.icon, 100, 40);
-			self.huds["hint"]["label"] setText("^7Press ^3[{+activate}] ^7to grab");
-		}
-		self.touchingItem = true;
-		wait 0.05;
-	}
-	self.touchingItem = false;
 }
 
 refreshWeaponsList()

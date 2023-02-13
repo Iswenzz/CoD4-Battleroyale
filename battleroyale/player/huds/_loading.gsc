@@ -1,4 +1,5 @@
 #include battleroyale\utils\_hud;
+#include battleroyale\utils\_common;
 #include battleroyale\sys\_events;
 
 main()
@@ -12,7 +13,7 @@ loading()
 	self endon("death");
 	self endon("disconnect");
 
-	if (isDefined(self.loading))
+	if (isDefined(self.loading) || !self isPlaying())
 		return;
 
 	self.loading = true;
