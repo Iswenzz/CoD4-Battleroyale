@@ -1,6 +1,6 @@
 #include battleroyale\utils\_common;
 
-setupDvars()
+initDvars()
 {
 	addDvar("mod", "mod_id", "battleroyale");
 	addDvar("max_health", "br_max_health", 200, 1, 1000, "int");

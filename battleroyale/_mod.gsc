@@ -15,7 +15,7 @@ main()
 	maps\mp\_weapons::init();
 	maps\mp\_killcam::init();
 
-	battleroyale\sys\_dvar::setupDvars();
+	battleroyale\sys\_dvar::initDvars();
 	battleroyale\sys\_events::initEvents();
 
 	battleroyale\game\_match::main();
