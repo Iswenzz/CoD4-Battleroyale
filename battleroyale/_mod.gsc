@@ -56,8 +56,8 @@ precache()
 	precacheModel("tag_origin");
 	precacheModel("body_mp_usmc_cqb");
 	precacheModel("collision_sphere");
-	precacheModel("sr_parachute");
 	precacheModel("mil_frame_charge");
+	precacheModel("sr_parachute");
 	precacheModel("sr_zonetrig_40k");
 	precacheModel("sr_zonetrig_20k");
 	precacheModel("sr_zonetrig_10k");
@@ -167,7 +167,34 @@ precache()
 	precacheStatusIcon("hud_status_dead");
 	precacheHeadIcon("headicon_admin");
 
+	precacheModel("weapon_beretta");
+	precacheModel("weapon_colt45");
+	precacheModel("weapon_deserteagle");
+	precacheModel("weapon_dragunov");
+	precacheModel("weapon_m16");
+	precacheModel("weapon_ak47");
+	precacheModel("weapon_mp44");
+	precacheModel("weapon_mp5");
+	precacheModel("weapon_m1014");
+	precacheModel("weapon_winchester1200");
+	precacheModel("weapon_m84_flashbang_grenade");
+	precacheModel("weapon_us_smoke_grenade");
+	precacheModel("weapon_m67_grenade");
+
 	precacheItem("dog_mp");
+	precacheItem("beretta_mp");
+	precacheItem("colt45_mp");
+	precacheItem("deserteagle_mp");
+	precacheItem("dragunov_mp");
+	precacheItem("m16_mp");
+	precacheItem("ak47_mp");
+	precacheItem("mp44_mp");
+	precacheItem("mp5_mp");
+	precacheItem("m1014_mp");
+	precacheItem("winchester1200_mp");
+	precacheItem("flash_grenade_mp");
+	precacheItem("smoke_grenade_mp");
+	precacheItem("frag_grenade_mp");
 }
 
 precacheText()
