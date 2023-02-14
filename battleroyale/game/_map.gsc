@@ -66,6 +66,7 @@ end(map)
 	game["state"] = "end";
 	level notify("intermission");
 	level notify("game over");
+	level notify("game_ended");
 
 	// Sequence
 	endMusic();
@@ -96,7 +97,7 @@ levelExit(persist)
 
 endMusic()
 {
-	ambientPlay("end");
+	ambientPlay("end_map");
 }
 
 endSpectate()
@@ -112,7 +113,7 @@ endSpectate()
 		players[i] cleanUp();
 		players[i] suicide();
 	}
-	wait .05;
+	wait 0.05;
 
 	players = getAllPlayers();
 	for (i = 0; i < players.size; i++)

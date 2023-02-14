@@ -14,6 +14,8 @@ main()
 	menu_callback("quickcommands",	 	maps\mp\gametypes\_quickmessages::quickcommands);
 	menu_callback("quickstatements", 	maps\mp\gametypes\_quickmessages::quickstatements);
 	menu_callback("quickresponses",  	maps\mp\gametypes\_quickmessages::quickresponses);
+
+	game["menu_main"] = "main_mp";
 }
 
 precache()

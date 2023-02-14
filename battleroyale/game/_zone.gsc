@@ -8,10 +8,8 @@ main()
 
 zone()
 {
-	if (!isDefined(level.zone))
-		assertMsg("ERROR: level.zone array isn't defined.");
-	if (isDefined(level.zone) && level.zone.size < 1)
-		assertMsg("ERROR: level.zone array need atleast 1 vector. Please use createZone(origin) to create a final zone.");
+	if (!isDefined(level.zone) || level.zone.size < 1)
+		assertMsg("ERROR: Map has no zones.\nUse createZone(origin) to create a zone.");
 
 	level.zoneTrigger = level.zone[randomIntrange(0, level.zone.size - 1)];
 	level waittill("br_started");

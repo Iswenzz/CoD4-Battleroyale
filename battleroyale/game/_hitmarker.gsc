@@ -17,8 +17,6 @@ onDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint
 {
 	if (!isPlayer(self) || !isPlayer(eAttacker) || self == eAttacker)
 		return;
-	if (self sameTeam(eAttacker))
-		return;
 
 	armor = self hasPerk("specialty_armorvest") && level.dvar["pi_hm_av"];
 	eAttacker maps\mp\gametypes\_damagefeedback::updateDamageFeedback(armor);

@@ -76,8 +76,9 @@ clear()
 					self.huds["inventory"]["items"][items[j]]["value"] destroy();
 				}
 			}
+			self.huds["inventory"]["items"] = undefined;
 		}
-		if (isDefined(self.huds["inventory"][keys[i]]) && !isDefined(self.huds["inventory"][keys[i]].size))
+		if (isDefined(self.huds["inventory"][keys[i]]))
 			self.huds["inventory"][keys[i]] destroy();
 	}
 }

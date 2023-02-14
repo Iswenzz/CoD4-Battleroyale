@@ -33,10 +33,16 @@ hud()
 	while (true)
 	{
 		health = self.health;
-		if (health > self.maxhealth)
-			health = self.maxhealth;
+		maxHealth = self.maxhealth;
 
-		self.huds["health"]["foreground"] scaleOverTime(0.2, int(health / self.maxhealth * 250), 10);
+		if (health <= 0)
+			health = 1;
+		if (maxHealth <= 0)
+			maxHealth = health;
+		if (health > maxHealth)
+			health = maxHealth;
+
+		self.huds["health"]["foreground"] scaleOverTime(0.2, int((health / maxHealth) * 250), 10);
 		wait 0.2;
 	}
 }

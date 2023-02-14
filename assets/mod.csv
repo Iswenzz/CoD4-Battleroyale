@@ -32,6 +32,21 @@ material,vip_gold
 material,gfx_exp_spark
 material,gfx_white
 
+// Menus
+// menufile,ui/menus.txt
+menufile,ui_mp/scriptmenus/main/main_mp.menu
+menufile,ui_mp/scriptmenus/commands/wm_quickmessage.menu
+menufile,ui_mp/scriptmenus/commands/quickcommands.menu
+menufile,ui_mp/scriptmenus/commands/quickresponses.menu
+menufile,ui_mp/scriptmenus/commands/quickstatements.menu
+menufile,ui_mp/scriptmenus/options/sr_settings.menu
+menufile,ui_mp/scriptmenus/controls/controls_multi.menu
+menufile,ui_mp/scriptmenus/popups/exit.menu
+menufile,ui_mp/scriptmenus/misc/clientcmd.menu
+menufile,ui_mp/scriptmenus/misc/endofgame.menu
+menufile,ui_mp/scriptmenus/misc/scoreboard.menu
+menufile,ui_mp/scriptmenus/misc/muteplayer.menu
+
 // Models
 xmodel,sr_parachute
 xmodel,vehicle_ac130_low
@@ -111,7 +126,7 @@ material,77
 material,78
 material,79
 
-// SR HUD
+// SR
 material,speedrunner_logo
 material,sr_vip
 

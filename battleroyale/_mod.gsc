@@ -13,7 +13,6 @@ main()
 	maps\mp\gametypes\_oldschool::deletePickups();
 	maps\mp\gametypes\_quickmessages::init();
 	maps\mp\_weapons::init();
-	maps\mp\_killcam::init();
 
 	battleroyale\sys\_dvar::initDvars();
 	battleroyale\sys\_events::initEvents();
@@ -23,10 +22,11 @@ main()
 	battleroyale\game\_zone::main();
 	battleroyale\game\_map::main();
 	battleroyale\game\_menus::main();
+	battleroyale\game\_bots::main();
 	battleroyale\game\_plane::main();
 	battleroyale\game\_scoreboard::main();
 	battleroyale\game\_rank::initRank();
-	battleroyale\game\_teams::main();
+	battleroyale\game\_killcam::main();
 	battleroyale\game\_poll::initPoll();
 	battleroyale\game\_hitmarker::main();
 
@@ -35,7 +35,7 @@ main()
 	battleroyale\player\huds\_hint::main();
 	battleroyale\player\huds\_inventory::main();
 	battleroyale\player\huds\_loading::main();
-	battleroyale\player\huds\_players::main();
+	battleroyale\player\huds\_info::main();
 }
 
 precache()

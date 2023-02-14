@@ -39,7 +39,7 @@ plane()
 	level.plane playLoopSound("plane_loop");
 	level notify("plane_start");
 
-	wait 60;
+	wait level.dvar["plane_duration"];
 	level.plane stopLoopSound();
 	level.plane delete();
 	level notify("plane_stop");
@@ -48,7 +48,7 @@ plane()
 watchLastDrop()
 {
 	if (!isDefined(level.dropOrigin))
-		assertMsg("ERROR: level.dropOrigin isn't defined. Please use the function createPlaneDrop(<origin>).");
+		assertMsg("ERROR: Plane drop is not defined.\nUse the function createPlaneDrop(<origin>).");
 
 	triggers = getEntArray("drop_recover", "targetname");
 	for (i = 0; i < triggers.size; i++)
@@ -69,14 +69,20 @@ lastDropTrigger()
 
 watchDrops()
 {
-	trigger = getEnt("drop", "targetname");
-	if (!isDefined(trigger))
-		assertMsg("ERROR: Map needs a trigger with targetname 'drop' where people can drop from the plane. \nUse the function createPlaneDropTrigger(<origin>, <radius>) to create one.");
+	triggers = getEntArray("drop", "targetname");
+	if (!triggers.size)
+		assertMsg("ERROR: Map needs atleast one trigger with targetname 'drop' where people can drop from the plane.\nUse the function createPlaneDropTrigger(<origin>, <radius>) to create one.");
 
+	for (i = 0; i < triggers.size; i++)
+		triggers[i] thread watchDropTrigger();
+}
+
+watchDropTrigger()
+{
 	while (true)
 	{
-		trigger waittill("trigger", player);
-		player thread watchPlayerDrop(trigger);
+		self waittill("trigger", player);
+		player thread watchPlayerDrop(self);
 	}
 }
 
@@ -108,10 +114,15 @@ playerUnstuck()
 	self endon("parachute_end");
 
 	wait 15;
+	self setLowerMessage("^1 Teleporting . . .");
+	wait 1;
 
 	origin = level.dropOrigin;
-	self setOrigin((origin[0] + randomIntRange(-100, 100), origin[1] + randomIntRange(-100, 100), origin[2]));
-	self setVelocity((0, 0, -200));
+	origin = (origin[0] + randomIntRange(-100, 100), origin[1] + randomIntRange(-100, 100), origin[2]);
+	self.planeDrop = undefined;
+	self detach("sr_parachute", "TAG_ORIGIN");
+
+	self thread playerDrop(origin);
 }
 
 playerDrop(origin)
@@ -167,12 +178,12 @@ computePath()
 		wait 0.05;
 	}
 	if (!paths)
-		assertMsg("ERROR: Map doesn't have plane path. Use createPlanePath(origin) to create a plane path.");
+		assertMsg("ERROR: Map doesn't have plane paths.\nUse createPlanePath(origin) to create one.");
 
 	index = randomInt(paths - 1) + 1;
 	path = getEntArray("plane_" + index, "targetname");
 	if (path.size != 2)
-		assertMsg("ERROR: plane_" + paths + "entity needs to have a start origin and a end origin");
+		assertMsg("ERROR: plane_" + paths + "entity needs to have a start and end origin.");
 
 	level.planePath = path;
 }

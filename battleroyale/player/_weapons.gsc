@@ -66,8 +66,6 @@ updateClip(item)
 	if (self.currentWeapon != self.prevWeapon || reloaded <= 0)
 		return;
 
-	iPrintLnBold(fmt("%d %d %d", reloaded, self.prevAmmoClip, self.ammoClip));
-
 	self.pers[item.mag] -= reloaded;
 	if (self.pers[item.mag] < 0)
 		self.pers[item.mag] = 0;
@@ -75,6 +73,5 @@ updateClip(item)
 
 updateStock(item)
 {
-	// iPrintLnBold(self.pers[item.mag]);
 	self setWeaponAmmoStock(item.weapon, self.pers[item.mag]);
 }

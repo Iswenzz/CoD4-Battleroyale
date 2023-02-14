@@ -1,10 +1,5 @@
 #include battleroyale\utils\_common;
 
-main()
-{
-	game["menu_main"] = "main_mp";
-}
-
 setPlayerModel()
 {
 	self detachAll();
@@ -27,7 +22,7 @@ setSpeed()
 
 setTeam(team)
 {
-	if (self.pers["team"] == team)
+	if (self.pers["team"] == team || game["state"] == "end")
 		return;
 
 	self.pers["team"] = team;

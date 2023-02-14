@@ -107,11 +107,7 @@ playerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 	attacker setLowerMessage("^7You killed ^9" + self.name);
 	attacker thread clearLowerMessageAfterTime();
 
-	wait 0.25;
-	if (game["state"] != "end")
-		self thread maps\mp\_killcam::killcam(attacker.number, -1, sWeapon, 0, 0, 0, 15, undefined, attacker);
-	else
-		thread maps\mp\_killcam::startKillcam(attacker, sWeapon);
+	self thread battleroyale\game\_killcam::killcam(attacker.number, -1, sWeapon, 1, 0, 0, 0, 10, undefined, attacker);
 }
 
 playerSpawn()

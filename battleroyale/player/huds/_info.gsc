@@ -17,13 +17,14 @@ hud()
 	if (!self isPlaying())
 		return;
 
-	self.huds["players"] = addHud(self, 10, 35, 1, "left", "top", 1.4);
-	self.huds["players"].label = &"#&&1";
+	self.huds["info"] = [];
+	self.huds["info"]["number"] = addHud(self, 10, 35, 1, "left", "top", 1.4);
+	self.huds["info"]["number"].label = &"#&&1";
 
 	while (true)
 	{
 		players = getPlayingPlayers();
-		self.huds["players"] setValue(players.size);
+		self.huds["info"]["number"] setValue(players.size);
 
 		wait 0.2;
 	}
@@ -33,13 +34,13 @@ clear()
 {
 	self endon("disconnect");
 
-	if (isDefined(self.huds["players"]))
+	if (isDefined(self.huds["info"]))
 	{
-		huds = getArrayKeys(self.huds["players"]);
+		huds = getArrayKeys(self.huds["info"]);
 		for (i = 0; i < huds.size; i++)
 		{
-			if (isDefined(self.huds["players"][huds[i]]))
-				self.huds["players"][huds[i]] destroy();
+			if (isDefined(self.huds["info"][huds[i]]))
+				self.huds["info"][huds[i]] destroy();
 		}
 	}
 }

@@ -74,6 +74,8 @@ canSpawn()
 		return false;
 	if (self.died)
 		return false;
+	if (game["state"] != "readyup" && game["state"] != "lobby")
+		return false;
 	return true;
 }
 

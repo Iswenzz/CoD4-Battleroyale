@@ -4,7 +4,8 @@ initDvars()
 {
 	addDvar("mod", "mod_id", "battleroyale");
 	addDvar("max_health", "br_max_health", 200, 1, 1000, "int");
-	addDvar("match_need_players", "br_match_need_players", 1, 1, 10, "int");
+	addDvar("match_need_players", "br_match_need_players", 2, 1, 10, "int");
+	addDvar("map_vote", "br_map_vote", 1, 0, 1, "int");
 	addDvar("debug", "br_debug", 0, 0, 1, "int");
 	addDvar("votemap", "br_votemap", 1, 0, 1, "int");
 	addDvar("lobby_countdown", "br_lobby_countdown", 2, 0, 60, "int");
@@ -13,7 +14,7 @@ initDvars()
 	addDvar("plane_duration", "br_plane_seconds", 60, 1, 120, "int");
 
 	setDvar("g_friendlyPlayerCanBlock", 1);
-	setDvar("g_deadChat", 1);
+	setDvar("g_deadChat", 0);
 	setDvar("g_knockback", 1000);
 	setDvar("g_speed", 190);
 	setDvar("g_gravity", 800);

@@ -70,7 +70,7 @@ createPlaneDrop((0, 0, 1000));
 <hr>
 
 #### ``createPlaneDropTrigger(origin, radius)``
-Create a trigger for the plane dropping area where you can press F to drop.
+Add a trigger for the plane dropping area where you can press F to drop.
 
 Usage Example:
 ```c

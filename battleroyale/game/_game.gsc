@@ -7,14 +7,10 @@ initGame()
 	level.items = [];
 
 	event("map", ::spawnItems);
+	event("killed", ::endKillcam);
 	event("spawn", ::onSpawn);
-}
 
-onSpawn()
-{
-	items = getAllItems();
-	for (i = 0; i < items.size; i++)
-		self.pers[items[i].id] = 0;
+	thread start();
 }
 
 spawnItems()
@@ -24,6 +20,44 @@ spawnItems()
 	items = getAllItems();
 	for (i = 0; i < items.size; i++)
 		items[i] randomize();
+}
+
+onSpawn()
+{
+	items = getAllItems();
+	for (i = 0; i < items.size; i++)
+		self.pers[items[i].id] = 0;
+}
+
+start()
+{
+	level waittill("br_started");
+
+	while (getPlayingPlayers().size > 1)
+		wait 0.05;
+
+	waitKillcam();
+	battleroyale\game\_map::end();
+}
+
+waitKillcam()
+{
+	wait 2;
+	if (isDefined(game["killcam"]))
+		wait 10;
+}
+
+endKillcam(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration)
+{
+	if (getPlayingPlayers().size > 1)
+		return;
+
+	game["killcam"] = true;
+	battleroyale\game\_killcam::start(eInflictor, attacker, sWeapon);
+
+	wait 3;
+	if (isDefined(attacker))
+		attacker suicide();
 }
 
 randomize()
@@ -108,6 +142,7 @@ givePlayerWeapon(entity)
 		currentWeapon = self getCurrentWeapon();
 		currentItem = getWeaponItem(currentWeapon);
 		currentItem createItemTrigger(origin);
+		iPrintLnBold(currentItem.origin);
 
 		self takeWeapon(currentWeapon);
 	}

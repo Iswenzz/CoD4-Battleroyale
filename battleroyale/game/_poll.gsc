@@ -113,7 +113,7 @@ huds()
 	self.huds["poll"] = [];
 	self.huds["poll"]["background"] = addHud(self, 0, 50, 0.9, "center", "top", 1.4, 1000);
 	self.huds["poll"]["background"].color = (0, 0, 0);
-	self.huds["poll"]["background"] setShader("sr_bokeh", 260, (level.pollEntries.size + 1) * 18);
+	self.huds["poll"]["background"] setShader("black", 260, (level.pollEntries.size + 1) * 19);
 	self.huds["poll"]["background"] thread fadeIn(0, 1, "bottom", 0.6);
 	self.huds["poll"]["header"] = addHud(self, 0, 50, 0.5, "center", "top", 1.4, 1000);
 	self.huds["poll"]["header"] setShader("black", 260, 20);
