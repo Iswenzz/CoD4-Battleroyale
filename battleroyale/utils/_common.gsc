@@ -190,6 +190,30 @@ waitTillNotMoving()
 	}
 }
 
+addHealth(health)
+{
+	self.health += clampValue(self.health, health, 0, self.maxhealth);
+}
+
+refreshWeaponsList()
+{
+	self endon("death");
+	self endon("disconnect");
+
+	weapons = [];
+	list = self getWeaponsList();
+
+	for (i = 0; i < list.size; i++)
+	{
+		class = weaponClass(list[i]);
+		if (class == "grenade")
+			continue;
+
+		weapons[weapons.size] = list[i];
+	}
+	self.pers["weapons"] = weapons;
+}
+
 intRange(variable, min, max)
 {
 	variable++;
@@ -198,6 +222,16 @@ intRange(variable, min, max)
 	if (variable > max)
 		return min;
 	return variable;
+}
+
+clampValue(number, value, min, max)
+{
+	result = number + value;
+	if (result < min)
+		return min - number;
+	if (result > max)
+		return max - number;
+	return result - number;
 }
 
 playersSetLowerMessage(text, time)

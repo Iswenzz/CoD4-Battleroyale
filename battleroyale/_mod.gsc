@@ -19,6 +19,7 @@ main()
 	battleroyale\sys\_events::initEvents();
 
 	battleroyale\game\_match::main();
+	battleroyale\game\_game::initGame();
 	battleroyale\game\_zone::main();
 	battleroyale\game\_map::main();
 	battleroyale\game\_menus::main();
@@ -39,7 +40,6 @@ main()
 
 precache()
 {
-	level.items = [];
 	level.assets = [];
 	level.texts = [];
 	level.gfx = [];

@@ -5,7 +5,7 @@
 
 main()
 {
-	level.lobbyTimer = 10;
+	level.lobbyTimer = level.dvar["lobby_countdown"];
 	level.allowSpawn = true;
 	level.huds["match"] = [];
 

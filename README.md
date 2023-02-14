@@ -33,15 +33,6 @@ removeAllSpawns();
 ```
 <hr>
 
-#### ``createLobbyArea(origin, width, height)``
-Add a brush/trigger to a list of entities that will be deleted when the game starts.
-
-Usage Example:
-```c
-createLobbyArea((100, 200, 300), 200, 300);
-```
-<hr>
-
 #### ``createSpawn(origin, angle)``
 Create a spawn for the lobby area.
 
@@ -51,12 +42,48 @@ createSpawn((0, 0, 0), 90);
 ```
 <hr>
 
-#### ``createDropTrigger(origin, radius)``
-Create a trigger for the plane dropping area.
+#### ``createLobbyBlocker(origin, width, height)``
+Add a blocker that will be deleted when the game starts.
 
 Usage Example:
 ```c
-createDropTrigger((0, 0, 1000), 5000);
+createLobbyBlocker((100, 200, 300), 200, 300);
+```
+<hr>
+
+#### ``createPlanePath(start, end, angle)``
+Add a path to the plane paths.
+
+Usage Example:
+```c
+createPlanePath((-1000, 0, 1000), (1000, 0, 1000), 90);
+```
+<hr>
+
+#### ``createPlaneDrop(origin)``
+Add the default plane dropping origin, if someone afk or gets stuck.
+
+Usage Example:
+```c
+createPlaneDrop((0, 0, 1000));
+```
+<hr>
+
+#### ``createPlaneDropTrigger(origin, radius)``
+Create a trigger for the plane dropping area where you can press F to drop.
+
+Usage Example:
+```c
+createPlaneDropTrigger((0, 0, 1000), 5000);
+```
+<hr>
+
+#### ``createPlaneDuration(seconds)``
+Sets the plane path duration.
+
+Usage Example:
+```c
+createPlaneDuration(60);
 ```
 <hr>
 
@@ -69,21 +96,12 @@ createZone((0, 0, 0));
 ```
 <hr>
 
-#### ``setDrop(origin)``
-Set the default plane dropping origin, if someone afk or gets stuck.
+#### ``createZoneLevels(levels)``
+Defines the level size for the current map.
 
 Usage Example:
 ```c
-setDropOrigin((0, 0, 1000));
-```
-<hr>
-
-#### ``createPlanePath(start, end, angle)``
-Add origin to the plane path list.
-
-Usage Example:
-```c
-createPlanePath((-1000, 0, 1000), (1000, 0, 1000), 90);
+createZoneLevels(4);
 ```
 <hr>
 

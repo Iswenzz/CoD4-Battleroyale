@@ -21,7 +21,6 @@ loading()
 	self.blocker = spawn("script_origin", self.origin);
 	self linkTo(self.blocker);
 	self disableWeapons();
-	self playSound("bandage");
 	self clear();
 
 	loaded = false;
@@ -29,22 +28,17 @@ loading()
 	time = 5;
 
 	self.huds["loading"] = [];
-	self.huds["loading"]["background"] = addHud(self, 320, 385, 0.5, "center", "middle");
+	self.huds["loading"]["background"] = addHud(self, 0, 50, 0.5, "center", "middle");
 	self.huds["loading"]["background"] setShader("black", (size + 4), 14);
-	self.huds["loading"]["progress"] = addHud(self, 320 - (size / 2.0), 385, 0.5, "left", "middle");
+	self.huds["loading"]["progress"] = addHud(self, size, 50, 0.5, "left", "middle");
+	self.huds["loading"]["progress"].horzAlign = "center";
 	self.huds["loading"]["progress"] setShader("white", 0, 8);
 	self.huds["loading"]["progress"] scaleOverTime(time, size, 8);
 
-	while (self.loadingTime < time)
+	while (self.loadingTime < time && !self meleeButtonPressed())
 	{
 		wait 0.05;
 		self.loadingTime += 0.05;
-
-		if (self meleeButtonPressed())
-		{
-			loaded = false;
-			break;
-		}
 	}
 	if (self.loadingTime >= time)
 		loaded = true;
@@ -58,22 +52,30 @@ loading()
 	return loaded;
 }
 
-bandage()
+bandage(args)
 {
+	if (!isDefined(self.pers["bandage"]) || !self.pers["bandage"])
+		return;
+
+	self playSound("bandage");
 	if (!self loading())
 		return;
 
-	self.health += 40;
-	self.pers["mag_bandage"]--;
+	self addHealth(40);
+	self.pers["bandage"]--;
 }
 
-firstKit()
+firstKit(args)
 {
+	if (!isDefined(self.pers["first_kit"]) || !self.pers["first_kit"])
+		return;
+
+	self playSound("bandage");
 	if (!self loading())
 		return;
 
-	self.health += 150;
-	self.pers["mag_first_kit"]--;
+	self addHealth(150);
+	self.pers["first_kit"]--;
 }
 
 clear()

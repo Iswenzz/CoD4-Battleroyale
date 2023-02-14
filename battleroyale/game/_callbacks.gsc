@@ -1,5 +1,5 @@
 #include battleroyale\sys\_events;
-#include battleroyale\game\_api;
+#include battleroyale\game\_game;
 #include battleroyale\utils\_common;
 
 playerConnect()
@@ -126,10 +126,7 @@ playerSpawn()
 	self battleroyale\game\_teams::setSpeed();
 	self battleroyale\game\_teams::setHealth();
 
-	self.pers["weapon"] = [];
-	items = getAllItems();
-	for (i = 0; i < items.size; i++)
-		self.pers[items[i].id] = 0;
+	self.pers["weapons"] = [];
 
 	self giveWeapon("dog_mp");
 	self setSpawnWeapon("dog_mp");
@@ -139,8 +136,6 @@ playerSpawn()
 
 	if (game["state"] == "readyup")
 		self disableWeapons();
-	if (self getStat(988))
-		self setClientDvar("cg_thirdperson", 1);
 
 	self notify("spawned_player");
 	level notify("player_spawn", self);

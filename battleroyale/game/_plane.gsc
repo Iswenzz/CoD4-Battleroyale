@@ -35,7 +35,7 @@ plane()
 	}
 
 	wait 0.2;
-	level.plane moveTo(level.planePath[1].origin, 60);
+	level.plane moveTo(level.planePath[1].origin, level.dvar["plane_duration"]);
 	level.plane playLoopSound("plane_loop");
 	level notify("plane_start");
 
@@ -48,7 +48,7 @@ plane()
 watchLastDrop()
 {
 	if (!isDefined(level.dropOrigin))
-		assertMsg("ERROR: level.dropOrigin isn't defined. Please use the function setDrop(<origin>).");
+		assertMsg("ERROR: level.dropOrigin isn't defined. Please use the function createPlaneDrop(<origin>).");
 
 	triggers = getEntArray("drop_recover", "targetname");
 	for (i = 0; i < triggers.size; i++)
@@ -71,7 +71,7 @@ watchDrops()
 {
 	trigger = getEnt("drop", "targetname");
 	if (!isDefined(trigger))
-		assertMsg("ERROR: Map needs a trigger with targetname 'drop' where people can drop from the plane. \nUse the function createDropTrigger(<origin>, <radius>) to create one.");
+		assertMsg("ERROR: Map needs a trigger with targetname 'drop' where people can drop from the plane. \nUse the function createPlaneDropTrigger(<origin>, <radius>) to create one.");
 
 	while (true)
 	{
@@ -107,23 +107,11 @@ playerUnstuck()
 	self endon("disconnect");
 	self endon("parachute_end");
 
-	while (true)
-	{
-		while (self getVelocity() != (0, 0, 0))
-			wait 0.5;
+	wait 15;
 
-		for (i = 0; i < 5; i++)
-		{
-			self setLowerMessage("^1Teleporting in " + (5 - i) + " sec ...");
-			wait 1;
-		}
-		self clearLowerMessage();
-
-		origin = level.dropOrigin;
-		self setOrigin((origin[0] + randomIntRange(-100, 100), origin[1] + randomIntRange(-100, 100), origin[2]));
-		self setVelocity((0, 0, -300));
-		break;
-	}
+	origin = level.dropOrigin;
+	self setOrigin((origin[0] + randomIntRange(-100, 100), origin[1] + randomIntRange(-100, 100), origin[2]));
+	self setVelocity((0, 0, -200));
 }
 
 playerDrop(origin)
@@ -135,37 +123,34 @@ playerDrop(origin)
 		return;
 	self.planeDrop = true;
 
-	self freezeControls(true);
+	self thread playerUnstuck();
+	self freezeControls(false);
 	self clearLowerMessage();
 	self disableweapons();
 	self show();
 	self unlink();
+	self setOrigin(origin);
 	self setClientDvar("cg_thirdperson", 1);
-	wait 0.05;
-	self freezeControls(false);
-	wait 0.2;
-	self thread playerUnstuck();
+	self setGravity(100);
+	self setMoveSpeed(350);
+	self setVelocity((0, 0, -200));
 
-	self setOrigin(origin + (0, 0, -100));
 	self attach("sr_parachute", "TAG_ORIGIN");
 	self playSound("parachute_start");
 	self notify("parachute_start");
-	wait 0.5;
 
-	self setGravity(100);
-	self setMoveSpeed(350);
 	self giveWeapon("dog_mp");
 	self switchToWeapon("dog_mp");
 	self giveMaxAmmo("dog_mp");
-	self.health = 99999999999999999;
+	self.health = 999999999;
 
 	while (!self IsOnGround())
 		wait .05;
 
+	self.health = self.maxhealth;
 	self setClientDvar("cg_thirdperson", 0);
 	self detach("sr_parachute", "TAG_ORIGIN");
 	self playSound("parachute_end");
-	self.health = self.maxhealth;
 	self setGravity(800);
 	self setMoveSpeed(190);
 	self enableWeapons();

@@ -18,7 +18,7 @@ hud()
 		return;
 
 	self.huds["players"] = addHud(self, 10, 35, 1, "left", "top", 1.4);
-	self.huds["players"].label = &"^7Players Alive: &&1";
+	self.huds["players"].label = &"#&&1";
 
 	while (true)
 	{
@@ -33,13 +33,13 @@ clear()
 {
 	self endon("disconnect");
 
-	if (isDefined(self.huds["health"]))
+	if (isDefined(self.huds["players"]))
 	{
-		huds = getArrayKeys(self.huds["health"]);
+		huds = getArrayKeys(self.huds["players"]);
 		for (i = 0; i < huds.size; i++)
 		{
-			if (isDefined(self.huds["health"][huds[i]]))
-				self.huds["health"][huds[i]] destroy();
+			if (isDefined(self.huds["players"][huds[i]]))
+				self.huds["players"][huds[i]] destroy();
 		}
 	}
 }

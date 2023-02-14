@@ -22,6 +22,8 @@ main()
 	setDvar("r_glowbloomintensity1", "0.1");
 	setDvar("r_glowskybleedintensity0", "0.1");
 
+	battleroyale\game\_api::createPlaneDrop((-1008, -6207, 7021));
+
 	battleroyale\game\_api::createZone((-2174, -3553, -1094));
 	battleroyale\game\_api::createZone((1004, -7828, -815));
 	battleroyale\game\_api::createZone((-2672, -13285, -2506));
@@ -31,7 +33,6 @@ main()
 	battleroyale\game\_api::createZone((-13530, -1321, -3120));
 	battleroyale\game\_api::createZone((7891, -2131, -1258));
 	battleroyale\game\_api::createZone((7724, 6727, -1490));
-	battleroyale\game\_api::setDrop((-1008, -6207, 7021));
 
 	thread onPlayerConnected();
 
@@ -48,7 +49,7 @@ spawnWeapons()
 	battleroyale\game\_api::createAmmo("5_45", "sr_5_45", "amunition", "hud_icon_mag_5_56", 30, level.RNG_NORMAL);
 	battleroyale\game\_api::createAmmo("12_gauge", "sr_gauge", "amunition", "hud_icon_mag_12_gauge", 6, level.RNG_BIG);
 	battleroyale\game\_api::createWeapon("beretta", "9mm", "weapon_beretta", "weap_raise_plr", "hud_icon_m9beretta", "beretta_mp", level.RNG_SMALL);
-	battleroyale\game\_api::createWeapon("colt45", "5", "weapon_colt1911_black", "weap_raise_plr", "hud_icon_colt_45", "colt45_mp", level.RNG_SMALL);
+	battleroyale\game\_api::createWeapon("colt45", "5_45", "weapon_colt1911_black", "weap_raise_plr", "hud_icon_colt_45", "colt45_mp", level.RNG_SMALL);
 	battleroyale\game\_api::createWeapon("deserteagle", "45", "weapon_desert_eagle_silver", "weap_raise_plr", "hud_icon_desert_eagle", "deserteagle_mp", level.RNG_SMALL);
 	battleroyale\game\_api::createWeapon("dragunov", "7_62", "weapon_dragunov", "weap_raise_plr", "hud_icon_dragunov", "dragunov_mp", level.RNG_RARE);
 	battleroyale\game\_api::createWeapon("m16", "5_45", "weapon_m16_mp", "weap_raise_plr", "hud_icon_m16a4", "m16_mp", level.RNG_NORMAL);
@@ -56,7 +57,7 @@ spawnWeapons()
 	battleroyale\game\_api::createWeapon("mp44", "7_62", "weapon_mp44", "weap_raise_plr", "hud_icon_mp44", "mp44_mp", level.RNG_NORMAL);
 	battleroyale\game\_api::createWeapon("mp5", "9mm", "weapon_mp5", "weap_raise_plr", "hud_icon_mp5", "mp5_mp", level.RNG_NORMAL);
 	battleroyale\game\_api::createWeapon("m1014", "12_gauge", "weapon_benelli_super_90", "weap_raise_plr", "hud_icon_benelli_m4", "m1014_mp", level.RNG_BIG);
-	battleroyale\game\_api::createWeapon("winchester1200", "2_gauge", "weapon_winchest1200", "weap_raise_plr", "hud_icon_winchester_1200", "winchester1200_mp", level.RNG_BIG);
+	battleroyale\game\_api::createWeapon("winchester1200", "12_gauge", "weapon_winchest1200", "weap_raise_plr", "hud_icon_winchester_1200", "winchester1200_mp", level.RNG_BIG);
 	battleroyale\game\_api::createGrenade("flash_grenade", "weapon_m84_flashbang_grenade", "grenade_pickup", "hud_icon_flash", "flash_grenade_mp", level.RNG_NORMAL);
 	battleroyale\game\_api::createGrenade("smoke_grenade", "weapon_us_smoke_grenade", "grenade_pickup", "hud_icon_smoke", "smoke_grenade_mp", level.RNG_SMALL);
 	battleroyale\game\_api::createGrenade("frag_grenade", "weapon_m67_grenade", "grenade_pickup", "hud_icon_grenade", "frag_grenade_mp", level.RNG_SMALL);

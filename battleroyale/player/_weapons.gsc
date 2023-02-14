@@ -1,14 +1,13 @@
-#include battleroyale\game\_api;
+#include battleroyale\game\_game;
 #include battleroyale\sys\_events;
 
 main()
 {
 	event("spawn", ::weapons);
-	event("spawn", ::grenades);
-	event("spawn", ::reload);
+	event("spawn", ::grenade);
 }
 
-grenades()
+grenade()
 {
 	self endon("spawned");
 	self endon("disconnect");
@@ -23,7 +22,10 @@ grenades()
 			continue;
 
 		self.pers[item.id]--;
-		self setWeaponAmmoStock(weaponName, 1);
+		if (self.pers[item.id] < 0)
+			self.pers[item.id] = 0;
+
+		self setWeaponAmmoStock(weaponName, self.pers[item.id]);
 	}
 }
 
@@ -33,40 +35,46 @@ weapons()
 	self endon("disconnect");
 	self endon("death");
 
+	self.prevWeapon = "";
+	self.prevAmmoClip = 0;
+
 	while (true)
 	{
+		self.currentWeapon = self getCurrentWeapon();
+		item = getWeaponItem(self.currentWeapon);
+
+		if (!isDefined(item))
+		{
+			wait 0.05;
+			continue;
+		}
+		self updateClip(item);
+		self updateStock(item);
+
 		wait 0.05;
 
-		item = getWeaponItem(self getCurrentWeapon());
-		if (!isDefined(item))
-			continue;
-
-		self setWeaponAmmoStock(item.weapon, self.pers[item.mag]);
+		self.prevWeapon = self.currentWeapon;
+		self.prevAmmoClip = self.ammoClip;
 	}
 }
 
-reload()
+updateClip(item)
 {
-	self endon("spawned");
-	self endon("disconnect");
-	self endon("death");
+	self.ammoClip = self getWeaponAmmoClip(item.weapon);
+	reloaded = self.ammoClip - self.prevAmmoClip;
 
-	while (true)
-	{
-		self waittill("reload_start");
-		self reloadWeapon();
-	}
-}
-
-reloadWeapon()
-{
-	self endon("weapon_change");
-
-	item = getWeaponItem(self getCurrentWeapon());
-	if (!isDefined(item))
+	if (self.currentWeapon != self.prevWeapon || reloaded <= 0)
 		return;
 
-	clip = self getWeaponAmmoClip(item.weapon);
-	self waittill("reload");
-	self.pers[item.mag] -= weaponClipSize(item.weapon) - clip;
+	iPrintLnBold(fmt("%d %d %d", reloaded, self.prevAmmoClip, self.ammoClip));
+
+	self.pers[item.mag] -= reloaded;
+	if (self.pers[item.mag] < 0)
+		self.pers[item.mag] = 0;
+}
+
+updateStock(item)
+{
+	// iPrintLnBold(self.pers[item.mag]);
+	self setWeaponAmmoStock(item.weapon, self.pers[item.mag]);
 }

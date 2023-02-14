@@ -17,7 +17,7 @@ zone()
 	level waittill("br_started");
 
 	level endon("game over");
-	start = level.dvar["zone_start_level"];
+	start = level.dvar["zone_levels"];
 	wait 60;
 
 	if (start <= 0)
