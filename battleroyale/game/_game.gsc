@@ -53,7 +53,7 @@ endKillcam(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc,
 		return;
 
 	game["killcam"] = true;
-	battleroyale\game\_killcam::start(eInflictor, attacker, sWeapon);
+	battleroyale\game\_killcam::start(3, eInflictor, attacker, sWeapon);
 
 	wait 3;
 	if (isDefined(attacker))
