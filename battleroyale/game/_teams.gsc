@@ -22,7 +22,7 @@ setSpeed()
 
 setTeam(team)
 {
-	if (self.pers["team"] == team || game["state"] == "end")
+	if (self.pers["team"] == team)
 		return;
 
 	self.pers["team"] = team;
@@ -37,5 +37,6 @@ setSpectatePermissions()
 {
 	self allowSpectateTeam("allies", true);
 	self allowSpectateTeam("axis", true);
+	self allowSpectateTeam("freelook", true);
 	self allowSpectateTeam("none", false);
 }

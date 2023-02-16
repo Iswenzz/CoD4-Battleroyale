@@ -45,6 +45,9 @@ menu_Team(arg)
 	self closeMenu();
 	self closeInGameMenu();
 
+	if (game["state"] == "end")
+		return;
+
 	if (self isPlaying())
 	{
 		self iPrintLn("^1Suicide disabled");
@@ -61,11 +64,15 @@ menu_Spectator(arg)
 	self closeMenu();
 	self closeInGameMenu();
 
+	if (game["state"] == "end")
+		return;
+
 	if(self isPlaying())
 	{
 		self iPrintln("^1Suicide disabled");
 		return;
 	}
 	self battleroyale\game\_teams::setTeam("spectator");
+	self battleroyale\game\_teams::setSpectatePermissions();
 	self eventSpectator();
 }

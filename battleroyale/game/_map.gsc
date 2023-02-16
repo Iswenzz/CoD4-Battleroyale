@@ -120,6 +120,8 @@ endSpectate()
 	{
 		players[i] battleroyale\game\_teams::setTeam("spectator");
 		players[i] eventSpectator();
+		players[i] allowSpectateTeam("allies", false);
+		players[i] allowSpectateTeam("axis", false);
 		players[i] allowSpectateTeam("freelook", false);
 		players[i] allowSpectateTeam("none", true);
 	}

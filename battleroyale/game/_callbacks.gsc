@@ -143,7 +143,6 @@ playerSpectator()
 
 	self cleanUp();
 	self spawnSpectator();
-	self battleroyale\game\_teams::setSpectatePermissions();
 
 	level notify("player_spectator", self);
 }

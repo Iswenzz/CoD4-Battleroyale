@@ -62,8 +62,8 @@ lastDropTrigger()
 	{
 		self waittill("trigger", player);
 
-		drop = (origin[0] + randomIntRange(-500, 500), origin[1] + randomIntRange(-500, 500), origin[2]);
-		player thread playerDrop(drop);
+		origin = (origin[0] + randomIntRange(-500, 500), origin[1] + randomIntRange(-500, 500), origin[2]);
+		player thread playerDrop(origin);
 	}
 }
 
@@ -103,15 +103,21 @@ watchPlayerDrop(trigger)
 			self clearLowerMessage();
 		wait 0.1;
 	}
-	if (self isTouching(trigger))
-		self thread playerDrop(level.plane.origin);
+	if (!self isTouching(trigger))
+		return;
+
+	origin = level.dropOrigin;
+	if (isDefined(level.plane.origin))
+		origin = level.plane.origin;
+
+	self thread playerDrop(origin);
 }
 
 playerUnstuck()
 {
 	self endon("death");
 	self endon("disconnect");
-	self endon("parachute_end");
+	self endon("drop_end");
 
 	wait 15;
 	self setLowerMessage("^1 Teleporting . . .");
@@ -119,16 +125,20 @@ playerUnstuck()
 
 	origin = level.dropOrigin;
 	origin = (origin[0] + randomIntRange(-100, 100), origin[1] + randomIntRange(-100, 100), origin[2]);
-	self.planeDrop = undefined;
-	self detach("sr_parachute", "TAG_ORIGIN");
 
-	self thread playerDrop(origin);
+	if (isDefined(self.planeDrop))
+		self detach("sr_parachute", "TAG_ORIGIN");
+
+	self.planeDrop = undefined;
+	self playerDrop(origin);
 }
 
 playerDrop(origin)
 {
 	self endon("death");
 	self endon("disconnect");
+	self notify("drop");
+	self endon("drop");
 
 	if (isDefined(self.planeDrop))
 		return;
@@ -147,8 +157,7 @@ playerDrop(origin)
 	self setVelocity((0, 0, -200));
 
 	self attach("sr_parachute", "TAG_ORIGIN");
-	self playSound("parachute_start");
-	self notify("parachute_start");
+	self playSound("drop");
 
 	self giveWeapon("dog_mp");
 	self switchToWeapon("dog_mp");
@@ -161,11 +170,11 @@ playerDrop(origin)
 	self.health = self.maxhealth;
 	self setClientDvar("cg_thirdperson", 0);
 	self detach("sr_parachute", "TAG_ORIGIN");
-	self playSound("parachute_end");
+	self playSound("drop_end");
 	self setGravity(800);
 	self setMoveSpeed(190);
 	self enableWeapons();
-	self notify("parachute_end");
+	self notify("drop_end");
 	self clearLowerMessage();
 }
 
@@ -180,7 +189,7 @@ computePath()
 	if (!paths)
 		assertMsg("ERROR: Map doesn't have plane paths.\nUse createPlanePath(origin) to create one.");
 
-	index = randomInt(paths - 1) + 1;
+	index = randomInt(paths) + 1;
 	path = getEntArray("plane_" + index, "targetname");
 	if (path.size != 2)
 		assertMsg("ERROR: plane_" + paths + "entity needs to have a start and end origin.");

@@ -44,12 +44,14 @@ waitKillcam()
 {
 	wait 2;
 	if (isDefined(game["killcam"]))
-		wait 10;
+		wait 10.5;
 }
 
 endKillcam(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration)
 {
-	if (getPlayingPlayers().size > 1)
+	if (isDefined(game["killcam"]) || getPlayingPlayers().size > 1)
+		return;
+	if (!isPlayer(attacker))
 		return;
 
 	game["killcam"] = true;

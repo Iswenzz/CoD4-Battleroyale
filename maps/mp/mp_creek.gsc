@@ -25,7 +25,7 @@ main()
 	battleroyale\game\_api::removeAllSpawns();
 	battleroyale\game\_api::createSpawn((-3127, 7024, 232), -80);
 
-	battleroyale\game\_api::createPlanePath((-6588, 7764, 960), (3583, 6029, 960), -10);
+	battleroyale\game\_api::createPlanePath((-6588, 7764, 960), (2000, 6029, 960), -10);
 	battleroyale\game\_api::createPlanePath((2089, 3007, 960), (-4328, 9038, 960), 137);
 	battleroyale\game\_api::createPlaneDrop((-748, 6798, 800));
 	battleroyale\game\_api::createPlaneDropTrigger((-748, 6798, 900), 3000);
