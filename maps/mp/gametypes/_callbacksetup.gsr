@@ -157,6 +157,7 @@ CodeCallback_PlayerConnect()
 	self.statusicon = "hud_status_connecting";
 	self.died = false;
 
+	self sr\sys\_admins::connection();
 	self sr\player\_settings::init();
 	self battleroyale\game\_callbacks::playerConnect();
 

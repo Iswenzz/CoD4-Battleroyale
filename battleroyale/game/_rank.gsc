@@ -41,18 +41,12 @@ buildRanks()
 {
 	tableName = "mp/rankTable.csv";
 
-	rankId = 0;
-	rankName = tableLookup(tableName, 0, rankId, 1);
-
-	while (!IsNullOrEmpty(rankName))
+	for (i = 0; i <= level.maxRank; i++)
 	{
-		level.ranks[rankId][1] = tableLookup(tableName, 0, rankId, 1);
-		level.ranks[rankId][2] = tableLookup(tableName, 0, rankId, 2);
-		level.ranks[rankId][3] = tableLookup(tableName, 0, rankId, 3);
-		level.ranks[rankId][7] = tableLookup(tableName, 0, rankId, 7);
-
-		rankId++;
-		rankName = tableLookup(tableName, 0, rankId, 1);
+		level.ranks[i][1] = tableLookup(tableName, 0, i, 1);
+		level.ranks[i][2] = tableLookup(tableName, 0, i, 2);
+		level.ranks[i][3] = tableLookup(tableName, 0, i, 3);
+		level.ranks[i][7] = tableLookup(tableName, 0, i, 7);
 	}
 }
 
@@ -88,12 +82,6 @@ reset()
 	self setStat(2350, self.pers["rank"]);
 	self setStat(2301, self.pers["rankxp"]);
 
-	for (stat = 3200; stat < 3208; stat++)
-		self setStat(stat, 0);
-
-	for (stat = 979; stat < 983; stat++)
-		self setStat(stat, 0);
-
 	self saveRank();
 	updateRankStats(self, 0);
 }
@@ -105,12 +93,12 @@ registerScoreInfo(type, value)
 
 getScoreInfoValue(type)
 {
-	return (level.scoreInfo[type]["value"]);
+	return level.scoreInfo[type]["value"];
 }
 
 getScoreInfoLabel(type)
 {
-	return (level.scoreInfo[type]["label"]);
+	return level.scoreInfo[type]["label"];
 }
 
 getRankInfoMinXP(rankId)
@@ -145,6 +133,10 @@ getRankInfoIcon(rankId, prestigeId)
 
 onConnect()
 {
+	self.pers["prestige"] = self getStat(2326);
+	self.pers["rank"] = self getStat(2350);
+	self.pers["rankxp"] = self getStat(2301);
+
 	self.pers["participation"] = 0;
 	self.pers["rankUpdateTotal"] = 0;
 
@@ -167,9 +159,6 @@ onConnect()
 		self setRank(self.pers["rank"], int(self.pers["prestige"]));
 		return;
 	}
-	if (self isFirstConnection())
-		self loadRank();
-
 	if (!isDefined(self))
 		return;
 
@@ -180,13 +169,6 @@ onConnect()
 onChangedTeam()
 {
 	self removeRankHUD();
-}
-
-loadRank()
-{
-	self.pers["prestige"] = self getStat(2326);
-	self.pers["rank"] = self getStat(2350);
-	self.pers["rankxp"] = self getStat(2301);
 }
 
 giveRankXP(type, value)
@@ -204,8 +186,8 @@ giveRankXP(type, value)
 	self.score += value;
 	self.pers["score"] = self.score;
 
-	score = self maps\mp\gametypes\_persistence::statGet("score");
-	self maps\mp\gametypes\_persistence::statSet("score", score + value);
+	score = self maps\mp\gametypes\_persistence::statGet("SCORE");
+	self maps\mp\gametypes\_persistence::statSet("SCORE", score + value);
 	self thread updateRankScoreHUD(value);
 
 	self incRankXP(value);
@@ -217,7 +199,6 @@ saveRank(xp, rank, prestige)
 	if (self isBot())
 		return;
 
-	self setStat(251, self.pers["rank"]);
 	self setStat(2326, self.pers["prestige"]);
 	self setStat(2350, self.pers["rank"]);
 	self setStat(2301, self.pers["rankxp"]);
@@ -243,17 +224,11 @@ prestige(args)
 	self.pers["rank"] = 0;
 	self.pers["prestige"]++;
 	self setRank(0, self.pers["prestige"]);
-	self maps\mp\gametypes\_persistence::statset("rankxp", 1);
+	self maps\mp\gametypes\_persistence::statset("RANKXP", 1);
 
 	updateRankStats(self, 0);
 
 	iPrintLn(fmt("%s has entered prestige %d", self.name, self.pers["prestige"]));
-
-	self setStat(979, 0);
-	self setStat(980, 0);
-	self setStat(981, 0);
-	self setStat(982, 0);
-
 	self saveRank();
 }
 
@@ -327,7 +302,7 @@ getRankForXp(xpVal)
 
 getPrestigeLevel()
 {
-	return self maps\mp\gametypes\_persistence::statGet("plevel");
+	return self maps\mp\gametypes\_persistence::statGet("PRESTIGE");
 }
 
 getRankXP()
@@ -344,7 +319,7 @@ incRankXP(amount)
 		newXp = getRankInfoMaxXP(level.maxRank);
 
 	self.pers["rankxp"] = newXp;
-	self maps\mp\gametypes\_persistence::statSet("rankxp", newXp);
+	self maps\mp\gametypes\_persistence::statSet("RANKXP", newXp);
 
 	rankId = self getRankForXp(self getRankXP());
 	self updateRank(rankId);
@@ -364,19 +339,10 @@ updateRank(rankId)
 
 updateRankStats(player, rankId)
 {
-	player setStat(253, rankId);
-	player setStat(255, player.pers["prestige"]);
-	player maps\mp\gametypes\_persistence::statSet("rank", rankId);
-	player maps\mp\gametypes\_persistence::statSet("minxp", getRankInfoMinXp(rankId));
-	player maps\mp\gametypes\_persistence::statSet("maxxp", getRankInfoMaxXp(rankId));
-	player maps\mp\gametypes\_persistence::statSet("plevel", player.pers["prestige"]);
-	player maps\mp\gametypes\_persistence::statSet("vip", rankId);
-	player maps\mp\gametypes\_persistence::statSet("vipplus", player.pers["prestige"]);
-
-	if (rankId > level.maxRank)
-		player setStat(252, level.maxRank);
-	else
-		player setStat(252, rankId);
+	player maps\mp\gametypes\_persistence::statSet("RANK", rankId);
+	player maps\mp\gametypes\_persistence::statSet("MINXP", getRankInfoMinXp(rankId));
+	player maps\mp\gametypes\_persistence::statSet("MAXXP", getRankInfoMaxXp(rankId));
+	player maps\mp\gametypes\_persistence::statSet("PRESTIGE", player.pers["prestige"]);
 }
 
 updateRankAnnounceHUD()
@@ -409,41 +375,38 @@ processXpReward(sMeansOfDeath, attacker, victim)
 	if (attacker sameTeam(victim))
 		return;
 
-	kills = attacker maps\mp\gametypes\_persistence::statGet("kills");
-	attacker maps\mp\gametypes\_persistence::statSet("kills", kills + 1);
+	kills = attacker maps\mp\gametypes\_persistence::statGet("KILLS");
+	attacker maps\mp\gametypes\_persistence::statSet("KILLS", kills + 1);
 
 	if (victim.pers["team"] == "allies")
 	{
-		kills = attacker maps\mp\gametypes\_persistence::statGet("KILLED_JUMPERS");
-		attacker maps\mp\gametypes\_persistence::statSet("KILLED_JUMPERS", kills + 1);
+		kills = attacker maps\mp\gametypes\_persistence::statGet("ALLIES_KILLS");
+		attacker maps\mp\gametypes\_persistence::statSet("ALLIES_KILLS", kills + 1);
 	}
-	else
+	else if (victim.pers["team"] == "axis")
 	{
-		kills = attacker maps\mp\gametypes\_persistence::statGet("KILLED_ACTIVATORS");
-		attacker maps\mp\gametypes\_persistence::statSet("KILLED_ACTIVATORS", kills + 1);
+		kills = attacker maps\mp\gametypes\_persistence::statGet("AXIS_KILLS");
+		attacker maps\mp\gametypes\_persistence::statSet("AXIS_KILLS", kills + 1);
 	}
 
 	switch (sMeansOfDeath)
 	{
 		case "MOD_HEAD_SHOT":
-		attacker.pers["headshots"]++;
-
-		attacker giveRankXP("headshot");
-		hs = attacker maps\mp\gametypes\_persistence::statGet("headshots");
-		attacker maps\mp\gametypes\_persistence::statSet("headshots", hs + 1);
-		break;
+			attacker.pers["headshots"]++;
+			attacker giveRankXP("headshot");
+			hs = attacker maps\mp\gametypes\_persistence::statGet("HEADSHOTS");
+			attacker maps\mp\gametypes\_persistence::statSet("HEADSHOTS", hs + 1);
+			break;
 		case "MOD_MELEE":
-		attacker.pers["knifes"]++;
-
-		attacker giveRankXP("melee");
-		knife = attacker maps\mp\gametypes\_persistence::statGet("MELEE_KILLS");
-		attacker maps\mp\gametypes\_persistence::statSet("MELEE_KILLS", knife + 1);
-		break;
+			attacker.pers["knifes"]++;
+			attacker giveRankXP("melee");
+			knife = attacker maps\mp\gametypes\_persistence::statGet("MELEE_KILLS");
+			attacker maps\mp\gametypes\_persistence::statSet("MELEE_KILLS", knife + 1);
+			break;
 		default:
-		pistol = attacker maps\mp\gametypes\_persistence::statGet("PISTOL_KILLS");
-
-		attacker maps\mp\gametypes\_persistence::statSet("PISTOL_KILLS", pistol + 1);
-		attacker giveRankXP("kill");
-		break;
+			pistol = attacker maps\mp\gametypes\_persistence::statGet("PISTOL_KILLS");
+			attacker maps\mp\gametypes\_persistence::statSet("PISTOL_KILLS", pistol + 1);
+			attacker giveRankXP("kill");
+			break;
 	}
 }

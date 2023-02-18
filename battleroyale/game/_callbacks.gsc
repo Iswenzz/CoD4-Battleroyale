@@ -95,8 +95,8 @@ playerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 		attacker.pers["kills"]++;
 	}
 
-	deaths = self maps\mp\gametypes\_persistence::statGet("deaths");
-	self maps\mp\gametypes\_persistence::statSet("deaths", deaths + 1);
+	deaths = self maps\mp\gametypes\_persistence::statGet("DEATHS");
+	self maps\mp\gametypes\_persistence::statSet("DEATHS", deaths + 1);
 	self.deaths++;
 	self.pers["deaths"]++;
 	self cleanUp();
