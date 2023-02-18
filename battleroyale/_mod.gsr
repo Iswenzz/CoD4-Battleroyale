@@ -34,6 +34,7 @@ main()
 	sr\player\modes\_noclip::main();
 	sr\player\modes\_practise::main();
 	sr\player\modes\_debug::main();
+	sr\player\huds\_crosshair::main();
 	sr\player\huds\_voice::main();
 
 	sr\commands\_admin::main();

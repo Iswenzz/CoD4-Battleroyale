@@ -20,6 +20,7 @@ material,sr_next
 material,sr_prev
 material,sr_dead
 material,sr_zonetrig_red
+material,crosshair
 material,default
 material,hit_direction
 material,caulk
