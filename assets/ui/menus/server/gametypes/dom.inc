@@ -1,0 +1,17 @@
+CREATESERVER_BUTTON_VIS(11, "@MPUI_RULES_TIME_LIMIT",
+	"scr_dm_timelimit",
+	{
+		"@MPUI_RULES_UNLIMITED" 0 "@MPUI_RULES_5MINUTES" 5 "@MPUI_RULES_10MINUTES" 10 "@MPUI_RULES_20MINUTES" 20 "@MPUI_RULES_30MINUTES" 30
+	},
+	play "mouse_click",
+	when(dvarstring(ui_netGametypeName) == "dom");
+)
+
+CREATESERVER_BUTTON_VIS(12, "@MPUI_RULES_SCORE_LIMIT",
+	"scr_dm_scorelimit",
+	{
+		"@MPUI_RULES_UNLIMITED" 0 "@MPUI_RULES_50POINTS" 50 "@MPUI_RULES_100POINTS" 100 "@MPUI_RULES_200POINTS" 200 "@MPUI_RULES_500POINTS" 500 "@MPUI_RULES_750POINTS" 750
+	},
+	play "mouse_click",
+	when(dvarstring(ui_netGametypeName) == "dom");
+)

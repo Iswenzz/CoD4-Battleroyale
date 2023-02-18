@@ -2,7 +2,16 @@
 stringtable,mp/playerStatsTable.csv
 stringtable,mp/ranktable.csv
 stringtable,mp/rankicontable.csv
-localize,battleroyale
+rawfile,info/bullet_penetration_mp
+rawfile,animtrees/multiplayer.atr
+rawfile,mp/playeranimtypes.txt
+rawfile,mp/playeranim.script
+rawfile,maps/mp/gametypes/_gametypes.txt
+rawfile,maps/mp/gametypes/war.txt
+rawfile,maps/mp/gametypes/deathrun.txt
+rawfile,maps/mp/gametypes/battleroyale.txt
+rawfile,maps/mp/gametypes/cj.txt
+rawfile,cleanup.cfg
 material,sr_banner
 material,sr_race
 material,sr_quit
@@ -22,7 +31,6 @@ material,faction_128_arab_gold
 material,line
 material,scope
 material,weapon_knife
-material,server_logo
 material,killiconsuicide
 material,killiconmelee
 material,killiconheadshot
@@ -32,14 +40,46 @@ material,vip_gold
 material,gfx_exp_spark
 material,gfx_white
 
+// Localized strings
+localize,sr
+localize,br
+localize,weapon
+localize,perks
+
+// Rumble
+rawfile,rumble/ac130_105mm_fire
+rawfile,rumble/ac130_25mm_fire
+rawfile,rumble/ac130_40mm_fire
+rawfile,rumble/artillery_rumble
+rawfile,rumble/assault_fire
+rawfile,rumble/crash_heli_rumble
+rawfile,rumble/crash_heli_rumble_rest
+rawfile,rumble/damage_heavy
+rawfile,rumble/damage_light
+rawfile,rumble/defaultweapon_fire
+rawfile,rumble/defaultweapon_melee
+rawfile,rumble/grenade_rumble
+rawfile,rumble/heavygun_fire
+rawfile,rumble/jeepride_bridgesink
+rawfile,rumble/jeepride_cliffblow
+rawfile,rumble/jeepride_pillarblow
+rawfile,rumble/mig_rumble
+rawfile,rumble/minigun_rumble
+rawfile,rumble/pistol_fire
+rawfile,rumble/shotgun_fire
+rawfile,rumble/silencer_fire
+rawfile,rumble/smg_fire
+rawfile,rumble/sniper_fire
+rawfile,rumble/stinger_lock_rumble
+rawfile,rumble/tank_rumble
+
 // Menus
-// menufile,ui/menus.txt
+menufile,ui/menus.txt
 menufile,ui_mp/scriptmenus/main/main_mp.menu
 menufile,ui_mp/scriptmenus/commands/wm_quickmessage.menu
 menufile,ui_mp/scriptmenus/commands/quickcommands.menu
 menufile,ui_mp/scriptmenus/commands/quickresponses.menu
 menufile,ui_mp/scriptmenus/commands/quickstatements.menu
-menufile,ui_mp/scriptmenus/options/sr_settings.menu
 menufile,ui_mp/scriptmenus/controls/controls_multi.menu
 menufile,ui_mp/scriptmenus/popups/exit.menu
 menufile,ui_mp/scriptmenus/misc/clientcmd.menu
@@ -126,17 +166,34 @@ material,77
 material,78
 material,79
 
+// Dog
+xmodel,german_sheperd_dog
+xanim,german_shepherd_attack_player
+xanim,german_shepherd_run_attack
+xanim,german_shepherd_idle
+xanim,german_shepherd_sitting_looking_idle
+xanim,german_shepherd_sleeping
+xanim,german_shepherd_walk
+xanim,german_shepherd_run
+xanim,german_shepherd_run_jump_40
+xanim,german_shepherd_death_front
+xanim,german_shepherd_run_pain
+xanim,german_shepherd_wakeup_fast
+
 // SR
 material,speedrunner_logo
 material,sr_vip
 
 // Sounds
-rawfile,soundaliases/speedrun.csv
 rawfile,soundaliases/battleroyale.csv
 rawfile,soundaliases/multiplayer.csv
-sound,speedrun,,all_mp
 sound,battleroyale,,all_mp
 sound,user_interface,,all_mp
+
+// Fortnite dance
+xanim,fortnitedefault
+weapon,mp/fortnite_mp
+sound,default_dance,,all_mp
 
 // Weapons
 weapon,mp/dog_mp

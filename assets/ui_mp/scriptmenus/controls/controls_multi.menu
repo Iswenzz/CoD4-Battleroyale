@@ -1,0 +1,50 @@
+#include "ui/components/base.inc"
+#include "ui/shared/frame_layout.inc"
+
+{
+	menuDef
+	{
+		SR_WINDOW_CONTENT("options_mod");
+
+		fullScreen		0
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+
+		onOpen
+		{
+			CLOSE_ALL_OPTIONS;
+			CLOSE_ALL_CONTROLS_EX_MULTI;
+
+			CLOSE_SERVERBROWSER;
+			CLOSE_CREATE_SERVER;
+			CLOSE_MODS;
+			CLOSE_PROFILE;
+
+			exec "setfromdvar ui_name name";
+
+			setLocalVarBool ui_maincontent_header "1";
+			setLocalVarBool ui_maincontent_update "1";
+		}
+
+		onClose
+		{
+			setLocalVarBool ui_maincontent_header "0";
+			setLocalVarBool ui_maincontent_update "0";
+		}
+
+		onESC
+		{
+			close self;
+		}
+
+		BUTTON_BIND(1, "@MENU_VOTE_YES", "openscriptmenu cjvote cjvoteyes", ;)
+		BUTTON_BIND(2, "@MENU_VOTE_NO", "openscriptmenu cjvote cjvoteno", ;)
+
+		BUTTON_BIND(4, "@MENU_VOICE_CHAT_BUTTON", "+talk", ;)
+		BUTTON_BIND(5, "@MENU_CHAT", "chatmodepublic", ;)
+		BUTTON_BIND(6, "@MENU_TEAM_CHAT", "chatmodeteam", ;)
+		BUTTON_BIND(7, "@MENU_QUICK_CHAT", "mp_QuickMessage", ;)
+
+		BUTTON_KEYBINDHELP
+	}
+}

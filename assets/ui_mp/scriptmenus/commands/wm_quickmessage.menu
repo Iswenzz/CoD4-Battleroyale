@@ -1,0 +1,69 @@
+#define LAYOUT_NAME					"quickmessage"
+#define LAYOUT_SIZE_X				186
+#define LAYOUT_BORDER_COLOR			0 0 0 0.9
+#define LAYOUT_BACKCOLOR  			0 0 0 0.85
+#define ORIGIN_QUICKMESSAGEWINDOW	0 16
+
+#include "ui/components/base.inc"
+#include "ui/components/popup.inc"
+
+#undef LAYOUT_HORIZONTAL_ALIGN
+#define LAYOUT_HORIZONTAL_ALIGN 	HORIZONTAL_ALIGN_LEFT
+
+{
+	menuDef
+	{
+		IMPROVED_POPUP_SETUP_ONOPEN(quickmessage, 6, 0, 272, ;, setDvar cl_bypassMouseInput "1";, 0)
+		onClose{ setDvar cl_bypassMouseInput "0" }
+
+		POPMENU_TITLE("@QUICKMESSAGE_QUICK_MESSAGE")
+
+		itemDef
+		{
+			name			"window"
+			visible			1
+			rect			16 20 0 0
+			origin			ORIGIN_QUICKMESSAGEWINDOW
+			forecolor		1 1 1 1
+			textfont		UI_FONT_NORMAL
+			textstyle		ITEM_TEXTSTYLE_NORMAL
+			textscale		TEXTSIZE_SMALL
+			textaligny		8
+			text			"@QUICKMESSAGE_1_COMMANDS"
+			decoration
+		}
+		execKey "1" { close quickmessage; open quickcommands }
+
+		itemDef
+		{
+			name			"window"
+			visible			1
+			rect			16 36 0 0
+			origin			ORIGIN_QUICKMESSAGEWINDOW
+			forecolor		1 1 1 1
+			textfont		UI_FONT_NORMAL
+			textstyle		ITEM_TEXTSTYLE_NORMAL
+			textscale		TEXTSIZE_SMALL
+			textaligny		8
+			text			"@QUICKMESSAGE_2_STATEMENTS"
+			decoration
+		}
+		execKey "2" { close quickmessage; open quickstatements }
+
+		itemDef
+		{
+			name			"window"
+			visible			1
+			rect			16 52 0 0
+			origin			ORIGIN_QUICKMESSAGEWINDOW
+			forecolor		1 1 1 1
+			textfont		UI_FONT_NORMAL
+			textstyle		ITEM_TEXTSTYLE_NORMAL
+			textscale		TEXTSIZE_SMALL
+			textaligny		8
+			text			"@QUICKMESSAGE_3_RESPONSES"
+			decoration
+		}
+		execKey "3" { close quickmessage; open quickresponses }
+	}
+}

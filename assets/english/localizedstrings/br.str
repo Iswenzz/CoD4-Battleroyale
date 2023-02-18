@@ -2,18 +2,17 @@ VERSION             "1"
 CONFIG              "C:\trees\cod3\cod3\bin\StringEd.cfg"
 FILENOTES           ""
 
-
 REFERENCE           MODNAME
-LANG_ENGLISH        "^5BattleRoyale ^7Mod"
+LANG_ENGLISH        "SR Mod"
+
+REFERENCE           DESCRIPTION
+LANG_ENGLISH        "^5Welcome to Sr- BattleRoyale\n^7The popular battle royale gamemode from other games such as \nPlayer Unknown's Battlegrounds, Fortnite, H1Z1, recreated on Call of Duty 4!\n\n^5Contact:\n^7You can visit our discord server for updates and help:\n^8https://discord.gg/76aHfGF"
 
 REFERENCE           MOTD
 LANG_ENGLISH        ""
 
 REFERENCE           NOTICE
 LANG_ENGLISH        ""
-
-REFERENCE           GAME_EXPERIENCE_CHANGED
-LANG_ENGLISH        "^5Sr- BattleRoyale ^7Mod\n^4discord.gg/76aHfGF"
 
 REFERENCE           WAIT4VOTES
 LANG_ENGLISH        "Waiting for votes..."
@@ -22,7 +21,7 @@ REFERENCE           PRESSFIRE
 LANG_ENGLISH        "Press FIRE to start voting"
 
 REFERENCE           GAME_EXPERIENCE_CHANGED
-LANG_ENGLISH        "SR-Mod\ndiscord.gg/76aHfGF"
+LANG_ENGLISH        "SR Mod\ndiscord.gg/76aHfGF"
 
 REFERENCE           ABOUT
 LANG_ENGLISH        "About the Mod"
@@ -30,10 +29,16 @@ LANG_ENGLISH        "About the Mod"
 REFERENCE           ABOUT_HEADER
 LANG_ENGLISH        "About the Mod..."
 
-REFERENCE           SR_ROUND_BEGINS_IN
+REFERENCE           CALL_FREEROUND
+LANG_ENGLISH        ""
+
+REFERENCE           ALIVE_JUMPERS
+LANG_ENGLISH        ""
+
+REFERENCE           ROUND_BEGINS_IN
 LANG_ENGLISH        "Begins in..."
 
-REFERENCE           SR_WAITING_FOR_PLAYERS
+REFERENCE           WAITING_FOR_PLAYERS
 LANG_ENGLISH        "Waiting for more players to start..."
 
 REFERENCE			GRAPHICS_WARNING

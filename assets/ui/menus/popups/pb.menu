@@ -1,0 +1,42 @@
+#define LAYOUT_NAME					"punkbuster"
+#define LAYOUT_HORIZONTAL_ALIGN		HORIZONTAL_ALIGN_CENTER
+#define LAYOUT_VERTICAL_ALIGN		VERTICAL_ALIGN_CENTER
+#define LAYOUT_SIZE_X				280
+
+#include "ui/components/base.inc"
+#include "ui/components/popup.inc"
+
+{
+	#define LOCAL_STARTPB_ACTION\
+		close self;\
+		close createserver ;\
+		close pc_join_unranked ;\
+		uiScript setPbClStatus 1;\
+		uiScript StartServer;
+
+	#define LOCAL_JOINPB_ACTION\
+		close self;\
+		close createserver ;\
+		close pc_join_unranked ;\
+		close main;\
+		uiScript setPbClStatus 1;\
+		uiScript joinserver;
+
+	menuDef
+	{
+		CENTER_POPUP_SETUP(startpb_popmenu, 7, ;, 1)
+		POPMENU_SUBTITLE("@MPUI_SYNCPUNKBUSTERSTARTLISTENSERVER")
+
+		BUTTON(6, "@MENU_YES", LOCAL_STARTPB_ACTION)
+		BUTTON(7, "@MENU_NO", close self)
+	}
+
+	menuDef
+	{
+		CENTER_POPUP_SETUP(joinpb_popmenu, 7, ;, 1)
+		POPMENU_SUBTITLE("@MPUI_ENABLEPUNKBUSTERTOCONNECT")
+
+		BUTTON(6, "@MENU_YES", LOCAL_JOINPB_ACTION)
+		BUTTON(7, "@MENU_NO", close self)
+	}
+}

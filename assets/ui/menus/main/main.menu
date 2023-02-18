@@ -1,0 +1,208 @@
+#define LAYOUT_NAME					"main"
+#define LAYOUT_X_START				0
+#define LAYOUT_Y_START				0
+#define LAYOUT_SEPATATOR_1			3
+#define LAYOUT_SEPATATOR_2			7
+#define LAYOUT_SEPATATOR_3			8
+
+#define ui_maincontent_update 		1
+#define ui_maincontent_header 		1
+#define ui_maincontent_header_X 	0
+#define ui_maincontent_header_Y 	0
+#define ui_showTextureApply 		0
+
+#include "ui/components/base.inc"
+
+{
+	assetGlobalDef
+	{
+		fadeClamp		1.0						// Sets the fadeup alpha
+		fadeCycle		1						// How often fade happens in milliseconds
+		fadeAmount		0.1						// Amount to adjust alpha per cycle
+	}
+
+	menuDef
+	{
+		name			"main"
+		fullScreen		1
+		rect			0 0 640 480
+		focusColor		COLOR_FOCUSED
+		soundloop 		"music_mainmenu_mp"
+
+		onOpen
+		{
+			open 	main_text;
+
+			setdvar ui_button_highlight_brightness	"0.5";
+			setdvar ui_button_highlight_radius		"1.0";
+			setdvar ui_button_outline_brightness	"0.7";
+			setdvar ui_button_outline_radius		"1.0";
+		}
+	}
+
+	menuDef
+	{
+		name			"main_text"
+		fullScreen		1
+		rect			0 0 640 480
+		focusColor		COLOR_FOCUSED
+		soundloop 		"music_mainmenu_mp"
+
+		onOpen
+		{
+			exec "selectStringTableEntryInDvar mp/didyouknow.csv 0 didyouknow";
+			setLocalVarBool ui_maincontent_header 1;
+			setLocalVarBool ui_maincontent_update 1;
+		}
+
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			FULLSCREEN_WIDE
+			background		black
+			visible			1
+			decoration
+		}
+
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			-40 -70 1000 112 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			background		"black"
+			border			1
+			bordercolor		0 0 0 1
+			bordersize		3
+			visible			1
+			decoration
+		}
+
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			-40 428 1000 112 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			background		"black"
+			border			1
+			bordercolor		0 0 0 1
+			bordersize		3
+			visible			1
+			decoration
+		}
+
+        itemDef
+        {
+            name        "mainnav"
+            rect        MAINNAV_RECT
+            origin      0 0
+            style       1
+            backcolor   MAINNAV_COLOR
+            visible     1
+            decoration
+        }
+
+        itemDef
+        {
+            name        "mainnav_seperator"
+            rect        MAINNAV_SEPARATOR_RECT
+            origin      MAINNAV_SEPARATOR_ORIGIN
+            style       1
+            backcolor   MAINNAV_SEPARATOR_COLOR
+            visible     0
+            decoration
+        }
+
+		HEADER(2, "Servers", CLOSE_ALL; open pc_join_unranked;)
+		HEADER(3, "Create", CLOSE_ALL; open createserver;)
+
+		HEADER(4, "@MENU_CONTROLS", CLOSE_ALL; open main_controls;)
+		HEADER(5, "@MENU_OPTIONS", 	CLOSE_ALL; open main_options;)
+
+		HEADER(6, "@MENU_MODS", CLOSE_ALL; open mods_menu;)
+		HEADER(7, "@MENU_SELECT_PROFILE", CLOSE_ALL; open player_profile;)
+		HEADER(8, "@MENU_QUIT", CLOSE_ALL; open quit_popmenu;)
+
+		#define CLEARUIHINT	exec "set ui_hint_text @MP_NULL"
+
+		#undef LAYOUT_Y_START
+		#define LAYOUT_Y_START		100
+
+		#undef LAYOUT_Y_SPACING
+		#define LAYOUT_Y_SPACING	26
+
+		#undef LAYOUT_SIZE_X
+		#define LAYOUT_SIZE_X		200
+
+		#undef BUTTON_SIZE_X
+		#define BUTTON_SIZE_X		200
+
+		SR_BUTTON_LEFT(1, "Speedrun", exec "connect iswenzz.com:28960";, when(!localvarBool(ui_hideBack)))
+		SR_BUTTON_LEFT(2, "Deathrun", exec "connect iswenzz.com:28962";, when(!localvarBool(ui_hideBack)))
+		SR_BUTTON_LEFT(3, "Battle Royale", exec "connect iswenzz.com:28964";, when(!localvarBool(ui_hideBack)))
+		SR_BUTTON_LEFT(4, "^5Test", exec "connect iswenzz.com:28969";, when(!localvarBool(ui_hideBack) && dvarBool("developer")))
+		SR_BUTTON_LEFT(5, "^5Localhost", exec "connect 127.0.0.1:28960";, when(!localvarBool(ui_hideBack) && dvarBool("developer")))
+
+		itemDef
+		{
+			visible			1
+			rect			-800 -800 2000 2000
+			forecolor		1 1 1 1
+			style			WINDOW_STYLE_SHADER
+			background		"black"
+			visible 		when(dvarstring(ui_sr_info) != "");
+			decoration
+		}
+
+		itemDef
+		{
+			visible 		when(dvarstring(ui_sr_info) != "");
+			rect			-800 -800 2000 2000
+			forecolor		1 1 1 1
+			type			ITEM_TYPE_BUTTON
+			textfont		UI_FONT_NORMAL
+			textscale		.3
+			textalignx		8
+			textaligny		16
+
+			action
+			{
+				play "mouse_click";
+				execnow "exec cleanup.cfg";
+			}
+		}
+
+		itemDef
+		{
+			visible 		when(dvarstring(ui_sr_info) != "");
+			origin			320 200
+			forecolor		1 1 1 1
+			text			"@SR_NOTICE"
+			textfont		UI_FONT_NORMAL
+			textalign		ITEM_ALIGN_CENTER
+			textscale		.8
+			decoration
+		}
+
+		itemDef
+		{
+			visible 		when(dvarstring(ui_sr_info) != "");
+			origin			320 220
+			forecolor		1 1 1 1
+			exp				text(dvarstring(ui_sr_info));
+			textfont		UI_FONT_NORMAL
+			textalign		ITEM_ALIGN_CENTER
+			textscale		.44
+			decoration
+		}
+
+		itemDef
+		{
+			visible 		when(dvarstring(ui_sr_info2) != "");
+			origin			320 238
+			forecolor		1 1 1 1
+			exp				text(dvarstring(ui_sr_info2));
+			textfont		UI_FONT_NORMAL
+			textalign		ITEM_ALIGN_CENTER
+			textscale		.44
+			decoration
+		}
+	}
+}

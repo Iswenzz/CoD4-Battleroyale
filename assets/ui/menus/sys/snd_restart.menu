@@ -1,0 +1,24 @@
+#define LAYOUT_NAME				"apply_settings_sound"
+#define LAYOUT_HORIZONTAL_ALIGN	HORIZONTAL_ALIGN_CENTER
+#define LAYOUT_VERTICAL_ALIGN	VERTICAL_ALIGN_CENTER
+#define	LAYOUT_TEXTALIGN		ITEM_ALIGN_MIDDLE_CENTER
+#define LAYOUT_TEXT_OFFSET_X	0
+#define LAYOUT_X_START			0
+#define LAYOUT_Y_START			0
+#define LAYOUT_SIZE_X			250
+#define BUTTON_SIZE_X			250
+
+#include "ui/components/base.inc"
+#include "ui/components/popup.inc"
+
+{
+	menuDef
+	{
+		CENTER_POPUP_SETUP(snd_restart_popmenu, 3, ;, 1)
+
+		POPMENU_TITLE("@MENU_APPLY_SETTINGS")
+
+		BUTTON(2, "@MENU_YES", exec "setfromdvar snd_khz ui_snd_khz"; exec "setfromdvar snd_outputConfiguration	ui_OutputConfig"; exec "setfromdvar snd_enableEq ui_snd_enableEq"; close snd_restart_popmenu; exec "snd_restart";)
+		BUTTON(3, "@MENU_NO", close self)
+	}
+}

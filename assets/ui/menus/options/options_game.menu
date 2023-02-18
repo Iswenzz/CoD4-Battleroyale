@@ -1,0 +1,52 @@
+#include "ui/components/base.inc"
+#include "ui/shared/frame_layout.inc"
+
+{
+	menuDef
+	{
+		SR_WINDOW_CONTENT("options_game");
+
+		fullScreen		0
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+
+		onOpen
+		{
+			CLOSE_ALL_CONTROLS;
+			CLOSE_ALL_OPTIONS_EX_GAME;
+
+			CLOSE_SERVERBROWSER;
+			CLOSE_CREATE_SERVER;
+			CLOSE_MODS;
+			CLOSE_PROFILE;
+
+			setLocalVarBool ui_maincontent_header "1";
+			setLocalVarBool ui_maincontent_update "1";
+
+			uiScript getLanguage;
+
+			exec "setfromdvar ui_name name";
+		}
+
+		onClose
+		{
+			setLocalVarBool ui_maincontent_header "0";
+			setLocalVarBool ui_maincontent_update "0";
+
+			exec "setfromdvar name ui_name";
+		}
+
+		onESC
+		{
+			close self;
+		}
+
+		BUTTON_DVARYESNO(1, "@MENU_SHOW_BLOOD", cg_blood, ;)
+		BUTTON_DVARFLOATLIST(2, "@MENU_ENABLE_CONSOLE", monkeytoy, { "@MENU_YES" 0 "@MENU_NO" 1 }, ;)
+		BUTTON_DVARYESNO(3, "@MPUI_PUNKBUSTER", cl_punkbuster, ;)
+		BUTTON_DVARYESNO(4, "@MENU_ALLOW_DOWNLOAD", cl_allowdownload, ;)
+
+		BUTTON_DVAREDIT(16, "@MENU_PLAYER_NAME", ui_name, 15, 15, ;)
+		BUTTON(17, "@MENU_ENTER_KEY_CODE", open cdkey_menu;)
+	}
+}

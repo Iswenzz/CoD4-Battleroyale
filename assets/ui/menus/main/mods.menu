@@ -1,0 +1,191 @@
+#define LAYOUT_NAME					"mods"
+#define LAYOUT_HORIZONTAL_ALIGN		HORIZONTAL_ALIGN_CENTER
+#define LAYOUT_SIZE_X				340
+#define LAYOUT_X_START				-170
+#define LAYOUT_Y_START				348
+
+#include "ui/components/base.inc"
+
+{
+	menuDef
+	{
+		name 			"mods_menu"
+		fullscreen		0
+		rect        	NAV_MENU_FULLSCREEN_RECT
+		focuscolor		COLOR_FOCUSED
+		style			1
+
+		onOpen
+		{
+			CLOSE_SERVERBROWSER;
+			CLOSE_ALL_CONTROLS;
+			CLOSE_ALL_OPTIONS;
+			CLOSE_CREATE_SERVER;
+			CLOSE_PROFILE;
+
+			setLocalVarBool ui_hideBack "1";
+			setLocalVarBool ui_maincontent_header "1";
+			setLocalVarBool ui_maincontent_update "1";
+
+			uiScript loadMods;
+		}
+
+		onClose
+		{
+			setLocalVarBool ui_hideBack "0";
+		}
+
+		onESC
+		{
+			close self;
+			setLocalVarBool ui_maincontent_header "0";
+			setLocalVarBool ui_maincontent_update "0";
+		}
+
+        itemdef
+        {
+            name                        "content"
+            rect                        -167 0 337 340 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_SUBTOP
+            origin                      0 30
+            style                       WINDOW_STYLE_FILLED
+            backcolor                   1 1 1 0.03
+            forecolor                   1 1 1 1
+            visible                     1
+            decoration
+        }
+
+        itemDef
+        {
+            name                        "content_title"
+            rect                        -167 0 337 30 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_SUBTOP
+            origin                      0 30
+            style                       WINDOW_STYLE_FILLED
+            borderSize                  0
+            foreColor                   1 1 1 1
+            backColor                   1 1 1 0.02
+            borderColor                 1 1 1 1
+            outlineColor                0 0 0 0
+            exp                         text ("@MENU_MODS");
+            textFont                    UI_FONT_NORMAL
+            textAlign                   ITEM_ALIGN_MIDDLE_LEFT
+            textAlignX                  10
+            textScale                   0.20
+            visible                     1
+            decoration
+        }
+
+		itemDef
+		{
+			name				modlist
+			rect				-170 60 340 280 HORIZONTAL_ALIGN_CENTER LAYOUT_VERTICAL_ALIGN
+			type				ITEM_TYPE_LISTBOX
+			style				WINDOW_STYLE_FILLED
+			textstyle 			ITEM_TEXTSTYLE_NORMAL
+			elementwidth		110
+			elementheight		22
+			textscale 			LAYOUT_TEXTSIZE
+			elementtype			LISTBOX_TEXT
+			feeder				FEEDER_MODS
+			textalignx			6
+			textaligny			-2
+			forecolor 			1 1 1 0.9
+			backcolor 			0 0 0 0
+			border				0
+			bordercolor			1 1 1 0.15
+			outlinecolor 		1 1 1 0.03
+			visible 			MENU_TRUE
+			action				{ show accept; }
+			doubleClick			{ play "mouse_click"; uiScript RunMod; }
+		}
+
+		itemDef
+		{
+			name                        "sep_line"
+			rect                        -167 340 337 1 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_SUBTOP
+			origin                      0 0
+			style                       1
+			backcolor                   1 1 1 0.03
+			visible                     1
+			decoration
+		}
+
+		itemDef
+		{
+			name                        "outline"
+			text                        ""
+			style                       WINDOW_STYLE_SHADER
+			border                      WINDOW_BORDER_FULL
+			borderSize                  1
+			background                  black
+			type                        1
+			rect                        -161 344 130 20 LAYOUT_HORIZONTAL_ALIGN LAYOUT_VERTICAL_ALIGN
+			origin                      0 0
+			style                       1
+			forecolor                   1 1 1 1
+			backcolor                   1 1 1 0
+			borderColor                 1 1 1 0.03
+			outlineColor                0 0 0 0
+			textstyle                   3
+			visible                     when(dvarString(fs_game) != "");
+		}
+
+		itemDef
+		{
+			name				launchWithoutMods
+			text				"@MENU_LAUNCH_WITHOUT_MODS"
+			type				1
+			style               WINDOW_STYLE_FILLED
+			background          black
+			textstyle			ITEM_TEXTSTYLE_NORMAL
+			rect				-160 345 130 20 LAYOUT_HORIZONTAL_ALIGN LAYOUT_VERTICAL_ALIGN
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			0
+			textaligny			16
+			textscale 			0.25
+			foreColor           1 1 1 1
+			borderColor         1 1 1 0.2
+			backcolor			1 1 1 0.2
+			visible				when(dvarString(fs_game) != "");
+			action				{ play "mouse_click"; uiScript ClearMods }
+		}
+
+		itemDef
+		{
+			name                        "outline"
+			text                        ""
+			style                       WINDOW_STYLE_SHADER
+			border                      WINDOW_BORDER_FULL
+			borderSize                  1
+			background                  black
+			type                        1
+			rect                        84 344 80 20 LAYOUT_HORIZONTAL_ALIGN LAYOUT_VERTICAL_ALIGN
+			origin                      0 0
+			style                       1
+			forecolor                   1 1 1 1
+			backcolor                   1 1 1 0
+			borderColor                 1 1 1 0.03
+			outlineColor                0 0 0 0
+			textstyle                   3
+			visible                     1
+		}
+
+		itemDef
+		{
+			name				accept
+			text				"@MENU_LAUNCH"
+			style               WINDOW_STYLE_FILLED
+			background          black
+			textstyle			ITEM_TEXTSTYLE_NORMAL
+			rect				85 345 80 20 LAYOUT_HORIZONTAL_ALIGN LAYOUT_VERTICAL_ALIGN
+			textalign			ITEM_ALIGN_CENTER
+			textalignx			0
+			textaligny			16
+			textscale 			0.25
+			foreColor           1 1 1 1
+			borderColor         1 1 1 0.2
+			backcolor			1 1 1 0.2
+			visible				MENU_TRUE
+			action				{ play "mouse_click"; uiScript RunMod }
+		}
+	}
+}

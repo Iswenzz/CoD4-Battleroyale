@@ -1,0 +1,54 @@
+#include "ui/components/base.inc"
+#include "ui/shared/frame_layout.inc"
+
+{
+	menuDef
+	{
+		SR_WINDOW_CONTENT("options_look");
+
+		fullScreen		0
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+
+		onOpen
+		{
+			CLOSE_ALL_OPTIONS;
+			CLOSE_ALL_CONTROLS_EX_LOOK;
+
+			CLOSE_SERVERBROWSER;
+			CLOSE_CREATE_SERVER;
+			CLOSE_MODS;
+			CLOSE_PROFILE;
+
+			setLocalVarBool ui_maincontent_header "1";
+			setLocalVarBool ui_maincontent_update "1";
+		}
+
+		onClose
+		{
+			setLocalVarBool ui_maincontent_header "0";
+			setLocalVarBool ui_maincontent_update "0";
+		}
+
+		onESC
+		{
+			close self;
+		}
+
+		BUTTON_DVARYESNO(1, "@MENU_INVERT_MOUSE", ui_mousePitch, uiScript update ui_mousePitch)
+		BUTTON_BIND(2, "@MENU_LEAN_LEFT", "+leanleft", ;)
+		BUTTON_BIND(3, "@MENU_LEAN_RIGHT", "+leanright", ;)
+		BUTTON_BIND(4, "@MENU_LOOK_UP", "+lookup", ;)
+		BUTTON_BIND(5, "@MENU_LOOK_DOWN", "+lookdown", ;)
+		BUTTON_BIND(6, "@MENU_TURN_LEFT", "+left", ;)
+		BUTTON_BIND(7, "@MENU_TURN_RIGHT", "+right", ;)
+		BUTTON_BIND(8, "@MENU_MOUSE_LOOK", "+mlook", ;)
+
+		BUTTON_BIND(16, "@MENU_CENTER_VIEW", "centerview", ;)
+		BUTTON_DVARYESNO(17, "@MENU_FREE_LOOK", cl_freelook, ;)
+		BUTTON_DVARYESNO(18, "@MENU_SMOOTH_MOUSE", m_filter, ;)
+		BUTTON_DVARSLIDER(19, "@MENU_MOUSE_SENSITIVITY", sensitivity, 5, 1, 30, ;)
+
+		BUTTON_KEYBINDHELP
+	}
+}

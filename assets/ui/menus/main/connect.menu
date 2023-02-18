@@ -1,0 +1,99 @@
+#define ORIGIN_DIY_TITLE_PC			42 290
+#define ORIGIN_DIY_FRAME_PC			35 290
+#define ORIGIN_DIY_PC				37 310
+#define ORIGIN_DIY_TITLE_HIDEF		82 320
+#define ORIGIN_DIY_FRAME_HIDEF		75 320
+#define ORIGIN_DIY_HIDEF			77 340
+#define ORIGIN_DIY_TITLE			166 320
+#define ORIGIN_DIY_FRAME			159 320
+#define ORIGIN_DIY					161 340
+#define WIDESCREEN_OFFSET			107 0
+
+#include "ui/components/base.inc"
+
+{
+	menuDef
+	{
+		name			"connect"
+		rect			0 0 640 480
+		focuscolor		COLOR_FOCUSED
+		style			WINDOW_STYLE_EMPTY
+		legacySplitScreenScale
+
+		onClose
+		{
+			exec "setu temp0 80; setfromdvar temp0 cg_fov; setu cg_fov 80; setfromdvar cg_fov temp0";
+			exec "setu temp1 1.0; setfromdvar temp1 cg_fovScale; setu cg_fovScale 1.0; setfromdvar cg_fovScale temp1";
+			exec "setu temp2 1920x1080; setfromdvar temp2 r_mode; setu r_mode 1920x1080; setfromdvar r_mode temp2";
+			exec "setu temp3 _; setfromdvar temp3 sr_vote_search; setu sr_vote_search _; setfromdvar sr_vote_search temp3";
+		}
+
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			FULLSCREEN_WIDE
+			background		black
+			visible			1
+			decoration
+		}
+
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			-40 -70 1000 112 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			background		"black"
+			border			1
+			bordercolor		0 0 0 1
+			bordersize		3
+			visible			1
+			decoration
+		}
+
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			-40 428 1000 112 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			background		"black"
+			border			1
+			bordercolor		0 0 0 1
+			bordersize		3
+			visible			1
+			decoration
+		}
+
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect		    -235 -275 250 170 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			origin		    WIDESCREEN_OFFSET
+			background		"$levelBriefing"
+			forecolor		0.9 0.9 0.9 1
+			visible			1
+			decoration
+			border			1
+			bordercolor		0.38 0.38 0.38 1
+		}
+
+		itemDef
+		{
+			style			WINDOW_STYLE_FILLED
+			rect			-235 -80 260 4 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			origin			WIDESCREEN_OFFSET
+			backcolor		0 0.5 0.7 0.5
+			visible			1	decoration
+		}
+
+		itemDef
+		{
+			name			"loadbar"
+			style			WINDOW_STYLE_LOADBAR
+			rect			-234 -82 258 2 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			origin			WIDESCREEN_OFFSET
+			background		"white"
+			visible			1	decoration
+		}
+
+		#include "ui/components/safearea.inc"
+	}
+}
+

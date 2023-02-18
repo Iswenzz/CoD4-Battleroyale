@@ -1,0 +1,58 @@
+#include "ui/components/base.inc"
+#include "ui/shared/frame_layout.inc"
+
+{
+	menuDef
+	{
+		SR_WINDOW_CONTENT("options_move");
+
+		fullScreen		0
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+
+		onOpen
+		{
+			CLOSE_ALL_OPTIONS;
+			CLOSE_ALL_CONTROLS_EX_MOVE;
+
+			CLOSE_SERVERBROWSER;
+			CLOSE_CREATE_SERVER;
+			CLOSE_MODS;
+			CLOSE_PROFILE;
+
+			setLocalVarBool ui_maincontent_header "1";
+			setLocalVarBool ui_maincontent_update "1";
+		}
+
+		onClose
+		{
+			setLocalVarBool ui_maincontent_header "0";
+			setLocalVarBool ui_maincontent_update "0";
+		}
+
+		onESC
+		{
+			close self;
+		}
+
+		BUTTON_BIND(1, "@MENU_FORWARD", "+forward", ;)
+		BUTTON_BIND(2, "@MENU_BACKPEDAL", "+back", ;)
+		BUTTON_BIND(3, "@MENU_MOVE_LEFT", "+moveleft", ;)
+		BUTTON_BIND(4, "@MENU_MOVE_RIGHT", "+moveright", ;)
+
+		BUTTON_BIND(5, "@MENU_STANDJUMP", "+gostand", ;)
+
+		BUTTON_BIND(7, "@MENU_TOGGLE_CROUCH", "togglecrouch", ;)
+		BUTTON_BIND(8, "@MENU_TOGGLE_PRONE", "toggleprone", ;)
+
+		BUTTON_BIND(16, "@MENU_GO_TO_CROUCH", "gocrouch", ;)
+		BUTTON_BIND(17, "@MENU_GO_TO_PRONE", "goprone", ;)
+		BUTTON_BIND(19, "@MENU_CROUCH", "+movedown", ;)
+		BUTTON_BIND(20, "@MENU_PRONE", "+prone", ;)
+
+		BUTTON_BIND(22, "@MENU_CHANGE_STANCE", "+stance", ;)
+		BUTTON_BIND(23, "@MENU_STRAFE", "+strafe", ;)
+
+		BUTTON_KEYBINDHELP
+	}
+}

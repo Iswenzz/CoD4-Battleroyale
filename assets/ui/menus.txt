@@ -1,0 +1,34 @@
+{
+ 	loadMenu { "ui/menus/main/main.menu" }
+ 	loadMenu { "ui/menus/main/hud.menu" }
+ 	loadMenu { "ui/menus/main/connect.menu" }
+	loadMenu { "ui/menus/main/mods.menu" }
+	loadMenu { "ui/menus/main/playerprofile.menu" }
+
+	loadMenu { "ui/menus/server/pc_joinchoosegamemode.menu" }
+	loadMenu { "ui/menus/server/info.menu" }
+	loadMenu { "ui/menus/server/favorite.menu" }
+	loadMenu { "ui/menus/server/filter.menu" }
+	loadMenu { "ui/menus/server/createserver.menu" }
+
+	loadMenu { "ui/menus/controls/controls.menu" }
+	loadMenu { "ui/menus/controls/controls_look.menu" }
+	loadMenu { "ui/menus/controls/controls_move.menu" }
+	loadMenu { "ui/menus/controls/controls_shoot.menu" }
+	loadMenu { "ui/menus/controls/controls_interact.menu" }
+
+	loadMenu { "ui/menus/options/options.menu" }
+	loadMenu { "ui/menus/options/options_graphics.menu" }
+	loadMenu { "ui/menus/options/options_sound.menu" }
+	loadMenu { "ui/menus/options/options_game.menu" }
+
+	loadMenu { "ui/menus/popups/quit.menu" }
+	loadMenu { "ui/menus/popups/error.menu" }
+	loadMenu { "ui/menus/popups/password.menu" }
+	loadMenu { "ui/menus/popups/cdkey.menu" }
+	loadMenu { "ui/menus/popups/pb.menu" }
+
+	loadMenu { "ui/menus/sys/snd_restart.menu" }
+	loadMenu { "ui/menus/sys/language_restart.menu" }
+ 	loadMenu { "ui/menus/sys/vid_restart.menu" }
+}

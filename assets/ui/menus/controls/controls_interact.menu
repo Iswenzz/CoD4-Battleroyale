@@ -1,0 +1,54 @@
+#include "ui/components/base.inc"
+#include "ui/shared/frame_layout.inc"
+
+{
+	menuDef
+	{
+		SR_WINDOW_CONTENT("options_misc");
+
+		fullScreen		0
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+
+		onOpen
+		{
+            CLOSE_ALL_OPTIONS;
+			CLOSE_ALL_CONTROLS_EX_INTERACT;
+
+			CLOSE_SERVERBROWSER;
+			CLOSE_CREATE_SERVER;
+			CLOSE_MODS;
+			CLOSE_PROFILE;
+
+			setLocalVarBool ui_maincontent_header "1";
+			setLocalVarBool ui_maincontent_update "1";
+		}
+
+		onClose
+		{
+			setLocalVarBool ui_maincontent_header "0";
+			setLocalVarBool ui_maincontent_update "0";
+		}
+
+		onESC
+		{
+			close self;
+		}
+
+		BUTTON_BIND(1, "@MENU_USE", "+activate", ;)
+		BUTTON_BIND(2, "@MENU_NIGHT_VISION", "+actionslot 1", ;)
+		BUTTON_BIND(3, "@MENU_SHOW_OBJECTIVES_SCORES", "+scores", ;)
+
+        BUTTON_BIND(5, "@MENU_VOTE_YES", "vote yes", ;)
+		BUTTON_BIND(6, "@MENU_VOTE_NO", "vote no", ;)
+
+		BUTTON_BIND(16, "@MENU_VOICE_CHAT_BUTTON", "+talk", ;)
+		BUTTON_BIND(17, "@MENU_CHAT", "chatmodepublic", ;)
+		BUTTON_BIND(18, "@MENU_TEAM_CHAT", "chatmodeteam", ;)
+		BUTTON_BIND(19, "@MENU_QUICK_CHAT", "mp_QuickMessage", ;)
+
+        BUTTON_BIND(21, "@MENU_SCREENSHOT", "screenshotjpeg", ;)
+
+		BUTTON_KEYBINDHELP
+	}
+}

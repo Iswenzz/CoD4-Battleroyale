@@ -1,0 +1,58 @@
+#include "ui/components/base.inc"
+#include "ui/shared/frame_layout.inc"
+
+{
+	menuDef
+	{
+		SR_WINDOW_CONTENT("options_shoot");
+
+		fullScreen		0
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+
+		onOpen
+		{
+			CLOSE_ALL_OPTIONS;
+			CLOSE_ALL_CONTROLS_EX_SHOOT;
+
+			CLOSE_SERVERBROWSER;
+			CLOSE_CREATE_SERVER;
+			CLOSE_MODS;
+			CLOSE_PROFILE;
+
+			setLocalVarBool ui_maincontent_header "1";
+			setLocalVarBool ui_maincontent_update "1";
+		}
+
+		onClose
+		{
+			setLocalVarBool ui_maincontent_header "0";
+			setLocalVarBool ui_maincontent_update "0";
+		}
+
+		onESC
+		{
+			close self;
+		}
+
+		BUTTON_BIND(1, "@MENU_ATTACK", "+attack", ;)
+		BUTTON_BIND(2, "@MENU_TOGGLE_AIM_DOWN_THE_SIGHT", "+toggleads_throw", ;)
+		BUTTON_BIND(3, "@MENU_AIM_DOWN_THE_SIGHT", "+speed_throw", ;)
+
+		BUTTON_BIND(5, "@MENU_MELEE_ATTACK", "+melee", ;)
+		BUTTON_BIND(6, "@MENU_SWITCH_WEAPON", "weapnext", ;)
+		BUTTON_BIND(7, "@MENU_RELOAD_WEAPON", "+reload", ;)
+
+		BUTTON_BIND(9, "@MENU_THROW_FRAG_GRENADE", "+frag", ;)
+		BUTTON_BIND(10, "@MENU_THROW_SPECIAL_GRENADE", "+smoke", ;)
+
+		BUTTON_BIND(16, "@MENU_SPRINT", "+sprint", ;)
+		BUTTON_BIND(17, "@MENU_SPRINT_STEADY_SNIPER_RIFLE", "+breath_sprint", ;)
+		BUTTON_BIND(18, "@MENU_STEADY_SNIPER_RIFLE", "+holdbreath", ;)
+
+		BUTTON_BIND_VIS(20, "@MENU_ACTION_INVENTORY", "+actionslot 3", ;, when(dvarbool(ui_multiplayer))) 	//mp
+		BUTTON_BIND_VIS(21, "@MENU_AIR_SUPPORT", "+actionslot 4", ;, when(dvarbool(ui_multiplayer))) 				//mp
+
+		BUTTON_KEYBINDHELP
+	}
+}

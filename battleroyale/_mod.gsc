@@ -1,3 +1,5 @@
+#include battleroyale\utils\_common;
+
 main()
 {
 	precache();
@@ -40,9 +42,9 @@ main()
 
 precache()
 {
-	level.assets = [];
-	level.texts = [];
-	level.gfx = [];
+	level.assets = IfUndef(level.assets, []);
+	level.texts = IfUndef(level.texts, []);
+	level.gfx =  IfUndef(level.gfx, []);
 
 	level.RNG_EMPTY = 0;
 	level.RNG_SMALL = 1;
@@ -200,11 +202,16 @@ precache()
 precacheText()
 {
 	level.texts["empty"] 				= &"";
-	level.texts["round_begins_in"] 		= &"ROUND_BEGINS_IN";
-	level.texts["waiting_for_players"] 	= &"WAITING_FOR_PLAYERS";
 	level.texts["time"] 				= &"^2&&1";
+	level.texts["waiting_for_players"] 		= &"BR_WAITING_FOR_PLAYERS";
 	level.texts["ended_game"]			= &"MP_HOST_ENDED_GAME";
 	level.texts["endgame"]				= &"MP_HOST_ENDGAME_RESPONSE";
+
+	precacheString(level.texts["empty"]);
+	precacheString(level.texts["time"]);
+	precacheString(level.texts["waiting_for_players"]);
+	precacheString(level.texts["ended_game"]);
+	precacheString(level.texts["endgame"]);
 }
 
 precacheFx()

@@ -1,0 +1,43 @@
+#define LAYOUT_NAME				"vid_restart"
+#define	LAYOUT_TEXTALIGN		ITEM_ALIGN_MIDDLE_CENTER
+#define LAYOUT_HORIZONTAL_ALIGN	HORIZONTAL_ALIGN_CENTER
+#define LAYOUT_VERTICAL_ALIGN	VERTICAL_ALIGN_CENTER
+#define LAYOUT_TEXT_OFFSET_X	0
+#define LAYOUT_X_START			0
+#define LAYOUT_Y_START			0
+#define LAYOUT_SIZE_X			250
+#define BUTTON_SIZE_X			250
+
+#include "ui/components/base.inc"
+#include "ui/components/popup.inc"
+
+#define LOCAL_SETTING_ACTION \
+	exec "exec options_graphics_set.cfg"; \
+	execondvarstringvalue ui_zfeather 0 "set cg_laserLight 0"; \
+	execondvarstringvalue ui_zfeather 1 "set cg_laserLight 1"; \
+	close self; \
+	exec "vid_restart";
+
+{
+	#undef	LAYOUT_SUBTITLE_HEIGHT
+	#define LAYOUT_SUBTITLE_HEIGHT 48
+
+	menuDef
+	{
+		CENTER_POPUP_SETUP(vid_restart_popmenu_listen, 2, ;, 1)
+		POPMENU_SUBTITLE("Unable to apply settings while connected to a server.")
+		BUTTON(2, "@MENU_OK", close self;)
+	}
+
+	#undef	LAYOUT_SUBTITLE_HEIGHT
+	#define LAYOUT_SUBTITLE_HEIGHT 0
+
+	menuDef
+	{
+		CENTER_POPUP_SETUP(vid_restart_popmenu, 3, ;, 1)
+
+		POPMENU_TITLE("@MENU_APPLY_SETTINGS")
+		BUTTON(2, "@MENU_YES", LOCAL_SETTING_ACTION)
+		BUTTON(3, "@MENU_NO", close self)
+	}
+}

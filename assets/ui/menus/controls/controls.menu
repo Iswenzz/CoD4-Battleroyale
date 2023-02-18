@@ -1,0 +1,51 @@
+#include "ui/components/base.inc"
+#include "ui/shared/frame_header.inc"
+
+#undef HEADER_SIZE_X
+#define HEADER_SIZE_X		120
+
+#undef HEADER_X_SPACING
+#define HEADER_X_SPACING	121
+
+#undef HEADER_X_START
+#define HEADER_X_START		-300
+
+{
+	menuDef
+	{
+		SR_WINDOW("main_controls")
+
+		fullScreen		0
+		focusColor		COLOR_FOCUSED
+		forecolor		1 1 1 0.04
+		soundloop		""
+
+		onOpen
+		{
+			setLocalVarBool ui_showApply 0;
+
+			CLOSE_SERVERBROWSER;
+			CLOSE_CREATE_SERVER;
+			CLOSE_MODS;
+			CLOSE_PROFILE;
+
+			setLocalVarBool ui_hideBack "1";
+		}
+
+		onClose
+		{
+			setLocalVarBool ui_hideBack "0";
+		}
+
+		onESC
+		{
+			close self;
+		}
+
+		HEADER(2, "@MENU_LOOK", open options_look;)
+		HEADER(3, "@MENU_MOVE", open options_move;)
+		HEADER(4, "@MENU_COMBAT", open options_shoot;)
+		HEADER(5, "@MENU_INTERACT", open options_misc;)
+		HEADER(6, "Multiplayer...", open options_mod;)
+	}
+}

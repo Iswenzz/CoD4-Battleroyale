@@ -1,0 +1,177 @@
+#define LAYOUT_NAME				"main"
+#define LAYOUT_TEXT_OFFSET_X 	6
+#define HEADER_X_START			75
+#define HEADER_SIZE_X			100
+#define HEADER_X_SPACING		101
+
+#include "ui/components/base.inc"
+
+{
+	menuDef
+	{
+		SR_WINDOW("main_mp")
+
+		focusColor	COLOR_FOCUSED
+
+		onESC
+		{
+			close self;
+		}
+
+		SR_FRAME(11, 266, 360, 133)
+		SR_FRAME_HEADER("About", 14, 268, 356, 25, 6)
+
+		itemdef
+		{
+			name			"aboutText"
+			rect			11 291 360 108 0 0
+			style			1
+			visible			1
+			exp				text("@BR_DESCRIPTION")
+			type			0
+			textscale		0.23
+			textstyle		0
+			textalign		0
+			textalignx		6
+			textaligny		15
+			decoration
+		}
+
+		SR_FRAME_SECONDARY(375, 35, 254, 364)
+
+		itemdef
+		{
+			name			"loadscreen"
+			rect			378 38 250 160 0 0
+			style			3
+			background		"$levelBriefing"
+			visible			1
+			decoration
+		}
+
+		#undef LAYOUT_X_START
+		#define LAYOUT_X_START 		378
+
+		#undef LAYOUT_Y_START
+		#define LAYOUT_Y_START 		200
+
+		#undef LAYOUT_SIZE_X
+		#define LAYOUT_SIZE_X		250
+
+		#undef LAYOUT_SIZE_Y
+		#define LAYOUT_SIZE_Y		25
+
+		#undef LAYOUT_Y_SPACING
+		#define LAYOUT_Y_SPACING	26
+
+		SR_TEXT(1, dvarString("mapname"))
+
+		#undef LAYOUT_SIZE_Y
+		#define LAYOUT_SIZE_Y		20
+
+		#undef SR_KEY_SIZE_X
+		#define SR_KEY_SIZE_X		124
+
+		#undef SR_VALUE_SIZE_X
+		#define SR_VALUE_SIZE_X		124
+
+		SR_TEXT_KV(2, "Role", dvarString("sr_admin_role"))
+
+		itemdef
+		{
+			name			"infoPlayer"
+			rect			378 289 250 50 0 0
+			style			1
+			backcolor		0 0 0 0.4
+			visible			1
+			decoration
+		}
+
+		itemdef
+		{
+			name			"infoRankIcon"
+			rect			380 298 32 32 0 0
+			exp				material(tablelookup("mp/rankIconTable.csv", 0, stat(2350), stat(2326) + 1))
+			style			3
+			visible			1
+			decoration
+		}
+
+		itemdef
+		{
+			name			"infoRank"
+			rect			414 298 85 32 0 0
+			style			0
+			visible			1
+			type			0
+			exp				text(dvarString("name"))
+			textscale		0.3
+			textstyle		0
+			textalign		0
+			textalignx		0
+			textaligny		14
+			decoration
+		}
+
+		itemdef
+		{
+			name			"infoVIP"
+			rect			603 298 16 16 0 0
+			background		"vip_status"
+			style			3
+			visible			when((stat(2000)))
+			decoration
+		}
+
+		#undef LAYOUT_X_SPACING
+		#define LAYOUT_X_SPACING	125
+
+		#undef LAYOUT_Y_SPACING
+		#define LAYOUT_Y_SPACING	21
+
+		#undef LAYOUT_X_START
+		#define LAYOUT_X_START		378
+
+		#undef LAYOUT_Y_START
+		#define LAYOUT_Y_START		340
+
+		#undef LAYOUT_Y_COUNT
+		#define LAYOUT_Y_COUNT		1
+
+		#undef LAYOUT_SIZE_X
+		#define LAYOUT_SIZE_X		124
+
+		#undef BUTTON_SIZE_X
+		#define BUTTON_SIZE_X		124
+
+		SR_FRAME(11, 35, 360, 225)
+		SR_FRAME_HEADER("Stats", 14, 37, 357, 25, 6)
+
+		#undef LAYOUT_Y_COUNT
+		#define LAYOUT_Y_COUNT		20
+
+		#undef LAYOUT_X_START
+		#define LAYOUT_X_START 		14
+
+		#undef LAYOUT_Y_START
+		#define LAYOUT_Y_START 		70
+
+		#undef SR_KEY_SIZE_X
+		#define SR_KEY_SIZE_X		280
+
+		#undef SR_VALUE_SIZE_X
+		#define SR_VALUE_SIZE_X		75
+
+		SR_TEXT_KV(1, "Kills", ("" + stat(2303)))
+		SR_TEXT_KV(2, "Deaths", ("" + stat(2305)))
+		SR_TEXT_KV(3, "Accuracy", ("" + stat(2325)))
+		SR_TEXT_KV(4, "Wins", ("" + stat(2316)))
+		SR_TEXT_KV(5, "Losses", ("" + stat(2317)))
+
+		HEADER(2, "Play", scriptMenuResponse "autoassign"; close main_mp;)
+		HEADER(3, "Spectator", scriptMenuResponse "spectator"; close main_mp;)
+		HEADER(4, "Controls", open main_controls; close main_mp;)
+		HEADER(5, "Settings", open main_options; open sr_settings; close main_mp;)
+		HEADER(6, "Quit", open exit_popmenu;)
+	}
+}

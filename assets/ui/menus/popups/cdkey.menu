@@ -1,0 +1,125 @@
+#define LAYOUT_NAME				"cdkey"
+#define LAYOUT_X_START			0
+#define LAYOUT_Y_START			150
+#define LAYOUT_HORIZONTAL_ALIGN	HORIZONTAL_ALIGN_CENTER
+#define LAYOUT_VERTICAL_ALIGN	VERTICAL_ALIGN_CENTER
+#define	LAYOUT_TEXTALIGN		ITEM_ALIGN_MIDDLE_CENTER
+#define LAYOUT_TEXT_OFFSET_X	0
+#define LAYOUT_SIZE_X			400
+#define BUTTON_SIZE_X			400
+#define POPUP_TITLE_HEIGHT 		26
+#define SIDE_MARGIN				40
+
+#include "ui/components/base.inc"
+#include "ui/components/popup.inc"
+
+{
+	menuDef
+	{
+		name 			"cdkey_menu"
+		fullscreen 		0
+		rect			(0-(POPUP_WIDTH/2)) (0-(POPUP_HEIGHT(6)/2)) POPUP_WIDTH POPUP_HEIGHT(6) HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+		focusColor 		COLOR_FOCUSED
+		style 			1
+		border			1
+		bordersize		LAYOUT_BORDER_WIDTH
+		bordercolor		LAYOUT_BORDER_COLOR
+		popup
+
+		onOpen
+		{
+			setfocus firstkey; setlocalvarint ui_show_cancel 1; uiScript getCDKey;
+		}
+
+		onEsc
+		{
+			close self;
+		}
+
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			0 0 (POPUP_WIDTH-(LAYOUT_BORDER_WIDTH*2)) (POPUP_HEIGHT(6)-(LAYOUT_BORDER_WIDTH*2)) HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+			background		"white"
+			forecolor		LAYOUT_BACKCOLOR
+			visible			1
+			decoration
+		}
+
+		POPMENU_TITLE("@MENU_KEY_CODE")
+		POPMENU_SUBTITLE_VIS(dvarString(ui_cdkeyvalid), when(localvarint(ui_show_cancel) == 0);)
+		POPMENU_SUBTITLE_VIS("@MENU_ENTER_YOUR_KEY_CODE_IN_THE_FIELD_BELOW", when(localvarint(ui_show_cancel) == 1);)
+
+		#define LOCAL_KEY_SEG(prect, pdvar, ex) \
+		itemDef	{\
+			group grpcdkey \
+			type ITEM_TYPE_UPREDITFIELD \
+			style 1 \
+			text "" \
+			dvar pdvar \
+			maxchars 4 \
+			rect prect 0 0 \
+			textalign ITEM_ALIGN_CENTER \
+			textalignx -28 \
+			textaligny 14 \
+			textfont UI_FONT_NORMAL \
+			textscale .3 \
+			border 1 \
+			bordercolor .5 .5 .5 1 \
+			backcolor .1 0.1 0.1 .25 \
+			forecolor 1 1 1 1 \
+			visible 1 \
+			ex \
+		}
+
+		#define LOCAL_ACCEPT \
+			accept\
+			{\
+				uiScript verifyCDKey; setlocalvarint ui_show_cancel 1; \
+			}
+
+		#define SEG_WIDTH	60
+		#define SEG_HEIGHT	20
+		#define SEG_SIZE	SEG_WIDTH SEG_HEIGHT
+		#define SEG_X_SPACE 4
+
+		#define SEG_Y		60
+
+		#define SEG1_X		SIDE_MARGIN
+		#define SEG2_X		(SEG1_X+SEG_WIDTH+SEG_X_SPACE)
+		#define SEG3_X		(SEG2_X+SEG_WIDTH+SEG_X_SPACE)
+		#define SEG4_X		(SEG3_X+SEG_WIDTH+SEG_X_SPACE)
+		#define SEG5_X		(SEG4_X+SEG_WIDTH+SEG_X_SPACE+12)
+
+		LOCAL_KEY_SEG(SEG1_X SEG_Y SEG_SIZE, "cdkey1", name firstkey; maxCharsGotoNext)
+		LOCAL_KEY_SEG(SEG2_X SEG_Y SEG_SIZE, "cdkey2", maxCharsGotoNext)
+		LOCAL_KEY_SEG(SEG3_X SEG_Y SEG_SIZE, "cdkey3", maxCharsGotoNext)
+		LOCAL_KEY_SEG(SEG4_X SEG_Y SEG_SIZE, "cdkey4", maxCharsGotoNext)
+
+		itemDef
+		{
+			name datafield
+			group grpcdkey
+			style 0
+			text "-"
+			maxchars 2
+			rect (SEG5_X-12) SEG_Y SEG_SIZE
+			textalign ITEM_ALIGN_LEFT
+			textalignx 3
+			textaligny 18
+			textfont UI_FONT_NORMAL
+			textscale .3
+			backcolor 0 0 0 0
+			decoration
+			forecolor 1 1 1 1
+			visible 1
+		}
+		LOCAL_KEY_SEG(SEG5_X SEG_Y SEG_SIZE, "cdkey5", LOCAL_ACCEPT)
+
+		BUTTON(5, "@MENU_VERIFY", uiScript verifyCDKey; setlocalvarint ui_show_cancel 0;)
+		BACKGROUND(6, 1)
+		HIGHLIGHT(6, 1)
+		BUTTON_VIS_NOHI(6, "@MENU_CANCEL", close self;, when(localvarint(ui_show_cancel));)
+		BUTTON_VIS_NOHI(6, "@MENU_CLOSE", close self;, when(localvarint(ui_show_cancel) == 0);)
+	}
+}

@@ -6,7 +6,6 @@ cd "$MOD"
 rm -v _images.iwd
 rm -v _sounds.iwd
 rm -v _weapons.iwd
-rm -v _maps_weapons.iwd
 rm -v _z.iwd
 rm -v _zz.iwd
 

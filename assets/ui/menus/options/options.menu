@@ -1,0 +1,45 @@
+#include "ui/components/base.inc"
+#include "ui/shared/frame_header.inc"
+
+#undef HEADER_X_START
+#define HEADER_X_START		-((HEADER_X_SPACING * 2))
+
+{
+    menuDef
+	{
+		SR_WINDOW("main_options")
+
+		fullScreen		0
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+		backcolor		1 1 1 0.04
+
+		onOpen
+		{
+			setLocalVarBool ui_showApply 0;
+			setLocalVarBool ui_showTextureApply 0;
+
+			CLOSE_SERVERBROWSER;
+			CLOSE_CREATE_SERVER;
+			CLOSE_MODS;
+			CLOSE_PROFILE;
+
+			setLocalVarBool ui_hideBack "1";
+		}
+
+		onClose
+		{
+			setLocalVarBool ui_hideBack "0";
+		}
+
+		onESC
+		{
+			close self;
+		}
+
+		HEADER(2, "@MENU_GRAPHICS", open options_graphics;)
+		HEADER(3, "@MENU_SOUND", open options_sound;)
+		HEADER(4, "@MENU_MULTIPLAYER_OPTIONS", open options_game;)
+		HEADER(5, "Mute Players...", open muteplayer;)
+	}
+}

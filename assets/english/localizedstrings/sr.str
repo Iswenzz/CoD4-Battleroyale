@@ -1,0 +1,50 @@
+VERSION             "1"
+CONFIG              "C:\trees\cod3\cod3\bin\StringEd.cfg"
+FILENOTES           ""
+
+REFERENCE           MODNAME
+LANG_ENGLISH        "SR Mod"
+
+REFERENCE           SPEEDRUN_DESC
+LANG_ENGLISH        "^5Welcome to Sr- Speedrun\n^7This is a mod where players try to complete the map in the fastest time possible and\n compete for the top spot on the leaderboard. \n^5How to level up:\n^7Getting a time on the leaderboard will give you XP. You get more XP depending \non how high up your time is and how many times have already been set.\n^5Contact:\n^7You can visit our discord server for updates and help:\n^8https://discord.gg/76aHfGF"
+
+REFERENCE           BATTLEROYALE_DESC
+LANG_ENGLISH        "^5Welcome to Sr- BattleRoyale\n^7The popular battle royale gamemode from other games such as \nPlayer Unknown's Battlegrounds, Fortnite, H1Z1, recreated on Call of Duty 4!\n\n^5Contact:\n^7You can visit our discord server for updates and help:\n^8https://discord.gg/76aHfGF"
+
+REFERENCE           MOTD
+LANG_ENGLISH        ""
+
+REFERENCE           NOTICE
+LANG_ENGLISH        ""
+
+REFERENCE           WAIT4VOTES
+LANG_ENGLISH        "Waiting for votes..."
+
+REFERENCE           PRESSFIRE
+LANG_ENGLISH        "Press FIRE to start voting"
+
+REFERENCE           GAME_EXPERIENCE_CHANGED
+LANG_ENGLISH        "SR Mod\ndiscord.gg/76aHfGF"
+
+REFERENCE           ABOUT
+LANG_ENGLISH        "About the Mod"
+
+REFERENCE           ABOUT_HEADER
+LANG_ENGLISH        "About the Mod..."
+
+REFERENCE           CALL_FREEROUND
+LANG_ENGLISH        ""
+
+REFERENCE           ALIVE_JUMPERS
+LANG_ENGLISH        ""
+
+REFERENCE           ROUND_BEGINS_IN
+LANG_ENGLISH        "Begins in..."
+
+REFERENCE           WAITING_FOR_PLAYERS
+LANG_ENGLISH        "Waiting for more players to start..."
+
+REFERENCE			GRAPHICS_WARNING
+LANG_ENGLISH		""
+
+ENDMARKER

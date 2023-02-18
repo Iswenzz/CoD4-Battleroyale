@@ -1,0 +1,56 @@
+#include "ui/components/base.inc"
+#include "ui/shared/frame_layout.inc"
+
+{
+	menuDef
+	{
+		SR_WINDOW_CONTENT("options_voice");
+
+		fullScreen 		0
+		focusColor 		COLOR_FOCUSED
+		soundloop 		""
+
+		onOpen
+		{
+			CLOSE_ALL_CONTROLS;
+			CLOSE_ALL_OPTIONS_EX_VOICE;
+
+			CLOSE_SERVERBROWSER;
+			CLOSE_CREATE_SERVER;
+			CLOSE_MODS;
+			CLOSE_PROFILE;
+
+			setLocalVarBool ui_maincontent_header "1";
+			setLocalVarBool ui_maincontent_update "1";
+		}
+
+		onClose
+		{
+			setLocalVarBool ui_maincontent_header "0";
+			setLocalVarBool ui_maincontent_update "0";
+
+			open sr_settings;
+		}
+
+		onESC
+		{
+			close self;
+		}
+
+		BUTTON_DVARFLOATLIST(22, "@MENU_VOICE_CHAT_ENABLE", cl_voice, { "@MENU_ON" 1 "@MENU_OFF" 0 }, ;)
+		BUTTON_DVARSLIDER(23, "@MENU_VOICECHAT_RECORD_LEVEL", winvoice_mic_reclevel, 65535, 0, 65535, ;)
+
+		PREPROC_TEXT_DRAW_ALIGNED(LAYOUT_ORIGIN(25) LAYOUT_SIZE_X 20 LAYOUT_HORIZONTAL_ALIGN LAYOUT_VERTICAL_ALIGN, -10 22, text "@MENU_VOICECHAT_LEVEL_INDICATOR", LAYOUT_TEXTSIZE, 0, 0, ITEM_ALIGN_RIGHT, LAYOUT_TEXTCOLOR)
+
+		itemDef
+		{
+			name		voicechat_level_indicator
+			ownerdraw	UI_RECORDLEVEL
+			rect		LAYOUT_ORIGIN(25) 100 10 LAYOUT_HORIZONTAL_ALIGN LAYOUT_VERTICAL_ALIGN
+			origin 		520 8
+			style		WINDOW_STYLE_EMPTY
+			visible		1
+			decoration
+		}
+	}
+}
