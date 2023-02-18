@@ -80,10 +80,7 @@ init()
 
 	precacheShellShock("default");
 	precacheShellShock("concussion_grenade_mp");
-//	thread maps\mp\_pipebomb::main();
-//	thread maps\mp\_ied::main();
 	thread maps\mp\_flashgrenades::main();
-//	thread maps\mp\_teargrenades::main();
 	thread maps\mp\_entityheadicons::init();
 
 	claymoreDetectionConeAngle = 70;
@@ -123,14 +120,11 @@ onPlayerSpawned()
 
 		self.concussionEndTime = 0;
 		self.hasDoneCombat = false;
-		// self thread watchWeaponUsage();
+		self thread watchWeaponUsage();
 		self thread watchGrenadeUsage();
-		// self thread watchWeaponChange();
 
 		self.droppedDeathWeapon = undefined;
 		self.tookWeaponFrom = [];
-
-		// self thread updateStowedWeapon();
 	}
 }
 
@@ -476,7 +470,8 @@ watchCurrentFiring(curWeapon)
 	self maps\mp\gametypes\_persistence::statSet("total_shots", statTotal);
 	self maps\mp\gametypes\_persistence::statSet("hits", statHits);
 	self maps\mp\gametypes\_persistence::statSet("misses", statMisses);
-	self maps\mp\gametypes\_persistence::statSet("accuracy", int(statHits * 10000 / statTotal));
+	self maps\mp\gametypes\_persistence::statSet("accuracy", int((statHits / statTotal) * 100));
+
 /*
 	printLn("total:    " + statTotal);
 	printLn("hits:     " + statHits);

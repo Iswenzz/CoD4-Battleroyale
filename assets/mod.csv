@@ -1,7 +1,7 @@
 // SR
 stringtable,mp/playerStatsTable.csv
-stringtable,mp/ranktable.csv
-stringtable,mp/rankicontable.csv
+stringtable,mp/rankTable.csv
+stringtable,mp/rankIconTable.csv
 rawfile,info/bullet_penetration_mp
 rawfile,animtrees/multiplayer.atr
 rawfile,mp/playeranimtypes.txt
@@ -81,6 +81,7 @@ menufile,ui_mp/scriptmenus/commands/quickcommands.menu
 menufile,ui_mp/scriptmenus/commands/quickresponses.menu
 menufile,ui_mp/scriptmenus/commands/quickstatements.menu
 menufile,ui_mp/scriptmenus/controls/controls_multi.menu
+menufile,ui_mp/scriptmenus/options/sr_settings.menu
 menufile,ui_mp/scriptmenus/popups/exit.menu
 menufile,ui_mp/scriptmenus/misc/clientcmd.menu
 menufile,ui_mp/scriptmenus/misc/endofgame.menu

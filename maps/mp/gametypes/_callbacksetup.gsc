@@ -1,5 +1,4 @@
 #include battleroyale\utils\_common;
-#include battleroyale\sys\_dvar;
 #include battleroyale\sys\_events;
 
 start()

@@ -379,6 +379,20 @@ playSoundOnAllPlayers(soundAlias)
 		players[i] playLocalSound(soundAlias);
 }
 
+originToTime(origin)
+{
+	time = SpawnStruct();
+
+	time.origin = origin;
+	time.ms = origin;
+	time.min = int(time.ms / 60000);
+	time.ms = time.ms % 60000;
+	time.sec = int(time.ms / 1000);
+	time.ms = time.ms % 1000;
+
+	return time;
+}
+
 getHitLocHeight(sHitLoc)
 {
 	switch (sHitLoc)

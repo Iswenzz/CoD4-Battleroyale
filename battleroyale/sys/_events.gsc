@@ -1,3 +1,5 @@
+#include battleroyale\utils\_common;
+
 initEvents()
 {
 	level.events = [];

@@ -1,5 +1,4 @@
 #include battleroyale\utils\_common;
-#include battleroyale\sys\_dvar;
 #include battleroyale\sys\_events;
 
 start()
@@ -10,7 +9,6 @@ start()
 	printLn("^5===================================");
 
 	GSCLIB_Init();
-	dvars();
 
 	level.scriptusage = debug_scriptusage();
 	level.script = toLower(getDvar("mapname"));
@@ -41,14 +39,7 @@ start()
 	if (!isDefined(game["axis"]))
 		game["axis"] = "opfor";
 
-	sr\_mod::main();
 	battleroyale\_mod::main();
-}
-
-dvars()
-{
-	addDvar("demos", "sr_demos", 1, 0, 1, "int");
-	addDvar("demos_timeout", "sr_demos_timeout", 120, 20, 1200, "int");
 }
 
 CodeCallback_StartGameType()
@@ -89,6 +80,7 @@ CodeCallback_PlayerSpawned()
 		self.psoffsettime = 0;
 		self.died = false;
 
+		self sr\game\_cheat::init();
 		self battleroyale\game\_callbacks::playerSpawn();
 
 		for (i = 0; isDefined(level.events["spawn"]) && i < level.events["spawn"].size; i++)

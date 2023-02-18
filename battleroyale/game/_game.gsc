@@ -7,7 +7,7 @@ initGame()
 	level.items = [];
 
 	event("map", ::spawnItems);
-	event("killed", ::endKillcam);
+	event("killed", ::lastKill);
 	event("spawn", ::onSpawn);
 
 	thread start();
@@ -47,7 +47,7 @@ waitKillcam()
 		wait 10.5;
 }
 
-endKillcam(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration)
+lastKill(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration)
 {
 	if (isDefined(game["killcam"]) || getPlayingPlayers().size > 1)
 		return;
@@ -56,6 +56,9 @@ endKillcam(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc,
 
 	game["killcam"] = true;
 	battleroyale\game\_killcam::start(3, eInflictor, attacker, sWeapon);
+
+	wins = attacker maps\mp\gametypes\_persistence::statGet("WINS");
+	attacker maps\mp\gametypes\_persistence::statSet("WINS", wins + 1);
 
 	wait 3;
 	if (isDefined(attacker))

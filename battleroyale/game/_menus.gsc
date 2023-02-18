@@ -27,6 +27,7 @@ precache()
 	precacheMenu("commands/quickstatements");
 	precacheMenu("commands/quickstuff");
 	precacheMenu("controls/controls_multi");
+	precacheMenu("options/sr_settings");
 	precacheMenu("popups/exit");
 	precacheMenu("misc/clientcmd");
 	precacheMenu("misc/endofgame");

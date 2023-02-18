@@ -166,7 +166,7 @@
 		SR_TEXT_KV(2, "Deaths", ("" + stat(2305)))
 		SR_TEXT_KV(3, "Accuracy", ("" + stat(2325)))
 		SR_TEXT_KV(4, "Wins", ("" + stat(2316)))
-		SR_TEXT_KV(5, "Losses", ("" + stat(2317)))
+		SR_TEXT_KV(5, "Time Played", dvarString("sr_info_timePlayed"))
 
 		HEADER(2, "Play", scriptMenuResponse "autoassign"; close main_mp;)
 		HEADER(3, "Spectator", scriptMenuResponse "spectator"; close main_mp;)

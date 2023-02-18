@@ -1,10 +1,12 @@
 main()
 {
 	setDvar("g_TeamName_Allies", "^9Battle");
+	setDvar("g_TeamIcon_Allies", "");
 	setDvar("g_TeamColor_Allies", "0 0.8 0.8");
 	setDvar("g_ScoresColor_Allies", "0 0 0");
 
 	setDvar("g_TeamName_Axis", "^0Dead");
+	setDvar("g_TeamIcon_Axis", "");
 	setDvar("g_TeamColor_Axis", "0.8 0 0");
 	setDvar("g_ScoresColor_xis", "0 0 0");
 

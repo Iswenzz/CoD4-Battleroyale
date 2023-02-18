@@ -65,6 +65,7 @@ playerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vP
 
 	if (isPlayer(eAttacker) && eAttacker != self)
 	{
+		eAttacker maps\mp\gametypes\_weapons::checkHit(sWeapon);
 		eAttacker iPrintln("You hit " + self.name + " ^7for ^2" + iDamage + " ^7damage.");
 		self iPrintln(eAttacker.name + " ^7hit you for ^2" + iDamage + " ^7damage.");
 	}
@@ -88,22 +89,21 @@ playerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 	if (sHitLoc == "head" && sMeansOfDeath != "MOD_MELEE")
 		sMeansOfDeath = "MOD_HEAD_SHOT";
 
-	if (isPlayer(attacker) && attacker != self)
+	if (sMeansOfDeath != "MOD_SUICIDE")
 	{
-		attacker battleroyale\game\_rank::giveRankXP("", 250);
-		attacker.kills++;
-		attacker.pers["kills"]++;
+		deaths = self maps\mp\gametypes\_persistence::statGet("DEATHS");
+		self maps\mp\gametypes\_persistence::statSet("DEATHS", deaths + 1);
+		self.deaths++;
+		self.pers["deaths"]++;
 	}
-
-	deaths = self maps\mp\gametypes\_persistence::statGet("DEATHS");
-	self maps\mp\gametypes\_persistence::statSet("DEATHS", deaths + 1);
-	self.deaths++;
-	self.pers["deaths"]++;
-	self cleanUp();
-
 	if (!isPlayer(attacker) || attacker == self)
 		return;
 
+	attacker.kills++;
+	attacker.pers["kills"]++;
+	battleroyale\game\_rank::processXpReward(sMeansOfDeath, attacker, self);
+
+	self cleanUp();
 	attacker setLowerMessage("^7You killed ^9" + self.name);
 	attacker thread clearLowerMessageAfterTime();
 

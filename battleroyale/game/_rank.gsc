@@ -372,9 +372,6 @@ updateRankAnnounceHUD()
 
 processXpReward(sMeansOfDeath, attacker, victim)
 {
-	if (attacker sameTeam(victim))
-		return;
-
 	kills = attacker maps\mp\gametypes\_persistence::statGet("KILLS");
 	attacker maps\mp\gametypes\_persistence::statSet("KILLS", kills + 1);
 
