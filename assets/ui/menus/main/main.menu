@@ -58,8 +58,8 @@
 		itemDef
 		{
 			style			WINDOW_STYLE_SHADER
-			rect			FULLSCREEN_WIDE
-			background		black
+			rect			0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			background		"sr_br_background"
 			visible			1
 			decoration
 		}
@@ -67,23 +67,9 @@
 		itemDef
 		{
 			style			WINDOW_STYLE_SHADER
-			rect			-40 -70 1000 112 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			rect			-40 452 1000 112 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
 			background		"black"
-			border			1
-			bordercolor		0 0 0 1
-			bordersize		3
-			visible			1
-			decoration
-		}
-
-		itemDef
-		{
-			style			WINDOW_STYLE_SHADER
-			rect			-40 428 1000 112 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
-			background		"black"
-			border			1
-			bordercolor		0 0 0 1
-			bordersize		3
+			forecolor		0 0 0 0.6
 			visible			1
 			decoration
 		}
@@ -146,7 +132,7 @@
 			rect			-800 -800 2000 2000
 			forecolor		1 1 1 1
 			style			WINDOW_STYLE_SHADER
-			background		"sr_br_background"
+			background		"black"
 			visible 		when(dvarstring(ui_sr_info) != "");
 			decoration
 		}
