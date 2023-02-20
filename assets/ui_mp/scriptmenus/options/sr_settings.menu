@@ -1,0 +1,70 @@
+#define LAYOUT_NAME			"settings"
+#define SR_KEY_SIZE_X		200
+#define SR_VALUE_SIZE_X		80
+
+#include "ui/components/base.inc"
+#include "ui/shared/frame_layout.inc"
+
+#define SR_SETTING(id, script) \
+	SR_BUTTON_KV_VIS(id, dvarString("sr_setting_" + (id - 1)), dvarString("sr_setting_value_" + (id - 1)), scriptMenuResponse script;, when(dvarString("sr_setting_" + (id - 1)) != ""))
+
+{
+	menuDef
+	{
+		SR_WINDOW_CONTENT("sr_settings");
+
+		fullScreen		0
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+
+		onOpen
+		{
+			setLocalVarBool ui_maincontent_header "1";
+			setLocalVarBool ui_maincontent_update "1";
+		}
+
+		onClose
+		{
+			setLocalVarBool ui_maincontent_header "0";
+			setLocalVarBool ui_maincontent_update "0";
+		}
+
+		onEsc
+		{
+			close self;
+			close main_options;
+		}
+
+		SR_SETTING(1, "setting:0")
+		SR_SETTING(2, "setting:1")
+		SR_SETTING(3, "setting:2")
+		SR_SETTING(4, "setting:3")
+		SR_SETTING(5, "setting:4")
+		SR_SETTING(6, "setting:5")
+		SR_SETTING(7, "setting:6")
+		SR_SETTING(8, "setting:7")
+		SR_SETTING(9, "setting:8")
+		SR_SETTING(10, "setting:9")
+		SR_SETTING(11, "setting:10")
+		SR_SETTING(12, "setting:11")
+		SR_SETTING(13, "setting:12")
+		SR_SETTING(14, "setting:13")
+		SR_SETTING(15, "setting:14")
+		SR_SETTING(16, "setting:15")
+		SR_SETTING(17, "setting:16")
+		SR_SETTING(18, "setting:17")
+		SR_SETTING(19, "setting:18")
+		SR_SETTING(20, "setting:19")
+		SR_SETTING(21, "setting:20")
+		SR_SETTING(22, "setting:21")
+		SR_SETTING(23, "setting:22")
+		SR_SETTING(24, "setting:23")
+		SR_SETTING(25, "setting:24")
+		SR_SETTING(26, "setting:25")
+		SR_SETTING(27, "setting:26")
+		SR_SETTING(28, "setting:27")
+		SR_SETTING(29, "setting:28")
+		SR_SETTING(30, "setting:29")
+		SR_SETTING(31, "setting:30")
+	}
+}
