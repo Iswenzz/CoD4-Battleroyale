@@ -7,11 +7,12 @@
 main()
 {
 	level.settings = [];
+	level.settingsMax = 31;
 
 	settings(0,  "hud_crosshair", "Crosshair", 1600, 1, ::update_hudCrosshair, ::toggle_hudCrosshair);
 	settings(1,  "hud_fps", "Draw FPS", 1601, true, ::update_hudFPS, ::toggle_hudFPS);
 	settings(2,  "hud_xp", "XP Bar", 1605, false, ::update_hudXP, ::toggle_hudXP);
-	settings(3,  "hud_compass", "Compass", 1608, 8, ::update_hudCompass, ::toggle_hudCompass);
+	settings(3,  "hud_compass", "Compass", 1608, 0, ::update_hudCompass, ::toggle_hudCompass);
 	settings(4,  "hud_2D", "Draw 2D", 1610, true, ::update_hud2D, ::toggle_hud2D);
 	settings(5,  "player_voice", "Voice chat", 1620, true, ::update_playerVoice, ::toggle_playerVoice);
 	settings(6,  "player_proximity", "Voice proximity", 1623, false, ::update_playerProximity, ::toggle_playerProximity);

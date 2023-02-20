@@ -226,6 +226,15 @@ intRange(variable, min, max)
 	return variable;
 }
 
+clamp(number, min, max)
+{
+	if (number < min)
+		return min;
+	if (number > max)
+		return max;
+	return number;
+}
+
 clampValue(number, value, min, max)
 {
 	result = number + value;

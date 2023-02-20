@@ -1,7 +1,3 @@
-xmodelsurfs/
-images/
-sound/
-mods/
 demos/
 wrs/
 *.log
@@ -12,7 +8,6 @@ wrs/
 globalconfig.cfg
 q3config_server.cfg
 local.cfg
-speedrun.cfg
 serverstatus.xml
 sys_error.txt
 missingasset.csv

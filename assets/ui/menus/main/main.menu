@@ -146,7 +146,7 @@
 			rect			-800 -800 2000 2000
 			forecolor		1 1 1 1
 			style			WINDOW_STYLE_SHADER
-			background		"black"
+			background		"sr_br_background"
 			visible 		when(dvarstring(ui_sr_info) != "");
 			decoration
 		}

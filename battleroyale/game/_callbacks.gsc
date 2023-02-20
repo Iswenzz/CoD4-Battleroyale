@@ -124,11 +124,11 @@ playerSpawn()
 
 	self.pers["weapons"] = [];
 
+	self spawnPlayer();
+
 	self giveWeapon("dog_mp");
 	self setSpawnWeapon("dog_mp");
-	self setActionSlot(3, "weapon", "flash_grenade_mp");
-
-	self spawnPlayer();
+	self setActionSlot(4, "weapon", "flash_grenade_mp");
 
 	if (game["state"] == "readyup")
 		self disableWeapons();
@@ -171,6 +171,7 @@ serverDvars()
 	);
 	wait 0.05;
 	self setClientDvars(
+		"fx_enable", 1,
 		"cg_drawfriendlynames", 1,
 		"cg_friendlyNameFadeIn", 1,
 		"cg_friendlyNameFadeOut", 1,

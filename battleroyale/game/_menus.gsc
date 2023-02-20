@@ -68,7 +68,7 @@ menu_Spectator(arg)
 	if (game["state"] == "end")
 		return;
 
-	if(self isPlaying())
+	if (self isPlaying())
 	{
 		self iPrintln("^1Suicide disabled");
 		return;

@@ -180,123 +180,21 @@
 	menuDef
 	{
 		name			"Compass_old"
- 	   	rect			RECT_COMPASS
+ 	   	rect			0 0 COMPASS_SIZE_MP COMPASS_SIZE_MP
  	   	fullScreen		0
-		visible 		0
+ 	   	visible			when(COMPASS_STAT > 0 && !inkillcam() && !flashbanged() && !ui_active() && !scoped() && (dvarString("show_hud") == "true"))
 
-		itemDef
-		{
-			name			"minimapBG"
-			rect			((MINIMAP_X_MP - 14) * .75) ((MINIMAP_Y_MP - 6) * .75) (COMPASS_SIZE_MP * .75) (COMPASS_SIZE_MP * .75)
-	 	   	origin 			MINIMAP_ORIGIN
-			forecolor		1 1 1 1
-			background		"minimap_background"
-			ownerdraw		CG_PLAYER_COMPASS_BACK
-			visible 		when (!selecting_location());
-			decoration
-		}
-		itemDef
-        {
-            name			"minimapTickerBorder"
-            rect			(MINIMAP_X_MP * .75) ((MINIMAP_Y_MP + 101) * .75) (MINIMAP_W_MP * .75) (14 * .75)
-	 	   	origin 			MINIMAP_ORIGIN
-            forecolor		1 1 1 1
-            background		"minimap_tickertape_background"
-            ownerdraw		CG_PLAYER_COMPASS_BACK
-			visible 		when (!selecting_location());
-			decoration
-        }
-		itemDef
-        {
-            name			"minimapTicker"
-            rect			(MINIMAP_X_MP * .75) ((MINIMAP_Y_MP + 104) * .75) (MINIMAP_W_MP * .75) (9 * .75)
-	 	   	origin 			MINIMAP_ORIGIN
-            forecolor		1 1 1 1
-            background		"minimap_tickertape_mp"
-            ownerdraw		CG_PLAYER_COMPASS_TICKERTAPE_NO_OBJ
-			visible 		when (!selecting_location());
-			decoration
-        }
-		itemDef
- 	   	{
-			name			"mini_map"
-			rect			(MINIMAP_X_MP * .75) (MINIMAP_Y_MP * .75) (MINIMAP_W_MP * .75) (MINIMAP_H_MP * .75)
-	 	   	origin 			MINIMAP_ORIGIN
-			forecolor		1 1 1 1
-			background		"compass_map_default"
-			ownerdraw		CG_PLAYER_COMPASS_MAP
-			visible 		when (!selecting_location());
-			decoration
- 	   	}
+		COMPASS(1, 0, 90, SR_ALIGN_TOP_LEFT)
+		COMPASS(2, -80, 20, SR_ALIGN_TOP_CENTER)
+		COMPASS(3, -160, 30, SR_ALIGN_TOP_RIGHT)
 
-		// Objective pointers
-		itemDef
-		{
-			name			"compasspointers"
-			rect			(MINIMAP_X_MP * .75) (MINIMAP_Y_MP * .75) (MINIMAP_W_MP * .75) (MINIMAP_H_MP * .75)
-	 	   	origin 			MINIMAP_ORIGIN
-			forecolor		1 1 1 1
-			background		"objective_line"
-			ownerdraw		CG_PLAYER_COMPASS_POINTERS
-			visible 		when (!selecting_location() && dvarint(ui_hud_showobjicons) > 0);
-			decoration
-		}
+		COMPASS(4, 0, 10, SR_ALIGN_MIDDLE_LEFT)
+		COMPASS(5, -80, 10, SR_ALIGN_MIDDLE_CENTER)
+		COMPASS(6, -160, 10, SR_ALIGN_MIDDLE_RIGHT)
 
- 	   	// Friendlies pointers
-		itemDef
-		{
-			name			"compassfriendlies"
-			rect			(MINIMAP_X_MP * .75) (MINIMAP_Y_MP * .75) (MINIMAP_W_MP * .75) (MINIMAP_H_MP * .75)
-	 	   	origin 			MINIMAP_ORIGIN
-			forecolor		1 1 1 1
-			ownerdraw		CG_PLAYER_COMPASS_FRIENDS
-			visible 		when (!selecting_location());
-		}
-
-		// Enemy pings
-		itemDef
-		{
-			name			"compassenemies"
-			rect			(MINIMAP_X_MP * .75) (MINIMAP_Y_MP * .75) (MINIMAP_W_MP * .75) (MINIMAP_H_MP * .75)
-	 	   	origin 			MINIMAP_ORIGIN
-			forecolor		1 1 1 1
-			ownerdraw		CG_PLAYER_COMPASS_ENEMIES
-			visible 		when (!selecting_location());
-		}
-
- 	   	// Helicopter pointers
-		itemDef
-		{
-			name			"compasshelicopters"
-			rect			(MINIMAP_X_MP * .75) (MINIMAP_Y_MP * .75) (MINIMAP_W_MP * .75) (MINIMAP_H_MP * .75)
-	 	   	origin 			MINIMAP_ORIGIN
-			forecolor		1 1 1 1
-			ownerdraw		CG_PLAYER_COMPASS_HELICOPTERS
-			visible 		when (!selecting_location());
-		}
-
- 	   	// Plane pointers
-		itemDef
-		{
-			name			"compassplanes"
-			rect			(MINIMAP_X_MP * .75) (MINIMAP_Y_MP * .75) (MINIMAP_W_MP * .75) (MINIMAP_H_MP * .75)
-	 	   	origin 			MINIMAP_ORIGIN
-			forecolor		1 1 1 1
-			ownerdraw		CG_PLAYER_COMPASS_PLANES
-			visible 		when (!selecting_location());
-		}
-
-		// Player direction indicator
-		itemDef
-		{
-			name			"compassplayer"
-			rect			(MINIMAP_X_MP * .75) (MINIMAP_Y_MP * .75) (MINIMAP_W_MP * .75) (MINIMAP_H_MP * .75)
-	 	   	origin 			MINIMAP_ORIGIN
-			forecolor		1 1 1 1//HUD_FOREGROUND_ALPHA
-			background		"compassping_player"
-			ownerdraw		CG_PLAYER_COMPASS_PLAYER
-			visible 		when (!selecting_location());
-		}
+		COMPASS(7, 0, -30, SR_ALIGN_BOTTOM_LEFT)
+		COMPASS(8, -80, -30, SR_ALIGN_BOTTOM_CENTER)
+		COMPASS(9, -160, -30, SR_ALIGN_BOTTOM_RIGHT)
 	}
 
 	// Full Screen Map for location selection
@@ -417,7 +315,7 @@
 			origin			0 0
 			background		"white"
 			forecolor		0 0 0 0.25
-			visible			when(dvarString("br_xp_bar") == "1")
+			visible			when(dvarString("sr_xp_bar") == "1")
 			decoration
 		}
 
@@ -429,7 +327,7 @@
 			origin			0 0
 			background		"scorebar_fadein"
 			forecolor		1 0.8 0.4 0.95
-			visible			when(dvarString("br_xp_bar") == "1")
+			visible			when(dvarString("sr_xp_bar") == "1")
 			decoration
 		}
 	}
@@ -728,30 +626,20 @@
 		itemDef
 		{
 			style			WINDOW_STYLE_SHADER
-			rect			0 0 640 112 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			rect			0 0 640 35 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
 			background		"white"
-			forecolor		0 0 0 0.5
+			forecolor		0 0 0 0.6
 			visible			1
 			decoration
 		}
 
 		itemDef
 		{
-			style			WINDOW_STYLE_SHADER
-			rect			0 368 640 112 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
-			background		"white"
-			forecolor		0 0 0 0.5
-			visible			1
-			decoration
-		}
-
-		itemDef
-		{
-			rect		0 45 1 1 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_TOP
+			rect		0 30 1 1 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_TOP
 			origin		0 0
-			exp text	("KILLCAM");
+			exp 		text("KILLCAM");
 			textfont	UI_FONT_OBJECTIVE
-			textscale	0.90
+			textscale	0.5
 			textalign	ITEM_ALIGN_CENTER
 			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
 			visible 	1

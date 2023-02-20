@@ -157,7 +157,7 @@ playerDrop(origin)
 	self setVelocity((0, 0, -200));
 
 	self attach("sr_parachute", "TAG_ORIGIN");
-	self playSound("drop");
+	self playSound("parachute_start");
 
 	self giveWeapon("dog_mp");
 	self switchToWeapon("dog_mp");
@@ -170,7 +170,7 @@ playerDrop(origin)
 	self.health = self.maxhealth;
 	self setClientDvar("cg_thirdperson", 0);
 	self detach("sr_parachute", "TAG_ORIGIN");
-	self playSound("drop_end");
+	self playSound("parachute_end");
 	self setGravity(800);
 	self setMoveSpeed(190);
 	self enableWeapons();

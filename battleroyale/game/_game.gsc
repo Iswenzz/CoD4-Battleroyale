@@ -59,6 +59,7 @@ lastKill(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, p
 
 	wins = attacker maps\mp\gametypes\_persistence::statGet("WINS");
 	attacker maps\mp\gametypes\_persistence::statSet("WINS", wins + 1);
+	attacker battleroyale\game\_rank::giveRankXP("win");
 
 	wait 3;
 	if (isDefined(attacker))
@@ -69,7 +70,7 @@ randomize()
 {
 	for (i = 0; i < self.entities.size; i++)
 	{
-		if (randomIntRange(0, self.rng) == 0 || level.dvar["debug"])
+		if (randomIntRange(0, self.rng) == 0)
 		{
 			self triggerEntity(self.entities[i]);
 			continue;
@@ -81,18 +82,23 @@ randomize()
 createItemTrigger(origin)
 {
 	entity = createEntity(self.id, origin);
+	entity.origin = origin;
 	self thread triggerEntity(entity);
 	return entity;
 }
 
 triggerEntity(entity)
 {
-	radius = 10;
-
 	entity.item = self;
 	if (isDefined(self.model))
 		entity setModel(self.model);
 
+	angleZ = 0;
+	if (self.type == "weapon")
+		angleZ = 90;
+	entity.angles = (0, randomIntRange(-360, 360), angleZ);
+
+	radius = 10;
 	entity.trigger = spawn("trigger_radius", entity.origin, radius, radius, radius);
 	entity.trigger.radius = radius;
 	entity thread triggerEntityLoop();
@@ -102,6 +108,8 @@ triggerEntityLoop()
 {
 	trigger = self.trigger;
 	item = self.item;
+
+	wait 0.5;
 
 	while (isDefined(self.trigger))
 	{
@@ -119,7 +127,7 @@ givePlayerAmmo(entity)
 	trigger = entity.trigger;
 
 	self.pers[item.id] += item.count;
-	self playLocalSound(item.sound);
+	self playSound(item.sound);
 
 	entity delete();
 	trigger delete();
@@ -147,14 +155,13 @@ givePlayerWeapon(entity)
 		currentWeapon = self getCurrentWeapon();
 		currentItem = getWeaponItem(currentWeapon);
 		currentItem createItemTrigger(origin);
-		iPrintLnBold(currentItem.origin);
 
 		self takeWeapon(currentWeapon);
 	}
 
 	self giveWeapon(item.weapon);
 	self switchToWeapon(item.weapon);
-	self playLocalSound(item.sound);
+	self playSound(item.sound);
 	self refreshWeaponsList();
 }
 
@@ -165,7 +172,7 @@ givePlayerGrenade(entity)
 
 	self.pers[item.id]++;
 	self giveWeapon(item.weapon);
-	self playLocalSound(item.sound);
+	self playSound(item.sound);
 	self setWeaponAmmoStock(item.weapon, 1);
 
 	entity delete();
@@ -178,7 +185,7 @@ givePlayerSpecial(entity)
 	trigger = entity.trigger;
 
 	self.pers[item.id]++;
-	self playLocalSound(item.sound);
+	self playSound(item.sound);
 
 	entity delete();
 	trigger delete();

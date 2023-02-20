@@ -43,10 +43,8 @@ monitorFlash()
 	{
 		self waittill("flashbang", amount_distance, amount_angle, attacker);
 
-		if (!isAlive(self))
+		if (!isalive(self))
 			continue;
-
-		self.flash -= 1;
 
 		hurtattacker = false;
 		hurtvictim = true;

@@ -91,7 +91,6 @@ createZoneLevels(levels)
 createEntity(id, origin)
 {
 	entity = spawn("script_model", (origin[0], origin[1], origin[2] - 60));
-	entity.angles = (0, randomIntRange(-360, 360), 90);
 	entity.targetname = id;
 	return entity;
 }

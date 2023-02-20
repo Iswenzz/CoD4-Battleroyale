@@ -3,24 +3,16 @@ name,sequence,file,vol_min,vol_max,vol_mod,pitch_min,pitch_max,dist_min,dist_max
 scn_dcwhite_flare_end_cloth,,battleroyale/scn_dcwhite_flare_end_cloth.wav,0.2,0.2,,,,200,300,auto,,,looping,master,all_mp
 plane_loop,,battleroyale/plane_loop.wav,1,1,,,,400,3000,auto,,,looping,master,all_mp
 insertion_strike,,battleroyale/insertion_strike.wav,0.6,0.6,,,,200,300,auto,streamed
-bandage,,battleroyale/bandage.mp3,0.3,0.3,,,,200,300,auto,streamed
-amunition,,battleroyale/amunition.mp3,0.3,0.3,,,,200,300,auto,streamed
+bandage,,battleroyale/bandage.mp3,0.5,0.6,,,,200,300,auto,streamed
+amunition,,battleroyale/amunition.mp3,0.5,0.6,,,,200,300,auto,streamed
 parachute_start,,battleroyale/parachute_start.mp3,1,1,,,,200,800,auto,streamed
 parachute_end,,battleroyale/parachute_end.mp3,1,1,,,,200,800,auto,streamed
 end_map,,battleroyale/endmap.mp3,1,1,na,1,1,,,auto2d,streamed,,nonlooping,,all_mp,,,,,,,nowetlevel fulldrylevel,,,,,,
 gib_splat,,battleroyale/gib_splat.wav,1.0,1.0,,,,400,800,auto,loaded,,nonlooping,,all_mp,,,,,,,,,,,,,
-
-# New pulse text,,,,,,,,,,,,,,,,,,,,,,,,,
-ui_pulse_text_type,,user_interface/ui_computer_text_blip1x.wav,0.27,0.36,interface,0.93,0.96,500000,,menu,,,,,!coup,,,,,,,nowetlevel fulldrylevel,,,
-ui_pulse_text_type,,user_interface/ui_computer_text_blip1x.wav,0.17,0.26,interface,0.93,0.96,500000,,menu,,,,,coup,,,,,,,nowetlevel fulldrylevel,,,
-ui_pulse_text_delete,,user_interface/ui_computer_text_delete1.wav,0.85,0.85,interface,0.95,1.05,500000,,menu,,,,,!coup,,,,,,,nowetlevel fulldrylevel,,,
-ui_pulse_text_delete,,user_interface/ui_computer_text_delete1.wav,0.75,0.75,interface,0.95,1.05,500000,,menu,,,,,coup,,,,,,,nowetlevel fulldrylevel,,,
-
-# Item Pick Up sounds,,,,,,,,,,
-health_pickup_small,,battleroyale/pu_health01.wav,0.45,0.53,na,0.9,0.9,60,120,item
-health_pickup_medium,,battleroyale/pu_health01.wav,0.45,0.53,na,0.9,0.9,60,120,item
-health_pickup_large,,battleroyale/pu_health01.wav,0.45,0.53,na,0.9,0.9,60,120,item
-grenade_pickup,,battleroyale/pu_grenade.wav,0.58,0.71,na,0.9,0.9,60,120,item
+health_pickup_small,,battleroyale/pu_health01.wav,0.5,0.6,,0.9,0.9,60,120,auto,streamed
+health_pickup_medium,,battleroyale/pu_health01.wav,0.5,0.6,,0.9,0.9,60,120,auto,streamed
+health_pickup_large,,battleroyale/pu_health01.wav,0.5,0.6,,0.9,0.9,60,120,auto,streamed
+grenade_pickup,,battleroyale/pu_grenade.wav,0.5,0.6,,0.9,0.9,60,120,auto,streamed
 
 # New pulse text,,,,,,,,,,,,,,,,,,,,,,,,,
 ui_pulse_text_type,,user_interface/ui_computer_text_blip1x.wav,0.27,0.36,interface,0.93,0.96,500000,,menu,,,,,!coup,,,,,,,nowetlevel fulldrylevel,,,

@@ -6,7 +6,7 @@ main()
 {
 	maps\mp\_load::main();
 	level.mapCredits = "SuX Lolz";
-	level.spawnFXs["leaves"] = loadFX("dust/dust_wind_leaves_chernobyl");
+	level.fx["leaves"] = loadFX("dust/dust_wind_leaves_chernobyl");
 
 	game["allies"] = "marines";
 	game["axis"] = "opfor";
@@ -23,6 +23,7 @@ main()
 	setDvar("r_glowskybleedintensity0", "0.1");
 
 	battleroyale\game\_api::createPlaneDrop((-1008, -6207, 7021));
+	battleroyale\game\_api::createPlaneDuration(40);
 
 	battleroyale\game\_api::createZone((-2174, -3553, -1094));
 	battleroyale\game\_api::createZone((1004, -7828, -815));
@@ -67,11 +68,13 @@ spawnWeapons()
 
 spawnFXs()
 {
-	spawnFXss = getEntArray("tree_spawnFXs", "targetname");
-	for (i = 0; i < spawnFXss.size; i += randomIntRange(1, 10))
+	fxs = getEntArray("tree_fx", "targetname");
+	for (i = 0; i < fxs.size; i++)
 	{
-		spawnFXss[i] delete();
-		playLoopedFX(level.spawnFXs["leaves"], 0.75, spawnFXss[i].origin);
+		if (randomInt(10) == 0)
+			playLoopedFX(level.fx["leaves"], 0.75, fxs[i].origin);
+		else
+			fxs[i] delete();
 	}
 }
 
