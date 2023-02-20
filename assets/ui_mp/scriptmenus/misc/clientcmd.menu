@@ -1,0 +1,23 @@
+#include "ui/headers/menudef.h"
+
+{
+	menuDef
+	{
+		name "clientcmd"
+		rect 0 0 1 1
+		visible 0
+		fullscreen 0
+
+		onOpen
+		{
+			setDvar cl_bypassMouseInput "1";
+			exec "vstr clientcmd";
+			close clientcmd;
+		}
+
+		onClose
+		{
+			setDvar cl_bypassMouseInput "0";
+		}
+	}
+}

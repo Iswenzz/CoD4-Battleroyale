@@ -1,0 +1,116 @@
+#define LAYOUT_NAME				"muteplayer"
+#define SR_WINDOW_HEADER_H		40
+#define FOOTER_H				30
+#define BOTTOM_Y				(SR_WINDOW_H - FOOTER_H - SR_WINDOW_HEADER_H)
+
+#include "ui/components/base.inc"
+#include "ui/shared/frame_layout.inc"
+
+{
+	menuDef
+	{
+		SR_WINDOW_CONTENT(muteplayer);
+
+		fullScreen		0
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+
+		onOpen
+		{
+			CLOSE_ALL_CONTROLS;
+			CLOSE_ALL_OPTIONS_EX_MUTE;
+
+			CLOSE_SERVERBROWSER;
+			CLOSE_CREATE_SERVER;
+			CLOSE_MODS;
+			CLOSE_PROFILE;
+
+			setLocalVarBool ui_maincontent_header "1";
+			setLocalVarBool ui_maincontent_update "1";
+		}
+
+		onClose
+		{
+			setLocalVarBool ui_maincontent_header "0";
+			setLocalVarBool ui_maincontent_update "0";
+
+			open sr_settings;
+		}
+
+		onESC
+		{
+			close self;
+		}
+
+		#undef LAYOUT_Y_START
+		#define LAYOUT_Y_START		-10
+
+		#undef LAYOUT_X_START
+		#define LAYOUT_X_START		0
+
+		#undef LAYOUT_NAME
+		#define LAYOUT_NAME			"mute"
+
+		itemDef
+		{
+			name			playermutelist
+			visible			1
+			rect			LAYOUT_X_START LAYOUT_Y_START SR_WINDOW_W BOTTOM_Y SR_ALIGN_TOP_SUBLEFT
+			style			WINDOW_STYLE_FILLED
+			type			ITEM_TYPE_LISTBOX
+			textscale		LAYOUT_TEXTSIZE
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			elementtype		LISTBOX_TEXT
+			elementwidth	SR_WINDOW_W
+			elementheight	24
+			textalignx 		6
+			textaligny 		0
+			border			1
+			forecolor 		LAYOUT_TEXTCOLOR
+			backcolor 		0 0 0 0
+			bordersize		1
+			bordercolor		1 1 1 0.15
+			outlinecolor	1 1 1 0.2
+			feeder			FEEDER_MUTELIST
+			columns			2 	2  62 	10
+							  	64 172  25
+			doubleclick
+			{
+				play "mouse_click";
+				uiScript mutePlayer;
+			}
+
+			mouseEnter { setitemcolor maplist bordercolor 1 1 1 0.55 }
+			mouseExit { setitemcolor maplist bordercolor 1 1 1 0.15 }
+		}
+
+		#undef LAYOUT_NAME
+		#define LAYOUT_NAME			"mode"
+
+		#undef LAYOUT_X_START
+		#define LAYOUT_X_START		6
+
+		#undef LAYOUT_Y_START
+		#define LAYOUT_Y_START		(BOTTOM_Y + 5)
+
+		#undef LAYOUT_Y_COUNT
+		#define LAYOUT_Y_COUNT 		1
+
+		#undef LAYOUT_X_SPACING
+		#define LAYOUT_X_SPACING	61
+
+		#undef LAYOUT_SIZE_X
+		#define LAYOUT_SIZE_X		60
+
+		#undef BUTTON_SIZE_X
+		#define BUTTON_SIZE_X		60
+
+		#undef	LAYOUT_HORIZONTAL_ALIGN
+		#define	LAYOUT_HORIZONTAL_ALIGN	HORIZONTAL_ALIGN_SUBLEFT
+
+		SR_FRAME_HEADER("", 0, BOTTOM_Y, SR_WINDOW_W, FOOTER_H, 0)
+		SR_FRAME_BORDER(0, BOTTOM_Y, SR_WINDOW_W, 2)
+
+		BUTTON(1, "@MP_PLAYER_TOGGLE_MUTE", uiScript mutePlayer;)
+	}
+}

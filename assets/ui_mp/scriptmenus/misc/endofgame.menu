@@ -1,0 +1,20 @@
+#include "ui/headers/menudef.h"
+
+{
+	menuDef
+	{
+		name	"endofgame"
+		rect	0 0 640 480
+
+		onOpen
+		{
+			close self;
+			open main_mp;
+		}
+		onEsc
+		{
+			setdvar ui_showEndOfGame "0";
+			close self;
+		}
+	}
+}

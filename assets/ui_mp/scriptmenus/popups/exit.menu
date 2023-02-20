@@ -1,0 +1,127 @@
+#define LAYOUT_NAME				"exit"
+#define LAYOUT_X_START			0
+#define LAYOUT_Y_START			150
+#define LAYOUT_SIZE_X			320
+#define LAYOUT_HORIZONTAL_ALIGN	HORIZONTAL_ALIGN_CENTER
+#define LAYOUT_VERTICAL_ALIGN	VERTICAL_ALIGN_CENTER
+
+#include "ui/components/base.inc"
+
+{
+	menuDef
+	{
+		name					  "exit_popmenu"
+		rect                      0 0 640 480 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_SUBTOP
+        borderSize                1
+        foreColor                 1 1 1 1
+        backColor                 0.00 0.00 0.00 1
+        borderColor               0 0 0 0
+        outlineColor              0 0 0 0
+        blurWorld                 7.0
+        style					  WINDOW_STYLE_EMPTY
+
+        onOpen						{ focusFirst; }
+        focusColor					1 1 1 1
+        disableColor				0 0 0 0
+        visible 					0
+		onEsc						{ close self; }
+
+		itemDef
+		{
+			name		"background_black"
+			rect		0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			origin		0 0
+			style		1
+			backcolor	0 0 0 0.55
+			visible		1
+			decoration
+		}
+
+		itemDef
+		{
+			name		"exit_title"
+			text		"Exit"
+			type		0
+			origin		325 178
+			textfont	1
+			textscale	0.7
+			textalign	1
+			forecolor	1 1 1 1
+			textstyle	3
+			visible		1
+			decoration
+		}
+
+		itemDef
+		{
+			name		"exit_sub_title"
+			text		"Do you really want to quit?"
+			type		0
+			origin		325 211
+			textfont	1
+			textscale	0.4
+			textalign	1
+			forecolor	1 1 1 1
+			textstyle	3
+			visible		1
+			decoration
+		}
+
+		itemDef
+		{
+			name			"yes_button"
+			text			"Yes"
+            style           1
+            border          WINDOW_BORDER_FULL
+            borderSize      1
+            background 		black
+            foreColor       1 1 1 1
+            outlineColor	0 0 0 0
+			type			1
+			rect			0 0 200 30
+			origin			220 245
+			textfont		1
+			textscale		0.34
+			textalign		1
+			textaligny		22
+			backcolor		1 1 1 0
+			borderColor 	1 1 1 0.06
+			textstyle		3
+			mouseEnter		{play "mouse_over";}
+			mouseExit		{}
+			action			{play "mouse_click"; exec "disconnect";}
+			visible			1
+		}
+
+		itemDef
+		{
+			name			"no_button"
+			text			"No"
+			style           1
+            border          WINDOW_BORDER_FULL
+            borderSize      1
+            background 		black
+            foreColor       1 1 1 1
+            outlineColor	0 0 0 0
+			type			1
+			rect			0 0 200 30
+			origin			220 290
+			textfont		1
+			textscale		0.34
+			textalign		1
+			textaligny		22
+			forecolor		1 1 1 1
+			backcolor		1 1 1 0
+			borderColor     1 1 1 0.06
+            outlineColor 	0 0 0 0
+			textstyle		3
+			mouseEnter		{play "mouse_over";}
+			mouseExit		{}
+			action			{play "mouse_click"; close self}
+			visible			1
+		}
+
+		execKeyInt 13	{scriptmenuresponse "enter";}
+		execKeyInt 32	{scriptmenuresponse "space";}
+	}
+}

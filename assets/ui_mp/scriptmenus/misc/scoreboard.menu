@@ -1,0 +1,16 @@
+#include "ui/headers/menudef.h"
+
+// Stub: the scoreboard is controlled by code
+{
+	menuDef
+	{
+		name	"scoreboard"
+		rect	0 0 640 480
+
+		onEsc
+		{
+			setdvar ui_showEndOfGame "1";
+			close scoreboard;
+		}
+	}
+}
