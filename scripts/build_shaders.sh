@@ -22,6 +22,10 @@ cp -rv techniques "$GAME/raw"
 cp -rv techsets "$GAME/raw"
 cp -v techsets/* "$GAME/raw/techsets/sm2"
 
+# Shaders
+cd "$GAME/raw/shader_bin"
+./shader_tool sr_triangles_f82c030abb
+
 # Compile
 cd "$GAME/bin"
 ./linker_pc -language english -compress -cleanup mod

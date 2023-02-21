@@ -64,7 +64,8 @@ precache()
 	precacheModel("sr_zonetrig_10k");
 	precacheModel("sr_zonetrig_5k");
 	precacheModel("sr_zonetrig_2k5");
-	precacheModel("sr_zonetrig_250_red");
+	precacheModel("sr_zonetrig_1k25");
+	precacheModel("sr_zonetrig_final");
 	precacheModel("sr_5_45");
 	precacheModel("sr_7_62");
 	precacheModel("sr_45");

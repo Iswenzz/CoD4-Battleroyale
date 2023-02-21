@@ -64,6 +64,10 @@ cp -rv xmodel "$GAME/raw"
 cp -rv xmodelparts "$GAME/raw"
 cp -rv xmodelsurfs "$GAME/raw"
 
+# Shaders
+cd "$GAME/raw/shader_bin"
+./shader_tool sr_triangles_f82c030abb
+
 # Compile
 cd "$GAME/bin"
 ./linker_pc -language english -compress -cleanup mod
