@@ -14,8 +14,7 @@ main()
 
 start(startDelay, eInflictor, attacker, sWeapon)
 {
-	if (!isDefined(self) || !isDefined(attacker) || !isDefined(eInflictor)
-		|| !isPlayer(self) || !isPlayer(attacker) || self == attacker)
+	if (!isDefined(self) || !isDefined(attacker) || !isDefined(eInflictor) || !isPlayer(self) || !isPlayer(attacker))
 		return;
 
 	players = getEntArray("player", "classname");

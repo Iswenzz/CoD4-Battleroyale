@@ -8,6 +8,7 @@ initGame()
 
 	event("map", ::spawnItems);
 	event("killed", ::lastKill);
+	event("connect", ::onConnect);
 	event("spawn", ::onSpawn);
 
 	thread start();
@@ -22,6 +23,23 @@ spawnItems()
 		items[i] randomize();
 }
 
+onConnect()
+{
+	self setClientDvars(
+		"cg_drawfriendlynames", 1,
+		"cg_friendlyNameFadeIn", 1,
+		"cg_friendlyNameFadeOut", 1
+	);
+
+	level waittill("br_started");
+
+	self setClientDvars(
+		"cg_drawfriendlynames", 0,
+		"cg_friendlyNameFadeIn", 0,
+		"cg_friendlyNameFadeOut", 0
+	);
+}
+
 onSpawn()
 {
 	items = getAllItems();
@@ -33,37 +51,50 @@ start()
 {
 	level waittill("br_started");
 
-	while (getPlayingPlayers().size > 1)
-		wait 0.05;
+	watchPlayers();
 
-	waitKillcam();
 	battleroyale\game\_map::end();
 }
 
-waitKillcam()
+watchPlayers()
 {
-	wait 2;
-	if (isDefined(game["killcam"]))
-		wait 10.5;
+	players = getPlayingPlayers();
+	while (players.size > 1)
+	{
+		players = getPlayingPlayers();
+		wait 0.05;
+	}
+	winner = players[0];
+	if (!isDefined(winner))
+		return;
+
+	wins = winner maps\mp\gametypes\_persistence::statGet("WINS");
+	winner maps\mp\gametypes\_persistence::statSet("WINS", wins + 1);
+	winner battleroyale\game\_rank::giveRankXP("win");
+
+	if (!isDefined(level.killcam))
+		return;
+
+	game["killcam"] = true;
+	killcam = level.killcam;
+	killcam.entity battleroyale\game\_killcam::start(3, killcam.eInflictor, killcam.attacker, killcam.sWeapon);
+	wait 3;
+	killcam.attacker suicide();
+	wait 10.05;
 }
 
 lastKill(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration)
 {
-	if (isDefined(game["killcam"]) || getPlayingPlayers().size > 1)
-		return;
-	if (!isPlayer(attacker))
+	if (getPlayingPlayers().size > 1)
 		return;
 
-	game["killcam"] = true;
-	battleroyale\game\_killcam::start(3, eInflictor, attacker, sWeapon);
+	killcam = spawnStruct();
+	killcam.entity = self;
+	killcam.eInflictor = eInflictor;
+	killcam.attacker = attacker;
+	killcam.sWeapon = sWeapon;
 
-	wins = attacker maps\mp\gametypes\_persistence::statGet("WINS");
-	attacker maps\mp\gametypes\_persistence::statSet("WINS", wins + 1);
-	attacker battleroyale\game\_rank::giveRankXP("win");
-
-	wait 3;
-	if (isDefined(attacker))
-		attacker suicide();
+	level.killcam = killcam;
 }
 
 randomize()

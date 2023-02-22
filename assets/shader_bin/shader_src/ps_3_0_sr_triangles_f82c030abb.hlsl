@@ -7,6 +7,8 @@ struct PixelShaderInput
 {
 	float4 position : POSITION;
 	float2 uv : TEXCOORD0;
+	float3 world : TEXCOORD2;
+    float3 camera : TEXCOORD3;
 };
 
 const static float LAYERS = 2.0;
@@ -59,9 +61,19 @@ float layered3DTriangleGrid(float2 uv, float alphaMod)
 
 float4 ps_main(PixelShaderInput input) : COLOR
 {
+	float vertDistance = abs(distance(input.world, input.camera));
 	float2 uv = 2.0 * input.uv - 1;
 	uv *= 4.0;
+
+	if (vertDistance >= 20000)
+		uv /= 16.0;
+	else if (vertDistance >= 10000)
+		uv /= 8.0;
+	else if (vertDistance >= 5000)
+		uv /= 4.0;
+
 	float grid = layered3DTriangleGrid(uv * 1.0, 0.6);
 	float4 color = float4(0, 1, 1, 1);
+
 	return color * grid;
 }

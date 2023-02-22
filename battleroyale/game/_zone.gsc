@@ -36,7 +36,6 @@ zone()
 		wait 30;
 		thread message("^3RESTRICTING THE PLAY AREA...");
 		thread update("sr_zonetrig_20k", 20000, 4);
-		level notify("zone");
 		wait 10;
 	}
 
@@ -51,7 +50,6 @@ zone()
 		wait 30;
 		thread message("^3RESTRICTING THE PLAY AREA...");
 		thread update("sr_zonetrig_10k", 10000, 2);
-		level notify("zone");
 		wait 10;
 	}
 	if (start <= 3)
@@ -61,7 +59,6 @@ zone()
 		thread message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
 		wait 30;
 		thread message("^3RESTRICTING THE PLAY AREA...");
-		level notify("zone");
 		thread update("sr_zonetrig_5k", 5000, 1);
 		wait 10;
 	}
@@ -72,13 +69,13 @@ zone()
 		thread message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
 		wait 30;
 		thread message("^3RESTRICTING THE PLAY AREA...");
-		level notify("zone");
 		thread update("sr_zonetrig_2k5", 2500, 1);
 	}
 }
 
 update(model, radius, damageTime)
 {
+	level notify("zone");
 	level endon("zone");
 	level endon("game over");
 
@@ -113,7 +110,7 @@ damage(trig, damageTime)
 	{
 		if (!self isTouching(trig))
 		{
-			self doPlayerDamage(self, self, 10, 0, "MOD_FALLING", "default_mp", (0,0,0), (0,0,0), "head", 0);
+			self doPlayerDamage(self, self, 10, 0, "MOD_UNKNOWN", "none", (0, 0, 0), (0, 0, 0), "none", 0);
 			wait damageTime;
 		}
 		wait 0.05;

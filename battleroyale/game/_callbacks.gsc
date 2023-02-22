@@ -172,18 +172,7 @@ serverDvars()
 	wait 0.05;
 	self setClientDvars(
 		"fx_enable", 1,
-		"cg_drawfriendlynames", 1,
-		"cg_friendlyNameFadeIn", 1,
-		"cg_friendlyNameFadeOut", 1,
 		"cg_drawThroughWalls", 0,
 		"ui_uav_client", 0
-	);
-	wait 0.05;
-	if (game["state"] != "playing")
-		level waittill("br_started");
-	self setClientDvars(
-		"cg_drawfriendlynames", 0,
-		"cg_friendlyNameFadeIn", 0,
-		"cg_friendlyNameFadeOut", 0
 	);
 }
