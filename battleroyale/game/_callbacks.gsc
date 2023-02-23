@@ -86,10 +86,11 @@ playerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 
 	level notify("player_killed", self, eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration);
 
-
 	if (sHitLoc == "head" && sMeansOfDeath != "MOD_MELEE")
 		sMeansOfDeath = "MOD_HEAD_SHOT";
 
+	if (game["state"] != "playing")
+		self eventSpawn();
 	if (sMeansOfDeath != "MOD_SUICIDE" && game["state"] == "playing")
 	{
 		deaths = self maps\mp\gametypes\_persistence::statGet("DEATHS");
