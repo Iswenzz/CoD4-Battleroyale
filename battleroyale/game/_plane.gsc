@@ -88,12 +88,13 @@ watchDropTrigger()
 
 watchPlayerDrop(trigger)
 {
-	self endon("death");
-	self endon("disconnect");
-
 	if (isDefined(self.watchPlaneDrop))
 		return;
 	self.watchPlaneDrop = true;
+
+	self endon("death");
+	self endon("disconnect");
+	self endon("drop");
 
 	while (!self useButtonPressed())
 	{
@@ -119,7 +120,7 @@ playerUnstuck()
 	self endon("disconnect");
 	self endon("drop_end");
 
-	wait 15;
+	wait 20;
 	self setLowerMessage("^1 Teleporting . . .");
 	wait 1;
 
@@ -135,14 +136,14 @@ playerUnstuck()
 
 playerDrop(origin)
 {
+	if (isDefined(self.planeDrop))
+		return;
+	self.planeDrop = true;
+
 	self endon("death");
 	self endon("disconnect");
 	self notify("drop");
 	self endon("drop");
-
-	if (isDefined(self.planeDrop))
-		return;
-	self.planeDrop = true;
 
 	self thread playerUnstuck();
 	self freezeControls(false);
@@ -162,8 +163,9 @@ playerDrop(origin)
 	self giveWeapon("dog_mp");
 	self switchToWeapon("dog_mp");
 	self giveMaxAmmo("dog_mp");
-	self.health = 999999999;
+	self.health = 99999999999999999;
 
+	wait 1;
 	while (!self IsOnGround())
 		wait .05;
 

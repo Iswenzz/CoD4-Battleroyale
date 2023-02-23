@@ -23,7 +23,7 @@ PixelShaderInput vs_main(VertexShaderInput input)
 	output.position = mul(float4(input.position.xyz, 1.0f), worldViewProjectionMatrix);
 	output.uv = computeTextureUV(input.uv);
 	output.world = input.position.xyz;
-	output.camera = inverseWorldMatrix[3];
+	output.camera = inverseWorldMatrix[3].xyz;
 
 	return output;
 }
