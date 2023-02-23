@@ -1,4 +1,5 @@
 #include battleroyale\sys\_dvar;
+#include battleroyale\sys\_events;
 
 main()
 {
@@ -14,8 +15,11 @@ main()
 
 start(startDelay, eInflictor, attacker, sWeapon)
 {
-	if (!isDefined(self) || !isDefined(attacker) || !isDefined(eInflictor) || !isPlayer(self) || !isPlayer(attacker))
+	if (!isDefined(self) || !isDefined(attacker) || !isDefined(eInflictor) || !isPlayer(self))
 		return;
+
+	if (!isPlayer(attacker))
+		attacker = self;
 
 	players = getEntArray("player", "classname");
 	for (i = 0; i < players.size; i++)
@@ -92,6 +96,7 @@ killcam(
 	}
 	self.killcam = true;
 	wait camtime;
+	self notify("end_killcam", getTime());
 	self.killcam = undefined;
 	self setClientDvar("r_blur", "0");
 
@@ -100,4 +105,7 @@ killcam(
 	self.killcamentity = -1;
 	self.archivetime = 0;
 	self.psoffsettime = 0;
+
+	self battleroyale\game\_teams::setSpectatePermissions();
+	self eventSpectator();
 }

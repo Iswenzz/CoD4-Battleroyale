@@ -79,8 +79,9 @@ watchPlayers()
 	killcam = level.killcam;
 	killcam.entity battleroyale\game\_killcam::start(3, killcam.eInflictor, killcam.attacker, killcam.sWeapon);
 	wait 3;
-	killcam.attacker suicide();
-	wait 10.05;
+	if (isDefined(killcam.attacker) && isPlayer(killcam.attacker))
+		killcam.attacker suicide();
+	wait 10;
 }
 
 lastKill(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration)

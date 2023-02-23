@@ -97,6 +97,7 @@ CodeCallback_PlayerSpectator()
 		self notify("joined_spectators");
 
 		self.sessionstate = "spectator";
+		self.statusicon = "";
 		self.spectatorclient = -1;
 
 		self battleroyale\game\_callbacks::playerSpectator();

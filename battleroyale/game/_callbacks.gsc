@@ -86,6 +86,7 @@ playerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 
 	level notify("player_killed", self, eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, psOffsetTime, deathAnimDuration);
 
+
 	if (sHitLoc == "head" && sMeansOfDeath != "MOD_MELEE")
 		sMeansOfDeath = "MOD_HEAD_SHOT";
 
@@ -95,6 +96,8 @@ playerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 		self maps\mp\gametypes\_persistence::statSet("DEATHS", deaths + 1);
 		self.deaths++;
 		self.pers["deaths"]++;
+
+		self thread battleroyale\game\_teams::setTeamDead();
 	}
 	if (!isPlayer(attacker) || attacker == self)
 		return;
@@ -107,7 +110,7 @@ playerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 	attacker setLowerMessage("^7You killed ^9" + self.name);
 	attacker thread clearLowerMessageAfterTime();
 
-	self thread battleroyale\game\_killcam::killcam(attacker.number, -1, sWeapon, 1, 0, 0, 0, 10, undefined, attacker);
+	self thread battleroyale\game\_killcam::killcam(attacker.number, -1, sWeapon, 1.5, 0, 0, 0, 6, undefined, attacker);
 }
 
 playerSpawn()

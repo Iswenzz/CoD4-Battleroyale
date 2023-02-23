@@ -476,7 +476,7 @@ watchCurrentFiring(curWeapon)
 	self maps\mp\gametypes\_persistence::statSet("total_shots", statTotal);
 	self maps\mp\gametypes\_persistence::statSet("hits", statHits);
 	self maps\mp\gametypes\_persistence::statSet("misses", statMisses);
-	self maps\mp\gametypes\_persistence::statSet("accuracy", int(statHits * 10000 / statTotal));
+	self maps\mp\gametypes\_persistence::statSet("accuracy", int((statHits / statTotal) * 100));
 /*
 	printLn("total:    " + statTotal);
 	printLn("hits:     " + statHits);

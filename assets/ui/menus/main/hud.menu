@@ -332,28 +332,20 @@
 		}
 	}
 
-	#define SCOREBAR_ORIGIN 0 -7
-	#define ESCOREBAR_ORIGIN 8 -6
-
-	#define SCORE_OFFSET_X	4
-	#define SCORE_OFFSET_Y	2
-
-	#define TEAM_IS_TIED	(team(score) == otherteam(score))
-	#define TEAM_IS_WINNING (team(score) > otherteam(score))
-	#define TEAM_IS_LOSING	(team(score) < otherteam(score))
-
-	#define PLAYER_IS_TIED		(player(score) == scoreatrank(1) && scoreatrank(1) == scoreatrank(2))
-	#define PLAYER_IS_WINNING	(player(score) > scoreatrank(2))
-	#define PLAYER_IS_LOSING	(player(score) < scoreatrank(1))
-
-	#define SHOULD_DISPLAY_SCOREBAR (team(name) != "TEAM_SPECTATOR")
-
 	menuDef
 	{
 		name			"scorebars"
 		style			WINDOW_STYLE_EMPTY
 		rect			0 0 640 480
 		visible			0
+	}
+
+	menuDef
+	{
+		name			"scorebar"
+		rect			0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+		fullScreen		0
+		visible 		0
 	}
 
 	#define WEAPINFO_X -4
@@ -663,66 +655,6 @@
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			ownerdraw		CG_CENTER_MESSAGE
 			visible			1
-			decoration
-		}
-	}
-
-	// Scorebar
-	menuDef
-	{
-		name			"scorebar"
-		rect			0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
-		fullScreen		0
-		visible 		when (((team(name) == "TEAM_ALLIES" || team(name) == "TEAM_AXIS") && !inkillcam() && NOT_SPECTATING && !menuisopen(background_main) && !menuisopen(background_systemlink) && !menuisopen(scoreboard)) && dvarInt(ui_hud_hardcore) == 0 && (dvarInt("ui_score_bar") || team(name) == "TEAM_SPECTATOR" || (dvarInt("ui_timelimit") > 0 && timeLeft() < 0) || (timeLeft() >= 0 && (timeLeft() % 60 < 5 || timeLeft() < 60)) || (timeLeft() < 0 && (timeLeft() % 60 > (0-5))) || (dvarInt("ui_scorelimit") > 0 && max(marinesfield(score), opforfield(score)) / dvarInt("ui_scorelimit") > 0.75)));
-
-		#define BARWIDTH 400
-
-		itemDef
-		{
-			style			WINDOW_STYLE_SHADER
-			rect			(-BARWIDTH/2) 3 BARWIDTH 18 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_TOP
-			background		"line_horizontal"
-			forecolor		0 0 0 1
-			visible			1
-			decoration
-		}
-
-		itemDef
-		{
-			rect		0 0 1 1 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_TOP
-			origin		0 20
-			exp			text(locString("@MENU_SCORE_WINNING", team(score), otherteam(score)));
-			textscale	0.35
-			textalign	ITEM_ALIGN_CENTER
-			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
-			forecolor	0.3 1 0.3 1
-			visible 	when(team(score) > otherteam(score))
-			decoration
-		}
-		itemDef
-		{
-			rect		0 0 1 1 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_TOP
-			origin		0 20
-			exp			text(locString("@MENU_SCORE_LOSING", otherteam(score), team(score)));
-			textfont	UI_FONT_OBJECTIVE
-			textscale	0.35
-			textalign	ITEM_ALIGN_CENTER
-			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
-			forecolor	1 0.3 0.3 1
-			visible 	when(team(score) < otherteam(score))
-			decoration
-		}
-		itemDef
-		{
-			rect		0 0 1 1 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_TOP
-			origin		0 20
-			exp			text(locString("@MENU_SCORE_TIED", team(score), otherteam(score)));
-			textfont	UI_FONT_OBJECTIVE
-			textscale	0.35
-			textalign	ITEM_ALIGN_CENTER
-			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
-			forecolor	1 1 0.3 1
-			visible 	when(team(score) == otherteam(score))
 			decoration
 		}
 	}

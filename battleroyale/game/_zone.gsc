@@ -40,7 +40,7 @@ zone()
 	}
 
 	finalZone = spawn("script_model", level.zoneTrigger);
-	finalZone setModel("sr_zonetrig_250_red");
+	finalZone setModel("sr_zonetrig_final");
 
 	if (start <= 2)
 	{
@@ -70,6 +70,15 @@ zone()
 		wait 30;
 		thread message("^3RESTRICTING THE PLAY AREA...");
 		thread update("sr_zonetrig_2k5", 2500, 1);
+	}
+	if (start <= 5)
+	{
+		thread message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
+		wait 30;
+		thread message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
+		wait 30;
+		thread message("^3RESTRICTING THE PLAY AREA...");
+		thread update("sr_zonetrig_1k25", 1250, 1);
 	}
 }
 

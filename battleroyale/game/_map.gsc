@@ -111,15 +111,14 @@ endSpectate()
 		players[i] closeInGameMenu();
 		players[i] freezeControls(true);
 		players[i] cleanUp();
-		players[i] suicide();
+		players[i] battleroyale\game\_teams::setTeam("spectator");
+		players[i] eventSpectator();
 	}
 	wait 0.05;
 
 	players = getAllPlayers();
 	for (i = 0; i < players.size; i++)
 	{
-		players[i] battleroyale\game\_teams::setTeam("spectator");
-		players[i] eventSpectator();
 		players[i] allowSpectateTeam("allies", false);
 		players[i] allowSpectateTeam("axis", false);
 		players[i] allowSpectateTeam("freelook", false);

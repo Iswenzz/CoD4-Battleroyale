@@ -46,7 +46,7 @@ menu_Team(arg)
 	self closeMenu();
 	self closeInGameMenu();
 
-	if (game["state"] == "end")
+	if (game["state"] == "end" || game["state"] == "playing" || self.died)
 		return;
 
 	if (self isPlaying())
@@ -65,7 +65,7 @@ menu_Spectator(arg)
 	self closeMenu();
 	self closeInGameMenu();
 
-	if (game["state"] == "end")
+	if (game["state"] == "end" || self.died)
 		return;
 
 	if (self isPlaying())
