@@ -485,6 +485,14 @@ ternary(bool, trueValue, falseValue)
 		return falseValue;
 }
 
+strJoin(strings, join)
+{
+	string = "";
+	for (i = 0; i < strings.size; i++)
+		string += strings[i] + join;
+	return string;
+}
+
 startsWith(string, value)
 {
 	if (string.size < value.size)

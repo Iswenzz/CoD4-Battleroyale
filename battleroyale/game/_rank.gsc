@@ -232,7 +232,7 @@ prestige(args)
 	self.pers["prestige"]++;
 	self setRank(0, self.pers["prestige"]);
 
-	iPrintLn(fmt("%s has entered prestige %d", self.name, self.pers["prestige"]));
+	iPrintLn(self.name + " has entered prestige " + self.pers["prestige"]);
 	self saveRank();
 }
 
