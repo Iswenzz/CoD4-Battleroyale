@@ -484,3 +484,10 @@ ternary(bool, trueValue, falseValue)
 	else
 		return falseValue;
 }
+
+startsWith(string, value)
+{
+	if (string.size < value.size)
+		return false;
+	return getSubStr(string, 0, value.size) == value;
+}
