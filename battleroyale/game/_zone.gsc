@@ -115,7 +115,7 @@ damage(trig, damageTime)
 	self endon("death");
 	self endon("disconnect");
 
-	while (true)
+	while (isAlive(self))
 	{
 		if (!self isTouching(trig))
 		{

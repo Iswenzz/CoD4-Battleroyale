@@ -14,12 +14,12 @@ initDvars()
 	addDvar("plane_duration", "br_plane_seconds", 60, 1, 120, "int");
 
 	setDvar("g_friendlyPlayerCanBlock", 1);
-	setDvar("g_deadChat", 0);
+	setDvar("g_deadChat", 1);
 	setDvar("g_knockback", 1000);
 	setDvar("g_speed", 190);
 	setDvar("g_gravity", 800);
 	setDvar("jump_height", 39);
-	setDvar("jump_slowdownEnable", 1);
+	setDvar("jump_slowdownEnable", 0);
 	setDvar("bullet_penetrationEnabled", 1);
 
 	makeDvarServerInfo("mod_author", "SuX Lolz");

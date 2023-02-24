@@ -113,14 +113,13 @@ createAmmo(id, model, sound, icon, count, rng)
 	item.count = count;
 	item.model = model;
 	item.rng = rng;
-	item.entities = getEntArray(item.id, "targetname");
 	item.give = ::givePlayerAmmo;
 
 	level.items[id] = item;
 	return item;
 }
 
-createWeapon(id, mag, model, sound, icon, weapon, rng)
+createWeapon(id, mag, sound, icon, weapon, rng)
 {
 	item = spawnStruct();
 	item.type = "weapon";
@@ -129,9 +128,8 @@ createWeapon(id, mag, model, sound, icon, weapon, rng)
 	item.icon = icon;
 	item.mag = mag;
 	item.weapon = weapon;
-	item.model = model;
+	item.model = getWeaponModel(weapon);
 	item.rng = rng;
-	item.entities = getEntArray(item.id, "targetname");
 	item.give = ::givePlayerWeapon;
 
 	level.items[id] = item;
@@ -147,14 +145,13 @@ createSpecial(id, model, sound, icon, rng)
 	item.icon = icon;
 	item.model = model;
 	item.rng = rng;
-	item.entities = getEntArray(item.id, "targetname");
 	item.give = ::givePlayerSpecial;
 
 	level.items[id] = item;
 	return item;
 }
 
-createGrenade(id, model, sound, icon, weapon, rng)
+createGrenade(id, sound, icon, weapon, rng)
 {
 	item = spawnStruct();
 	item.type = "grenade";
@@ -162,9 +159,8 @@ createGrenade(id, model, sound, icon, weapon, rng)
 	item.sound = sound;
 	item.icon = icon;
 	item.weapon = weapon;
-	item.model = model;
+	item.model = getWeaponModel(weapon);
 	item.rng = rng;
-	item.entities = getEntArray(item.id, "targetname");
 	item.give = ::givePlayerGrenade;
 
 	level.items[id] = item;

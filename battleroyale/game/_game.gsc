@@ -6,7 +6,12 @@ initGame()
 {
 	level.items = [];
 
-	event("map", ::spawnItems);
+	level.RNG_NONE = 0;
+	level.RNG_SMALL = 1;
+	level.RNG_NORMAL = 2;
+	level.RNG_BIG = 3;
+	level.RNG_RARE = 5;
+
 	event("killed", ::lastKill);
 	event("connect", ::onConnect);
 	event("spawn", ::onSpawn);
@@ -14,13 +19,48 @@ initGame()
 	thread start();
 }
 
-spawnItems()
+defaultItems()
 {
-	level waittill("br_started");
+	createAmmo("45", "sr_45", "amunition", "hud_icon_mag_45", 8, level.RNG_NORMAL);
+	createAmmo("9mm", "sr_9mm", "amunition", "hud_icon_mag_9mm", 15, level.RNG_NORMAL);
+	createAmmo("7_62", "sr_7_62", "amunition", "hud_icon_mag_7_62", 30, level.RNG_NORMAL);
+	createAmmo("5_45", "sr_5_45", "amunition", "hud_icon_mag_5_56", 30, level.RNG_NORMAL);
+	createAmmo("12_gauge", "sr_gauge", "amunition", "hud_icon_mag_12_gauge", 6, level.RNG_NORMAL);
 
-	items = getAllItems();
-	for (i = 0; i < items.size; i++)
-		items[i] randomize();
+	createWeapon("beretta", "9mm", "weap_raise_plr", "hud_icon_m9beretta", "beretta_mp", level.RNG_SMALL);
+	createWeapon("colt45", "5_45", "weap_raise_plr", "hud_icon_colt_45", "colt45_mp", level.RNG_SMALL);
+	createWeapon("deserteagle", "45", "weap_raise_plr", "hud_icon_desert_eagle", "deserteagle_mp", level.RNG_SMALL);
+	createWeapon("deserteaglegold", "45", "weap_raise_plr", "hud_icon_desert_eagle_gold", "deserteaglegold_mp", level.RNG_SMALL);
+	createWeapon("dragunov", "7_62", "weap_raise_plr", "hud_icon_dragunov", "dragunov_mp", level.RNG_BIG);
+	createWeapon("m16", "5_45", "weap_raise_plr", "hud_icon_m16a4", "m16_mp", level.RNG_NORMAL);
+	createWeapon("ak47", "7_62", "weap_raise_plr", "hud_icon_ak47", "ak47_mp", level.RNG_NORMAL);
+	createWeapon("mp44", "7_62", "weap_raise_plr", "hud_icon_mp44", "mp44_mp", level.RNG_NORMAL);
+	createWeapon("mp5", "9mm", "weap_raise_plr", "hud_icon_mp5", "mp5_mp", level.RNG_NORMAL);
+	createWeapon("m1014", "12_gauge", "weap_raise_plr", "hud_icon_benelli_m4", "m1014_mp", level.RNG_NORMAL);
+	createWeapon("winchester1200", "12_gauge", "weap_raise_plr", "hud_icon_winchester_1200", "winchester1200_mp", level.RNG_NORMAL);
+	createWeapon("m4", "5_45", "weap_raise_plr", "hud_icon_m4carbine", "m4_mp", level.RNG_NORMAL);
+	createWeapon("g3", "5_45", "weap_raise_plr", "hud_icon_g3", "g3_mp", level.RNG_NORMAL);
+	createWeapon("g36c", "5_45", "weap_raise_plr", "hud_icon_g36c", "g36c_mp", level.RNG_NORMAL);
+	createWeapon("m14", "7_62", "weap_raise_plr", "hud_icon_m14", "m14_mp", level.RNG_NORMAL);
+	createWeapon("skorpion", "9mm", "weap_raise_plr", "hud_icon_skorpian", "skorpion_mp", level.RNG_NORMAL);
+	createWeapon("uzi", "9mm", "weap_raise_plr", "hud_icon_mini_uzi", "uzi_mp", level.RNG_NORMAL);
+	createWeapon("ak74u", "7_62", "weap_raise_plr", "hud_icon_ak74u", "ak74u_mp", level.RNG_NORMAL);
+	createWeapon("p90", "9mm", "weap_raise_plr", "hud_icon_p90", "p90_mp", level.RNG_NORMAL);
+	createWeapon("saw", "5_45", "weap_raise_plr", "hud_icon_m249saw", "saw_mp", level.RNG_BIG);
+	createWeapon("rpd", "7_62", "weap_raise_plr", "hud_icon_rpd", "rpd_mp", level.RNG_BIG);
+	createWeapon("m60e4", "7_62", "weap_raise_plr", "hud_icon_m60e4", "m60e4_mp", level.RNG_BIG);
+	createWeapon("m40a3", "7_62", "weap_raise_plr", "hud_icon_m40a3", "m40a3_mp", level.RNG_BIG);
+	createWeapon("remington700", "7_62", "weap_raise_plr", "hud_icon_remington700", "remington700_mp", level.RNG_BIG);
+	createWeapon("m21", "7_62", "weap_raise_plr", "hud_icon_m14_scoped", "m21_mp", level.RNG_BIG);
+	createWeapon("rpg", undefined, "weap_raise_plr", "hud_icon_rpg", "rpg_mp", level.RNG_BIG);
+	createWeapon("at4", undefined, "weap_raise_plr", "hud_icon_at4", "at4_mp", level.RNG_BIG);
+
+	createGrenade("flash_grenade", "grenade_pickup", "hud_icon_flash", "flash_grenade_mp", level.RNG_NORMAL);
+	createGrenade("smoke_grenade", "grenade_pickup", "hud_icon_smoke", "smoke_grenade_mp", level.RNG_SMALL);
+	createGrenade("frag_grenade", "grenade_pickup", "hud_icon_grenade", "frag_grenade_mp", level.RNG_SMALL);
+
+	createSpecial("bandage", "sr_bandage", "health_pickup_large", "hud_icon_band", level.RNG_SMALL);
+	createSpecial("first_kit", "sr_first_kit", "health_pickup_large", "hud_icon_kit", level.RNG_NORMAL);
 }
 
 onConnect()
@@ -49,11 +89,21 @@ onSpawn()
 
 start()
 {
+	defaultItems();
+
 	level waittill("br_started");
 
+	spawnItems();
 	watchPlayers();
 
 	battleroyale\game\_map::end();
+}
+
+spawnItems()
+{
+	items = getAllItems();
+	for (i = 0; i < items.size; i++)
+		items[i] randomize();
 }
 
 watchPlayers()
@@ -100,6 +150,8 @@ lastKill(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLoc, p
 
 randomize()
 {
+	self.entities = getEntArray(self.id, "targetname");
+
 	for (i = 0; i < self.entities.size; i++)
 	{
 		if (randomIntRange(0, self.rng) == 0)

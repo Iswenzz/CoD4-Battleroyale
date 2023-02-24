@@ -114,13 +114,12 @@ createEntity("m16", (0, 0, 0));
 ```
 <hr>
 
-#### ``createWeapon(id, mag, model, sound, icon, weapon, rng)``
+#### ``createWeapon(id, mag, sound, icon, weapon, rng)``
 Create a weapon.
 
 **Parameters:**
 * id: Weapon id.
 * mag: Weapon mag id.
-* model: Weapon model.
 * sound: Pickup sound allias.
 * icon: Icon material.
 * weapon: Weapon item id.
@@ -128,7 +127,7 @@ Create a weapon.
 
 Usage Example:
 ```c
-createWeapon("m16", "5_45", "weapon_m16_mp", "weap_raise_plr", "hud_icon_m16a4", "m16_mp", level.RNG_NORMAL);
+createWeapon("m16", "5_45", "weap_raise_plr", "hud_icon_m16a4", "m16_mp", level.RNG_NORMAL);
 ```
 <hr>
 
@@ -149,12 +148,11 @@ createAmmo("5_45", "sr_5_45", "amunition", "hud_icon_mag_5_56", 30, level.RNG_NO
 ```
 <hr>
 
-#### ``createGrenade(id, model, sound, icon, weapon, rng)``
+#### ``createGrenade(id, sound, icon, weapon, rng)``
 Create a grenade.
 
 **Parameters:**
 * id: Grenade id.
-* model: Grenade model.
 * sound: Pickup sound allias.
 * icon: Icon material.
 * weapon: Weapon item id.
@@ -162,7 +160,7 @@ Create a grenade.
 
 Usage Example:
 ```c
-createGrenade("frag_grenade", "weapon_m67_grenade", "grenade_pickup", "hud_icon_grenade", "frag_grenade_mp", level.RNG_SMALL);
+createGrenade("frag_grenade", "grenade_pickup", "hud_icon_grenade", "frag_grenade_mp", level.RNG_SMALL);
 ```
 
 #### ``createSpecial(id, model, sound, icon, rng)``

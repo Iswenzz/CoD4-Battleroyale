@@ -81,12 +81,6 @@ precache()
 	level.texts = [];
 	level.gfx = [];
 
-	level.RNG_EMPTY = 0;
-	level.RNG_SMALL = 1;
-	level.RNG_NORMAL = 3;
-	level.RNG_BIG = 5;
-	level.RNG_RARE = 6;
-
 	precacheModel("german_sheperd_dog");
 	precacheModel("vehicle_ac130_low");
 	precacheModel("viewmodel_hands_zombie");
@@ -205,20 +199,6 @@ precache()
 	precacheStatusIcon("hud_status_dead");
 	precacheHeadIcon("headicon_admin");
 
-	precacheModel("weapon_beretta");
-	precacheModel("weapon_colt45");
-	precacheModel("weapon_desert_eagle_silver");
-	precacheModel("weapon_dragunov");
-	precacheModel("weapon_m16_mp");
-	precacheModel("weapon_ak47");
-	precacheModel("weapon_mp44");
-	precacheModel("weapon_mp5");
-	precacheModel("weapon_benelli_super_90");
-	precacheModel("weapon_winchester1200");
-	precacheModel("weapon_m84_flashbang_grenade");
-	precacheModel("weapon_us_smoke_grenade");
-	precacheModel("weapon_m67_grenade");
-
 	precacheItem("dog_mp");
 	precacheItem("beretta_mp");
 	precacheItem("colt45_mp");
@@ -229,6 +209,22 @@ precache()
 	precacheItem("mp44_mp");
 	precacheItem("mp5_mp");
 	precacheItem("m1014_mp");
+	precacheItem("m4_mp");
+	precacheItem("g3_mp");
+	precacheItem("g36c_mp");
+	precacheItem("m14_mp");
+	precacheItem("skorpion_mp");
+	precacheItem("uzi_mp");
+	precacheItem("ak74u_mp");
+	precacheItem("p90_mp");
+	precacheItem("saw_mp");
+	precacheItem("rpd_mp");
+	precacheItem("m60e4_mp");
+	precacheItem("m40a3_mp");
+	precacheItem("remington700_mp");
+	precacheItem("m21_mp");
+	precacheItem("rpg_mp");
+	precacheItem("at4_mp");
 	precacheItem("winchester1200_mp");
 	precacheItem("flash_grenade_mp");
 	precacheItem("smoke_grenade_mp");
