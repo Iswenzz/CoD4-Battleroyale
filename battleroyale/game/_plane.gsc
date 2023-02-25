@@ -27,6 +27,7 @@ plane()
 	for (i = 0; i < players.size; i++)
 	{
 		players[i] clearLowerMessage();
+		players[i].health = players[i].maxhealth;
 		players[i].origin = level.plane.origin + (0, 0, 700);
 		players[i] setPlayerAngles((level.plane.angles[0] + 50, level.plane.angles[1], level.plane.angles[2]));
 		players[i] linkTo(level.plane);

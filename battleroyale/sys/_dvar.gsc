@@ -13,7 +13,7 @@ initDvars()
 	addDvar("zone_levels", "br_zone_levels", 0, 0, 4, "int");
 	addDvar("plane_duration", "br_plane_seconds", 60, 1, 120, "int");
 
-	setDvar("g_friendlyPlayerCanBlock", 1);
+	setDvar("g_friendlyPlayerCanBlock", 0);
 	setDvar("g_deadChat", 1);
 	setDvar("g_knockback", 1000);
 	setDvar("g_speed", 190);

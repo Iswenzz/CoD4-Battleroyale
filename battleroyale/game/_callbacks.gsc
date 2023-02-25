@@ -134,7 +134,7 @@ playerSpawn()
 	self setSpawnWeapon("dog_mp");
 	self setActionSlot(4, "weapon", "flash_grenade_mp");
 
-	if (game["state"] == "readyup")
+	if (game["state"] != "playing")
 		self disableWeapons();
 
 	self notify("spawned_player");

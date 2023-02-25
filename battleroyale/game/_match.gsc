@@ -90,6 +90,8 @@ lobbyStart()
 	level notify("br_started");
 	game["state"] = "playing";
 	level removeLobby();
+
+	setDvar("g_friendlyPlayerCanBlock", 1);
 }
 
 removeLobby()
