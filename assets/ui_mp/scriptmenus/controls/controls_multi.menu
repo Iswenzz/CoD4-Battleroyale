@@ -45,8 +45,9 @@
 		BUTTON_BIND(6, "@MENU_TEAM_CHAT", "chatmodeteam", ;)
 		BUTTON_BIND(7, "@MENU_QUICK_CHAT", "mp_QuickMessage", ;)
 
-		BUTTON_BIND(9, "Bandage", "openscriptmenu -1 bandage", ;)
-		BUTTON_BIND(10, "First Kit", "openscriptmenu -1 first_kit", ;)
+		BUTTON_BIND(9, "Map", "openscriptmenu -1 map", ;)
+		BUTTON_BIND(10, "Bandage", "openscriptmenu -1 bandage", ;)
+		BUTTON_BIND(11, "First Kit", "openscriptmenu -1 first_kit", ;)
 
 		BUTTON_KEYBINDHELP
 	}

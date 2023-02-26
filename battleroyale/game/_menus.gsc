@@ -6,6 +6,7 @@ main()
 	precache();
 
 	menu("-1", 			"back", 		::menu_Back);
+	menu("-1", 			"map", 			::menu_Map);
 	menu("main_mp", 	"allies", 		::menu_Team);
 	menu("main_mp", 	"axis", 		::menu_Team);
 	menu("main_mp", 	"autoassign", 	::menu_Team);
@@ -33,6 +34,20 @@ precache()
 	precacheMenu("misc/endofgame");
 	precacheMenu("misc/scoreboard");
 	precacheMenu("misc/muteplayer");
+}
+
+menu_Map(arg)
+{
+	if (isDefined(self.brMap))
+	{
+		self.brMap = undefined;
+		self setClientDvar("br_map", 0);
+	}
+	else
+	{
+		self.brMap = true;
+		self setClientDvar("br_map", 1);
+	}
 }
 
 menu_Back(arg)

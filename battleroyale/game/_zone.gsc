@@ -8,78 +8,39 @@ main()
 
 zone()
 {
+	level endon("game over");
+
 	if (!isDefined(level.zone) || level.zone.size < 1)
 		assertMsg("ERROR: Map has no zones.\nUse createZone(origin) to create a zone.");
 
 	level.zoneTrigger = level.zone[randomIntrange(0, level.zone.size - 1)];
 	level waittill("br_started");
 
-	level endon("game over");
-	start = level.dvar["zone_levels"];
-	wait 60;
-
-	if (start <= 0)
-	{
-		thread message("^3RESTRICTING THE PLAY AREA IN 2 MIN");
-		wait 90;
-		thread message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
-		wait 30;
-		thread message("^3RESTRICTING THE PLAY AREA...");
-		thread update("sr_zonetrig_40k", 40000, 6);
-		wait 10;
-	}
-	if (start <= 1)
-	{
-		thread message("^3RESTRICTING THE PLAY AREA IN 2 MIN");
-		wait 90;
-		thread message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
-		wait 30;
-		thread message("^3RESTRICTING THE PLAY AREA...");
-		thread update("sr_zonetrig_20k", 20000, 4);
-		wait 10;
-	}
+	// wait 60;
 
 	finalZone = spawn("script_model", level.zoneTrigger);
 	finalZone setModel("sr_zonetrig_final");
+	objective_add(0, "active", level.zoneTrigger);
 
-	if (start <= 2)
-	{
-		thread message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
-		wait 30;
-		thread message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
-		wait 30;
-		thread message("^3RESTRICTING THE PLAY AREA...");
-		thread update("sr_zonetrig_10k", 10000, 2);
-		wait 10;
-	}
-	if (start <= 3)
-	{
-		thread message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
-		wait 30;
-		thread message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
-		wait 30;
-		thread message("^3RESTRICTING THE PLAY AREA...");
-		thread update("sr_zonetrig_5k", 5000, 1);
-		wait 10;
-	}
-	if (start <= 4)
-	{
-		thread message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
-		wait 30;
-		thread message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
-		wait 30;
-		thread message("^3RESTRICTING THE PLAY AREA...");
-		thread update("sr_zonetrig_2k5", 2500, 1);
-	}
-	if (start <= 5)
-	{
-		thread message("^3RESTRICTING THE PLAY AREA IN 1 MIN");
-		wait 30;
-		thread message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
-		wait 30;
-		thread message("^3RESTRICTING THE PLAY AREA...");
-		thread update("sr_zonetrig_1k25", 1250, 1);
-	}
+	restrict(0, "sr_zonetrig_40k", 40000, 6);
+	restrict(1, "sr_zonetrig_20k", 20000, 6);
+	restrict(2, "sr_zonetrig_10k", 10000, 4);
+	restrict(3, "sr_zonetrig_5k", 5000, 4);
+	restrict(4, "sr_zonetrig_2k5", 2500, 2);
+	restrict(5, "sr_zonetrig_1k25", 1250, 2);
+}
+
+restrict(zoneLevel, model, radius, damageTime)
+{
+	if (level.dvar["zone_levels"] > zoneLevel)
+		return;
+
+	thread message("^3RESTRICTING THE PLAY AREA IN 2 MIN");
+	wait 90;
+	thread message("^3RESTRICTING THE PLAY AREA IN 30 SEC");
+	wait 30;
+	thread message("^3RESTRICTING THE PLAY AREA...");
+	thread update(model, radius, damageTime);
 }
 
 update(model, radius, damageTime)
@@ -94,6 +55,7 @@ update(model, radius, damageTime)
 	zone.trigger.radius = radius;
 	zone.model = spawn("script_model", zone.trigger.origin);
 	zone.model setModel(model);
+	zone.model playSound("mp_last_stand");
 	zone thread removeAfter();
 
 	players = getAllPlayers();
@@ -115,7 +77,7 @@ damage(trig, damageTime)
 	self endon("death");
 	self endon("disconnect");
 
-	while (isAlive(self))
+	while (isDefined(self) && isAlive(self))
 	{
 		if (!self isTouching(trig))
 		{
@@ -131,6 +93,6 @@ message(msg)
 	level endon("game over");
 
 	playersSetLowerMessage(msg);
-	wait 4;
+	wait 6;
 	playersClearLowerMessage();
 }

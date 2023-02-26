@@ -5,6 +5,8 @@
 main()
 {
 	maps\mp\_load::main();
+	maps\mp\_compass::setupMiniMap("compass_map_mp_br_blackout");
+
 	level.mapCredits = "SuX Lolz";
 	level.fx["leaves"] = loadFX("dust/dust_wind_leaves_chernobyl");
 

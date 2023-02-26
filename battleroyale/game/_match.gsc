@@ -24,7 +24,7 @@ start()
 
 	canStartGame();
 
-	game["roundsplayed"] = IfUndef(game["roundsplayed"], 1);
+	game["roundsplayed"] = IfUndef(game["roundsplayed"], 0) + 1;
 	level notify("round_started", game["roundsplayed"]);
 	level notify("game started");
 	game["state"] = "lobby";

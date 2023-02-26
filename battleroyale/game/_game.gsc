@@ -97,7 +97,15 @@ start()
 	spawnItems();
 	watchPlayers();
 
-	battleroyale\game\_map::end();
+	end();
+}
+
+end()
+{
+	if (game["roundsplayed"] < level.dvar["rounds"])
+		battleroyale\game\_map::levelRestart(true);
+	else
+		battleroyale\game\_map::end();
 }
 
 spawnItems()

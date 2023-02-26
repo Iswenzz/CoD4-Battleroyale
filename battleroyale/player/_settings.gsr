@@ -12,14 +12,13 @@ main()
 	settings(0,  "hud_crosshair", "Crosshair", 1600, 1, ::update_hudCrosshair, ::toggle_hudCrosshair);
 	settings(1,  "hud_fps", "Draw FPS", 1601, true, ::update_hudFPS, ::toggle_hudFPS);
 	settings(2,  "hud_xp", "XP Bar", 1605, false, ::update_hudXP, ::toggle_hudXP);
-	settings(3,  "hud_compass", "Compass", 1608, 0, ::update_hudCompass, ::toggle_hudCompass);
-	settings(4,  "hud_2D", "Draw 2D", 1610, true, ::update_hud2D, ::toggle_hud2D);
-	settings(5,  "player_voice", "Voice chat", 1620, true, ::update_playerVoice, ::toggle_playerVoice);
-	settings(6,  "player_proximity", "Voice proximity", 1623, false, ::update_playerProximity, ::toggle_playerProximity);
-	settings(7,  "player_radio", "Radio", 1622, true, ::update_playerRadio, ::toggle_playerRadio);
-	settings(8,  "gfx_fov", "FOV Scale", 2630, 1000, ::update_gfxFOV, ::toggle_gfxFOV);
-	settings(9,  "gfx_fullbright", "Fullbright", 1602, false, ::update_gfxFullbright, ::toggle_gfxFullbright);
-	settings(10, "gfx_ragdoll", "Ragdoll", 1618, false, ::update_gfxRagdoll, ::toggle_gfxRagdoll);
+	settings(3,  "hud_2D", "Draw 2D", 1610, true, ::update_hud2D, ::toggle_hud2D);
+	settings(4,  "player_voice", "Voice chat", 1620, true, ::update_playerVoice, ::toggle_playerVoice);
+	settings(5,  "player_proximity", "Voice proximity", 1623, false, ::update_playerProximity, ::toggle_playerProximity);
+	settings(6,  "player_radio", "Radio", 1622, true, ::update_playerRadio, ::toggle_playerRadio);
+	settings(7,  "gfx_fov", "FOV Scale", 2630, 1000, ::update_gfxFOV, ::toggle_gfxFOV);
+	settings(8,  "gfx_fullbright", "Fullbright", 1602, false, ::update_gfxFullbright, ::toggle_gfxFullbright);
+	settings(9, "gfx_ragdoll", "Ragdoll", 1618, false, ::update_gfxRagdoll, ::toggle_gfxRagdoll);
 
 	menu_multiple("sr_settings", "setting", ::menu_Setting);
 }
@@ -44,13 +43,6 @@ update_hudXP(setting)
 	value = self.settings["hud_xp"];
 	self setClientDvar("sr_xp_bar", value);
 	self updateHud(setting.index, value);
-}
-
-update_hudCompass(setting)
-{
-	value = self.settings["hud_compass"];
-	labels = strTok("^1OFF;^2Top-Left;^2Top-Center;^2Top-Right;^2Middle-Left;^2Middle-Center;^2Middle-Right;^2Bottom-Left;^2Bottom-Center;^2Bottom-Right;", ";");
-	self updateHud(setting.index, value, labels[value]);
 }
 
 update_hud2D(setting)
@@ -115,11 +107,6 @@ toggle_hudFPS(setting)
 toggle_hudXP(setting)
 {
 	self.settings["hud_xp"] = !self.settings["hud_xp"];
-}
-
-toggle_hudCompass(setting)
-{
-	self.settings["hud_compass"] = intRange(self.settings["hud_compass"], 0, 9);
 }
 
 toggle_hud2D(setting)

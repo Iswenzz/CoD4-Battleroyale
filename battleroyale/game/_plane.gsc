@@ -115,24 +115,33 @@ watchPlayerDrop(trigger)
 	self thread playerDrop(origin);
 }
 
+deg2rad(deg)
+{
+    return deg * 3.14159265 / 180.0;
+}
+
+rad2deg(rad)
+{
+    return rad * 180.0 / 3.14159265;
+}
+
 playerUnstuck()
 {
 	self endon("death");
 	self endon("disconnect");
 	self endon("drop_end");
 
-	wait 20;
-	self setLowerMessage("^1 Teleporting . . .");
-	wait 1;
+	while (self getVelocity()[2] == 0)
+	{
+		distance = distance2D(self.origin, level.zoneTrigger);
+		amount = 1 / (distance / 100 + 1);
+		speed = amount / 50;
 
-	origin = level.dropOrigin;
-	origin = (origin[0] + randomIntRange(-100, 100), origin[1] + randomIntRange(-100, 100), origin[2]);
-
-	if (isDefined(self.planeDrop))
-		self detach("sr_parachute", "TAG_ORIGIN");
-
-	self.planeDrop = undefined;
-	self playerDrop(origin);
+		origin = vectorLerp(self.origin, level.zoneTrigger, speed);
+		self setOrigin((origin[0], origin[1], self.origin[2]));
+		wait 0.05;
+	}
+	self setVelocity((0, 0, -200));
 }
 
 playerDrop(origin)
@@ -167,7 +176,7 @@ playerDrop(origin)
 	self.health = 99999999999999999;
 
 	wait 1;
-	while (!self IsOnGround())
+	while (!self IsOnGround() && self getVelocity()[2] <= 0)
 		wait .05;
 
 	self.health = self.maxhealth;
