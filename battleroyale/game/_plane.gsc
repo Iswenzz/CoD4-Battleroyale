@@ -133,11 +133,11 @@ playerUnstuck()
 
 	while (self getVelocity()[2] == 0)
 	{
-		distance = distance2D(self.origin, level.zoneTrigger);
+		distance = distance2D(self.origin, level.zonePosition);
 		amount = 1 / (distance / 100 + 1);
 		speed = amount / 50;
 
-		origin = vectorLerp(self.origin, level.zoneTrigger, speed);
+		origin = vectorLerp(self.origin, level.zonePosition, speed);
 		self setOrigin((origin[0], origin[1], self.origin[2]));
 		wait 0.05;
 	}

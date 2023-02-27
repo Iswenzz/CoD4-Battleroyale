@@ -19,8 +19,10 @@ material,sr_settings
 material,sr_next
 material,sr_prev
 material,sr_dead
+material,sr_running
 material,sr_zonetrig_red
 material,sr_triangles
+material,arrow_s
 material,crosshair
 material,default
 material,hit_direction

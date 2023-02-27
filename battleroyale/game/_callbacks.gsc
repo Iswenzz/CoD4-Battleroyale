@@ -99,6 +99,7 @@ playerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 		self.pers["deaths"]++;
 
 		self thread battleroyale\game\_teams::setTeamDead();
+		self thread ragdoll(sHitLoc, vDir, sWeapon, eInflictor, sMeansOfDeath, deathAnimDuration);
 	}
 	if (!isPlayer(attacker) || attacker == self)
 		return;
@@ -176,6 +177,7 @@ serverDvars()
 	wait 0.05;
 	self setClientDvars(
 		"fx_enable", 1,
+		"ragdoll_enable", 1,
 		"cg_drawThroughWalls", 0,
 		"ui_uav_client", 0
 	);

@@ -27,6 +27,7 @@ main()
 	battleroyale\game\_api::createPlaneDrop((-1008, -6207, 7021));
 	battleroyale\game\_api::createPlaneDuration(40);
 
+	battleroyale\game\_api::createZoneLevels(0);
 	battleroyale\game\_api::createZone((-2174, -3553, -1094));
 	battleroyale\game\_api::createZone((1004, -7828, -815));
 	battleroyale\game\_api::createZone((-2672, -13285, -2506));
@@ -57,9 +58,9 @@ spawnFXs()
 
 spawnSFXs()
 {
-	for (i = 0; i < level.zone.size; i++)
+	for (i = 0; i < level.zoneSpawns.size; i++)
 	{
-		ori = spawn("script_origin", level.zone[i]);
+		ori = spawn("script_origin", level.zoneSpawns[i]);
 		ori playLoopSound("ambient_forest_loop");
 	}
 }

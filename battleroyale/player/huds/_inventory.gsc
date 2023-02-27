@@ -43,15 +43,15 @@ huds()
 	{
 		item = items[i];
 
-		self.huds["inventory"]["items"][item.id]["icon"] = addHud(self, x - 8, 6, 1, "left", "top");
+		self.huds["inventory"]["items"][item.id]["icon"] = addHud(self, x - 8, 6, 1, "left", "top", 1.4, 1000, true);
 		self.huds["inventory"]["items"][item.id]["icon"] setShader(item.icon, 60, 25);
-		self.huds["inventory"]["items"][item.id]["value"] = addHud(self, x + 10, 16, 1, "left", "top", 1.4, 1001);
+		self.huds["inventory"]["items"][item.id]["value"] = addHud(self, x + 10, 16, 1, "left", "top", 1.4, 1001, true);
 		self.huds["inventory"]["items"][item.id]["value"] setValue(0);
 		self.huds["inventory"]["items"][item.id]["value"].font = "small";
 		self.huds["inventory"]["items"][item.id]["value"].label = &"&&1";
 		x += 30;
 	}
-	self.huds["inventory"]["background"] = addHud(self, 4, 4, 0.2, "left", "top", 1.4, 1000);
+	self.huds["inventory"]["background"] = addHud(self, 4, 4, 0.2, "left", "top", 1.4, 1000, true);
 	self.huds["inventory"]["background"] setShader("black", x + 5, 30);
 }
 

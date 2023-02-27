@@ -38,6 +38,7 @@ main()
 	battleroyale\player\huds\_inventory::main();
 	battleroyale\player\huds\_loading::main();
 	battleroyale\player\huds\_info::main();
+	battleroyale\player\huds\_zone::main();
 }
 
 precache()
@@ -81,6 +82,7 @@ precache()
 	precacheShader("vip_status");
 	precacheShader("vip_gold");
 	precacheShader("sr_dead");
+	precacheShader("sr_running");
 	precacheShader("sr_grenade");
 	precacheShader("sr_flash");
 	precacheShader("sr_smoke");
@@ -200,7 +202,7 @@ precacheText()
 {
 	level.texts["empty"] 				= &"";
 	level.texts["time"] 				= &"^2&&1";
-	level.texts["waiting_for_players"] 		= &"BR_WAITING_FOR_PLAYERS";
+	level.texts["waiting_for_players"] 	= &"BR_WAITING_FOR_PLAYERS";
 	level.texts["ended_game"]			= &"MP_HOST_ENDED_GAME";
 	level.texts["endgame"]				= &"MP_HOST_ENDGAME_RESPONSE";
 

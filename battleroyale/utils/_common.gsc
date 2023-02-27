@@ -245,6 +245,11 @@ clampValue(number, value, min, max)
 	return result - number;
 }
 
+linearScale(value, min, max, rangeMin, rangeMax)
+{
+	return clamp((value - min) * (rangeMax - rangeMin) / (max - min) + rangeMin, rangeMin, rangeMax);
+}
+
 playersSetLowerMessage(text, time)
 {
 	players = getAllPlayers();
@@ -364,7 +369,7 @@ spawnSpectator()
 
 doPlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime)
 {
-	if (!isDefined(self) || game["state"] == "end")
+	if (!isDefined(self) || !self isPlaying() || game["state"] == "end")
 		return;
 
 	self finishPlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime);
@@ -437,6 +442,51 @@ getHitLocHeight(sHitLoc)
 			return 5;
 	}
 	return 48;
+}
+
+ragdoll(sHitLoc, vDir, sWeapon, eInflictor, sMeansOfDeath, deathAnimDuration)
+{
+	self endon("disconnect");
+
+	body = self clonePlayer(deathAnimDuration);
+	body setContents(0);
+	body.targetname = "ragdoll";
+
+	if (isDefined(body))
+	{
+		if (self isOnLadder() || self isMantling())
+			body startRagdoll();
+
+		deathAnim = body getCorpseAnim();
+		if (animHasNotetrack(deathAnim, "ignore_ragdoll"))
+			return;
+	}
+	wait 0.2;
+
+	if (!isDefined(body))
+		return;
+
+	if (!isDefined(vDir))
+		vDir = (0, 0, 0);
+
+	explosionPos = body.origin + (0, 0, getHitLocHeight(sHitLoc));
+	explosionPos -= vDir * 20;
+	explosionRadius = 40;
+	explosionForce = .75;
+
+	if (sMeansOfDeath == "MOD_IMPACT" || sMeansOfDeath == "MOD_EXPLOSIVE" ||
+		isSubStr(sMeansOfDeath, "MOD_GRENADE") || isSubStr(sMeansOfDeath, "MOD_PROJECTILE") ||
+		sHitLoc == "object" || sHitLoc == "helmet")
+		explosionForce = 2.9;
+
+	body startRagdoll(1);
+
+	wait 0.05;
+
+	if (!isDefined(body))
+		return;
+
+	physicsExplosionSphere(explosionPos, explosionRadius, explosionRadius / 2, explosionForce);
 }
 
 removeColorFromString(string)

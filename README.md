@@ -1,4 +1,4 @@
-# CoD4 SR BattleRoyale
+# CoD4 BattleRoyale
 <!-- Badges -->
 
 Call of Duty 4 Battle Royale is a first-person shooter game that engages in survival, exploration and much more. It is a strong
@@ -101,7 +101,7 @@ Defines the level size for the current map.
 
 Usage Example:
 ```c
-createZoneLevels(4);
+createZoneLevels(0);
 ```
 <hr>
 

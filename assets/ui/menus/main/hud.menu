@@ -190,7 +190,7 @@
 		name			"Compass_old"
  	   	rect			RECT_COMPASS
  	   	fullScreen		0
-		visible 		when(!inkillcam());
+		visible 		1
 
 		itemDef
 		{
@@ -281,7 +281,7 @@
 			name			"compassplayer"
 			rect			MINIMAP_X_MP MINIMAP_Y_MP MINIMAP_W_MP MINIMAP_H_MP
 	 	   	origin 			MINIMAP_ORIGIN
-			forecolor		1 1 1 1//HUD_FOREGROUND_ALPHA
+			forecolor		1 1 1 1
 			background		"compassping_player"
 			ownerdraw		CG_PLAYER_COMPASS_PLAYER
 			visible			1

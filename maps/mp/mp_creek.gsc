@@ -34,11 +34,11 @@ main()
 	battleroyale\game\_api::createPlaneDuration(15);
 
 	battleroyale\game\_api::createZoneLevels(2);
-	battleroyale\game\_api::createZone((988, 5978, -14));
-	battleroyale\game\_api::createZone((-288, 4596, 86));
-	battleroyale\game\_api::createZone((-2372, 7277, 200));
-	battleroyale\game\_api::createZone((-4168, 6531, 171));
-	battleroyale\game\_api::createZone((-3468, 8351, 214));
+	battleroyale\game\_api::createZone((988, 5978, -400));
+	battleroyale\game\_api::createZone((-288, 4596, -400));
+	battleroyale\game\_api::createZone((-2372, 7277, -400));
+	battleroyale\game\_api::createZone((-4168, 6531, -400));
+	battleroyale\game\_api::createZone((-3468, 8351, -400));
 
 	battleroyale\game\_api::createLobbyBlocker((-2889, 6700, 232), 150, 100);
 	battleroyale\game\_api::createLobbyBlocker((-3227, 6944, 232), 150, 100);

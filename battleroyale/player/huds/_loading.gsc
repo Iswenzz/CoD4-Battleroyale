@@ -28,9 +28,9 @@ loading()
 	time = 5;
 
 	self.huds["loading"] = [];
-	self.huds["loading"]["background"] = addHud(self, 0, 50, 0.5, "center", "middle", 1.4, 1000);
+	self.huds["loading"]["background"] = addHud(self, 0, 50, 0.5, "center", "middle", 1.4, 1000, true);
 	self.huds["loading"]["background"] setShader("black", (size + 4), 14);
-	self.huds["loading"]["progress"] = addHud(self, (size / 2) * -1, 50, 0.75, "left", "middle", 1.4, 1001);
+	self.huds["loading"]["progress"] = addHud(self, (size / 2) * -1, 50, 0.75, "left", "middle", 1.4, 1001, true);
 	self.huds["loading"]["progress"].horzAlign = "center";
 	self.huds["loading"]["progress"] setShader("white", 0, 8);
 	self.huds["loading"]["progress"] scaleOverTime(time, size, 8);

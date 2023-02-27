@@ -77,9 +77,7 @@ createPlaneDuration(seconds)
 
 createZone(origin)
 {
-	if (!isDefined(level.zone))
-		level.zone = [];
-	level.zone[level.zone.size] = origin;
+	level.zoneSpawns[level.zoneSpawns.size] = origin;
 }
 
 createZoneLevels(levels)

@@ -25,7 +25,6 @@ hud()
 	{
 		players = getPlayingPlayers();
 		self.huds["info"]["number"] setValue(players.size);
-
 		wait 0.2;
 	}
 }
