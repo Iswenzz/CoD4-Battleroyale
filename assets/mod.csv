@@ -99,6 +99,7 @@ xmodel,body_mp_usmc_cqb
 xmodel,body_mp_sas_urban_sniper
 xmodel,collision_sphere
 xmodel,viewmodel_hands_zombie
+xmodel,com_crate01
 xmodel,sr_zonetrig_40k
 xmodel,sr_zonetrig_20k
 xmodel,sr_zonetrig_10k

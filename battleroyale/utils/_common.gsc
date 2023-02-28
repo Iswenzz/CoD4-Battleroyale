@@ -407,6 +407,15 @@ originToTime(origin)
 	return time;
 }
 
+getFloor()
+{
+	if (isDefined(self.inAir) && self.inAir)
+		return self.origin[2] + ifUndef(self.inAirValue, 0);
+
+	trace = bulletTrace(self.origin, self.origin - (0, 0, 999999), false, undefined);
+	return Ternary(trace["fraction"] != 1, trace["position"], self.origin)[2];
+}
+
 getHitLocHeight(sHitLoc)
 {
 	switch (sHitLoc)

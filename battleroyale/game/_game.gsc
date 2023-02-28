@@ -26,6 +26,7 @@ defaultItems()
 	createAmmo("7_62", "sr_7_62", "amunition", "hud_icon_mag_7_62", 30, level.RNG_NORMAL);
 	createAmmo("5_45", "sr_5_45", "amunition", "hud_icon_mag_5_56", 30, level.RNG_NORMAL);
 	createAmmo("12_gauge", "sr_gauge", "amunition", "hud_icon_mag_12_gauge", 6, level.RNG_NORMAL);
+	createAmmo("rocket", "projectile_rpg7", "grenade_pickup", "hud_icon_40mm_grenade", 2, level.RNG_BIG);
 
 	createWeapon("beretta", "9mm", "weap_pickup", "hud_icon_m9beretta", "beretta_mp", level.RNG_SMALL);
 	createWeapon("colt45", "45", "weap_pickup", "hud_icon_colt_45", "colt45_mp", level.RNG_SMALL);
@@ -53,8 +54,8 @@ defaultItems()
 	createWeapon("m40a3", "7_62", "weap_pickup", "hud_icon_m40a3", "m40a3_mp", level.RNG_BIG);
 	createWeapon("remington700", "7_62", "weap_pickup", "hud_icon_remington700", "remington700_mp", level.RNG_BIG);
 	createWeapon("m21", "7_62", "weap_pickup", "hud_icon_m14_scoped", "m21_mp", level.RNG_BIG);
-	createWeapon("rpg", undefined, "weap_pickup", "hud_icon_rpg", "rpg_mp", level.RNG_BIG);
-	createWeapon("at4", undefined, "weap_pickup", "hud_icon_at4", "at4_mp", level.RNG_BIG);
+	createWeapon("rpg", "rocket", "weap_pickup", "hud_icon_rpg", "rpg_mp", level.RNG_BIG);
+	createWeapon("at4", "rocket", "weap_pickup", "hud_icon_at4", "at4_mp", level.RNG_BIG);
 
 	createGrenade("flash_grenade", "grenade_pickup", "hud_icon_flash", "flash_grenade_mp", level.RNG_NORMAL);
 	createGrenade("smoke_grenade", "grenade_pickup", "hud_icon_smoke", "smoke_grenade_mp", level.RNG_SMALL);
@@ -212,6 +213,17 @@ triggerEntityLoop()
 		if (player useButtonPressed())
 			player thread [[item.give]](self);
 	}
+}
+
+dropWeapon()
+{
+	currentItem = getWeaponItem(self.currentWeapon);
+
+	if (!isDefined(currentItem))
+		return;
+
+	origin = (self.origin[0], self.origin[1], self getFloor());
+	currentItem createItemTrigger(origin);
 }
 
 givePlayerAmmo(entity)

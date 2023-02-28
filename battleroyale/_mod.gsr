@@ -90,6 +90,7 @@ precache()
 	precacheModel("body_mp_usmc_cqb");
 	precacheModel("collision_sphere");
 	precacheModel("mil_frame_charge");
+	precacheModel("com_crate01");
 	precacheModel("sr_parachute");
 	precacheModel("sr_zonetrig_40k");
 	precacheModel("sr_zonetrig_20k");

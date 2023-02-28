@@ -98,6 +98,7 @@ playerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 		self.deaths++;
 		self.pers["deaths"]++;
 
+		self thread battleroyale\game\_game::dropWeapon();
 		self thread battleroyale\game\_teams::setTeamDead();
 		self thread ragdoll(sHitLoc, vDir, sWeapon, eInflictor, sMeansOfDeath, deathAnimDuration);
 	}
