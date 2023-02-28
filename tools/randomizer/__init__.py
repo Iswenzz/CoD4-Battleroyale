@@ -1,0 +1,1 @@
+from randomizer.assets import *
