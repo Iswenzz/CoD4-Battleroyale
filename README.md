@@ -1,6 +1,6 @@
 # CoD4 BattleRoyale
 
-[![License](https://img.shields.io/github/license/Iswenzz/SR-Speedrun?color=blue&logo=gitbook&logoColor=white)](https://github.com/Iswenzz/SR-Core/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/Iswenzz/CoD4-BattleRoyale?color=blue&logo=gitbook&logoColor=white)](https://github.com/Iswenzz/CoD4-BattleRoyale/blob/master/LICENSE)
 
 Call of Duty 4 Battle Royale is a first-person shooter game that engages in survival, exploration and much more. It is a strong
 last man standing gameplay that requires you to search for equipment and weaponary which will help you defeat enemies.
