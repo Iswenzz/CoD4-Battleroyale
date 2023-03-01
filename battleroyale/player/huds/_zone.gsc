@@ -91,6 +91,8 @@ position()
 	max = 102;
 	prevScale = 0;
 
+	level waittill("zone_start");
+
 	while (true)
 	{
 		scale = int(max - linearScale(self.zoneDistance, 0, level.zoneNextRadius, min, max) + min);
@@ -111,6 +113,8 @@ distance()
 	self endon("spawned");
 	self endon("death");
 	self endon("disconnect");
+
+	level waittill("zone_start");
 
 	while (true)
 	{
