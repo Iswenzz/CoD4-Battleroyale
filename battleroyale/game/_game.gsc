@@ -192,8 +192,8 @@ triggerEntity(entity)
 		angleZ = 90;
 	entity.angles = (0, randomIntRange(-360, 360), angleZ);
 
-	radius = 20;
-	entity.trigger = spawn("trigger_radius", entity.origin, radius, radius, radius);
+	radius = 30;
+	entity.trigger = spawn("trigger_radius", entity.origin, 0, radius, radius);
 	entity.trigger.radius = radius;
 	entity thread triggerEntityLoop();
 }

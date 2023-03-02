@@ -140,6 +140,12 @@ getPersistence(name, defaultValue)
 	return IfUndef(self.pers[name], defaultValue);
 }
 
+getPlayerVelocity()
+{
+	velocity = self getVelocity();
+	return int(sqrt((velocity[0] * velocity[0]) + (velocity[1] * velocity[1])));
+}
+
 cleanUp()
 {
 	self clearLowerMessage();
