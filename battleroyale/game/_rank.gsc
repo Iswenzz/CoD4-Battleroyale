@@ -148,8 +148,7 @@ onConnect()
 		self setBotRank();
 		return;
 	}
-	if (self isFirstConnection())
-		self loadRank();
+	self loadRank();
 }
 
 loadRank()

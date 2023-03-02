@@ -48,13 +48,13 @@ clear()
 {
 	self endon("disconnect");
 
-	if (isDefined(self.huds["health"]))
+	if (isDefined(self.huds["hint"]))
 	{
-		huds = getArrayKeys(self.huds["health"]);
+		huds = getArrayKeys(self.huds["hint"]);
 		for (i = 0; i < huds.size; i++)
 		{
-			if (isDefined(self.huds["health"][huds[i]]))
-				self.huds["health"][huds[i]] destroy();
+			if (isDefined(self.huds["hint"][huds[i]]))
+				self.huds["hint"][huds[i]] destroy();
 		}
 	}
 }

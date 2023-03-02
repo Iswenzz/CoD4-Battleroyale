@@ -25,9 +25,11 @@ hud()
 	self.huds["health"] = [];
 	self.huds["health"]["background"] = addHud(self, 0, 0, 0.6, "center", "bottom", 1.4, 1001, true);
 	self.huds["health"]["background"].color = (0.4, 0.4, 0.4);
+	self.huds["health"]["background"].hidewheninmenu = false;
 	self.huds["health"]["background"] setShader("white", 250, 10);
 	self.huds["health"]["foreground"] = addHud(self, 0, 0, 0.8, "center", "bottom", 1.4, 1002, true);
 	self.huds["health"]["foreground"].color = (0.9, 0.9, 0.9);
+	self.huds["health"]["foreground"].hidewheninmenu = false;
 	self.huds["health"]["foreground"] setShader("white", 250, 10);
 
 	while (true)

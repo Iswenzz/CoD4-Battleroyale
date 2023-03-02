@@ -33,15 +33,20 @@ vars()
 	self.huds["zone"] = [];
 	self.huds["zone"]["background"] = addHud(self, 6, -119, 0.2, "left", "bottom", 1.4, 1, true);
 	self.huds["zone"]["background"] setShader("white", 102, 6);
+	self.huds["zone"]["background"].hidewheninmenu = false;
 	self.huds["zone"]["timer"] = addHud(self, 6, -124, 0, "left", "bottom", 1.4, 1, true);
 	self.huds["zone"]["timer"].label = &"&&1";
+	self.huds["zone"]["timer"].hidewheninmenu = false;
 	self.huds["zone"]["progress"] = addHud(self, 6, -119, 1, "left", "bottom", 1.4, 1, true);
 	self.huds["zone"]["progress"].color = (0.08, 0.38, 1);
 	self.huds["zone"]["progress"] setShader("white", 2, 6);
+	self.huds["zone"]["progress"].hidewheninmenu = false;
 	self.huds["zone"]["position"] = addHud(self, 102, -121, 1, "left", "bottom", 1.4, 200, true);
 	self.huds["zone"]["position"] setShader("arrow_s", 6, 6);
+	self.huds["zone"]["position"].hidewheninmenu = false;
 	self.huds["zone"]["distance"] = addHud(self, 109, -124, 1, "left", "bottom", 1.4, 1, true);
 	self.huds["zone"]["distance"].alignX = "right";
+	self.huds["zone"]["distance"].hidewheninmenu = false;
 }
 
 timer()
@@ -49,19 +54,18 @@ timer()
 	self endon("spawned");
 	self endon("death");
 	self endon("disconnect");
-	level endon("zone_end");
 
 	while (true)
 	{
-		level waittill("zone_start");
+		level waittill("zone", zoneTime);
 
 		self.huds["zone"]["timer"] fadeOverTime(0.1);
 		self.huds["zone"]["timer"].alpha = 1;
-		self.huds["zone"]["timer"] setTimer(level.zoneTime);
+		self.huds["zone"]["timer"] setTimer(zoneTime);
 		self.huds["zone"]["progress"] scaleOverTime(0.2, 2, 6);
 		wait 0.2;
 
-		seconds = level.zoneTime;
+		seconds = zoneTime;
 		iteration = int(ceil(seconds / 60));
 		progress = 102;
 
@@ -91,7 +95,8 @@ position()
 	max = 102;
 	prevScale = 0;
 
-	level waittill("zone_start");
+	level endon("zone_close");
+	level waittill("zone");
 
 	while (true)
 	{
@@ -114,7 +119,8 @@ distance()
 	self endon("death");
 	self endon("disconnect");
 
-	level waittill("zone_start");
+	level endon("zone_close");
+	level waittill("zone");
 
 	while (true)
 	{

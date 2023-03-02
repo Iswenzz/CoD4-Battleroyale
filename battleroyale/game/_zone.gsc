@@ -11,18 +11,19 @@ main()
 	level.zoneNextRadius = 0;
 	level.zoneDamageTime = 0;
 	level.zoneTime = level.dvar["zone_time"];
+	level.zoneLastTime = 240;
 
-	addZone("sr_zonetrig_40k", 40000, 20000, 6);
-	addZone("sr_zonetrig_20k", 20000, 10000, 6);
-	addZone("sr_zonetrig_10k", 10000, 5000, 4);
-	addZone("sr_zonetrig_5k", 5000, 2500, 4);
-	addZone("sr_zonetrig_2k5", 2500, 1250, 2);
-	addZone("sr_zonetrig_1k25", 1250, 1250, 2);
+	addZone("sr_zonetrig_40k", 40000, 20000, 6, level.zoneTime);
+	addZone("sr_zonetrig_20k", 20000, 10000, 6, level.zoneTime);
+	addZone("sr_zonetrig_10k", 10000, 5000, 4, level.zoneTime);
+	addZone("sr_zonetrig_5k", 5000, 2500, 4, level.zoneTime);
+	addZone("sr_zonetrig_2k5", 2500, 1250, 2, level.zoneTime);
+	addZone("sr_zonetrig_1k25", 1250, 1250, 2, level.zoneTime);
 
 	event("map", ::zone);
 }
 
-addZone(model, radius, nextRadius, damageTime)
+addZone(model, radius, nextRadius, damageTime, time)
 {
 	zone = spawnStruct();
 	zone.index = level.zones.size;
@@ -30,6 +31,7 @@ addZone(model, radius, nextRadius, damageTime)
 	zone.radius = radius;
 	zone.nextRadius = nextRadius;
 	zone.damageTime = damageTime;
+	zone.time = time;
 
 	level.zones[zone.index] = zone;
 
@@ -59,7 +61,15 @@ zone()
 	for (i = 0; i < level.zones.size; i++)
 		level.zones[i] restrict();
 
+	level notify("zone_close");
+	level notify("zone", level.zoneLastTime);
+	thread message("^1CLOSING THE PLAY AREA IN " + int(level.zoneLastTime / 60) + " MIN");
+	level.tempEntity playSound("mp_last_stand");
+	wait level.zoneLastTime;
+
 	level notify("zone_end");
+	objective_delete(0);
+	finalZone delete();
 }
 
 restrict()
@@ -68,16 +78,16 @@ restrict()
 		return;
 
 	level endon("game over");
-	level notify("zone_start");
+	level notify("zone", self.time);
 
-	seconds = level.zoneTime;
+	seconds = self.time;
 	while (seconds)
 	{
 		time = Ternary(seconds > 60, 60, seconds);
 		minutes = int(seconds / 60);
 
-		if (seconds == 300)
-			thread message("^3RESTRICTING THE PLAY AREA IN 5 MIN");
+		if (seconds == 240)
+			thread message("^3RESTRICTING THE PLAY AREA IN 4 MIN");
 		if (seconds == 120)
 			thread message("^3RESTRICTING THE PLAY AREA IN 2 MIN");
 		else if (seconds < 60)
@@ -90,16 +100,18 @@ restrict()
 	level.zoneRadius = self.radius;
 	level.zoneNextRadius = self.nextRadius;
 	level.zoneDamageTime = self.damageTime;
-	level notify("zone");
+	level notify("zone_move");
 
 	pos = level.zonePosition;
 	zone = spawnStruct();
 	zone.trigger = spawn("trigger_radius", (pos[0], pos[1], pos[2] - 2000), 0, self.radius, 40000);
 	zone.trigger.radius = self.radius;
 	zone.model = spawn("script_model", zone.trigger.origin);
-	zone.model setModel(self.model);
 	zone.model playSound("mp_last_stand");
 	zone thread removeAfter();
+
+	if (isDefined(self.model))
+		zone.model setModel(self.model);
 
 	players = getAllPlayers();
 	for (i = 0; i < players.size; i++)
@@ -110,22 +122,22 @@ restrict()
 
 removeAfter()
 {
-	level waittill("zone");
+	level waittills("zone_move", "zone_end");
 
 	self.model delete();
 	self.trigger delete();
 }
 
-damage(trig, damageTime)
+damage(trigger, damageTime)
 {
-	level endon("zone");
+	level endon("zone_move");
 	self endon("death");
 	self endon("disconnect");
 
 	while (true)
 	{
 		wait 0.05;
-		if (self isTouching(trig))
+		if (isDefined(trigger) && self isTouching(trigger))
 			continue;
 
 		self doPlayerDamage(self, self, 10, 0, "MOD_UNKNOWN", "none", (0, 0, 0), (0, 0, 0), "none", 0);

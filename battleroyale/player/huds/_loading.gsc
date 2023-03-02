@@ -18,8 +18,6 @@ loading()
 
 	self.loading = true;
 	self.loadingTime = 0;
-	self.blocker = spawn("script_origin", self.origin);
-	self linkTo(self.blocker);
 	self disableWeapons();
 	self clear();
 
@@ -44,7 +42,6 @@ loading()
 		loaded = true;
 
 	self.loading = undefined;
-	self.blocker delete();
 	self enableWeapons();
 	self unlink();
 	self clear();

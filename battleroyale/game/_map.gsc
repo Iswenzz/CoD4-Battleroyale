@@ -5,6 +5,7 @@ main()
 {
 	level.spawn = [];
 	level.colliders = [];
+	level.tempEntity = spawn("script_model", (0, 0, 0));
 	level.rotation = getRotation(false);
 	level.randomizedMaps = [];
 
