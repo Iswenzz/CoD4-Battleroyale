@@ -24,6 +24,7 @@ hud()
 	self thread timer();
 	self thread position();
 	self thread distance();
+	self thread end();
 }
 
 vars()
@@ -95,7 +96,7 @@ position()
 	max = 102;
 	prevScale = 0;
 
-	level endon("zone_close");
+	level endon("zone_end");
 	level waittill("zone");
 
 	while (true)
@@ -119,7 +120,7 @@ distance()
 	self endon("death");
 	self endon("disconnect");
 
-	level endon("zone_close");
+	level endon("zone_end");
 	level waittill("zone");
 
 	while (true)
@@ -131,6 +132,16 @@ distance()
 		self.huds["zone"]["distance"].alpha = Ternary(self.zoneDistance > 0, 1, 0);
 		wait 0.05;
 	}
+}
+
+end()
+{
+	self endon("spawned");
+	self endon("death");
+	self endon("disconnect");
+
+	level waittill("zone_end");
+	self clear();
 }
 
 clear()

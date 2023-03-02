@@ -68,6 +68,7 @@ zone()
 	wait level.zoneLastTime;
 
 	level notify("zone_end");
+	level.tempEntity playSound("mp_last_stand");
 	objective_delete(0);
 	finalZone delete();
 }
