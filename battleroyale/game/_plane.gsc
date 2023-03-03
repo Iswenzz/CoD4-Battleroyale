@@ -131,6 +131,8 @@ playerUnstuck()
 	self endon("disconnect");
 	self endon("drop_end");
 
+	wait 1;
+
 	while (self getVelocity()[2] == 0)
 	{
 		distance = distance2D(self.origin, level.zonePosition);
