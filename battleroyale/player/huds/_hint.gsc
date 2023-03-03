@@ -26,6 +26,9 @@ draw(entity)
 	self endon("death");
 	self endon("disconnect");
 
+	if (isDefined(self.touchingItem))
+		return;
+
 	trigger = entity.trigger;
 	item = entity.item;
 

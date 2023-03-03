@@ -201,18 +201,25 @@ triggerEntity(entity)
 triggerEntityLoop()
 {
 	trigger = self.trigger;
-	item = self.item;
-
 	wait 0.5;
 
 	while (isDefined(self.trigger))
 	{
 		trigger waittill("trigger", player);
-		player thread battleroyale\player\huds\_hint::draw(self);
-
-		if (player useButtonPressed())
-			player thread [[item.give]](self);
+		player thread playerEntityAction(self);
 	}
+}
+
+playerEntityAction(entity)
+{
+	self endon("death");
+	self endon("disconnect");
+
+	item = entity.item;
+
+	self thread battleroyale\player\huds\_hint::draw(entity);
+	if (self useButtonPressed())
+		self thread [[item.give]](entity);
 }
 
 dropWeapon()
