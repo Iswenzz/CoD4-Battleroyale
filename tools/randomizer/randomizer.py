@@ -58,10 +58,7 @@ class Randomize:
         """
         Get a random asset type.
         """
-        if len(self.assets["weapons"]) < len(self.lines) / 2:
-            return "weapons"
         keys = list(assets.list.keys())
-        keys.remove("weapons")
         return keys[randrange(len(keys))]
 
     def getAsset(self) -> Tuple[str, str]:
