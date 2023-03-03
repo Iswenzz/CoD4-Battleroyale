@@ -121,7 +121,6 @@ precache()
 	precacheShader("hud_icon_cobra");
 	precacheShader("hud_icon_colt_45");
 	precacheShader("hud_icon_desert_eagle");
-	precacheShader("hud_icon_desert_eagle_gold");
 	precacheShader("hud_icon_dragunov");
 	precacheShader("hud_icon_g3");
 	precacheShader("hud_icon_g36c");

@@ -88,7 +88,7 @@ createZoneLevels(levels)
 
 createEntity(id, origin)
 {
-	entity = spawn("script_model", (origin[0], origin[1], origin[2] - 60));
+	entity = spawn("script_model", (origin[0], origin[1], origin[2] - 58));
 	entity.targetname = id;
 	return entity;
 }

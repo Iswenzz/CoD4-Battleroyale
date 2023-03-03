@@ -32,7 +32,7 @@ defaultItems()
 	createWeapon("colt45", "45", "weap_pickup", "hud_icon_colt_45", "colt45_mp", level.RNG_SMALL);
 	createWeapon("usp", "45", "weap_pickup", "hud_icon_usp_45", "usp_mp", level.RNG_SMALL);
 	createWeapon("deserteagle", "45", "weap_pickup", "hud_icon_desert_eagle", "deserteagle_mp", level.RNG_SMALL);
-	createWeapon("deserteaglegold", "45", "weap_pickup", "hud_icon_desert_eagle_gold", "deserteaglegold_mp", level.RNG_SMALL);
+	createWeapon("deserteaglegold", "45", "weap_pickup", "hud_icon_desert_eagle", "deserteaglegold_mp", level.RNG_SMALL);
 	createWeapon("dragunov", "7_62", "weap_pickup", "hud_icon_dragunov", "dragunov_mp", level.RNG_BIG);
 	createWeapon("m16", "5_45", "weap_pickup", "hud_icon_m16a4", "m16_mp", level.RNG_NORMAL);
 	createWeapon("ak47", "7_62", "weap_pickup", "hud_icon_ak47", "ak47_mp", level.RNG_NORMAL);
@@ -54,7 +54,7 @@ defaultItems()
 	createWeapon("m40a3", "7_62", "weap_pickup", "hud_icon_m40a3", "m40a3_mp", level.RNG_BIG);
 	createWeapon("remington700", "7_62", "weap_pickup", "hud_icon_remington700", "remington700_mp", level.RNG_BIG);
 	createWeapon("m21", "7_62", "weap_pickup", "hud_icon_m14_scoped", "m21_mp", level.RNG_BIG);
-	createWeapon("rpg", "rocket", "weap_pickup", "hud_icon_rpg", "rpg_mp", level.RNG_BIG);
+	createWeapon("rpg", "rocket", "weap_pickup", "hud_icon_stinger", "rpg_mp", level.RNG_BIG);
 	createWeapon("at4", "rocket", "weap_pickup", "hud_icon_at4", "at4_mp", level.RNG_BIG);
 
 	createGrenade("flash_grenade", "grenade_pickup", "hud_icon_flash", "flash_grenade_mp", level.RNG_NORMAL);
@@ -164,7 +164,7 @@ randomize()
 
 	for (i = 0; i < self.entities.size; i++)
 	{
-		if (randomIntRange(0, self.rng) == 0)
+		// if (randomIntRange(0, self.rng) == 0)
 		{
 			self triggerEntity(self.entities[i]);
 			continue;
@@ -220,6 +220,32 @@ playerEntityAction(entity)
 	self thread battleroyale\player\huds\_hint::draw(entity);
 	if (self useButtonPressed())
 		self thread [[item.give]](entity);
+}
+
+refreshWeaponsList()
+{
+	self endon("death");
+	self endon("disconnect");
+
+	weapons = [];
+	list = self getWeaponsList();
+
+	for (i = 0; i < list.size; i++)
+	{
+		weapon = list[i];
+		class = weaponClass(weapon);
+		type = weaponInventoryType(weapon);
+
+		if (class == "grenade")
+			continue;
+		if (type == "item")
+		{
+			self setActionSlot(3, "weapon", weapon);
+			continue;
+		}
+		weapons[weapons.size] = weapon;
+	}
+	self.pers["weapons"] = weapons;
 }
 
 dropWeapon()
