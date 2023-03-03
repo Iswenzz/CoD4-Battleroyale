@@ -47,7 +47,7 @@ huds()
 		self.huds["inventory"]["items"][item.id]["icon"] setShader(item.icon, 60, 25);
 		self.huds["inventory"]["items"][item.id]["value"] = addHud(self, x + 10, 16, 1, "left", "top", 1.4, 1001, true);
 		self.huds["inventory"]["items"][item.id]["value"] setValue(0);
-		self.huds["inventory"]["items"][item.id]["value"].font = "small";
+		// self.huds["inventory"]["items"][item.id]["value"].font = "objective";
 		self.huds["inventory"]["items"][item.id]["value"].label = &"&&1";
 		x += 30;
 	}
