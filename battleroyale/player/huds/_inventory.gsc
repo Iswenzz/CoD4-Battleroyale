@@ -50,7 +50,7 @@ huds()
 		self.huds["inventory"]["items"][item.id]["value"].label = &"&&1";
 		x += 30;
 	}
-	self.huds["inventory"]["background"] = addHud(self, 4, 4, 0.2, "left", "top", 1.4, 1000, true);
+	self.huds["inventory"]["background"] = addHud(self, 4, 4, 0.3, "left", "top", 1.4, 1000, true);
 	self.huds["inventory"]["background"] setShader("black", x + 5, 30);
 }
 
