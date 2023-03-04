@@ -18,7 +18,8 @@ main()
 	addZone("sr_zonetrig_10k", 10000, 5000, 4, level.zoneTime);
 	addZone("sr_zonetrig_5k", 5000, 2500, 4, level.zoneTime);
 	addZone("sr_zonetrig_2k5", 2500, 1250, 2, level.zoneTime);
-	addZone("sr_zonetrig_1k25", 1250, 1250, 2, level.zoneTime);
+	addZone("sr_zonetrig_1k25", 1250, 625, 2, level.zoneTime);
+	addZone("sr_zonetrig_625", 625, 625, 2, level.zoneTime);
 
 	event("map", ::zone);
 }
