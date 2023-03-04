@@ -54,10 +54,24 @@ class Randomize:
 
         self.assets = {k: sorted(v) for k, v in self.assets.items()}
 
+    def getAssetsPercentage(self, type: str) -> int:
+        """
+        Get the assets percentage.
+        """
+        return (len(self.assets[type]) / len(self.lines)) * 100;
+
     def getAssetType(self) -> str:
         """
         Get a random asset type.
         """
+        if self.getAssetsPercentage("weapons") < 35:
+            return "weapons"
+        if self.getAssetsPercentage("ammos") < 30:
+            return "ammos"
+        if self.getAssetsPercentage("grenades") < 15:
+            return "grenades"
+        if self.getAssetsPercentage("specials") < 20:
+            return "specials"
         keys = list(assets.list.keys())
         return keys[randrange(len(keys))]
 
@@ -68,7 +82,7 @@ class Randomize:
         type = self.getAssetType()
         entries = assets.list[type]
         random = randint(assets.RNG_NONE, assets.RNG_RARE)
-        items = [(item, chance) for [item, chance] in entries if chance >= random]
+        items = [(item, chance) for [item, chance] in entries if random >= chance]
         items = entries if not len(items) else items
         [asset, _] = choice(items)
         return [type, asset]

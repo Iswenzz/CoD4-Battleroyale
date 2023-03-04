@@ -63,7 +63,7 @@ lastDropTrigger()
 	{
 		self waittill("trigger", player);
 
-		origin = (origin[0] + randomIntRange(-500, 500), origin[1] + randomIntRange(-500, 500), origin[2]);
+		origin = (origin[0] + randomIntRange(-100, 100), origin[1] + randomIntRange(-100, 100), origin[2]);
 		player thread playerDrop(origin);
 	}
 }
@@ -131,19 +131,20 @@ playerUnstuck()
 	self endon("disconnect");
 	self endon("drop_end");
 
-	wait 1;
-
-	while (self getVelocity()[2] == 0)
+	while (true)
 	{
+		wait 0.05;
+		if (self getVelocity()[2] != 0)
+			continue;
+
 		distance = distance2D(self.origin, level.zonePosition);
 		amount = 1 / (distance / 100 + 1);
 		speed = amount / 50;
 
 		origin = vectorLerp(self.origin, level.zonePosition, speed);
 		self setOrigin((origin[0], origin[1], self.origin[2]));
-		wait 0.05;
+		self setVelocity((0, 0, -200));
 	}
-	self setVelocity((0, 0, -200));
 }
 
 playerDrop(origin)

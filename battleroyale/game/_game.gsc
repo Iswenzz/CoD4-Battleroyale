@@ -277,6 +277,10 @@ givePlayerWeapon(entity)
 	trigger = entity.trigger;
 	origin = entity.origin;
 
+	currentWeapon = self getCurrentWeapon();
+	if (currentWeapon == "none")
+		return;
+
 	if (self hasWeapon("dog_mp"))
 		self takeWeapon("dog_mp");
 
@@ -288,12 +292,13 @@ givePlayerWeapon(entity)
 	entity delete();
 
 	// Drop current gun if you have 2 weapons
-	if (self.pers["weapons"].size == 2)
+	if (self.pers["weapons"].size >= 2)
 	{
-		currentWeapon = self getCurrentWeapon();
 		currentItem = getWeaponItem(currentWeapon);
-		currentItem createItemTrigger(origin);
+		if (!isDefined(currentItem))
+			return;
 
+		currentItem createItemTrigger(origin);
 		self takeWeapon(currentWeapon);
 	}
 
