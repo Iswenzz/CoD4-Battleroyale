@@ -197,6 +197,7 @@ precache()
 	precacheItem("flash_grenade_mp");
 	precacheItem("smoke_grenade_mp");
 	precacheItem("frag_grenade_mp");
+	precacheItem("fortnite_mp");
 }
 
 precacheText()
