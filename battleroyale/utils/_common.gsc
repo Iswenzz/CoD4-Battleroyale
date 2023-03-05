@@ -89,6 +89,16 @@ isInArray(array)
 	return false;
 }
 
+contains(array, value)
+{
+	for (i = 0; i < array.size; i++)
+	{
+		if (value == array[i])
+			return true;
+	}
+	return false;
+}
+
 removeFromArray(array, value)
 {
 	filters = [];
