@@ -14,6 +14,7 @@ initDvars()
 	addDvar("zone_time", "br_zone_time", 120, 1, 1000, "int");
 	addDvar("zone_levels", "br_zone_levels", 0, 0, 4, "int");
 	addDvar("plane_duration", "br_plane_seconds", 15, 1, 120, "int");
+	addDvar("randomize", "br_randomize", 1, 0, 1, "int");
 
 	setDvar("g_friendlyPlayerCanBlock", 0);
 	setDvar("g_deadChat", 1);
