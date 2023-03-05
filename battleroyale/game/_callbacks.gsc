@@ -91,7 +91,7 @@ playerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 
 	if (game["state"] != "playing")
 		self eventSpawn();
-	if (sMeansOfDeath != "MOD_SUICIDE" && game["state"] == "playing")
+	if (game["state"] == "playing")
 	{
 		deaths = self maps\mp\gametypes\_persistence::statGet("DEATHS");
 		self maps\mp\gametypes\_persistence::statSet("DEATHS", deaths + 1);

@@ -10,9 +10,6 @@ main()
 
 loading()
 {
-	self endon("death");
-	self endon("disconnect");
-
 	if (isDefined(self.loading) || !self isPlaying())
 		return;
 
@@ -33,13 +30,16 @@ loading()
 	self.huds["loading"]["progress"] setShader("white", 0, 8);
 	self.huds["loading"]["progress"] scaleOverTime(time, size, 8);
 
-	while (self.loadingTime < time && !self meleeButtonPressed() && !self getPlayerVelocity())
+	while (isDefined(self) && self.loadingTime < time && !self meleeButtonPressed() && !self getPlayerVelocity())
 	{
 		wait 0.05;
 		self.loadingTime += 0.05;
 	}
 	if (self.loadingTime >= time)
 		loaded = true;
+
+	if (!isDefined(self))
+		return false;
 
 	self.loading = undefined;
 	self enableWeapons();
