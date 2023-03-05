@@ -170,7 +170,7 @@ randomizeMaps(amount)
 	}
 	while (maps.size < amount)
 	{
-		picked = rotation[randomInt(maps.size)];
+		picked = rotation[randomIntRange(0, maps.size - 1)];
 		if (!picked isInArray(maps))
 			maps[maps.size] = picked;
 	}
