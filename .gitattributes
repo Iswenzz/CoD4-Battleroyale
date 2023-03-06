@@ -1,2 +1,2 @@
-*.gsc linguist-language=GSC
+*.gsc linguist-language=C
 *.menu linguist-language=Menu
