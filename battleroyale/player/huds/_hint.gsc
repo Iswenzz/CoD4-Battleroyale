@@ -17,6 +17,7 @@ hud()
 	if (!self isPlaying())
 		return;
 
+	self.huds["hint"] = [];
 	self.huds["hint"]["icon"] = addHud(self, 0, -150, 1, "center", "bottom", 1.5);
 	self.huds["hint"]["label"] = addHud(self, 0, -200, 1, "center", "bottom", 1.5);
 }
