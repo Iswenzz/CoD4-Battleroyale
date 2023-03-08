@@ -28,6 +28,7 @@ plane()
 	{
 		players[i] clearLowerMessage();
 		players[i].health = players[i].maxhealth;
+		players[i].godmode = true;
 		players[i].origin = level.plane.origin + (0, 0, 700);
 		players[i] setPlayerAngles((level.plane.angles[0] + 50, level.plane.angles[1], level.plane.angles[2]));
 		players[i] linkTo(level.plane);
@@ -176,12 +177,12 @@ playerDrop(origin)
 	self giveWeapon("dog_mp");
 	self switchToWeapon("dog_mp");
 	self giveMaxAmmo("dog_mp");
-	self.health = 99999999999999999;
 
 	wait 1;
 	while (!self IsOnGround() && self getVelocity()[2] <= 0)
 		wait .05;
 
+	self.godmode = undefined;
 	self.health = self.maxhealth;
 	self setClientDvar("cg_thirdperson", 0);
 	self detach("sr_parachute", "TAG_ORIGIN");

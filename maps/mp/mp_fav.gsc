@@ -31,7 +31,7 @@ main()
 	battleroyale\game\_api::createPlanePath((-531, 1658, 600), (3127, -3553, 600), -50);
 	battleroyale\game\_api::createPlanePath((3486, -2128, 600), (-1036, 1734, 600), 139);
 	battleroyale\game\_api::createPlaneDrop((634, -421, 651));
-	battleroyale\game\_api::createPlaneDropTrigger((634, -421, 651), 3000);
+	battleroyale\game\_api::createPlaneDropTrigger((1421, -312, 651), 2000);
 	battleroyale\game\_api::createPlaneDuration(10);
 
 	battleroyale\game\_api::createZoneLevels(2);
