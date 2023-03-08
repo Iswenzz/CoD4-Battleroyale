@@ -9,7 +9,7 @@ main()
 	level.allowSpawn = true;
 	level.huds["match"] = [];
 
-	game["roundsplayed"] = 0;
+	game["roundsplayed"] = IfUndef(game["roundsplayed"], 0) + 1;
 	game["roundStarted"] = false;
 	game["state"] = "readyup";
 
@@ -21,11 +21,11 @@ start()
 	level endon("endround");
 	level endon("game over");
 	level notify("kill logic");
+	wait 0.05;
 	level endon("kill logic");
 
 	canStartGame();
 
-	game["roundsplayed"] = IfUndef(game["roundsplayed"], 0) + 1;
 	level notify("round_started", game["roundsplayed"]);
 	level notify("game started");
 	game["state"] = "lobby";
