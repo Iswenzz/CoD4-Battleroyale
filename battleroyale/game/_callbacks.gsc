@@ -97,6 +97,7 @@ playerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 		self maps\mp\gametypes\_persistence::statSet("DEATHS", deaths + 1);
 		self.deaths++;
 		self.pers["deaths"]++;
+		obituary(self, attacker, sWeapon, sMeansOfDeath);
 
 		self thread battleroyale\game\_game::dropWeapon();
 		self thread battleroyale\game\_teams::setTeamDead();
