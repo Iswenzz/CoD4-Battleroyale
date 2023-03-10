@@ -108,7 +108,5 @@ menu_Spectator(arg)
 		self iPrintln("^1Suicide disabled");
 		return;
 	}
-	self battleroyale\game\_teams::setTeam("spectator");
-	self battleroyale\game\_teams::setSpectatePermissions();
-	self eventSpectator();
+	self battleroyale\game\_teams::setSpectator();
 }

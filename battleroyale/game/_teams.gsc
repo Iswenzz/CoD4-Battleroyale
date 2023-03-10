@@ -37,15 +37,16 @@ setTeam(team)
 setTeamDead()
 {
 	self setTeam("axis");
-	self allowSpectateTeam("allies", false);
-	self allowSpectateTeam("axis", false);
-	self allowSpectateTeam("freelook", true);
-	self allowSpectateTeam("none", false);
-
-	wait 1;
-
-	self battleroyale\game\_teams::setSpectatePermissions();
+	self setSpectatePermissions();
 	self eventSpectator();
+}
+
+setSpectator()
+{
+	self setTeam("spectator");
+	self setSpectatePermissions();
+	self eventSpectator(true);
+	self spawnSpectator();
 }
 
 setSpectatePermissions()

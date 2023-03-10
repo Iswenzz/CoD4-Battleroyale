@@ -42,9 +42,12 @@ killcam(
 	attacker 		// Entity object of attacker
 )
 {
+	level endon("game_ended");
 	self endon("disconnect");
 	self endon("spawned");
-	level endon("game_ended");
+	self notify("killcam");
+	wait 0.05;
+	self endon("killcam");
 
 	if (game["state"] == "end" || attackerNum < 0)
 		return;

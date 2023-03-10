@@ -33,9 +33,9 @@ draw(entity)
 	trigger = entity.trigger;
 	item = entity.item;
 
-	while (isDefined(self) && isDefined(trigger) && self isTouching(trigger))
+	while (isDefined(trigger) && self isTouching(trigger))
 	{
-		if (!isDefined(self.touchingItem) && isDefined(self.huds["hint"]))
+		if (isDefined(self.huds["hint"]) && !isDefined(self.touchingItem))
 		{
 			self.huds["hint"]["icon"] setShader(item.icon, 100, 40);
 			self.huds["hint"]["label"] setText("Press ^3[{+activate}] ^7to grab");
@@ -64,4 +64,5 @@ clear()
 				self.huds["hint"][huds[i]] destroy();
 		}
 	}
+	self.huds["hint"] = undefined;
 }
