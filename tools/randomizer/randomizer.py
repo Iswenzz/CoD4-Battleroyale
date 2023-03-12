@@ -10,18 +10,19 @@ class Randomize:
     path: str
     lines: List[str] = []
 
-    assets: Dict[str, List[str]] = {
-        "weapons": [],
-        "ammos": [],
-        "grenades": [],
-        "specials": [],
-    }
+    assets: Dict[str, List[str]] = {}
 
     def __init__(self, path: str):
         """
         Initialize a new Randomize.
         """
         self.path = path
+        self.assets = {
+            "weapons": [],
+            "ammos": [],
+            "grenades": [],
+            "specials": [],
+        }
         self.read()
         self.randomize()
         self.save()
@@ -58,7 +59,7 @@ class Randomize:
         """
         Get the assets percentage.
         """
-        return (len(self.assets[type]) / len(self.lines)) * 100;
+        return (len(self.assets[type]) / len(self.lines)) * 100
 
     def getAssetType(self) -> str:
         """

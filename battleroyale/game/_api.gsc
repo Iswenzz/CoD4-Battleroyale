@@ -111,6 +111,7 @@ createAmmo(id, model, sound, icon, count, rng)
 	item.count = count;
 	item.model = model;
 	item.rng = rng;
+	item.entities = [];
 	item.give = ::givePlayerAmmo;
 
 	level.items[id] = item;
@@ -128,6 +129,7 @@ createWeapon(id, mag, sound, icon, weapon, rng)
 	item.weapon = weapon;
 	item.model = getWeaponModel(weapon);
 	item.rng = rng;
+	item.entities = [];
 	item.give = ::givePlayerWeapon;
 
 	level.items[id] = item;
@@ -143,6 +145,7 @@ createSpecial(id, model, sound, icon, rng)
 	item.icon = icon;
 	item.model = model;
 	item.rng = rng;
+	item.entities = [];
 	item.give = ::givePlayerSpecial;
 
 	level.items[id] = item;
@@ -159,6 +162,7 @@ createGrenade(id, sound, icon, weapon, rng)
 	item.weapon = weapon;
 	item.model = getWeaponModel(weapon);
 	item.rng = rng;
+	item.entities = [];
 	item.give = ::givePlayerGrenade;
 
 	level.items[id] = item;

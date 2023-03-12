@@ -49,6 +49,8 @@ main()
 	sr\commands\_vote::main();
 	sr\commands\_map::main();
 
+	battleroyale\commands\_battleroyale::main();
+
 	battleroyale\game\_match::main();
 	battleroyale\game\_game::initGame();
 	battleroyale\game\_zone::main();

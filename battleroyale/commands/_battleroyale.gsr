@@ -1,0 +1,62 @@
+#include sr\sys\_admins;
+#include sr\sys\_events;
+#include sr\utils\_common;
+
+main()
+{
+	cmd("owner",	"br_weapons",			::cmd_Weapons);
+	cmd("owner",	"br_weapons_teleport",	::cmd_WeaponsTeleport);
+}
+
+cmd_Weapons(args)
+{
+	weapons = [];
+	items = battleroyale\game\_game::getAllItems();
+	count = 0;
+
+	for (i = 0; i < items.size; i++)
+	{
+		if (items[i].type == "weapon")
+			weapons[weapons.size] = items[i];
+	}
+	for (i = 0; i < weapons.size; i++)
+	{
+		weapon = weapons[i];
+		for (j = 0; j < weapon.entities.size; j++)
+		{
+			if (isDefined(weapon.entities[j]))
+				count++;
+		}
+	}
+	message(fmt("^5Weapons: %d", count));
+}
+
+cmd_WeaponsTeleport(args)
+{
+	weapons = [];
+	entities = [];
+	items = battleroyale\game\_game::getAllItems();
+
+	for (i = 0; i < items.size; i++)
+	{
+		if (items[i].type == "weapon")
+			weapons[weapons.size] = items[i];
+	}
+	for (i = 0; i < weapons.size; i++)
+	{
+		weapon = weapons[i];
+		for (j = 0; j < weapon.entities.size; j++)
+		{
+			if (isDefined(weapon.entities[j]))
+				entities[entities.size] = weapon.entities[j];
+		}
+	}
+	message(fmt("^5Weapons: %d", entities.size));
+
+	for (i = 0; i < entities.size; i++)
+	{
+		entity = entities[i];
+		self setOrigin(entity.origin);
+		wait 1;
+	}
+}
