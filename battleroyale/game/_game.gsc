@@ -166,7 +166,7 @@ randomize()
 
 	for (i = 0; i < self.entities.size; i++)
 	{
-		if (!level.dvar["randomize"] || randomIntRange(0, self.rng) == 0)
+		if (!level.dvar["randomize"] || randomIntRange(level.RNG_NONE, level.RNG_RARE) >= self.rng)
 		{
 			self triggerEntity(self.entities[i]);
 			continue;
