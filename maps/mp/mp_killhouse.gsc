@@ -15,12 +15,9 @@ main()
 	game["allies_soldiertype"] = "woodland";
 	game["axis_soldiertype"] = "woodland";
 
-	setdvar( "r_specularcolorscale", "1" );
-
-	setdvar("r_glowbloomintensity0",".25");
-	setdvar("r_glowbloomintensity1",".25");
-	setdvar("r_glowskybleedintensity0",".3");
-	setdvar("compassmaxrange","2200");
-
-
+	setdvar("r_specularcolorscale", "1" );
+	setdvar("r_glowbloomintensity0", ".25");
+	setdvar("r_glowbloomintensity1", ".25");
+	setdvar("r_glowskybleedintensity0", ".3");
+	setdvar("compassmaxrange", "2200");
 }

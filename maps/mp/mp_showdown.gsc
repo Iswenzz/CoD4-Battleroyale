@@ -14,8 +14,7 @@ main()
 	game["defenders"] = "allies";
 	game["allies_soldiertype"] = "desert";
 	game["axis_soldiertype"] = "desert";
-	
-	setdvar( "r_specularcolorscale", "1" );
-	
-	setdvar("compassmaxrange","2000");
+
+	setDvar("r_specularcolorscale", "1");
+	setDvar("compassmaxrange","2000");
 }

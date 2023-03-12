@@ -14,8 +14,7 @@ main()
 	game["defenders"] = "axis";
 	game["allies_soldiertype"] = "woodland";
 	game["axis_soldiertype"] = "woodland";
-	
-	setdvar( "r_specularcolorscale", "1.5" );
-	
-	setdvar("compassmaxrange","2000");
+
+	setdvar("r_specularcolorscale", "1.5");
+	setdvar("compassmaxrange", "2000");
 }
