@@ -67,6 +67,8 @@ defaultItems()
 
 onConnect()
 {
+	self endon("disconnect");
+
 	self setClientDvars(
 		"cg_drawfriendlynames", 1,
 		"cg_friendlyNameFadeIn", 1,

@@ -39,6 +39,9 @@ canStartGame()
 	count = 0;
 	players = getAllPlayers();
 
+	while (level.dvar["event"])
+		wait 0.05;
+
 	for (i = 0; i < players.size; i++)
 	{
 		if (players[i] isPlaying())

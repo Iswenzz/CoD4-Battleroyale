@@ -7,6 +7,7 @@ initDvars()
 	addDvar("match_need_players", "br_match_need_players", 2, 1, 10, "int");
 	addDvar("rounds", "br_rounds", 4, 1, 10, "int");
 	addDvar("map_vote", "br_map_vote", 1, 0, 1, "int");
+	addDvar("event", "br_event", 0, 0, 1, "int");
 	addDvar("debug", "br_debug", 0, 0, 1, "int");
 	addDvar("votemap", "br_votemap", 1, 0, 1, "int");
 	addDvar("lobby_countdown", "br_lobby_countdown", 10, 0, 60, "int");
