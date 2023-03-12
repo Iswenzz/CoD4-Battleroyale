@@ -50,6 +50,9 @@ loading()
 
 bandage(args)
 {
+	self endon("death");
+	self endon("disconnect");
+
 	if (!isDefined(self.pers["bandage"]) || !self.pers["bandage"])
 		return;
 
@@ -63,6 +66,9 @@ bandage(args)
 
 firstKit(args)
 {
+	self endon("death");
+	self endon("disconnect");
+
 	if (!isDefined(self.pers["first_kit"]) || !self.pers["first_kit"])
 		return;
 
