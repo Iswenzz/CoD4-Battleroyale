@@ -6,6 +6,8 @@ main()
 {
 	menu("-1", "bandage", ::bandage);
 	menu("-1", "first_kit", ::firstKit);
+
+	event("death", ::clear);
 }
 
 loading()
