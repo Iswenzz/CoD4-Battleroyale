@@ -13,7 +13,7 @@ main()
 loading()
 {
 	if (isDefined(self.loading) || !self isPlaying())
-		return;
+		return false;
 
 	self.loading = true;
 	self.loadingTime = 0;
