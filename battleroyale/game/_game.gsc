@@ -139,7 +139,7 @@ watchPlayers()
 
 	game["killcam"] = true;
 	killcam = level.killcam;
-	killcam.entity battleroyale\game\_killcam::start(3, killcam.eInflictor, killcam.attacker, killcam.sWeapon);
+	killcam.entity battleroyale\game\_killcam::start(3, 10, killcam.eInflictor, killcam.attacker, killcam.sWeapon);
 	wait 3;
 	if (isDefined(killcam.attacker) && isPlayer(killcam.attacker))
 		killcam.attacker suicide();

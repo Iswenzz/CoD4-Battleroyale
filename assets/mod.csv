@@ -28,6 +28,7 @@ material,default
 material,hit_direction
 material,caulk
 material,headicon_admin
+material,headicon_voice
 material,hudstopwatch
 material,score_icon
 material,faction_128_sas_black

@@ -13,7 +13,7 @@ main()
 	setArchive(true);
 }
 
-start(startDelay, eInflictor, attacker, sWeapon)
+start(startDelay, time, eInflictor, attacker, sWeapon)
 {
 	if (!isDefined(self) || !isDefined(attacker) || !isDefined(eInflictor) || !isPlayer(self))
 		return;
@@ -25,7 +25,7 @@ start(startDelay, eInflictor, attacker, sWeapon)
 	for (i = 0; i < players.size; i++)
 	{
 		players[i] setClientDvars("cg_thirdperson", int(level.dvar["pi_kc_tp"]), "r_blur", level.dvar["pi_kc_blur"]);
-		players[i] thread killcam(attacker getEntityNumber(), -1, sWeapon, startDelay, 0, 0, 0, 10, undefined, attacker);
+		players[i] thread killcam(attacker getEntityNumber(), -1, sWeapon, startDelay, 0, 0, 0, time, undefined, attacker);
 	}
 }
 
