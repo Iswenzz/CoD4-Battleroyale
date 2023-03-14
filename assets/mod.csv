@@ -249,8 +249,7 @@ material,speedrunner_logo
 material,sr_vip
 
 // Sounds
-rawfile,soundaliases/battleroyale.csv
-rawfile,soundaliases/multiplayer.csv
+sound,speedrun,,all_mp
 sound,battleroyale,,all_mp
 sound,user_interface,,all_mp
 
