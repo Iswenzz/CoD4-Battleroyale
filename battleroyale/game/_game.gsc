@@ -418,3 +418,34 @@ getAllItemsHud()
 	}
 	return items;
 }
+
+getItemsByType(type)
+{
+	items = [];
+	keys = getArrayKeys(level.items);
+	for (i = 0; i < keys.size; i++)
+	{
+		item = level.items[keys[i]];
+		if (item.type != type)
+			continue;
+		items[items.size] = item;
+	}
+	return items;
+}
+
+getEntitiesByType(type)
+{
+	entities = [];
+	items = getItemsByType(type);
+
+	for (i = 0; i < items.size; i++)
+	{
+		item = items[i];
+		for (j = 0; j < item.entities.size; j++)
+		{
+			if (isDefined(item.entities[j]))
+				entities[entities.size] = item.entities[j];
+		}
+	}
+	return entities;
+}
