@@ -184,8 +184,6 @@ CodeCallback_PlayerDisconnect()
 
 	for (i = 0; isDefined(level.events["disconnect"]) && i < level.events["disconnect"].size; i++)
 		self thread [[level.events["disconnect"][i]]]();
-
-	iPrintln(self.name + " ^7left the game");
 }
 
 CodeCallback_PlayerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, timeOffset)

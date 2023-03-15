@@ -35,19 +35,22 @@ weapons()
 	self endon("disconnect");
 	self endon("death");
 
+	self.currentWeapon = "";
 	self.prevWeapon = "";
 	self.prevAmmoClip = 0;
 
 	while (true)
 	{
-		self.currentWeapon = self getCurrentWeapon();
-		item = getWeaponItem(self.currentWeapon);
+		weapon = self getCurrentWeapon();
+		item = getWeaponItem(weapon);
 
 		if (!isDefined(item))
 		{
 			wait 0.05;
 			continue;
 		}
+		self.currentWeapon = weapon;
+
 		self updateClip(item);
 		self updateStock(item);
 

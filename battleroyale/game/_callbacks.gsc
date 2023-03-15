@@ -64,11 +64,7 @@ playerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vP
 		return;
 
 	if (isPlayer(eAttacker) && eAttacker != self)
-	{
 		eAttacker maps\mp\gametypes\_weapons::checkHit(sWeapon);
-		eAttacker iPrintln("You hit " + self.name + " ^7for ^2" + iDamage + " ^7damage.");
-		self iPrintln(eAttacker.name + " ^7hit you for ^2" + iDamage + " ^7damage.");
-	}
 
 	iDFlags |= level.iDFLAGS_NO_KNOCKBACK;
 
@@ -90,18 +86,23 @@ playerKilled(eInflictor, attacker, iDamage, sMeansOfDeath, sWeapon, vDir, sHitLo
 		sMeansOfDeath = "MOD_HEAD_SHOT";
 
 	if (game["state"] != "playing")
+	{
 		self eventSpawn();
-	if (game["state"] == "playing")
+		return;
+	}
+	if (sMeansOfDeath != "MOD_SUICIDE")
 	{
 		deaths = self maps\mp\gametypes\_persistence::statGet("DEATHS");
 		self maps\mp\gametypes\_persistence::statSet("DEATHS", deaths + 1);
 		self.deaths++;
 		self.pers["deaths"]++;
-
-		self thread battleroyale\game\_game::dropWeapon();
-		self thread battleroyale\game\_teams::setTeamDead();
-		self thread ragdoll(sHitLoc, vDir, sWeapon, eInflictor, sMeansOfDeath, deathAnimDuration);
+		obituary(self, attacker, sWeapon, sMeansOfDeath);
 	}
+
+	self thread battleroyale\game\_game::dropWeapon();
+	self thread battleroyale\game\_teams::setTeamDead();
+	self thread ragdoll(sHitLoc, vDir, sWeapon, eInflictor, sMeansOfDeath, deathAnimDuration);
+
 	if (!isPlayer(attacker) || attacker == self)
 		return;
 

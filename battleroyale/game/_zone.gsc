@@ -11,13 +11,13 @@ main()
 	level.zoneNextRadius = 0;
 	level.zoneDamageTime = 0;
 	level.zoneTime = level.dvar["zone_time"];
-	level.zoneLastTime = 240;
+	level.zoneLastTime = 90;
 
 	addZone("sr_zonetrig_40k", 40000, 20000, 6, level.zoneTime);
 	addZone("sr_zonetrig_20k", 20000, 10000, 6, level.zoneTime);
 	addZone("sr_zonetrig_10k", 10000, 5000, 4, level.zoneTime);
 	addZone("sr_zonetrig_5k", 5000, 2500, 4, level.zoneTime);
-	addZone("sr_zonetrig_2k5", 2500, 1250, 2, level.zoneTime);
+	addZone("sr_zonetrig_2k5", 2500, 1250, 4, level.zoneTime);
 	addZone("sr_zonetrig_1k25", 1250, 625, 2, level.zoneTime);
 	addZone("sr_zonetrig_625", 625, 625, 2, level.zoneTime);
 

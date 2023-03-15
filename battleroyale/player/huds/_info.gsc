@@ -18,13 +18,15 @@ hud()
 		return;
 
 	self.huds["info"] = [];
-	self.huds["info"]["number"] = addHud(self, 10, 35, 1, "left", "top", 1.4);
-	self.huds["info"]["number"].label = &"#&&1";
+	self.huds["info"]["alive"] = addHud(self, -22, 34, 1, "right", "top", 1.4, 101, true);
+	self.huds["info"]["alive"].label = &"&&1 ALIVE";
+	self.huds["info"]["alive_background"] = addHud(self, -12, 34, 0.5, "right", "top", 1.4, 100, true);
+	self.huds["info"]["alive_background"] setShader("black", 60, 17);
 
 	while (true)
 	{
 		players = getPlayingPlayers();
-		self.huds["info"]["number"] setValue(players.size);
+		self.huds["info"]["alive"] setValue(players.size);
 		wait 0.2;
 	}
 }

@@ -261,6 +261,11 @@ dropWeapon()
 	currentItem createItemTrigger(origin);
 }
 
+newWeapon(weapon)
+{
+	return !self.pers[weapon];
+}
+
 givePlayerAmmo(entity)
 {
 	item = entity.item;
@@ -290,11 +295,13 @@ givePlayerWeapon(entity)
 	if (self hasWeapon(item.weapon))
 		return;
 
+	type = weaponInventoryType(item.weapon);
+
 	trigger delete();
 	entity delete();
 
 	// Drop current gun if you have 2 weapons
-	if (self.pers["weapons"].size >= 2)
+	if (self.pers["weapons"].size >= 2 && type != "item")
 	{
 		currentItem = getWeaponItem(currentWeapon);
 		if (!isDefined(currentItem))
@@ -308,6 +315,12 @@ givePlayerWeapon(entity)
 	self switchToWeapon(item.weapon);
 	self playSound(item.sound);
 	self refreshWeaponsList();
+
+	mag = getAmmoItem(item.mag);
+	if (!isDefined(mag) || !self newWeapon(item.id))
+		return;
+	self.pers[mag.id] += mag.count;
+	self.pers[item.id] = true;
 }
 
 givePlayerGrenade(entity)

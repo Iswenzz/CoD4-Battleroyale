@@ -632,7 +632,7 @@
 		name			"CenterObituary"
 		rect			0 150 0 0 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
 		fullScreen		0
-		visible			1
+		visible			0
 
 		itemDef
 		{
@@ -650,19 +650,19 @@
 	menuDef
 	{
 		name			"gamemessages"
-		rect			6 -10 10 10 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+		rect			-15 70 10 10 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
 		fullScreen		0
-		visible			0
+		visible			1
 
 		itemDef
 		{
 			origin				0 0
 			type				ITEM_TYPE_GAME_MESSAGE_WINDOW
 			gamemsgwindowindex	0
-			gamemsgwindowmode	MODE_BOTTOMUP_ALIGN_BOTTOM
+			gamemsgwindowmode	MODE_TOPDOWN_ALIGN_TOP
 			textfont			UI_FONT_DEFAULT
 			textstyle			ITEM_TEXTSTYLE_SHADOWED
-			textalign			ITEM_ALIGN_LEFT
+			textalign			ITEM_ALIGN_RIGHT
 			textscale			0.25
 			visible				when (dvarint(ui_hud_obituaries) == 1 && !ui_active());
 		}
