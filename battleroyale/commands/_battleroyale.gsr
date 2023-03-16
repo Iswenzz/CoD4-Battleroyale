@@ -6,6 +6,7 @@
 main()
 {
 	cmd("owner",	"br_origin",			::cmd_Origin);
+	cmd("owner",	"br_origin_api",		::cmd_OriginAPI);
 	cmd("owner",	"br_weapons",			::cmd_Weapons);
 	cmd("owner",	"br_weapons_teleport",	::cmd_WeaponsTeleport);
 }
@@ -22,6 +23,27 @@ cmd_Origin(args)
 	FILE_Close(file);
 
 	self pm(fmt("Saved origin: ^5%d %d %d", x, y, z));
+}
+
+cmd_OriginAPI(args)
+{
+	if (args.size < 1)
+		return self pm("Usage: br_origin_api <type>");
+
+	type = args[0];
+
+	items = battleroyale\game\_game::getItemsByType("weapon");
+	item = items[randomInt(items.size)];
+	file = FILE_Open(PATH_Mod(fmt("sr/data/debug/origins/%s", level.map)), "a");
+
+	x = int(self.origin[0]);
+	y = int(self.origin[1]);
+	z = int(self.origin[2]) + 60;
+
+	FILE_WriteLine(file, fmt("battleroyale\\game\\_api::createEntity(\"%s\", (%d, %d, %d));", item.id, x, y, z));
+	FILE_Close(file);
+
+	self pm(fmt("Saved %s: %s ^5%d %d %d", item.type, item.id, x, y, z));
 }
 
 cmd_Weapons(args)
