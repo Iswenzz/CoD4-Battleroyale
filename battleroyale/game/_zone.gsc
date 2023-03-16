@@ -53,7 +53,7 @@ zone()
 	level.zonePosition = level.zoneSpawns[randomIntrange(0, level.zoneSpawns.size - 1)];
 	level waittill("br_started");
 
-	wait 30;
+	wait 10;
 
 	finalZone = spawn("script_model", level.zonePosition);
 	finalZone setModel("sr_zonetrig_final");
@@ -61,23 +61,39 @@ zone()
 
 	for (i = 0; i < level.zones.size; i++)
 		level.zones[i] restrict();
+	closeArea();
 
+	objective_delete(0);
+	finalZone delete();
+}
+
+closeArea()
+{
 	level notify("zone_close");
 	level notify("zone", level.zoneLastTime);
-	thread message("^1CLOSING THE PLAY AREA IN " + int(level.zoneLastTime / 60) + " MIN");
+
+	if (level.zoneLastTime < 60)
+		thread message("^1CLOSING THE PLAY AREA IN " + level.zoneLastTime + " SEC");
+	else
+		thread message("^1CLOSING THE PLAY AREA IN " + int(level.zoneLastTime / 60) + " MIN");
+
 	level.tempEntity playSound("mp_last_stand");
 	wait level.zoneLastTime;
 
 	level notify("zone_end");
 	level.tempEntity playSound("mp_last_stand");
-	objective_delete(0);
-	finalZone delete();
 }
 
 restrict()
 {
 	if (level.dvar["zone_levels"] > self.index)
+	{
+		level.zoneLevel = self.index;
+		level.zoneRadius = self.radius;
+		level.zoneNextRadius = self.nextRadius;
+		level.zoneDamageTime = self.damageTime;
 		return;
+	}
 
 	level endon("game over");
 	level notify("zone", self.time);
