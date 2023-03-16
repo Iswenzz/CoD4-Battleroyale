@@ -116,16 +116,6 @@ watchPlayerDrop(trigger)
 	self thread playerDrop(origin);
 }
 
-deg2rad(deg)
-{
-    return deg * 3.14159265 / 180.0;
-}
-
-rad2deg(rad)
-{
-    return rad * 180.0 / 3.14159265;
-}
-
 playerUnstuck()
 {
 	self endon("death");
@@ -143,9 +133,16 @@ playerUnstuck()
 		speed = amount / 50;
 
 		origin = vectorLerp(self.origin, level.zonePosition, speed);
-		self setOrigin((origin[0], origin[1], self.origin[2]));
+		self setOrigin(origin);
 		self setVelocity((0, 0, -200));
+
+		self.planeUnstuck++;
+		if (self.planeUnstuck >= 40)
+			break;
 	}
+	origin = level.dropOrigin;
+	origin = (origin[0] + randomIntRange(-100, 100), origin[1] + randomIntRange(-100, 100), origin[2]);
+	self setOrigin(origin);
 }
 
 playerDrop(origin)
@@ -153,6 +150,7 @@ playerDrop(origin)
 	if (isDefined(self.planeDrop))
 		return;
 	self.planeDrop = true;
+	self.planeUnstuck = 0;
 
 	self endon("death");
 	self endon("disconnect");
