@@ -51,10 +51,6 @@ createPlanePath(start, end, angle)
 	path[0].targetname = "plane_" + level.planePath;
 	path[1] = spawn("script_origin", end);
 	path[1].targetname = "plane_" + level.planePath;
-
-	trigger = spawn("trigger_radius", path[1].origin, 0, 300, 300);
-	trigger.radius = 300;
-	trigger.targetname = "drop_recover";
 }
 
 createPlaneDrop(origin)

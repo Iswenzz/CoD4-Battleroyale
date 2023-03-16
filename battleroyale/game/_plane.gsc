@@ -52,20 +52,17 @@ watchLastDrop()
 	if (!isDefined(level.dropOrigin))
 		assertMsg("ERROR: Plane drop is not defined.\nUse the function createPlaneDrop(<origin>).");
 
-	triggers = getEntArray("drop_recover", "targetname");
-	for (i = 0; i < triggers.size; i++)
-		triggers[i] thread lastDropTrigger();
-}
+	level waittill("plane_stop");
+	players = getPlayingPlayers();
 
-lastDropTrigger()
-{
-	origin = level.dropOrigin;
-	while (true)
+	for (i = 0; i < players.size; i++)
 	{
-		self waittill("trigger", player);
+		if (isDefined(players[i].planeDrop))
+			continue;
 
+		origin = level.dropOrigin;
 		origin = (origin[0] + randomIntRange(-100, 100), origin[1] + randomIntRange(-100, 100), origin[2]);
-		player thread playerDrop(origin);
+		players[i] thread playerDrop(origin);
 	}
 }
 
