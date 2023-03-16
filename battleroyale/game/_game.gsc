@@ -113,6 +113,8 @@ end()
 
 spawnItems()
 {
+	wait 1;
+
 	items = getAllItems();
 	for (i = 0; i < items.size; i++)
 		items[i] randomize();

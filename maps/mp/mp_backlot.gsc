@@ -31,7 +31,7 @@ main()
 	battleroyale\game\_api::createPlaneDropTrigger((-86, -31, 500), 2000);
 	battleroyale\game\_api::createPlaneDuration(10);
 
-	battleroyale\game\_api::createZoneLevels(4);
+	battleroyale\game\_api::createZoneLevels(3);
 	battleroyale\game\_api::createZone((-496, 1834, 124));
 	battleroyale\game\_api::createZone((591, 1293, 90));
 	battleroyale\game\_api::createZone((1209, -12, 118));
@@ -47,29 +47,53 @@ main()
 
 spawnEntities()
 {
+	battleroyale\game\_api::createEntity("ak47", (235, 524, 129));
 	battleroyale\game\_api::createEntity("at4", (1481, -346, 300));
 	battleroyale\game\_api::createEntity("at4", (232, 1673, 292));
 	battleroyale\game\_api::createEntity("at4", (836, -1540, 132));
+	battleroyale\game\_api::createEntity("at4", (-843, 1533, 140));
 	battleroyale\game\_api::createEntity("at4", (982, -1426, 268));
+	battleroyale\game\_api::createEntity("beretta", (-1170, -417, 166));
+	battleroyale\game\_api::createEntity("beretta", (498, -1084, 132));
+	battleroyale\game\_api::createEntity("colt45", (1148, -1471, 268));
+	battleroyale\game\_api::createEntity("deserteagle", (38, 542, 129));
+	battleroyale\game\_api::createEntity("deserteaglegold", (-839, 973, 124));
+	battleroyale\game\_api::createEntity("dragunov", (133, 183, 118));
+	battleroyale\game\_api::createEntity("dragunov", (291, -314, 264));
+	battleroyale\game\_api::createEntity("dragunov", (526, -477, 128));
 	battleroyale\game\_api::createEntity("dragunov", (-820, 161, 318));
 	battleroyale\game\_api::createEntity("g3", (1217, -1449, 132));
 	battleroyale\game\_api::createEntity("g3", (299, 1685, 292));
 	battleroyale\game\_api::createEntity("g36c", (-650, -2549, 124));
 	battleroyale\game\_api::createEntity("g36c", (-964, -1017, 124));
-	battleroyale\game\_api::createEntity("m1014", (-1227, -451, 318));
 	battleroyale\game\_api::createEntity("m1014", (106, 1317, 128));
+	battleroyale\game\_api::createEntity("m1014", (-1227, -451, 318));
+	battleroyale\game\_api::createEntity("m14", (-1215, -286, -21));
+	battleroyale\game\_api::createEntity("m14", (-791, 115, 15));
+	battleroyale\game\_api::createEntity("m16", (1816, -903, 136));
 	battleroyale\game\_api::createEntity("m16", (-910, 1099, 140));
 	battleroyale\game\_api::createEntity("m21", (268, -307, 128));
 	battleroyale\game\_api::createEntity("m4", (-1146, -133, 166));
-	battleroyale\game\_api::createEntity("m40a3", (-805, -319, 166));
 	battleroyale\game\_api::createEntity("m40a3", (1062, 1366, 124));
+	battleroyale\game\_api::createEntity("m40a3", (493, 295, 258));
+	battleroyale\game\_api::createEntity("m40a3", (-805, -319, 166));
+	battleroyale\game\_api::createEntity("m40a3", (847, -1534, 268));
+	battleroyale\game\_api::createEntity("m60e4", (-1147, -1032, 124));
+	battleroyale\game\_api::createEntity("mp44", (-385, 584, 128));
 	battleroyale\game\_api::createEntity("mp44", (851, -1351, 268));
+	battleroyale\game\_api::createEntity("remington700", (-1234, 152, 15));
 	battleroyale\game\_api::createEntity("remington700", (1668, 1134, 124));
 	battleroyale\game\_api::createEntity("remington700", (174, 943, 128));
 	battleroyale\game\_api::createEntity("remington700", (1907, 304, 300));
+	battleroyale\game\_api::createEntity("rpd", (139, 2450, 124));
+	battleroyale\game\_api::createEntity("saw", (-366, -929, 124));
+	battleroyale\game\_api::createEntity("saw", (-989, -511, 166));
 	battleroyale\game\_api::createEntity("skorpion", (753, 1351, 124));
-	battleroyale\game\_api::createEntity("usp", (-1258, 84, 15));
+	battleroyale\game\_api::createEntity("skorpion", (-795, 2249, 124));
 	battleroyale\game\_api::createEntity("usp", (1074, -1558, 268));
+	battleroyale\game\_api::createEntity("usp", (-1258, 84, 15));
+	battleroyale\game\_api::createEntity("uzi", (-1246, 1076, 124));
+	battleroyale\game\_api::createEntity("uzi", (689, 376, 258));
 	battleroyale\game\_api::createEntity("winchester1200", (1439, 391, 300));
 
 	battleroyale\game\_api::createEntity("12_gauge", (761, 1675, 124));
