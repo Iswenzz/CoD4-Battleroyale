@@ -11,10 +11,10 @@ rm -v _zz.iwd
 
 # SR
 cd "$SR/assets"
-7z a -r -tzip "$MOD/_images.iwd" images
-7z a -r -tzip "$MOD/_sounds.iwd" sound
-7z a -r -tzip "$MOD/_weapons.iwd" weapons
-7z a -r -tzip "$MOD/_z.iwd" misc/iwds/_z
+7z a -r -tzip "$MOD/_images.iwd" images/*
+7z a -r -tzip "$MOD/_sounds.iwd" sound/*
+7z a -r -tzip "$MOD/_weapons.iwd" weapons/*
+7z a -r -tzip "$MOD/_z.iwd" misc/iwds/_z/*
 7z rn "$MOD/_z.iwd" misc/iwds/_z sound
 
 # IWDs
