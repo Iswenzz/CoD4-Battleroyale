@@ -60,7 +60,7 @@ playerDamage(eInflictor, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vP
 
 	level notify("player_damage", self, eAttacker, iDamage, iDFlags, sMeansOfDeath, sWeapon, vPoint, vDir, sHitLoc, psOffsetTime);
 
-	if (isPlayer(eAttacker) && sMeansOfDeath == "MOD_MELEE" && isWallKnifing(eAttacker, self))
+	if (isPlayer(eAttacker) && sMeansOfDeath == "MOD_MELEE" && isWallbang(eAttacker, self))
 		return;
 
 	if (isPlayer(eAttacker) && eAttacker != self)

@@ -38,7 +38,7 @@ cleanScreen()
 	}
 }
 
-isWallKnifing(attacker, victim)
+isWallbang(attacker, victim)
 {
 	start = attacker getEye();
 	end = victim getEye();
