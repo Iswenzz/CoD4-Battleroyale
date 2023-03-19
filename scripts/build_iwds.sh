@@ -19,7 +19,7 @@ cd "$SR/assets"
 
 # IWDs
 cd "$MOD/assets"
-7z a -r -tzip "$MOD/_images.iwd" images
-7z a -r -tzip "$MOD/_sounds.iwd" sound
-7z a -r -tzip "$MOD/_weapons.iwd" weapons
+7z a -r -tzip "$MOD/_images.iwd" images/*
+7z a -r -tzip "$MOD/_sounds.iwd" sound/*
+7z a -r -tzip "$MOD/_weapons.iwd" weapons/*
 cd "$MOD/scripts"
