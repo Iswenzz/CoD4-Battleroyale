@@ -373,12 +373,12 @@ processXpReward(sMeansOfDeath, attacker, victim)
 	kills = attacker maps\mp\gametypes\_persistence::statGet("KILLS");
 	attacker maps\mp\gametypes\_persistence::statSet("KILLS", kills + 1);
 
-	if (victim.pers["team"] == "allies")
+	if (victim isAllies())
 	{
 		kills = attacker maps\mp\gametypes\_persistence::statGet("ALLIES_KILLS");
 		attacker maps\mp\gametypes\_persistence::statSet("ALLIES_KILLS", kills + 1);
 	}
-	else if (victim.pers["team"] == "axis")
+	else if (victim isAxis())
 	{
 		kills = attacker maps\mp\gametypes\_persistence::statGet("AXIS_KILLS");
 		attacker maps\mp\gametypes\_persistence::statSet("AXIS_KILLS", kills + 1);
