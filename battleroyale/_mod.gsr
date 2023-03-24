@@ -79,6 +79,7 @@ dvars()
 {
 	addDvar("demos", "sr_demos", 1, 0, 1, "int");
 	addDvar("demos_timeout", "sr_demos_timeout", 120, 20, 1200, "int");
+	addDvar("map_edition", "sr_map_edition", 0, 0, 1, "int");
 }
 
 precache()
