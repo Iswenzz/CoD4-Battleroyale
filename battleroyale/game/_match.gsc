@@ -1,7 +1,6 @@
 #include battleroyale\sys\_events;
 #include battleroyale\utils\_common;
-
-#include maps\mp\gametypes\_hud_util;
+#include battleroyale\utils\_hud;
 
 main()
 {
@@ -57,14 +56,11 @@ canStartGame()
 waitForMorePlayers()
 {
 	if (isDefined(level.huds["match"]["text"]))
-		level.huds["match"]["text"] destroyElem();
+		level.huds["match"]["text"] destroy();
 
-	level.huds["match"]["text"] = createServerFontString("objective", 1.5);
-	level.huds["match"]["text"] setPoint("CENTER", "CENTER", 0, -20);
-	level.huds["match"]["text"].sort = 1001;
+	level.huds["match"]["text"] = addHud(level, 0, -20, 1, "center", "middle", 1.5, 1001);
 	level.huds["match"]["text"] setText(level.texts["waiting_for_players"]);
-	level.huds["match"]["text"].foreground = false;
-	level.huds["match"]["text"].hidewheninmenu = true;
+	level.huds["match"]["text"].font = "objective";
 
 	wait 1;
 }
@@ -72,9 +68,7 @@ waitForMorePlayers()
 lobbyStart()
 {
 	if (isDefined(level.huds["match"]["text"]))
-		level.huds["match"]["text"] destroyElem();
-	if (isDefined(level.huds["match"]["timer"]))
-		level.huds["match"]["timer"] destroyElem();
+		level.huds["match"]["text"] destroy();
 
 	level notify("br_lobby");
 
