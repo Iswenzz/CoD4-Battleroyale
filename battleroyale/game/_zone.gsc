@@ -53,7 +53,7 @@ zone()
 	level.zonePosition = level.zoneSpawns[randomIntrange(0, level.zoneSpawns.size - 1)];
 	level waittill("br_started");
 
-	wait 10;
+	wait 30;
 
 	finalZone = spawn("script_model", level.zonePosition);
 	finalZone setModel("sr_zonetrig_final");
