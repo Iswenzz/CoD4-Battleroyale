@@ -1,6 +1,6 @@
 #!/bin/bash
 export NAME=sr_battleroyale
-export GAME="/d/Program Files (x86)/Activision/Cod4Mod"
+export GAME=$(realpath "../../..")
 export MOD="$GAME/mods/$NAME"
 export SR="$MOD/sr"
 
