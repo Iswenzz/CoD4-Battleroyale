@@ -1,3 +1,4 @@
+data/
 demos/
 wrs/
 *.log
@@ -12,3 +13,4 @@ speedrun.cfg
 serverstatus.xml
 sys_error.txt
 missingasset.csv
+.env
