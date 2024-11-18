@@ -2,11 +2,11 @@
 
 [![License](https://img.shields.io/github/license/Iswenzz/CoD4-BattleRoyale?color=blue&logo=gitbook&logoColor=white)](https://github.com/Iswenzz/CoD4-BattleRoyale/blob/master/LICENSE)
 
+![](https://i.imgur.com/HOTSmrJ.png)
+
 Call of Duty 4 Battle Royale is a first-person shooter game that engages in survival, exploration and much more. It is a strong
 last man standing gameplay that requires you to search for equipment and weaponary which will help you defeat enemies.
 Call of Duty 4's battle royale is based off of many other games such as H1Z1, PlayerUnknown's Battlegrounds, and Fortnite!
-
-![](https://i.imgur.com/RggYRvR.png)
 
 This mod comes with it's own custom map called, ``MP_BR_BLACKOUT``, which is designed for over 30 players. This map utilizes the entirety of the Call of Duty 4 game engine, and pushes the game to it's limits.
 
