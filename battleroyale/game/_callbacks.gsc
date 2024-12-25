@@ -160,7 +160,7 @@ serverDvars()
 		"ui_3dwaypointtext", "1",
 		"ui_deathicontext", "1",
 		"cl_maxpackets", 125,
-		"rate", 25000,
+		"rate", 100000,
 		"ip", getDvar("net_ip"),
 		"port", getDvar("net_port")
 	);
