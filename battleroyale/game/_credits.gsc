@@ -7,7 +7,7 @@ start()
 	cleanScreen();
 
 	thread showCredit("SR BattleRoyale 2019-2023", 2, 40, 16, 0);
-	thread showCredit("SuX Lolz", 1.8, 80, 15.5, 2);
+	thread showCredit("Iswenzz", 1.8, 80, 15.5, 2);
 
 	if (isDefined(level.mapCredits))
 	{
