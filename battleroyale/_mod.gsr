@@ -22,7 +22,6 @@ main()
 
 	sr\_mod::main();
 
-	sr\game\_event::main();
 	sr\game\_demo::main();
 	sr\game\_vote::initVote();
 	sr\game\menus\_main::initMenus();
