@@ -15,7 +15,7 @@ This mod comes with it's own custom map called, ``MP_BR_BLACKOUT``, which is des
 * [Example](https://github.com/Iswenzz/CoD4-Battleroyale/blob/master/maps/mp/mp_creek.gsc)
 
 ## Instructions
-In order to use this mod, just download the archived file above and extract it to the cod4's ``/mods/battleroyale`` directory. Then go to the ``scripts`` directory and start the ``build_iwds.sh`` to build the IWDs and the ``build.sh`` to build the mod.ff.
+In order to use this mod, download the repository and extract it to the cod4's ``/mods/battleroyale`` directory. Then go to the ``scripts`` directory and start the ``build_iwds.sh`` to build the IWDs and the ``build.sh`` to build the mod.ff.
 
 ## Building (Windows)
 _Pre-Requisites:_
