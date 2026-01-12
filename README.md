@@ -1,4 +1,4 @@
-# CoD4 BattleRoyale
+# SR BattleRoyale
 
 [![License](https://img.shields.io/github/license/Iswenzz/CoD4-BattleRoyale?color=blue&logo=gitbook&logoColor=white)](https://github.com/Iswenzz/CoD4-BattleRoyale/blob/master/LICENSE)
 
