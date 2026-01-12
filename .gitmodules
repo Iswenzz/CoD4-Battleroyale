@@ -1,3 +1,3 @@
 [submodule "sr"]
 	path = sr
-	url = git@github.com:Iswenzz/SR-Core
+	url = https://github.com/Iswenzz/SR-Core
