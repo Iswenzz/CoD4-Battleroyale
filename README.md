@@ -1,4 +1,4 @@
-# CoD4 BattleRoyale
+# SR BattleRoyale
 
 [![License](https://img.shields.io/github/license/Iswenzz/CoD4-BattleRoyale?color=blue&logo=gitbook&logoColor=white)](https://github.com/Iswenzz/CoD4-BattleRoyale/blob/master/LICENSE)
 
@@ -14,16 +14,12 @@ This mod comes with it's own custom map called, ``MP_BR_BLACKOUT``, which is des
 * [API](https://github.com/Iswenzz/SR-Dev/blob/master/docs/battleroyale.md)
 * [Example](https://github.com/Iswenzz/CoD4-Battleroyale/blob/master/maps/mp/mp_creek.gsc)
 
-## Download
-* [Source](https://github.com/Iswenzz/CoD4-Battleroyale/releases)
-* [MP_BR_BLACKOUT](https://iswenzz.com:1337/fastdl/usermaps/mp_br_blackout/)
-
 ## Instructions
-In order to use this mod, just download the archived file above and extract it to the cod4's ``/mods/battleroyale`` directory. Then go to the ``scripts`` directory and start the ``build_iwds.sh`` to build the IWDs and the ``build.sh`` to build the mod.ff.
+In order to use this mod, download the repository and extract it to the cod4's ``/mods/sr_battleroyale`` directory. Then go to the ``scripts`` directory and start the ``build_iwds.sh`` to build the IWDs and the ``build.sh`` to build the mod.ff.
 
 ## Building (Windows)
 _Pre-Requisites:_
-1. [CoD4 Mod Tools](https://www.moddb.com/games/call-of-duty-4-modern-warfare/downloads/mod-tools-sdk)
+1. [CoD4 Mod Tools](https://github.com/promod/CoD4-Mod-Tools)
 
 ## Contributors:
 ***Note:*** If you would like to contribute to this repository, feel free to send a pull request, and I will review your code. Also feel free to post about any problems that may arise in the issues section of the repository.
